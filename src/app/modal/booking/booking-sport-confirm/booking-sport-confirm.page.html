@@ -1,0 +1,295 @@
+<ion-header class="header shadow-bottom">
+  <div class="btn-back" (click)="back()">
+    <img src="assets/icon/globals/arrow-back.svg" />
+  </div>
+  <div class="page-title">{{ 'booking_playground' | translate }}</div>
+  <div class="subtitle">{{ playground.name }}</div>
+</ion-header>
+
+<ion-content class="content">
+  <div class="page-title">{{ 'booking_payment_your_booking' | translate }}</div>
+
+  <div *ngIf="skeletonClub">
+    <ion-thumbnail style="height: 50vw; width: 100%; margin-bottom: 1.5rem">
+      <ion-skeleton-text
+        animated
+        style="border-radius: 5px"
+      ></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+
+  <div class="block-info-booking shadow-bottom-ligth" *ngIf="!skeletonClub">
+    <ion-row class="margin-bottom">
+      <ion-col size="6">
+        <div class="small-text-2 first-letter-cap">
+          <div class="big">
+            {{ booking.startAt| date: 'EE' }}&nbsp;{{
+            booking.startAt| date: "'d MMM" }}
+          </div>
+          <div class="time">
+            {{ getStartDateBasedOnClubLocale() | date: "shortTime" }}
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="6" class="left-border">
+        <div class="big">{{ activity.name }}</div>
+        <div class="time">{{ getDiff() }}</div>
+      </ion-col>
+    </ion-row>
+
+    <div class="flex jcsb margin-bottom" *ngIf="club">
+      <div class="first-letter-cap flex label">
+        {{ 'booking_payment_place' | translate }}
+      </div>
+      <div class="flex d-col">
+        <div class="flex jce">{{club.name}}</div>
+        <!-- <div class="flex jce address">{{club.address[0]}}</div>
+        <div class="flex jce address">{{club.zipCode}} {{club.city}}</div> -->
+      </div>
+    </div>
+    <div class="flex jcsb margin-bottom">
+      <div class="first-letter-cap flex label">{{ 'zone' | translate }}</div>
+      <div class="flex">{{ playground.name }}</div>
+    </div>
+    <div class="flex jcsb margin-bottom" *ngIf="cancellationCondition">
+      <div class="first-letter-cap flex label">
+        {{ 'booking_cancellation_condition_label' | translate }}
+      </div>
+      <div class="flex">{{ cancellationCondition }}</div>
+    </div>
+    <div class="flex jcsb margin-bottom" *ngFor="let priceDetails of priceDetailsList.values()">
+      <div class="flex d-row" *ngIf="priceDetails.count != 0">
+        <div class="first-letter-cap flex count">{{priceDetails.count}} X</div>
+        <div class="first-letter-cap flex jcc">
+          <span *ngIf="priceDetails.label.length === 0" >{{getDiffInMin()}}</span>
+          {{priceDetails.label}}
+        </div>
+      </div>
+      <div class="flex" *ngIf="priceDetails.count != 0">
+        {{ priceDetails.price | price_format: club?.currency }}
+      </div>
+    </div>
+
+    <div class="flex jcsb margin-bottom">
+      <div class="first-letter-cap flex label big-font">
+        {{ 'booking_payment_price_details_total' | translate }}
+      </div>
+      <div class="flex label big-font">
+        {{ this.booking.price | price_format: club?.currency }}
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="page-title">
+    {{ 'booking_payment_price_details' | translate }}
+  </div> -->
+
+  <div *ngIf="skeletonClub">
+    <ion-thumbnail style="height: 50vw; width: 100%; margin-bottom: 1.5rem">
+      <ion-skeleton-text
+        animated
+        style="border-radius: 5px"
+      ></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+
+  <!-- <div
+    *ngIf="!skeletonClub && priceDetailsList"
+    class="block-info-booking shadow-bottom-ligth"
+  >
+
+  </div> -->
+
+  <div class="page-title">{{ 'payment' | translate }}</div>
+
+  <div *ngIf="skeletonClub">
+    <ion-thumbnail style="height: 50vw; width: 100%; margin-bottom: 1.5rem">
+      <ion-skeleton-text
+        animated
+        style="border-radius: 5px"
+      ></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+
+  <div
+    class="block-info-booking shadow-bottom-ligth"
+    *ngIf="!skeletonClub"
+  >
+    <div *ngIf="priceTotalList && selectedMethod === 'complete'">
+      <div
+        class="flex jcsb margin-bottom price-detail"
+        *ngFor="let priceDetails of priceDetailsList.values()"
+      >
+      <div class="flex d-row" *ngIf="priceDetails.count != 0">
+        <div class="first-letter-cap flex count">{{priceDetails.count}} X</div>
+        <div class="first-letter-cap flex jcc">
+          <span *ngIf="priceDetails.label.length === 0">{{getDiffInMin()}}</span>
+          {{priceDetails.label}}
+      </div>
+      </div>
+        <div class="flex" *ngIf="priceDetails.count != 0">
+          {{ priceDetails.price | price_format: club?.currency }}
+        </div>
+      </div>
+      <div
+        class="flex jcsb margin-bottom price-detail"
+        *ngFor="let priceDetails of priceTotalList.values()"
+      >
+        <div class="flex d-row" *ngIf="priceDetails.count != 0">
+          <div class="first-letter-cap flex count">{{priceDetails.count}} X</div>
+          <div class="first-letter-cap flex jcc">
+            <span *ngIf="priceDetails.label.length === 0">{{getDiffInMin()}}</span>
+              {{priceDetails.label}}
+          </div>
+        </div>
+        <div div class="flex" *ngIf="priceDetails.count != 0">
+          {{ priceDetails.price | price_format: club?.currency }}
+      </div>
+    </div>
+
+    <div class="flex jcsb total">
+      <div class="first-letter-cap flex label">
+        {{ 'booking_payment_total_label' | translate }}
+      </div>
+      <div class="flex">
+        {{ this.restToPay | price_format: club?.currency }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="priceTotalList && ['instalment', 'per_participant'].includes(selectedMethod)">
+    <div
+      class="flex jcsb margin-bottom price-detail"
+      *ngFor="let priceDetails of priceTotalList.values()"
+    >
+      <div class="flex d-row" *ngIf="priceDetails.count != 0">
+        <div class="first-letter-cap flex count">{{priceDetails.count}} X</div>
+        <div class="first-letter-cap flex jcc">{{priceDetails.label}}</div>
+      </div>
+      <div class="flex" *ngIf="priceDetails.count != 0">
+        {{ priceDetails.price | price_format: club?.currency }}
+      </div>
+    </div>
+
+    <div class="flex jcsb total">
+      <div class="first-letter-cap flex label">
+        {{ 'booking_payment_total_label' | translate }}
+      </div>
+      <div class="flex">{{ restToPay | price_format: club?.currency }}</div>
+    </div>
+
+
+
+  </div>
+    <app-manage-method
+      *ngIf="club && activity"
+      [participant]="participant"
+      [discountParticipantsCount]="discountParticipantsCount"
+      [booking]="booking"
+      [price]="price"
+      [methods]="methods"
+      [cart]="cart"
+      [club]="club"
+      [client]="client"
+      [restToPay]="restToPay"
+      [totalOption]="totalOption"
+      (backPayments)="getPayments($event)"
+      (changeMethod)="changeMethod($event)"
+      (changeProviderBack)="changeProvider($event)"
+      (creditCardSelected)="updateSelectedCard($event)"
+      (triggerPaymentData)="triggerPaymentData($event)"
+    >
+    </app-manage-method>
+  </div>
+
+  <div
+    class="block-info-booking shadow-bottom-ligth margin-bottom cgs_rules"
+    *ngIf="!skeletonClub && club.internalRulesUrl && club.generalTermsUrl"
+    [innerHTML]="('gcs_and_rules_text' | translate: {gcs_link: club.generalTermsUrl, rules_link: club.internalRulesUrl, club: club.name})"
+  ></div>
+  <div
+    class="block-info-booking shadow-bottom-ligth margin-bottom cgs_rules"
+    *ngIf="!skeletonClub && !club.internalRulesUrl && club.generalTermsUrl"
+    [innerHTML]="('gcs_text' | translate: {gcs_link: club.generalTermsUrl, club: club.name})"
+  ></div>
+  <div
+    class="block-info-booking shadow-bottom-ligth margin-bottom cgs_rules"
+    *ngIf="!skeletonClub && club.internalRulesUrl && !club.generalTermsUrl"
+    [innerHTML]="('rules_text' | translate: {rules_link: club.internalRulesUrl, club: club.name})"
+  ></div>
+
+</ion-content>
+
+<ion-footer *ngIf="['complete', 'deposit', 'instalment', 'on_the_spot', 'per_participant'].includes(selectedMethod)">
+  <ng-container *ngIf="priceTotalList && ['complete', 'deposit', 'instalment'].includes(selectedMethod)">
+    <ion-button
+      data-test="confirm-booking"
+      *ngIf="restToPay > 0"
+      mode="ios"
+      expand="block"
+      class="btn-next hide-tablet"
+      [disabled]="withWallet && restToPay > 0 ? true : loadingBtn ? true : selectedProvider === 'epay' ? false : isDisabled()"
+      (click)="confirmPayments()"
+    >
+      <div class="do-p-2">{{ 'booking_payment_button_label' | translate }}</div>
+    </ion-button>
+    <ion-button
+      data-test="confirm-booking"
+      *ngIf="restToPay > 0"
+      mode="ios"
+      expand="block"
+      class="btn-next show-tablet"
+      [disabled]="withWallet && restToPay > 0 ? true : loadingBtn ? true : selectedProvider === 'epay' ? false : isDisabled()"
+      (click)="confirmPayments()"
+    >
+      <div class="do-p-2">{{ 'booking_payment_button_label' | translate }}</div>
+    </ion-button>
+  </ng-container>
+
+  <ng-container *ngIf="priceTotalList && selectedMethod === 'per_participant'">
+    <ion-button
+      data-test="confirm-booking"
+      *ngIf="restToPay > 0"
+      mode="ios"
+      expand="block"
+      class="btn-next hide-tablet"
+      [disabled]="withWallet && restToPay > 0 ? true : loadingBtn ? true : selectedProvider === 'epay' ? false : isDisabled()"
+      (click)="confirmPayments()"
+    >
+      <div class="do-p-2">{{ 'booking_payment_button_label' | translate }}</div>
+    </ion-button>
+    <ion-button
+      data-test="confirm-booking"
+      *ngIf="restToPay > 0"
+      mode="ios"
+      expand="block"
+      class="btn-next show-tablet"
+      [disabled]="withWallet && restToPay > 0 ? true : loadingBtn ? true : selectedProvider === 'epay' ? false : (!withCredit && !withWallet && (card$ | async) === undefined) && !(selectedProvider === 'orange_money')"
+      (click)="confirmPayments()"
+    >
+      <div class="do-p-2">{{ 'booking_payment_button_label' | translate }}</div>
+    </ion-button>
+  </ng-container>
+
+  <ion-button
+    data-test="confirm-booking"
+    *ngIf="selectedMethod === 'on_the_spot' && !loader"
+    mode="ios"
+    expand="block"
+    class="btn-next"
+    [disabled]="loadingBtn"
+    (click)="confirmBooking()"
+  >
+    <div class="do-p-2">{{ 'confirm_booking.validate' | translate }}</div>
+  </ion-button>
+  <ion-button
+    data-test="confirm-booking"
+    *ngIf="selectedMethod !== 'on_the_spot' && restToPay <= 0 && !loader"
+    mode="ios"
+    expand="block"
+    class="btn-next"
+    [disabled]="loadingBtn"
+    (click)="confirmBooking()"
+  >
+    <div class="do-p-2">{{ 'confirm_booking.validate' | translate }}</div>
+  </ion-button>
+</ion-footer>

@@ -1,0 +1,53 @@
+<div *ngIf="showSkeleton && bookings"
+  class="block-my-bookings">
+  <!-- <div class="section-title">{{ 'home_page.my_bookings.title' | translate }}</div> -->
+  <div *ngIf="nextBookings?.length || pastBookings?.length"
+    class="flex jcsb do-p-1-2">
+    <div *ngIf="nextBookings?.length"
+      class="section-title do-mr-3">
+      {{ 'home_page.my_next_bookings' | translate }}
+    </div>
+    <div *ngIf="pastBookings?.length && nextBookings?.length === 0"
+      class="section-title do-mr-3">
+      {{ 'home_page.my_last_bookings' | translate }}
+    </div>
+  </div>
+
+  <div class="horizontal">
+    <ion-slides *ngIf="bookings.length"
+      [pager]="bookings.length < 5 ? false : true"
+      class="display-list-tablet"
+      [options]="slideOptTablet">
+      <ion-slide  *ngFor="let booking of bookings">
+        <app-card-my-booking
+          [userMe]="userMe"
+          [booking]="booking"
+          [bookingStatus]="nextBookings?.length ? Period.NEXT : Period.PAST"
+          [cardConfig]="BookingCardConfig.LARGE"
+          (reload)="reload()"
+          class="card-my-booking">
+        </app-card-my-booking>
+      </ion-slide>
+    </ion-slides>
+    <ion-slides *ngIf="bookings.length"
+      [pager]="bookings.length < 3 ? false : true"
+      class="display-list-normal" 
+      [options]="slideOpt">
+      <ion-slide *ngFor="let booking of bookings" >
+        <app-card-my-booking
+          [booking]="booking"
+          [bookingStatus]="nextBookings?.length ? Period.NEXT : Period.PAST"
+          [cardConfig]="BookingCardConfig.LARGE"
+          (reload)="reload()"
+          class="card-my-booking">
+        </app-card-my-booking>
+      </ion-slide>
+    </ion-slides>
+
+
+  </div>
+</div>
+
+<div *ngIf="!bookings && !showSkeleton">
+  <ion-skeleton-text class="card-my-booking-skeleton" style="height: 120px; width:92%; margin: auto;"></ion-skeleton-text>
+</div> 

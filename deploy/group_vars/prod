@@ -1,0 +1,4 @@
+---
+deploy_to: /data/doinsport/passerelle
+private_key_file: /Users/karimmedini/.ssh/id_ed25519_ansible
+env: prod

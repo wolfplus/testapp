@@ -1,0 +1,228 @@
+
+
+<ng-container *ngIf="1 < booking.timetableBlockPrice.maxAccompanyingParticipantsCountLimit && 1 < (booking.maxParticipantsCountLimit - booking.participantsCount)">
+  <ion-header translucent="true">
+  <ion-toolbar color="'var(--app-dark-or-not-color)'" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button
+      id="close"
+        (click)="dismiss()"
+        mode="ios">
+        <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="page-title ion-text-center">{{'participants' | translate }}</ion-title>
+  </ion-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen="true" *ngIf="!booking || !userMe">
+    <ion-skeleton-text animated style="height: 60px; width: 90%; margin: auto; margin-top: 15px;"></ion-skeleton-text>
+  </ion-content>
+
+  <ion-content fullscreen="true"  *ngIf="booking && userMe">
+
+    <div class="content">
+
+      <p class="subtitle">{{'number_participant' | translate}}</p>
+
+      <div class="first">
+        <div class="second" *ngIf="countPlace > 1" (click)="lessPlace()">-</div>
+        <div class="third">{{countPlace}}</div>
+        <div class="fourth"  *ngIf="countPlace < booking.timetableBlockPrice.maxAccompanyingParticipantsCountLimit && countPlace < (booking.maxParticipantsCountLimit - booking.participantsCount)" (click)="addPlace()">+</div>
+      </div>
+
+      <div class="list-attenders">
+        <!-- <div class="flex user-skeleton" *ngIf="!allDataLoaded">
+          <ion-avatar slot="start" class="flex jcc aic ">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label class="flex asc">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+        </div>
+        <div class="flex user-skeleton last" *ngIf="!allDataLoaded">
+          <ion-avatar slot="start" class="flex jcc aic">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label class="flex asc">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-label>
+        </div> -->
+        <ng-container>
+          <div
+            class="attender"
+          >
+            <ng-container>
+              <div class="flex aic jcsb">
+                <div class="flex">
+                  <ion-avatar class="flex jcsb">
+                    <img
+                    *ngIf="userMe?.avatar && userMe?.avatar.contentUrl"
+                      class="user-img"
+                      src="{{ pathFile + userMe?.avatar.contentUrl }}"
+                    />
+                    <img
+                    *ngIf="!userMe?.avatar || !userMe?.avatar.contentUrl"
+                      src="{{
+                        'https://eu.ui-avatars.com/api/?background=' +
+                          avatarBgColor +
+                          '&color=fff&name=' +
+                          userMe?.firstName +
+                          ' ' +
+                          userMe?.lastName
+                      }}"
+                      alt=""
+                    />
+
+                  </ion-avatar>
+                  <div class="flex">
+                    <div class="flex jcs">
+                      <h3 class="user-title">
+                        {{ userMe.firstName + ' ' + userMe.lastName}}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex">
+                  <div class="flex jcsb asc">
+                    <ion-skeleton-text *ngIf="!firstReady" animated style="width:25px" ></ion-skeleton-text>
+                    <ion-text class="user-price" *ngIf="isReady1 && myPrice == 0">
+                      {{0 | price_format : booking?.club?.currency}}
+                    </ion-text>
+                    <ion-text class="user-price" *ngIf="firstReady && myPrice != 0 && attenders.length == 0">
+                      {{myPrice | price_format : booking?.club?.currency}}
+                    </ion-text>
+                    <ion-text class="user-price" *ngIf="firstReady &&myPrice != 0  && attenders.length > 0">
+                      {{myPrice | price_format : booking?.club?.currency}}
+                    </ion-text>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div *ngFor="let inv of attenders; index as i"
+            class="add-attender flex aic jcsb"
+
+            data-test="addFriends"
+          >
+            <div  (click)="openModalAddFriendOrUser()" class="flex">
+              <div class="flex jcc aic">
+                <ion-avatar class="flex jcsb avatar-size">
+                  <img
+                    src="{{
+                      'https://eu.ui-avatars.com/api/?background=' +
+                        avatarBgColor +
+                        '&color=fff&name=' +
+                        inv?.user?.firstName +
+                        ' ' +
+                        inv?.user?.lastName
+                    }}"
+                    alt=""
+                  />
+
+                </ion-avatar>
+              </div>
+              <div class="flex jcs aic">
+                <ion-text class="title">
+                  {{ inv.user.firstName + ' ' + inv.user.lastName}}
+                </ion-text>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="flex jcsb asc">
+                <ion-skeleton-text *ngIf="!isReady1" animated style="width:25px" ></ion-skeleton-text>
+                <ion-text class="user-price" *ngIf="isReady1">
+                  {{inv.user.price | price_format : booking?.club?.currency}}
+                </ion-text>
+              </div>
+              <div
+              class="flex jcsb asc trash"
+              (click)="removeAttender(i)"
+            >
+              <img style="width: 20px; margin-left: 10px;" src="assets/icon/globals/close-border.png" />
+            </div>
+            </div>
+
+          </div>
+
+          <div *ngFor="let inv of numberReturn()"
+            class="add-attender flex aic jcsb"
+            (click)="openModalAddFriendOrUser()"
+            data-test="addFriends"
+          >
+            <div class="flex">
+              <div class="flex jcc aic">
+                <div class="btn-add">
+                  <ion-icon name="person"></ion-icon>
+                </div>
+              </div>
+              <div class="flex jcs aic">
+                <ion-text class="title">
+                  {{ "add_attender" | translate }}
+                </ion-text>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="flex jcsb asc">
+                <ion-text class="user-price">
+                  {{booking.pricePerParticipant | price_format : booking?.club?.currency}}
+                </ion-text>
+              </div>
+              <!-- <div
+              class="flex jcsb asc trash"
+              (click)="removeAttender(index)"
+              *ngIf="attender?.user?.id !== user.id"
+            >
+              <img src="assets/icon/globals/close-border.png" />
+            </div> -->
+            </div>
+
+          </div>
+        </ng-container>
+      </div>
+
+    </div>
+  </ion-content>
+
+  <ion-footer>
+    <!-- <ion-button *ngIf="continueRest != 0" (click)="nextPaiement('true')" [disabled]="countPlace > attenders.length+1 || !isReady1" class="btn-next" expand="block" mode="ios">
+      <div  class="do-p-2">
+        {{ 'next' | translate }}
+      </div>
+    </ion-button>
+    <ion-button *ngIf="continueRest == 0" (click)="nextPaiement('true')" [disabled]="countPlace > attenders.length+1 || !isReady1" class="btn-next" expand="block" mode="ios">
+      <div  class="do-p-2">
+        {{ 'btn.booking' | translate }}
+      </div>
+    </ion-button> -->
+    <ion-button (click)="nextPaiement('true')" [disabled]="countPlace > attenders.length+1 || !isReady1" class="btn-next" expand="block" mode="ios">
+      <div  class="do-p-2">
+        <ng-container *ngIf="countPlace > attenders.length+1 || !isReady1; else validate">
+          Renseignez les participants
+        </ng-container>
+
+        <ng-template #validate>
+          {{ 'validate' | translate }}
+        </ng-template>
+      </div>
+    </ion-button>
+  </ion-footer>
+
+  <app-booking-add-user-choice-modal
+          *ngIf="showModalAddFriendOrUser"
+          (closeModal)="closeModalAddFriendOrUser()"
+          (addParticipant)="addParticipant($event)">
+  </app-booking-add-user-choice-modal>
+
+  <!-- <app-payment-selection
+        *ngIf="showPaymentSelection && booking"
+        [booking]="booking"
+        [createdCart]="cart"
+        [club]="club"
+        [methods]="[]"
+        [wallet]="wallet"
+        (closeModal)="switchPaymentModal($event)">
+</app-payment-selection> -->
+</ng-container>
+

@@ -1,0 +1,199 @@
+<!-- <div class="credit-wrapper">
+    <div class="close">
+        <ion-icon name="close" (click)="closeModal()"></ion-icon>
+    </div>
+    <div class="tokens" *ngIf="!openAddCard && !loader">
+        <div *ngIf="(savedCards && savedCards.length === 0) || !savedCards" class="no-credit">
+            Tu n'as aucune carte enregistré
+        </div>
+        <ion-radio-group #radioGroup *ngIf="savedCards && savedCards.length > 0"
+                         [value]="selectedCard ? selectedCard.id : null" class="credit-list">
+            <ion-item lines="none" *ngFor="let cb of savedCards" class="d-flex justify-content-center card-item">
+                <div class="w-100 d-flex justify-content-around">
+                    <div class="d-flex align-items-center justify-content-center p-3">
+                        <ion-radio
+                                slot="start"
+                                mode="md"
+                                value="{{cb.id}}"
+                        ></ion-radio>
+                    </div>
+                    <div class="d-flex flex-column p-3">
+                        <label *ngIf="cb.ownerName" class="label-title">
+                            {{cb.ownerName}}
+                        </label>
+                        <div class="label-subtitle d-flex align-items-center justify-content-between">
+                            <div>
+                                <label class="ml-2">
+                                    {{cb.last4}}
+                                </label>
+                            </div>
+                            <div>
+                                <label class="ml-3">
+                                    {{cb.expMonth}}/{{cb.expYear}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-img">
+                        <img *ngIf="cb.brand === 'Visa'" src="assets/icon/credit_card/visa.png"/>
+                        <img *ngIf="cb.brand === 'Mastercard'" src="assets/icon/credit_card/mastercard.png"/>
+                        <img *ngIf="cb.brand === 'American Express'" src="assets/icon/credit_card/american.png"/>
+                        <ion-icon name="trash" style="z-index: 10000;" (click)="deleteCard(cb)"></ion-icon>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-radio-group>
+    </div>
+    <div class="skeleton" *ngIf="loader">
+        <div>
+            <ion-skeleton-text></ion-skeleton-text>
+        </div>
+        <div>
+            <ion-skeleton-text></ion-skeleton-text>
+        </div>
+        <div>
+            <ion-skeleton-text></ion-skeleton-text>
+        </div>
+    </div>
+    <div class="tokens" *ngIf="openAddCard">
+        <app-stripe-payment (paymentData)="backPayment($event)"></app-stripe-payment>
+    </div>
+    <div *ngIf="!openAddCard" class="add-new-card" (click)="openAddCardModal()">
+        <label>Ajouter une nouvelle carte</label>
+        <ion-icon name="add-circle"></ion-icon>
+    </div>
+    <div class="button-pay" *ngIf="!openAddCard && savedCards">
+        <ion-button
+                data-test="go-to-confirm-booking"
+                mode="ios"
+                expand="block"
+                [disabled]="(savedCards.length > 0 && !radioGroup?.value) || loader"
+                (click)="validateCard()"
+        >
+            <div *ngIf="!loader && savedCards.length > 0" class="do-p-2">Sélectionner</div>
+            <div *ngIf="!loader && savedCards.length === 0"
+                 class="do-p-2"
+            >
+                {{'close' | translate}}
+            </div>
+        </ion-button>
+    </div>
+    <div class="button-pay" *ngIf="openAddCard">
+        <ion-button
+                data-test="go-to-confirm-booking"
+                mode="ios"
+                expand="block"
+                [disabled]="!validCardAdded"
+                (click)="validateAddCard()"
+        >
+            <div class="do-p-2" >Ajouter</div>
+        </ion-button>
+    </div>
+</div> -->
+
+<ion-header translucent="true">
+    <ion-toolbar color="'var(--app-dark-or-not-color)'" mode="ios">
+      <ion-buttons slot="start">
+        <ion-button
+          (click)="closeModal()"
+          mode="ios">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div class="credit-wrapper">
+        <div class="tokens" *ngIf="!openAddCard && !loader">
+        <div *ngIf="(savedCards && savedCards.length === 0) || !savedCards" class="no-credit">
+            Tu n'as aucune carte enregistré
+        </div>
+        <ion-radio-group #radioGroup *ngIf="savedCards && savedCards.length > 0"
+                         [value]="selectedCard ? selectedCard.id : null" class="credit-list">
+            <ion-item lines="none" *ngFor="let cb of savedCards" class="d-flex justify-content-center card-item">
+                <div class="w-100 d-flex justify-content-around">
+                    <div class="d-flex align-items-center justify-content-center p-3">
+                        <ion-radio
+                                slot="start"
+                                mode="md"
+                                value="{{cb.id}}"
+                        ></ion-radio>
+                    </div>
+                    <div class="d-flex flex-column p-3">
+                        <label *ngIf="cb.ownerName" class="label-title">
+                            {{cb.ownerName}}
+                        </label>
+                        <div class="label-subtitle d-flex align-items-center justify-content-between">
+                            <div>
+                                <label class="ml-2">
+                                    {{cb.last4}}
+                                </label>
+                            </div>
+                            <div>
+                                <label class="ml-3">
+                                    {{cb.expMonth}}/{{cb.expYear}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-img">
+                        <img *ngIf="cb.brand === 'Visa'" src="assets/icon/credit_card/visa.png"/>
+                        <img *ngIf="cb.brand === 'Mastercard'" src="assets/icon/credit_card/mastercard.png"/>
+                        <img *ngIf="cb.brand === 'American Express'" src="assets/icon/credit_card/american.png"/>
+                        <ion-icon name="trash" style="z-index: 10000;" (click)="deleteCard(cb)"></ion-icon>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-radio-group>
+        </div>
+        <div class="skeleton" *ngIf="loader">
+            <div>
+                <ion-skeleton-text></ion-skeleton-text>
+            </div>
+            <div>
+                <ion-skeleton-text></ion-skeleton-text>
+            </div>
+            <div>
+                <ion-skeleton-text></ion-skeleton-text>
+            </div>
+        </div>
+        <div class="tokens" *ngIf="openAddCard">
+            <app-stripe (paymentData)="backPayment($event)" (cardName)="cardNamePayment($event)"></app-stripe>
+        </div>
+    </div>
+  </ion-content>
+  
+  <ion-footer>
+    <div *ngIf="!openAddCard" class="add-new-card" (click)="openAddCardModal()">
+        <label>Ajouter une nouvelle carte</label>
+        <ion-icon name="add-circle"></ion-icon>
+    </div>
+    <div class="button-pay" *ngIf="!openAddCard && savedCards">
+        <ion-button
+                data-test="go-to-confirm-booking"
+                mode="ios"
+                expand="block"
+                [disabled]="(savedCards.length > 0 && !radioGroup?.value) || loader"
+                (click)="validateCard()"
+        >
+            <div *ngIf="!loader && savedCards.length > 0" class="do-p-2">Sélectionner</div>
+            <div *ngIf="!loader && savedCards.length === 0"
+                 class="do-p-2"
+            >
+                {{'close' | translate}}
+            </div>
+        </ion-button>
+    </div>
+    <div class="button-pay" *ngIf="openAddCard">
+        <ion-button
+                data-test="go-to-confirm-booking"
+                mode="ios"
+                expand="block"
+                [disabled]="validCardAdded === false || (cardName === undefined || cardName.length === 0)"
+                (click)="validateAddCard()"
+        >
+            <div class="do-p-2" >Ajouter</div>
+        </ion-button>
+    </div>
+  </ion-footer>

@@ -1,0 +1,5 @@
+<div class="pos-rel w-100 img-ratio-4-3 background">
+  <div class="header-gradient-overlay"></div>
+  <img *ngIf="(clubPhotos$ | async)?.length > 0 "
+    src="{{ baseUrl + (clubPhotos$ | async)[0]?.contentUrl }}" alt="">
+</div>

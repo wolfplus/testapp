@@ -1,0 +1,121 @@
+.do-card-container {
+  /* TODO [CSS variable] */
+  border: 1px solid lightgray;
+  /* TODO [CSS variable] */
+  box-shadow: 0px 3px 4px #00000029;
+  background: var(--app-dark-or-not-color);
+
+  .do-card-header {
+    overflow: hidden;
+    color: white;
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid lightgray;
+
+    .do-card-header-top {
+      overflow: hidden;
+      border-radius: var(--border-radius-2) var(--border-radius-2) 0 0;
+    }
+
+    .do-card-header-pic {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left:0;
+      right:0;
+      overflow: hidden;
+    }
+  }
+
+  .time-label {
+    /* TODO [CSS variable] */
+    font-size: 1.2rem;
+    /* TODO [CSS variable] */
+    color: lightgray;
+    text-transform: capitalize;
+  }
+
+  .time {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--app-dark-or-not-color-contrast);
+  }
+
+  .duration {
+    font-size: 1.4rem;
+    text-transform: lowercase;
+  }
+
+  .do-card-header-extra {
+    height: 100%;
+    color: var(--ion-color-primary);
+    align-self: flex-end;
+    justify-self: flex-end;
+    line-height: normal;
+  }
+
+  .do-card-header-bottom {
+    app-activity-levels {
+      display: block;
+      padding: 1rem;
+      /* TODO [CSS variable] */
+      background: var(--app-background-card-matches-color);
+    }
+  }
+
+  .do-card-body {
+    padding: 0 1rem;
+  }
+
+  .do-card-body {
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid lightgray;
+    ion-grid {
+      padding: 0!important;
+    }
+  }
+
+  .do-card-footer {
+    padding: 1rem;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    white-space: nowrap;
+    /* TODO add Montserrat font */
+  }
+
+  .per-pers {
+    font-size: 1.2rem;
+  }
+}
+
+.display-tablet {
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .time-label, .t-center {
+      color: #515151 !important;
+    }
+    .display-tablet {
+      display: block;
+    }
+    .display-normal {
+      display: none;
+    }
+    .price-tablet {
+      font-size: 2.2rem !important;
+    }
+    .tablet-header-card {
+      min-height: 80px;
+    }
+    .do-card-header, .do-card-body, .do-card-footer{
+      border: 1px solid #d3d3d37a;
+    }
+  }
+
+
+
+

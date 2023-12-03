@@ -1,0 +1,70 @@
+<ion-header>
+  <!-- <app-modal-header
+    [title$]="title$"
+    [subtitle$]="subtitle$"
+    (backButtonClicked)="dismiss()"
+  >
+  </app-modal-header> -->
+  <ion-toolbar color="'var(--app-dark-or-not-color)'">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="page-title">
+      {{ title$ | async }}
+    </ion-title>
+  </ion-toolbar>
+  <app-header *ngIf="!env.useMb"
+    class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2"
+    [from]="SearchType.CLUB"
+    (filtersChange)="reloadClub(true)">
+  </app-header>
+  <app-filters-booking (filtersChange)="reloadClub(true)">
+  </app-filters-booking>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="skeletonShow"
+    class="do-p-2">
+    <ion-skeleton-text animated class="skeleton-club-card"></ion-skeleton-text>
+    <ion-skeleton-text animated class="skeleton-club-card"></ion-skeleton-text>
+    <ion-skeleton-text animated class="skeleton-club-card"></ion-skeleton-text>
+  </div>
+    <ng-container *ngFor="let club of clubs">
+      <app-card-club class="dspl-blck w-100 do-p-2 mw-500"
+        [club]="club">
+      </app-card-club>
+    </ng-container>
+
+    <div *ngIf="clubs?.length === 0 && clubsAreLoaded === true && clubsLoadingError === false" class="flex d-col jcfs aic do-p-2">
+      <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+        <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_club.svg" alt="">
+      </div>
+      <div
+        class="request-result-text do-pt-2 do-pb-2">
+        <div>{{ 'club_no_results_with_filters' | translate }}</div>
+        <div>{{ 'increase_radius' | translate }}</div>
+      </div>
+    </div>
+    <div *ngIf="clubsLoadingError" class="flex d-col jcfs aic do-p-2">
+      <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+        <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/error.svg" alt="">
+      </div>
+      <!-- <div class="resuest-result-title do-pt-2 do-pb-2">
+        {{ 'oops' | translate }}
+      </div> -->
+      <div class="request-result-text do-pt-2 do-pb-2">
+        <div>{{ 'search_club_error' | translate }}</div>
+      </div>
+    </div>
+  <ion-infinite-scroll
+  threshold="50px"
+  (ionInfinite)="loadMoreData()">
+  <!-- TODO: translate loading text -->
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="{{'loading_more_clubs' | translate }}">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
+</ion-content>
+

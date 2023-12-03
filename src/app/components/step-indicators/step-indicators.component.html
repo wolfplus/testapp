@@ -1,0 +1,8 @@
+<div class="flex jcc aic w-100 do-mt-1 do-mb-1 pos-rel">
+  <div class="flex jcc aic">
+    <div *ngFor="let step of (steps | to_array); let i = index;"
+      class="step-indicator"
+      [ngClass]="{'active': modalIndexNumber >=  i }">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div *ngIf="clubsAreAroundMe === true  || clubsAreMyFavorite === true"
+  class="block-my-clubs">
+  <div class="flex do-p-1-2">
+    <div *ngIf="clubsAreAroundMe === false"
+      class="section-title">
+      {{'my_favorite_clubs'|translate}}
+    </div>
+    <div *ngIf="clubsAreAroundMe === true "
+      class="section-title">
+      <!-- {{'clubs_around_me'|translate}} -->
+      {{ 'clubs_for_you' | translate }}
+    </div>
+    <div class="title-stroke"></div>
+  </div>
+  <div class="scroll-h-container">
+    <ng-container *ngFor="let club of myClubs">
+      <app-card-short-club
+        [club]="club"
+        [singleDisplay]="onlyOneDisplayed"
+        class="card-short-club">
+      </app-card-short-club>
+    </ng-container>
+
+  </div>
+</div>
+<div *ngIf="skeletonShow"
+  class="skeleton-container flex jcsb scroll-x-center">
+  <ion-skeleton-text class="card-short-club-skeleton" animated></ion-skeleton-text>
+  <ion-skeleton-text class="card-short-club-skeleton" animated></ion-skeleton-text>
+</div>

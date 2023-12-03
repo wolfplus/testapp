@@ -1,0 +1,43 @@
+<div *ngIf="(eventsAreLoaded$ | async)"
+  class="events-container">
+  <div class="section-title flex jcsb aic events-header pr-2">
+    <div>
+      {{ title$ | async }}
+    </div>
+    <div class="view-all">
+      <span button={true}
+        (click)="showAllEvents()">
+        {{ 'view_all' | translate }}
+      </span>
+    </div>
+  </div>
+  <div class="event-cards-container flex jcsb pt-2">
+    <ng-container *ngFor="let event of (events$ | async) | slice:0:3">
+      <app-event-card
+        class="event-card dspl-blck"
+        [clubEvent]="event"
+        [imgWidth]="cardWidth">
+      </app-event-card>
+    </ng-container>
+  </div>
+</div>
+
+
+<!-- Club Events skeleton-->
+<!-- TODO: move the skeleton into the child component -->
+<div *ngIf="(eventsAreLoaded$ | async)">
+  <div style="display:flex;justify-content:space-between;width:100%;margin-bottom:2rem;padding-right:2rem;">
+    <ion-skeleton-text animated style="width: 50%;height:2rem;"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 20%;height:2rem;border-radius:15px"></ion-skeleton-text>
+  </div>
+  <div style="margin:1rem auto 3rem;overflow-x:scroll;display:flex;flex-direction:row;width:100%;">
+    <div style="position:relative;width:100%;height:30vh;margin-right:2rem;border-radius:15px;">
+      <ion-skeleton-text animated
+        [ngStyle]="{width: cardWidth}"
+        style="height:100%;position:absolute;top:0;left:0;margin:0;"></ion-skeleton-text>
+      <ion-skeleton-text animated
+        [ngStyle]="{width: cardWidth}"
+        style="position:absolute;bottom:0;left:0;z-index:99;height:13vh;margin:0;"></ion-skeleton-text>
+    </div>
+  </div>
+</div>

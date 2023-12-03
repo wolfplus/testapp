@@ -1,0 +1,80 @@
+<div class="pos-rel h-100 w-100">
+  <div [@fadeInFadeOut]
+    class="backdrop h-100 w-100"
+    (click)="onBackBtnClicked()">
+  </div>
+  <div [@slideInSlideOut]
+    class="sharing-options pos-abs-btm">
+    <ion-grid>
+      <ion-row class="do-pl-2 do-pr-2">
+        <ion-col (click)="onBackBtnClicked()"
+          size="1"
+          class="flex jcc aic">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="10">
+          <div class="title flex jcc aic">
+            {{ 'invite_to_match' | translate }}
+          </div>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <ion-row class="do-pl-2 do-pr-2">
+        <ion-item
+          button
+          lines="none"
+          mode="ios"
+          detail="true"
+          (click)="addOrInviteFriends('invite')">
+          <ion-icon name="people" slot="start"></ion-icon>
+          <ion-label class="invite-friend">
+            {{ 'invite_friends' | translate }}
+          </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="do-pl-2 do-pr-2 hide-tablet">
+        <ion-item
+          button
+          lines="none"
+          mode="ios"
+          detail="false"
+          (click)="copyMatchLink()">
+          <ion-icon name="link-outline" slot="start"></ion-icon>
+          <ion-label class="invite-friend">
+            {{ 'copy_match_link' | translate }}
+          </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="do-pl-2 do-pr-2 show-tablet">
+        <ion-item
+          button
+          lines="none"
+          mode="ios"
+          detail="false"
+          (click)="copyMatchLinkTablet()">
+          <ion-icon name="link-outline" slot="start"></ion-icon>
+          <ion-label class="invite-friend">
+            {{ 'copy_match_link' | translate }}
+          </ion-label>
+        </ion-item>
+      </ion-row>
+
+      <ion-row class="do-pl-2 do-pr-2 hide-tablet">
+        <ion-item
+          button
+          lines="none"
+          mode="ios"
+          detail="false"
+          (click)="shareMatchVia()">
+          <ion-icon name="share-social-outline" slot="start"></ion-icon>
+          <ion-label class="invite-friend">
+            {{ 'share_to_friends' | translate }}
+          </ion-label>
+        </ion-item>
+      </ion-row>
+    </ion-grid>
+  </div>
+</div>

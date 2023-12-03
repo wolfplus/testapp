@@ -1,0 +1,231 @@
+.search-result-class-130 {
+  margin-top: 130px;
+}
+.search-result-class-120 {
+  margin-top: 120px;
+}
+.search-result-class-70 {
+  margin-top: 70px;
+}
+
+.clients-modal-class {
+  display: flex;
+  padding: 20% 10% 20% 10%;
+  align-content: center;
+  align-items: center;
+  background-color: rgba(0,0,0,0.5);
+  .modal-wrapper {
+    border-radius: .9rem;
+    max-height: 250px;
+  }
+}
+
+.sign-class {
+  .modal-wrapper {
+    --border-radius:  .9rem .9rem 0 0;
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+.calendar-modal-class, .process-payment-modal-class
+.bottom-modal-class {
+  align-items: flex-end!important;
+  display: flex;
+  justify-content: flex-end;
+
+  .modal-wrapper {
+    --border-radius:  .9rem .9rem 0 0;
+    margin-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+.sign-class {
+  --height: 80vh;
+}
+
+.calendar-modal-class {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  --height: 60vh;
+}
+
+.process-payment-modal-class {
+  --height: 60vh;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.course-details-class {
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
+}
+
+.course-details-class ion-backdrop {
+  z-index: 99;
+}
+
+.course-details-class .modal-wrapper {
+  z-index: 999;
+  border-radius: 30px 30px 0px 0px;
+  margin-bottom: env(safe-area-inset-bottom);
+  height: 60%;
+	position: absolute;
+	bottom: 0px;
+}
+
+
+.choices-duration-class {
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
+  --border-radius: 30px 30px 0 0;
+}
+
+.choices-duration-class ion-backdrop {
+  z-index: 99;
+}
+
+.choices-duration-class .modal-wrapper {
+  z-index: 999;
+  border-radius: 30px 30px 0 0;
+  margin-bottom: env(safe-area-inset-bottom);
+  height: 230px;
+  position: absolute;
+  bottom: 0;
+}
+
+
+
+.course-paiement-class {
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
+}
+
+.course-paiement-class .modal-wrapper{
+  border-radius: 30px 30px 0px 0px;
+  margin-bottom: env(safe-area-inset-bottom);
+  height: 60%;
+	position: absolute;
+	bottom: 0px;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    .sign-class {
+      --height: 66vh;
+    }
+    .sign-class .modal-wrapper, .bottom-modal-class .modal-wrapper {
+      --border-radius: .9rem .9rem .9rem .9rem !important;
+      margin-bottom: env(safe-area-inset-bottom);
+      }
+    .sign-class .modal-wrapper{
+      width: 70%;
+      margin: auto;
+    }
+    .pay-modal-css .modal-wrapper {
+      width: 60%;
+      margin: auto;
+      height: 90%;
+    }
+    .modal-choice .modal-wrapper{
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .sign-class .modal-shadow{
+      display: none;
+    }
+    .news-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .reservation-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .match-details-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .club-details-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .base-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .booking-sport-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .sport-confirm-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .my-component-open-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+    .friends-select-class .modal-wrapper{
+      width: 60%;
+      height: 90%;
+    }
+
+    .search-user-class .modal-wrapper {
+      width: 60%;
+      height: 90%;
+    }
+    .player-class .modal-wrapper {
+      width: 60%;
+      height: 90%;
+    }
+    .player-class .scroll-sa-center {
+      min-width: 28vw !important;
+    }
+    .player-class .do-p-1 {
+      width: 100% !important;
+    }
+    .shop-class .modal-wrapper {
+      width: 60%;
+      height: 90%;
+    }
+    .match-comments-css .modal-wrapper {
+      width: 60%;
+      height: 90%;
+    }
+    .filter-search-class .modal-wrapper {
+      width: 60%;
+      height: 90%;
+    }
+
+
+  }
+
+ion-modal.bottom-modal-class{
+  .sc-ion-modal-ios {
+    --backdrop-opacity: .5;
+  }
+
+  &.bottom {
+      align-items: flex-end;
+  }
+
+  --height: auto;
+  --min-height: 30vh;
+
+  .ion-page {
+      position: relative;
+      display: block;
+      contain: content;
+
+      .inner-content {
+          max-height: 80vh;
+          overflow: auto;
+      }
+  }
+}
+
+ion-modal {
+  --height: 95vh !important;
+  --width: 95% !important;
+}

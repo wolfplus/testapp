@@ -1,0 +1,135 @@
+.credit-details-wrapper {
+  .club-name {
+    p {
+      text-align: center;
+      font-size: larger;
+      font-weight: bold;
+      font-family: var(--ion-font-family);
+      color: black;
+    }
+  }
+  .credit-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-family: var(--ion-font-family);
+    color: var(--ion-color-primary);
+    background: rgba(3, 23, 75, 0.05);
+    padding: 1.5rem;
+  }
+
+  .credit-details {
+    .credit-balance {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        margin-top: 20px;
+        font-weight: bold;
+        font-family: var(--ion-font-family);
+      }
+      label {
+        font-size: xxx-large;
+        font-family: var(--ion-font-family);
+        font-weight: bold;
+        color: var(--ion-color-primary);
+      }
+    }
+    .credit-desc {
+      margin: 20px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--ion-color-medium)
+    }
+    .expiration-date{
+      display: flex;
+      justify-content: space-between;
+      margin: 20px;
+
+      label {
+        font-family: var(--ion-font-family);
+        font-weight: bold;
+        font-size: large;
+        color: var(--ion-color-primary);
+      }
+    }
+  }
+
+  .history-button {
+    padding: 20px;
+    font-weight: bold;
+    font-size: larger;
+    display: flex;
+    border-bottom: solid 1px var(--app-dark-or-not-color-clear);
+    justify-content: space-between;
+    color: var(--ion-color-primary);
+
+    img {
+      width: 20px;
+    }
+  }
+
+  .gray-border {
+    width: 100%;
+    height: 40px;
+    background-color: var(--app-dark-or-not-color-clear);
+  }
+}
+
+.credit-details-full {
+  margin-top: 20px;
+  .detail-title {
+    background-color: var(--app-dark-or-not-color-clear);
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    width: 100%;
+    padding: 15px;
+  }
+  .detail {
+    display: flex;
+    padding: 0;
+    font-size: initial;
+    .detail-block-1 {
+      padding: 10px;
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 50%;
+      .detail-label {
+        font-weight: bold;
+        color: #3E3F68;
+      }
+      .detail-date {
+        color: #7E838E;
+      }
+    }
+    .detail-block-2 {
+      padding: 10px;
+      align-items: center;
+      display: flex;
+      width: 50%;
+      justify-content: flex-end;
+      .detail-amount {
+        margin-right: 20px;
+        font-weight: bold;
+      }
+
+      .detail-amount.credit {
+        color: var(--ion-color-primary);
+      }
+      .detail-amount.debit {
+        color: #7E838E;
+      }
+    }
+  }
+}
+
+.historic-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: var(--ion-font-family);
+  color: var(--ion-color-primary);
+  background: rgba(3, 23, 75, 0.05);
+  padding: 1.5rem;
+}
+

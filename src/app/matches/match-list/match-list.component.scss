@@ -1,0 +1,190 @@
+.match-card {
+  padding: 1rem 2rem;
+}
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+.d-flex {
+  display: none !important;
+}
+
+.wrapper-tablet {
+  margin-left: 22px;
+  margin-right: 22px;
+}
+
+:host ::ng-deep app-match-card .tablet-title {
+	font-size: 1.5em !important;
+}
+:host ::ng-deep app-match-card .tablet-subtitle {
+  text-align: center;
+  font-size: 1.3em !important;
+}
+:host ::ng-deep app-match-card .tablet-duration {
+  font-size: 1.4em !important;
+}
+:host ::ng-deep app-match-card .time-start,  :host ::ng-deep app-match-card .time-end {
+  font-size: 1.4em !important;
+}
+:host ::ng-deep app-match-card .title {
+  font-size: 1em !important;
+}
+:host ::ng-deep app-match-card .tablet-time-unit {
+  font-size: 0.4em !important;
+}
+:host ::ng-deep app-match-card .tablet-time {
+  font-size: 0.9em !important;
+}
+:host ::ng-deep app-match-card .subtitle {
+  font-size: 1em !important;
+}
+:host ::ng-deep app-match-card .price-tablet {
+  font-size: 1.2em !important;
+}
+:host ::ng-deep app-match-card .dot-separator {
+  font-size: 1.7em !important;
+}
+:host ::ng-deep app-match-card .tablet-duration {
+  font-size: 1.8em !important;
+}
+
+
+
+@media only screen 
+and (min-width: 768px) and (max-width: 1110px) {
+  .wrapper-tablet {
+    width: 90% !important;
+    margin: auto !important;
+    margin-top: 15px !important;
+  }
+  .no-match-tablet {
+    width: 25% !important;
+  }
+  .d-flex {
+    display: flex !important;
+  }
+  .request-result-text {
+    font-size: 2.4rem !important;
+  }
+  .separated {
+    width: 42%;
+    margin-right: 8px;
+    margin-bottom: 30px !important;
+  }
+  .show-tablet {
+    display: block;
+    justify-content: center;
+    padding-top: 25px !important;
+  }
+  .hide-tablet {
+    display: none;
+  }
+  :host ::ng-deep app-match-card .tablet-title {
+    font-size: 1.8em !important;
+  }
+  :host ::ng-deep app-match-card .tablet-subtitle {
+    text-align: center;
+    font-size: 1.6em !important;
+  }
+  :host ::ng-deep app-match-card .tablet-duration {
+    font-size: 1.6em !important;
+  }
+  :host ::ng-deep app-match-card .time-start,  :host ::ng-deep app-match-card .time-end {
+    font-size: 1.6em !important;
+  }
+  :host ::ng-deep app-match-card .time-label-start {
+    font-size: 1.3em !important;
+  }
+  :host ::ng-deep app-match-card .title {
+    font-size: 1.4em !important;
+  }
+  :host ::ng-deep app-match-card .subtitle {
+    font-size: 1.4em !important;
+  }
+  :host ::ng-deep app-match-card .price-tablet {
+    font-size: 1.4em !important;
+  }
+  :host ::ng-deep app-match-card .dot-separator {
+    font-size: 2.5em !important;
+  }
+  :host ::ng-deep app-match-card .tablet-duration {
+    font-size: 1.8em !important;
+  }
+}
+
+@media only screen 
+  and (min-width: 1110px) {
+    .wrapper-tablet {
+      width: 90% !important;
+      margin: auto !important;
+      margin-top: 15px !important;
+    }
+    .no-match-tablet {
+      width: 25% !important;
+    }
+    .d-flex {
+      display: flex !important;
+    }
+    .request-result-text {
+      font-size: 2.4rem !important;
+    }
+    .separated {
+      width: 31%;
+      margin-right: 20px;
+      margin-bottom: 40px !important;
+    }
+    .show-tablet {
+      display: block;
+      justify-content: center;
+      padding-top: 25px !important;
+    }
+    .hide-tablet {
+      display: none;
+    }
+    :host ::ng-deep app-match-card-tablet .tablet-title {
+      font-size: 1.8em;
+    }
+    :host ::ng-deep app-match-card-tablet .tablet-subtitle {
+      text-align: center;
+	    font-size: 1.6em;
+    }
+    :host ::ng-deep app-match-card-tablet .tablet-duration {
+	    font-size: 1.6em;
+    }
+    :host ::ng-deep app-match-card-tablet .time-start,  :host ::ng-deep app-match-card-tablet .time-end {
+	    font-size: 1.6em !important;
+    }
+    :host ::ng-deep app-match-card-tablet .time-label-start {
+	    font-size: 1.3em !important;
+    }
+    :host ::ng-deep app-match-card-tablet .title {
+	    font-size: 1.4em !important;
+    }
+    :host ::ng-deep app-match-card-tablet .subtitle {
+	    font-size: 1.4em !important;
+    }
+    :host ::ng-deep app-match-card-tablet .price-tablet {
+      font-size: 1.4em !important;
+    }
+    :host ::ng-deep app-match-card-tablet .dot-separator {
+      font-size: 3.4em !important;
+    }
+    :host ::ng-deep app-match-card-tablet .tablet-duration {
+      font-size: 1.8em !important;
+    }
+  }
+
+  .match-card {
+    padding-left: 0px;
+	  padding-right: 0px;
+  }
+
+  ion-list {
+    background: #f5f5f8 !important;
+  }

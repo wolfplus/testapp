@@ -1,0 +1,20 @@
+<ion-grid class="w-100 do-p-1" style="padding: 0px; padding-left: 1rem;">
+  <ion-row class="block-playground-filter">
+    <ion-col size="6" (click)="openFilterModal()" class="info-filter" data-test="open-filter-modal">
+      <button class="btn-filter">
+        <ion-icon
+          color="primary"
+          src="assets/icon/globals/filter.svg"
+          class="rotateimg90"
+        >
+        </ion-icon>
+      </button>
+      <div class="title" *ngIf="selectedActivity">
+        {{ selectedActivity }}
+      </div>
+      <div class="title" *ngIf="!selectedActivity">
+        {{ "activity.all" | translate }}
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

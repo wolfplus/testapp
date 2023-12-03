@@ -1,0 +1,13 @@
+<button (click)="openFilterModal()"
+  (close)="closeFilterModal()"
+  class="btn-filter"
+  style="background-color: rgba(0,0,0,0)!important;">
+  <!-- TODO: find a way to integrate inline svg and change color -->
+  <!-- <img src="assets/icon/home/filter.svg"  alt="icon filter"/> -->
+ <!--  <div class="svg-icon" [inlineSVG]="'assets/icon/home/filter.svg'"></div> -->
+ <app-svg-container
+  [svg]="filterIconSVG"
+  [inputClass]="'icon-l'"
+  [iconColor]="'var(--ion-color-primary)'">
+ </app-svg-container>
+</button>

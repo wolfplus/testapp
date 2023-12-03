@@ -1,0 +1,11 @@
+.step-indicator {
+  width: 7vw;
+  height: 1vw;
+  border-radius: 3px;
+  margin-right: 0.5rem;
+  background: var(--ion-color-primary-tint);
+
+  &.active {
+    background-color: var(--ion-color-primary);
+  }
+}

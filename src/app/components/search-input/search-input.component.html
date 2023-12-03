@@ -1,0 +1,14 @@
+<div class="input-search-block">
+  <ion-input #inputSearchClub
+    (ionChange)="updateSearch($event)"
+    debounce="500"
+    mode="ios"
+    type="text"
+    color="medium"
+    autocapitalize="on"
+    autofocus="true"
+    clear-input="true"
+    placeholder="{{ 'search_placeholder' | translate }}">
+    <img src="assets/icon/home/header/search-icon.svg" >
+  </ion-input>
+</div>

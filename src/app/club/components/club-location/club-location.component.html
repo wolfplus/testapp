@@ -1,0 +1,40 @@
+<div *ngIf="(clubIsLoaded$ | async) == true"
+  class="club-location">
+  <div class="section-title">
+    <span>{{ title$ | async }}</span>
+  </div>
+  <div class="flex jcsb location-container">
+    <div class="flex d-col mr-1 address">
+      <div>
+        {{ (address$ | async)?.address }}
+      </div>
+      <div>
+        {{ (address$ | async)?.zipCode }} - {{ (address$ | async)?.city }}
+      </div>
+    </div>
+    <div class="flex jcc aic map-icon"
+      (click)="openMap()"
+    >
+      <object type="image/svg+xml"
+        data="assets/images/icons/map_icon.svg"
+        class="p-1"
+      >
+    </object>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(clubIsLoading$ | async) == true">
+  <div class="skeleton section-title">
+    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+  </div>
+  <div class="flex jcsb">
+    <div class="flex d-col" style="width: 50%">
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </div>
+    <ion-thumbnail style="height:3rem; width:3rem">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+</div>

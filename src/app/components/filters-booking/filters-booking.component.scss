@@ -1,0 +1,64 @@
+.scroll-h-container {
+  display: flex;
+  justify-content: inherit;
+  align-items: center;
+  min-width: 100%;
+  max-width: 100%;
+  scroll-snap-type: x mandatory;
+  overflow-x: scroll;
+  padding: 1rem 0 1rem 2rem;
+  /* TODO CSS variable */
+  background:#f9fcfe;
+  /* TODO CSS variable */
+  border-top: 2px solid #d3d3d36b;
+  border-bottom: 1px solid #d3d3d39c;
+
+  .info-filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: auto;
+    min-width: -webkit-fit-content;
+    min-width: -moz-fit-content;
+    min-width: fit-content;
+    margin-right: 1.5rem;
+    padding: 1rem;
+    /* TODO: CSS variable */
+    border: 1px solid #00000038;
+    border-radius: .5rem;
+    text-align: center;
+    background-color: var(--app-dark-or-not-color);
+    scroll-snap-align: start;
+    &::not(.info-filter) {
+      margin-top: 7pt;
+    }
+    .filter-close {
+      padding: 0.1rem;
+      font-size: var(--app-font-size);
+    }
+    .title {
+      color: #76767d;
+      font-size: 1.4rem;
+      font-weight: 600;
+      vertical-align: middle;
+      padding-right: .5rem;
+    }
+    .value {
+      font-size: 1.4rem;
+      text-transform: capitalize;
+      margin-bottom: 0;
+      margin-right: 1rem;
+    }
+    .value-calendar {
+      /* TODO: CSS variable */
+      color: #76767d;
+      font-size: 1.4rem;
+      vertical-align: middle;
+      padding-right: .5rem;
+    }
+  }
+}
+::-webkit-scrollbar {
+  height: 0;
+}

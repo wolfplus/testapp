@@ -1,0 +1,174 @@
+<ion-header translucent="true">
+  <ion-toolbar color="'var(--app-dark-or-not-color)'" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button
+        (click)="close()"
+        mode="ios">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="page-title ion-text-center">{{ 'filters' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="filters-container">
+
+   <!--  <ion-row class="sorters-container do-p-2">
+      <ion-row class="section-title">
+        <div class="t-center w-100">
+          {{ 'sort_results' | translate }}
+        </div>
+      </ion-row>
+      <ion-row class="flex fww w-100">
+        <ion-col size="4" *ngFor="let sorter of sorters; let i as index"
+          (click)="sorterClicked(sorter, i)">
+          <div class="filter-tag-btn"
+            [ngClass]="{'active':sorterIsSelected(sorter.value)}"
+          >
+            {{ sorter.translate | translate  }}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-row> -->
+
+    <!-- DISTANCE filter -->
+    <ion-row *ngIf="!env.useMb"
+      class="distance-container do-p-2">
+      <ion-row class="section-title t-center">
+        {{ 'filters_title.distance.title' | translate }}
+      </ion-row>
+      <ion-row class="range-container w-100">
+        <ion-row class="flex jcc aic w-100">
+          <div class="distance-value">{{ distanceFilterValue }} km</div>
+        </ion-row>
+        <ion-row>
+          <ion-range [(ngModel)]="distanceFilterValue"
+            class="range-distance"
+            min="5"
+            max="100"
+            step="5"
+            pin="true"
+            (ionChange)="changeFilterDistance()">
+          </ion-range>
+        </ion-row>
+        <ion-row class="distances flex jcsb aic">
+          <div class="distance-from">5km</div>
+          <div class="distance-to">100km</div>
+        </ion-row>
+      </ion-row>
+    </ion-row>
+
+    <!-- ENVIRONMENT Filters -->
+    <ion-row class="section-title do-pl-2 do-pr-2 t-center">
+      {{ 'filters_title.environment' | translate }}
+    </ion-row>
+    <ion-row class="do-pl-2 do-pr-2">
+      <ion-col size="4" *ngFor="let environment of environments">
+        <div class="filter-tag-btn"
+          [ngClass]="{'active': isSelected(environment.id)}"
+          (click)="clickFilter(FilterKey.ENVIRONMENT, environment)"  >
+          {{ environment.name }}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <!-- ACTIVITY Filters -->
+    <ion-row class="section-title do-pl-2 do-pr-2 t-center">
+      {{ 'filters_title.activity' | translate }}
+    </ion-row>
+    <!--  *ngIf="(activities$ | async) !== null" -->
+    <ion-row
+      class="do-pl-2 do-pr-2">
+      <ion-col size="4" *ngFor="let activity of (activities$ | async)">
+        <app-card-activity-icon
+          [title]="activity.name"
+          [guid]="activity.id"
+          [icon]="activity.icon"
+          [colors]="activity.colors"
+          [isSelected]="isSelected(activity.id)"
+          (click)="clickFilter(FilterKey.ACTIVITY, activity)"
+          >
+        </app-card-activity-icon>
+      </ion-col>
+    </ion-row>
+    <!-- ACTIVITY skeleton -->
+    <!--    -->
+    <ion-row *ngIf="showActivitySkeleton"
+      class="do-pl-2 do-pr-2">
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+
+    <!-- SURFACE Filters -->
+    <ion-row class="section-title do-pl-2 do-pr-2 t-center">
+      {{ 'filters_title.surface' | translate }}
+    </ion-row>
+    <!-- *ngIf="(surfaces$ | async) != null" -->
+    <ion-row
+      class="do-pl-2 do-pr-2">
+      <ion-col size="4" *ngFor="let surface of (surfaces$ | async)">
+        <app-card-surface
+          class="item-app"
+          [title]="surface.name"
+          [guid]="surface.id"
+          [isSelected]="isSelected(surface.id)"
+          (click)="clickFilter(FilterKey.SURFACE, surface)">
+        </app-card-surface>
+      </ion-col>
+    </ion-row>
+    <!-- SURFACE skeleton -->
+    <!--    -->
+    <ion-row *ngIf="showSurfaceSkeleton"
+      class="do-pl-2 do-pr-2">
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    data-test="apply-filter-button"
+    class="btn-next"
+    expand="block"
+    mode="ios"
+    (click)="applyFilters()">
+    <div class="do-p-2">
+      {{ 'apply' | translate }}
+    </div>
+  </ion-button>
+</ion-footer>

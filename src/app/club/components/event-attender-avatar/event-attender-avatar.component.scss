@@ -1,0 +1,48 @@
+// TODO: 
+.player-level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  right: 10%;
+  padding: .2rem;
+  font-size: 2rem;
+  /* TODO: replace bg color dynamically */
+  border-radius: 100%;
+
+  &.level_one {
+    background: #7FECDF;
+  }
+  &.level_two {
+    background: #7FECDF;
+  }
+  &.level_three {
+    background: #7FECDF;
+  }
+  &.level_four {
+    background: #7FECDF;
+  }
+  &.level_five {
+    background: #7FECDF;
+  }
+  &.level_six {
+    background: #F8E23A;
+  }
+  &.level_seven {
+    background: #7FECDF;
+  }
+  &.level_eight {
+    background: #F98A25;
+  }
+  &.level_nine {
+    background: #7FECDF;
+  }
+  &.level_ten {
+    background: #F71A1A;
+  }
+}
+
+.player-name {
+  text-align: center;
+}

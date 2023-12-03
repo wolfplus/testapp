@@ -1,0 +1,14 @@
+<svg id="Composant_106_1" data-name="Composant 106 – 1" xmlns="http://www.w3.org/2000/svg" width="52.31" height="52.344" viewBox="0 0 52.31 52.344">
+  <path id="Tracé_9206" data-name="Tracé 9206" d="M787.132,597.514a14.317,14.317,0,0,1,14.317,14.317v23.675c0,6.754-3.986,11.845-10.666,13.674a19.1,19.1,0,0,1-5.046.643H763.456a14.317,14.317,0,0,1-14.317-14.317V611.831a14.317,14.317,0,0,1,14.317-14.317" transform="translate(-749.139 -597.514)" fill="#e3e4eb"/>
+  <path id="Tracé_9207" data-name="Tracé 9207" d="M796.2,622.924l-25.605,7.793,10.852,31.718,4.467-.034H795.4s8.329.557,12.939-4.661c.23-.26.47-.511.708-.764.864-.918,3.022-3.77,3.022-9.348v-8.854Z" transform="translate(-759.758 -610.091)" fill="#afafb5" opacity="0.501"/>
+  <path id="Tracé_9208" data-name="Tracé 9208" d="M802.967,630.057l-3.407,3.407a.967.967,0,0,1-1.367,0l-2.945-2.944V648.2H778.491V630.52l-2.938,2.942a.967.967,0,0,1-1.368,0l-3.4-3.406a.967.967,0,0,1,0-1.366l6.8-6.813a3.652,3.652,0,0,1,2.584-1.072H782.9a.517.517,0,0,1,.517.519v.037c0,.838,1.551,1.515,3.463,1.515s3.461-.677,3.461-1.515v-.006a.548.548,0,0,1,.548-.55h2.686a3.652,3.652,0,0,1,2.582,1.07l6.813,6.814A.966.966,0,0,1,802.967,630.057Z" transform="translate(-759.712 -609.042)" fill="#fff"/>
+  <g id="Groupe_4423" data-name="Groupe 4423" transform="translate(11.444 17.207)">
+    <rect id="Rectangle_2123" data-name="Rectangle 2123" width="2.923" height="6.746" transform="translate(0 2.067) rotate(-44.999)" fill="#ff4053"/>
+  </g>
+  <g id="Groupe_4424" data-name="Groupe 4424" transform="translate(35.915 17.082)">
+    <rect id="Rectangle_2124" data-name="Rectangle 2124" width="6.751" height="2.923" transform="matrix(0.707, -0.707, 0.707, 0.707, 0, 4.774)" fill="#ff4053"/>
+  </g>
+  <g id="Groupe_4425" data-name="Groupe 4425" transform="translate(18.779 34.585)">
+    <rect id="Rectangle_2125" data-name="Rectangle 2125" width="16.757" height="2.923" transform="translate(0 0)" fill="#ff4053"/>
+  </g>
+</svg>

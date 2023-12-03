@@ -1,0 +1,46 @@
+<!--  *ngIf="news$ | async" -->
+<div *ngIf="clubNewsList.length || !showSkeleton"
+  class="block-my-news">
+  <div *ngIf="clubNewsList.length > 0" class="flex do-p-1-2">
+    <div  class="section-title">
+      <!-- {{'clubs_around_me'|translate}} -->
+      {{ 'club_news' | translate }}
+    </div>
+  </div>
+
+  <div class="horizontal">
+    <div *ngIf="showSkeleton"
+      class="flex aic w-100">
+      <ion-skeleton-text class="card-last-news-skeleton" animated></ion-skeleton-text>
+    </div>
+    <ion-slides *ngIf="clubNewsList.length"
+      pager="true"
+      class="display-list-tablet"
+      [options]="slideOptTablet">
+      <ion-slide class="cursor-tablet" *ngFor="let clubNews of clubNewsList">
+        <app-last-news-card
+          class="scroll-sa-center"
+          [clubNews]="clubNews"
+          (click)="openNewsDetails(clubNews)">
+        </app-last-news-card>
+      </ion-slide>
+    </ion-slides>
+    <ion-slides *ngIf="clubNewsList.length"
+      pager="true"
+      class="display-list-normal"
+      [options]="slideOpt">
+      <ion-slide class="cursor-tablet" *ngFor="let clubNews of clubNewsList">
+        <app-last-news-card
+          class="scroll-sa-center"
+          [clubNews]="clubNews"
+          (click)="openNewsDetails(clubNews)">
+        </app-last-news-card>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</div>
+<div *ngIf="showSkeleton"
+  class="skeleton-container flex jcsb scroll-x-center">
+  <ion-skeleton-text class="card-short-club-skeleton" animated></ion-skeleton-text>
+  <ion-skeleton-text class="card-short-club-skeleton" animated></ion-skeleton-text>
+</div>

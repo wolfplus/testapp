@@ -1,0 +1,113 @@
+<div class="phone-code-container">
+    <ng-container *ngIf="!showEmail">
+        <label *ngIf="!email">{{ 'label_code_phone' | translate }}</label>
+        <label *ngIf="email">{{ 'label_code_email' | translate }}</label>
+        <ion-grid class="input-numbers">
+            <ion-row>
+                <ion-col size="3" class="input-block">
+                    <input #code1
+                           type="number"
+                           class="input-code"
+                           max="9"
+                           [(ngModel)]="codeInput1"
+                           (keyup)="changeInput($event,'code1')"
+                           (keyup.delete)="deleteInput('code1')">
+                </ion-col>
+                <ion-col size="3" class="input-block">
+                    <input #code2
+                           type="number"
+                           class="input-code"
+                           max="9"
+                           [(ngModel)]="codeInput2"
+                           (keyup)="changeInput($event,'code2')"
+                           (keyup.delete)="deleteInput('code2')">
+                </ion-col>
+                <ion-col size="3" class="input-block">
+                    <input #code3
+                           type="number"
+                           class="input-code"
+                           max="9"
+                           [(ngModel)]="codeInput3"
+                           (keyup)="changeInput($event,'code3')"
+                           (keyup.delete)="deleteInput('code3')">
+                </ion-col>
+                <ion-col size="3" class="input-block">
+                    <input #code4
+                           type="number"
+                           class="input-code"
+                           max="9"
+                           [(ngModel)]="codeInput4"
+                           (keyup)="changeInput($event,'code4')"
+                           (keyup.delete)="deleteInput('code4')">
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="block-action">
+            <ion-row>
+                <ion-col>
+                    <div>
+                        <label (click)="resendConfirm()" class="count" [style]="{'color': emailEnable ? 'white' : 'grey'}">
+                            {{ 'code_not_received' | translate}} <ng-container *ngIf="emailCounter !== 0">( {{emailCounter}}s )</ng-container>
+                        </label>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="block-action">
+            <ion-row>
+                <ion-col class="footer-flex">
+                    <a class="return-login" (click)="goBack()">{{ 'return_login' | translate }}</a>
+                    <ion-button
+                            mode="ios"
+                            expand="block"
+                            style="
+                            --border-radius: 10px;
+                            --border-width: 1px;
+                            --border-color: white;
+                            --border-style: solid;"
+                            class="btn-next btn-confirm-phone"
+                            [disabled]="disableCode"
+                            (click)="confirm()">
+                        <div class="do-p-2">
+                            {{ 'validate' | translate }}
+                        </div>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+    <ng-container *ngIf="showEmail">
+        <div class="email">
+            <label>
+                {{ 'email_address' | translate }}
+            </label>
+            <input (keyup)="submited = false" [(ngModel)]="email" placeholder="exemple@doinsport.com"/>
+            <label *ngIf="submited && email === ''" class="error-message">
+                {{ 'empty_mail' | translate }}
+            </label>
+        </div>
+        <ion-button
+                mode="ios"
+                expand="block"
+                style="
+                --border-radius: 10px;
+                --border-width: 1px;
+                --border-color: white;
+                --border-style: solid;"
+                class="btn-next btn-confirm-phone"
+                (click)="confirmEmail()">
+            <div class="do-p-2">
+                {{ 'validate' | translate }}
+            </div>
+        </ion-button>
+    </ng-container>
+
+    <ng-container *ngIf="signUp">
+        <div class="cgu-link">
+            {{ 'cgu_text_up_1' | translate }}
+            <a target="_blank" href="https://doinsport.com/rgpd/">{{ 'cgu_text_2' | translate }}</a>
+        </div>
+    </ng-container>
+</div>

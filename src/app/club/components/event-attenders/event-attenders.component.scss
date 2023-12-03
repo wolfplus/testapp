@@ -1,0 +1,54 @@
+.attenders-count {
+  flex-basis: 100%;
+}
+
+.attenders-avatars {
+  flex-basis: 50%;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .attenders-avatars {
+      flex-basis: 0% !important;
+    }
+  }
+
+.attenders-count {
+  justify-content: flex-start;
+
+  .attenders-gauge {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+
+  .participants-text {
+    font-size: 1.4rem;
+    text-transform: lowercase;
+  }
+}
+
+.avatar-container {
+  // TODO: [CSS variable]
+  width:5vw;
+  height: 5vw;
+  // TODO: [CSS variable]
+  border: 1px solid var(--ion-color-primary);
+  // TODO: [CSS variable]
+  background: #C7C9CF80;
+
+  img {
+    object-fit: cover!important;
+  }
+}
+
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .avatar-container {
+      // TODO: [CSS variable]
+      width: 2vw;
+      height: 2vw;
+    }
+  }

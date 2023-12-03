@@ -1,0 +1,128 @@
+<app-default-header
+    [title]="'my_consumption'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div class="do-px-2 wrapped">
+        <br>
+
+        <div *ngIf="consumptionDetail" class="ticket">
+            <div class="header-ticket">
+                <span class="header-title">#{{consumptionDetail.number}} - {{consumptionDetail.occurredAt | date:'dd/MM/yy - HH:mm' }}</span><br>
+                <div class="info-company">
+                    <small>{{consumptionDetail.company}}</small>
+                    <small>{{consumptionDetail.address}}</small>
+                    <small>SIRET: {{consumptionDetail.vatNumber}}</small>
+                </div>
+                <span *ngIf="consumptionDetail.status == 'canceled'" class="canceled">
+                    {{'canceled' | translate}}
+                </span>
+            </div>
+
+            <ion-row *ngFor="let p of consumptionDetail.products" class="seperated">
+                <ion-col class="one-col">
+                    <span>{{ p.quantity }} x {{p.name}}</span>
+                </ion-col>
+                <ion-col class="one-col col-price">
+                    <span>{{p.price | price_format: clubCurrency}}</span>
+                </ion-col>
+            </ion-row>
+
+            <ion-row class="seperated-no">
+                <ion-col class="one-col" size="7">
+                    <span class="total">TOTAL</span>
+                </ion-col>
+                <ion-col class="one-col prices" size="5">
+                    <span>{{consumptionDetail.amount - consumptionDetail.taxAmount | price_format: clubCurrency}} {{'excl_tax' | translate}}</span> <br>
+                    <span class="total-price">{{consumptionDetail.amount | price_format: clubCurrency}} {{'incl_tax' | translate}}</span>
+
+                </ion-col>
+            </ion-row>
+
+            <div class="margin-tva">
+                <p class="tva">
+                <ion-row>
+                    <ion-col class="tva-details" size="3">
+                        Taux
+                    </ion-col>
+                    <ion-col class="tva-details" size="3">
+                        {{'vat' | translate}}
+                    </ion-col>
+                    <ion-col class="tva-details"size="3">
+                        {{'excl_tax' | translate}}
+                    </ion-col>
+                    <ion-col class="tva-details" size="3">
+                        {{'incl_tax' | translate}}
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngFor="let groupedProd of groupedProductsByTaxValue">
+                    <ion-col class="tva-details" size="3">
+                        {{groupedProd.taxValue}}%
+                    </ion-col>
+                    <ion-col class="tva-details" size="3">
+                        {{groupedProd.sumTaxAmount | price_format: clubCurrency}}
+                    </ion-col>
+                    <ion-col class="tva-details" size="3">
+                        {{groupedProd.sumPriceByTaxAmount - groupedProd.sumTaxAmount | price_format: clubCurrency}}
+                    </ion-col>
+                    <ion-col class="tva-details" size="3">
+                        {{groupedProd.sumPriceByTaxAmount | price_format: clubCurrency}}
+                    </ion-col>
+                </ion-row>
+                </p>
+            </div>
+
+            <div class="reglement">
+                <span *ngIf="consumptionDetail.payments.length != 1"> <b>{{'payment_methods' | translate}} : MULTI</b> <br> </span>
+                <span *ngIf="consumptionDetail.payments.length == 1"> <b>{{'payment_method' | translate}} : SOLO</b> <br> </span>
+                <span *ngFor="let payment of consumptionDetail.payments"> {{payment.type | translate}} : {{payment.amount | price_format: clubCurrency}} <br> </span>
+            </div>
+        </div>
+
+
+
+        <!-- Chargemnt skeletons -->
+
+        <div *ngIf="!consumptionDetail">
+            <ion-list style="border-radius: 18px;">
+                <ion-item lines="none">
+                      <ion-label>
+                        <h3 style="display: flex; justify-content: center;">
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </h3>
+                        <p style="display: flex; justify-content: center;">
+                          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        </p>
+                        <p style="display: flex; justify-content: center;">
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                        <p style="display: flex; justify-content: center;">
+                            <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                        </p>
+                        <br>
+                        <p style="display: flex; justify-content: center;">
+                            <ion-skeleton-text animated style="width: 100%; height: 80px;"></ion-skeleton-text>
+                        </p>
+                        <br>
+                        <p style="display: flex; justify-content: flex-end;">
+                            <ion-skeleton-text animated style="width: 20%"></ion-skeleton-text>
+                        </p>
+                        <p style="display: flex; justify-content: center;">
+                            <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        </p>
+                        <br>
+                        <p style="display: flex; justify-content: center;">
+                            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </p>
+                        <br>
+                        <p style="display: flex; justify-content: flex-start;">
+                            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+
+    </div>
+</ion-content>

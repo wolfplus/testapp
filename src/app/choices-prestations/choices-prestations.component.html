@@ -1,0 +1,28 @@
+<app-default-header [isNav]="false" [title]="'book_session'" [subtitle]="''" (back)="backAction()"></app-default-header>
+<ion-content>
+<ng-container *ngIf="prestations$ | async as prestations">
+    <div class="list-prestations" *ngIf="prestations && isLoaded">
+
+        <div *ngFor="let prestation of prestations" class="prestation-card" (click)="showSlots(prestation)">
+            <div class="bloc-image">
+                <img src="{{ prestation.mainPhoto ? pathFiles + prestation.mainPhoto?.contentUrl : pathFiles + (defaultImage$ | async) }}">
+            </div>
+            <div class="bloc-content">
+                <div class="time"><span>{{prestation.duration / 60}} min</span></div>
+                <div class="title">{{prestation.label}}</div>
+                <div class="description" [innerHTML]="prestation.description"></div>
+                <div class="price">à partir de <span>{{prestation.lowestPricePerParticipant | price_format: (clubCurrency$ | async)}}</span></div>
+            </div>
+        </div>
+    
+    </div>
+</ng-container>
+
+<div *ngIf="!isLoaded" class="skeleton">
+    <ion-skeleton-text animated="true"></ion-skeleton-text>
+    <ion-skeleton-text animated="true"></ion-skeleton-text>
+    <ion-skeleton-text animated="true"></ion-skeleton-text>
+</div>
+
+</ion-content>
+

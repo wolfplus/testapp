@@ -1,0 +1,154 @@
+.footer-action {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  .action-type-planning {
+    margin: auto;
+    margin-bottom: 10px;
+    background-color: #C64242;
+    border-radius: 15px;
+    min-width: 170px;
+    width: fit-content;
+    padding: 10px 5px 10px 5px;
+    cursor: pointer;
+    label {
+      color: white;
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 800;
+    }
+  }
+}
+
+.playgrounds-container {
+  margin-top: fill;
+}
+.skeleton-playground {
+  margin: 2rem;
+}
+.skeletonTitle {
+  width: 100pt;
+  height: 1rem;
+}
+.skeletonSubtitle {
+  margin-top: 1rem;
+  width: 150pt;
+  height: 7pt;
+}
+.skeletonSlot {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  height: 50pt;
+}
+
+
+.no-product {
+  font-weight: bold;
+  font-size: large;
+}
+
+.no-product-img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+  margin-bottom: 4rem;
+  img {
+    height: 10rem;
+    width: 10rem;
+  }
+}
+
+// BOOKING CREATE SUCCESS
+.booking-create-success {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  padding: 2rem;
+  z-index: 999;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .touch {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+}
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  ion-content {
+    text-align: center;
+  }
+
+  .margin-tablet {
+    margin-top: 10px;
+  }
+
+  .tablet-section {
+    width: 80%;
+    margin: auto;
+    margin-top: 25px;
+  }
+
+  .playgrounds-tablet {
+    display: inline-block;
+    width: 49%;
+  }
+
+  .header-section {
+    margin-top: 30px;
+    border-bottom: 4px solid var(--ion-color-primary);
+    font-size: 1.8em;
+    letter-spacing: 2.2px;
+    font-weight: 700;
+    color: var(--ion-color-primary);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  app-card-playground {
+    border: 0.5px solid #80808036;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    margin-right: 1%;
+  }
+
+  .hide-tablet {
+    display: none !important;
+  }
+
+  .show-tablet {
+    display: block;
+  }
+}
+
+.no-courses{
+  text-align: center;
+  margin-top: 50px;
+  font-style: italic;
+}
+
+.bg-custom {
+  --background: var(--background-gray) !important;
+  margin-top: 5px;
+}
+
+ion-content {
+  overflow: auto;
+}

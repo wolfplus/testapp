@@ -1,0 +1,23 @@
+.star {
+  width: 1.5rem;
+}
+
+.small-star {
+  width: 2rem;
+  margin-right: .2rem;
+}
+
+.review-card {
+  background: #ffffff;
+  border-radius: 2rem;
+  max-width: 80%;
+}
+
+.review-card-header {
+  border-bottom: 1px solid #d3d3d38c
+}
+
+.review-text {
+  font-size: var(--app-font-size);
+  color: gray;
+}

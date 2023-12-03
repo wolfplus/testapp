@@ -1,0 +1,115 @@
+.sign-container {
+
+  img.logo_app {
+    display: block;
+    max-width: 35vw;
+    max-height: 30%;
+    margin: 2rem auto 0;
+    transition: all 2s ease;
+  }
+
+  .card-sign-in {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // margin: 2rem auto;
+    /* TODO: CSS variable */
+    border-radius: .9rem;
+  }
+
+  .card-sign-in.error {
+    label {
+      color: var(--ion-color-danger);
+    }
+    .error-message {
+      margin-top: 1rem;
+      color: var(--ion-color-danger);
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+  }
+
+
+}
+
+input.password-input {
+  border-radius: .5rem;
+  /* TODO: replace with class or variable */
+  border: 1px solid #adadad;
+  font-size: 2rem;
+  font-weight: 700;
+  min-height: 3rem;
+  max-height: 3rem;
+  text-align: left;
+  padding-left: 1rem;
+  display: block;
+  width: 100%;
+}
+
+.forgot-password {
+  text-align: center;
+}
+
+.input-phone-css {
+  width: 100%;
+}
+
+img.close {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 1.5rem;
+}
+
+/* .full-footer {
+  min-height: 90%;
+} */
+.display-input-tablet {
+  display: none;
+}
+
+.create-account {
+  text-align: center;
+}
+
+.title {
+  font-size: 3rem !important;
+}
+.subtitle {
+  font-size: 1.5rem!important;
+}
+
+@media only screen
+and (min-width: 768px) {
+  .logo_app {
+    max-width: 13vw !important;
+    max-height: 30% !important;
+  }
+  .update-password-img{
+    max-width: 7vw !important;
+    max-height: 15% !important;
+  }
+  .title {
+    font-size: 3rem !important;
+  }
+  .subtitle {
+    font-size: 2rem !important;
+  }
+  .create-account {
+    font-style: italic !important;
+    font-size: 1.7rem !important;
+    cursor: pointer !important;
+  }
+  .do-p-2 {
+    font-size: 2rem !important;
+  }
+  .display-input-tablet {
+    display: initial;
+  }
+  .title {
+    text-align: center;
+    font-weight: 700;
+  }
+}

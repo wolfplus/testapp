@@ -1,0 +1,86 @@
+.levels-container {
+  width: 100%;
+  display: flex;
+  padding: 2rem 2rem;
+  overflow-x: scroll;
+  /* TODO: CSS variable */
+  background: #F2F3F6;
+
+  app-level-card {
+    display: block;
+    // min-width: 75%;
+    margin-right: 2rem;
+    margin-left: 2rem;
+
+    &.single-display {
+      // min-width: 100vw;
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}
+
+.scroll-x-container {
+
+  app-card-short-club {
+    min-width: 55vw;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0px 2px 4px 2px #0000002e;
+    position: relative;
+    margin-right: 1rem;
+  }
+}
+
+/* TODO: move to custom.scss */
+/* SKELETON */
+
+.profil-header-skeleton {
+  height: 15rem;
+  width: 100%;
+}
+
+.avatar-skeleton-container {
+  position: absolute;
+  bottom: -4rem;
+  z-index: 99;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-skeleton {
+  height:25vw;
+  width:25vw;
+}
+
+.levels-skeleton {
+  height: 8rem;
+}
+
+.bookings-skeleton {
+  height: 20rem;
+}
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    .hide-tablet {
+      display: none;
+    }
+    .show-tablet {
+      display: block;
+    }
+    .levels-container {
+      justify-content: center;
+    }
+}

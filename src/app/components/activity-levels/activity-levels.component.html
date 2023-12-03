@@ -1,0 +1,55 @@
+<!-- TODO: add a flex-wrap class fww-->
+<!-- TODO: separate sport/ category name and levels create an activity label component -->
+<div class="event-tags w-100 flex fww jcsb pos-rel"
+  [ngClass]="{
+    'position-center': position === ElementPosition.CENTER,
+    'position-space-btw': position === ElementPosition.SPACE_BETWEEN
+    }">
+  <div *ngIf="activityName != undefined"
+    class="sport-tag flex jcc aic">
+    <div class="pos-abs z-index-1"
+      [ngStyle]="setGradient()">
+    </div>
+    <!-- TODO: activity icon -->
+    <!-- <img src="event.type.icon" alt=""> -->
+    <div class="flex jcsb aic z-index-2">
+      <app-svg-container *ngIf="activityIcon"
+        class="dspl-blck do-mr-0-5"
+        [svg]="activityIcon"
+        [inputClass]="'icon-s'"
+        [iconColor]="'white'">
+      </app-svg-container>
+      <!-- <img src="assets/images/icons/volley.svg" alt=""> -->
+      <span class="sport">
+        <!-- TODO: add dynamic style: color and border-color -->
+        <!-- TODO add dynamic sport -->
+        {{ activityName }}
+      </span>
+    </div>
+  </div>
+  <div *ngIf="levels != undefined"
+    class="flex jcsb aic">
+    <div *ngIf="levelsRequired"
+      class="flex jcc aic">
+      <ion-icon name="lock-closed-outline" class="lock"></ion-icon>
+    </div>
+    <div *ngIf="levels[0]?.identifier != levels[1]?.identifier; else displayOnlyLower"
+      class="levels flex flex jcc aic badge-levels">
+      <div class="level-from">
+        <span class="level-from-size">
+          {{ levels[0]?.identifier }}. {{ levels[0]?.label }} <span *ngIf="levels.length > 1"> - {{ levels[levels?.length - 1]?.identifier }}. {{ levels[levels?.length - 1]?.label }}</span>
+        </span>
+      </div>
+    </div>
+    <ng-template #displayOnlyLower class="levels">
+      <div class="level-to">
+        <span>
+          {{ levels[0]?.identifier }}. {{ levels[0]?.label }} k
+        </span>
+      </div>
+    </ng-template>
+  </div>
+</div>
+
+
+

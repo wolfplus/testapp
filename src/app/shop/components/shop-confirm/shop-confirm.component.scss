@@ -1,0 +1,49 @@
+.page-title {
+  margin: 0;
+  padding: 1.5rem;
+  display: flex;
+  font-weight: bold;
+}
+
+.block-info {
+  background: var(--ion-color-white);
+  padding: 1.5rem;
+
+  .label {
+    color: var(--ion-color-primary);
+  }
+
+  .big-font {
+    font-size: var(--app-font-big-size);
+  }
+
+  .count {
+    color: var(--ion-color-primary);
+    margin-right: 1rem;
+  }
+
+
+}
+
+  .icon-card {
+    object-fit: contain;
+  }
+
+  .no-padding-lr{
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+.margin-bottom {
+  margin-bottom: 1.5rem;
+}
+
+.background {
+  --background: var(--background-gray);
+}
+
+.gift{
+  margin-left: 5px;
+  color: var(--ion-color-primary);
+  cursor: pointer;
+}

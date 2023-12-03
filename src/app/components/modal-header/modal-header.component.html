@@ -1,0 +1,16 @@
+<ion-grid class="do-pt-3 do-pb-2">
+    <ion-row>
+        <ion-col size="2"
+          class="flex jcc aic"
+          (click)="back()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="8" class="flex jcc aic">
+            <app-event-title
+              [title]="title$ | async"
+              [subtitle]="subtitle$ | async">
+            </app-event-title>
+        </ion-col>
+        <ion-col size="2"></ion-col>
+    </ion-row>
+</ion-grid>

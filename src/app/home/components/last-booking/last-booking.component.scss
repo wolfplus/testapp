@@ -1,0 +1,95 @@
+.block-my-bookings {
+  min-height: fit-content;
+  background-color: white!important;
+  margin-top: 15px;
+
+  .title {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .card-my-booking-skeleton {
+    height: 15rem;
+    width: 100%;
+    margin: 1rem 2rem;
+  }
+
+  .horizontal {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+    app-match-card, app-card-my-booking {
+      margin-right: 1.8rem;
+      margin-bottom: 4rem;
+      width: 90% !important;
+      padding-left: 1.5rem;
+    }
+  }
+
+  ion-slides {
+    height: 100%;
+    min-width: 100%!important;
+
+    ion-slide {
+      width: 100%;
+    }
+  }
+}
+
+:host ::ng-deep app-card-my-booking .event-tags {
+	justify-content: start !important;
+  position: absolute  !important;
+	top: -87%  !important;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+
+.display-list-tablet {
+  display: none;
+}
+
+.count-item {
+  font: normal normal 300 16px/24px Panton-Black;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    .display-list-tablet {
+        display: block;
+    }
+    .display-list-normal {
+        display: none;
+    }
+    .cursor-tablet {
+      cursor: pointer;
+    }
+    :host ::ng-deep app-card-my-booking .event-tags {
+      justify-content: end !important;
+      position: absolute  !important;
+      top: -86%  !important;
+    }
+
+  }
+
+  .hide-pagination {
+    .swiper-pagination-bullets {
+      display: none !important;
+    }
+  }
+
+  @media only screen
+  and (max-width: 376px) {
+    .block-my-bookings {
+      app-card-my-booking {
+        margin-right: 1.6rem;
+        margin-bottom: 4rem;
+        width: 90% !important;
+        padding-left: 1.4rem;
+      }
+    }
+  }

@@ -1,0 +1,42 @@
+<div class="short-club-block flex d-col"
+  [ngClass]="{'img-ratio-pic-card-1': !singleDisplay,'full-width': singleDisplay}"
+  (click)="showClub()">
+    <!-- ,'full-width': singleDisplay -->
+  <ng-container *ngIf="club?.photos?.length > 0">
+    <ion-img
+      [src]="pathFiles + club.photos[0].contentUrl"
+      class="my-club-img img-ratio"
+      alt="sport img">
+    </ion-img>
+  </ng-container>
+  <ng-container *ngIf="!club?.photos && club?.mainPhoto?.contentUrl">
+    <ion-img
+      [src]="pathFiles + club.mainPhoto"
+      class="my-club-img img-ratio"
+      alt="sport img">
+    </ion-img>
+    <ion-img *ngIf="club?.mainPhoto?.contentUrl"
+      [src]="pathFiles + club?.mainPhoto?.contentUrl"
+      class="my-club-img img-ratio"
+      alt="sport img">
+    </ion-img>
+  </ng-container>
+  <div class="favoris">
+    <app-svg-container
+      [svg]="heartIcon"
+      [inputClass]="'icon-m'"
+      [iconColor]="club?.isPreferred ? 'red' : 'white'">
+    </app-svg-container>
+  </div>
+  <div class="pos-abs-btm flex d-col w-100">
+    <div *ngIf="distance"
+      class="distance">
+      {{ distance }} km
+    </div>
+    <div class="bottom">
+      <div class="title">{{club.name}}</div>
+      <div class="city">{{club.city}} ({{ zipCode }})</div>
+    </div>
+  </div>
+
+</div>

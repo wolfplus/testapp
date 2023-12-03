@@ -1,0 +1,44 @@
+
+.wrapper {
+    height: 100%;
+    z-index: 9999;
+    width: 100%;
+    background-color: white;
+}
+
+ngx-qrcode {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: brightness(3);
+}
+
+img {
+    width: 300px;
+}
+
+.header-component {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    label {
+        color: var(--app-font-color-gray)
+    }
+
+    .user-identity {
+        display: flex;
+        align-items: center;
+        .user-avatar {
+            align-self: center;
+            width: 56px;
+            height: 56px;
+            margin-right: 10px;
+        }
+        p {
+            margin: 0;
+        }
+        font-weight: bold;
+    }
+}
+

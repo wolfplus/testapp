@@ -1,0 +1,8 @@
+<div class="block-locale" (click)="showLocales()" >
+    <img [src]="'assets/icon/flags/' + selectedLocale.code + '.svg'" /><label *ngIf="showLabel">{{selectedLocale.name}}</label>
+    <div class="block-list-locale" *ngIf="showLocalesList">
+        <div class="list-item-locale" *ngFor="let locale of locales" (click)="changeLocale(locale)" >
+            <img [src]="'assets/icon/flags/' + locale.code + '.svg'" /><label>{{locale.name}}</label>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<ion-col>
+    <div class="flex-column display-tablet zindex-1">
+        <div class="bloc-header-home"  [style]="'background-image: url(' + baseUrl + clubPhoto?.contentUrl + '); z-index: 1; background-position: center;'">
+            <div class="bg-overlay"></div>
+            <div class="content-header">
+                <div style="padding-top: 15px;">
+                    <span class="welcome-size">{{ 'mb_welcome_1' | translate }}</span>
+                    <span class="welcome-size" *ngIf="userName">{{ " " + userName }}</span><br>
+                    <span class="welcome-sub-size">{{ 'mb_welcome_3' | translate }}</span>
+                </div>
+                <!--            <div class="open-message-complexe" (click)="goTo('ContactModalComponent')">-->
+                <!--                <img src="./assets/icon/home/header/message-bulle.png">-->
+                <!--            </div>-->
+            </div>
+        </div>
+    </div>
+</ion-col>

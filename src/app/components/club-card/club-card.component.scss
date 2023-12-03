@@ -1,0 +1,24 @@
+.do-card-container {
+  width: 100%;
+  height: 45vw;
+  align-items: flex-start;
+  justify-content: flex-end;
+  color: white;
+  padding: 1rem;
+  /* TODO [CSS variable] */
+  .do-card-pic {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left:0;
+    right:0;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+}

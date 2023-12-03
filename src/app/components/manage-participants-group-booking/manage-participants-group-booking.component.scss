@@ -1,0 +1,35 @@
+.attendee {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+.radio {
+    display: flex;
+    align-items: center;
+
+    ion-label {
+        margin-left: 1rem;
+        font-size: var(--app-font-size);
+    }
+
+    .selected {
+        font-weight: bold;
+    }
+}
+
+.manage-part-wrapper {
+    margin: 20px 0;
+    box-shadow: 0 3px 6px -2px grey;
+
+    .title {
+        text-align: center;
+        font-size: 2.4rem;
+        font-weight: normal;
+    }
+
+    .subtitle {
+        text-align: center;
+    }
+}

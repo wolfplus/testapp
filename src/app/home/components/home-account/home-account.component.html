@@ -1,0 +1,27 @@
+<div class="show-tablet"></div>
+<div class="flex do-p-2 hide-tablet">
+    <div class="section-title">
+        {{ 'my_account' | translate }}
+    </div>
+    <div class="title-stroke"></div>
+</div>
+<div class="list-actions scroll-x-center do-p-2 w-100 hide-tablet">
+    <div class="action" (click)="goTo('MySubscriptionsComponent')">
+        <ion-icon src="assets/icon/account/card.svg">
+        </ion-icon>
+        <div class="title">{{'subscription'|translate}}</div>
+    </div>
+    <div class="action" (click)="goTo('MyCreditsComponent')">
+        <ion-icon src="assets/icon/account/coins.svg"></ion-icon>
+        <div class="title">{{'credit'|translate}}</div>
+    </div>
+    <div class="action" (click)="goTo('MyWalletsComponent')">
+        <ion-icon src="assets/icon/account/wallet.svg"></ion-icon>
+        <div class="title">{{'wallet'|translate}}</div>
+    </div>
+    <div *ngIf="!env?.useMb"
+        class="action" (click)="open('/account/me', {view: 'INFORMATIONS'})">
+        <ion-icon src="assets/icon/account/more_options.svg"></ion-icon>
+        <div class="title">{{'more'|translate}}</div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+.header {
+  .subtitle {
+    display: block;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: var(--app-font-size);
+    font-weight: 800;
+    padding-bottom: 2rem;
+  }
+}
+
+ion-content {
+  --background: var(--background-gray);
+}
+
+.content {
+  .page-title {
+    margin: 0;
+    padding: 1.5rem;
+    display: flex;
+    font-weight: bold;
+  }
+  .subtitle {
+    font-size: var(--app-font-size);
+    margin: 0;
+    padding: 1.5rem;
+  }
+}
+
+.container,
+#background-content {
+  background: var(--background-gray);
+
+  .block-club {
+    border-radius: 0.9rem;
+    height: fit-content;
+    width: auto;
+    padding: 2rem;
+
+    .club-img {
+      min-height: 100%;
+      min-width: 100%;
+      border-radius: 1rem 0 0 1rem;
+    }
+
+    .block-info {
+      display: flex;
+      flex-direction: column;
+      padding-left: 1rem;
+
+      .title-activity {
+        font-size: 1.8rem;
+        font-weight: 600;
+        // text-align: center;
+        margin-top: 1pt;
+      }
+
+      .address {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+
+      .distance {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .skeleton-club-card {
+    border-radius: 0.9rem;
+    min-height: 100pt;
+    max-height: 100pt;
+    width: auto;
+    margin: 1rem;
+  }
+}
+
+.booking-recap {
+  ion-row {
+    padding: 0.5rem 0;
+  }
+}
+
+.text-price-to-pay {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.block-info-booking {
+  background: var(--ion-color-white);
+  padding: 1.5rem;
+
+  ion-col {
+    padding: 0;
+  }
+
+  .label {
+    color: var(--ion-color-primary);
+  }
+
+  .big-font {
+    font-size: var(--app-font-big-size);
+  }
+  .time {
+    font-size: var(--app-font-big-size);
+    color: var(--ion-color-primary);
+    font-weight: bold;
+  }
+
+  .big {
+    font-size: var(--app-font-big-size);
+  }
+
+  .left-border {
+    border-left: 1pt solid rgba(0, 0, 0, 0.1);
+    padding-left: 1.5rem;
+  }
+
+  .count {
+    color: var(--ion-color-primary);
+    margin-right: 1rem;
+  }
+
+  .address {
+    color: var(--app-font-color-gray);
+  }
+}
+
+.margin-bottom {
+  margin-bottom: 1.5rem;
+}
+
+ion-footer {
+  .price-detail {
+    color: var(--app-font-color-gray);
+    .count {
+      margin-right: 1rem;
+    }
+  }
+}
+
+.total {
+  display: flex;
+  font-weight: bold;
+  font-size: var(--app-font-big-size);
+  margin-bottom: 1.5rem;
+}
+
+.hide-tablet {
+  display: block;
+}
+.show-tablet {
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .hide-tablet {
+      display: none;
+    }
+    .show-tablet {
+      display: block;
+    }
+}

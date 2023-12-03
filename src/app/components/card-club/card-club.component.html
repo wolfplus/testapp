@@ -1,0 +1,56 @@
+<ng-container>
+  <div class="club-block flex d-col w-100 pos-rel">
+
+    <div class="block-image img-ratio-16-9 w-100 b-rad-3">
+      <ng-container *ngIf="club.photos">
+        <ion-img *ngIf="club.photos.length > 0"
+          [src]="pathFiles + club.photos[0].contentUrl"
+          class="my-club-img img-ratio"
+          alt="sport img"
+          (click)="showClub()"
+        >
+        </ion-img>
+      </ng-container>
+
+      <div *ngIf="distance"
+        class="distance">
+        {{ distance }} km
+      </div>
+      <div class="liked pos-abs-top-right" (click)="actionHeart()">
+        <app-svg-container
+          [svg]="heartIcon"
+          [inputClass]="'icon-m'"
+          [iconColor]="club?.isPreferred ? 'red' : 'white'">
+        </app-svg-container>
+      </div>
+      <div class="pos-abs-btm-left flex aic scroll-x-start do-p-1">
+        <app-activity-levels *ngFor="let activity of club?.activities"
+          class="dspl-blck do-mr-1"
+          [activityName]="activity?.name"
+          [activityIcon]="activity?.icon"
+          [colors]="activity?.colors">
+      </app-activity-levels>
+      </div>
+    </div>
+
+    <div class="block-bottom w-100 pl-1 pr-1 pb-1 b-rad-3">
+      <div class="block-info flex d-col">
+        <div class="card-title w-100">
+          {{ club.name }}
+        </div>
+        <!-- ({{ shortZipCode(club.zipCode) }}) -->
+        <div class="card-subtitle">
+          {{ club.city }}
+        </div>
+      </div>
+      <div class="flex aic jcc">
+        <ion-button
+          (click)="showBookingClub()"
+          class="btn-booking">
+          {{ 'btn.booking' | translate }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

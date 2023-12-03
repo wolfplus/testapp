@@ -1,0 +1,35 @@
+.card-conversation {
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+
+  .avatar {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+  }
+
+  .message-block {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* TODO: CSS variable */
+    background-color: #E6E9F0;
+    border-radius: 1rem;
+    padding: 1rem;
+
+    .actions-block {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      ion-button {
+        flex-basis: 100%;
+        &::part(native) {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+}

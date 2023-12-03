@@ -1,0 +1,27 @@
+<app-default-header  (back)="backAction()" [isNav]="false" [title]="'select_activity'" [subtitle]="''"></app-default-header>
+<ion-content>
+    <ng-container *ngIf="(activities$ | async) as activities">
+        <div *ngIf="activities && isLoaded" class="list-activities">
+            <div class="activity-card"
+                *ngFor="let activity of activities"
+                (click)="actionChoice(activity)"
+                [style]="'background-image: url(' + pathFiles + activity.photo?.contentUrl + '); background-size: cover;'"
+            >
+                <div class="title">{{activity.name}}</div>
+            </div>
+        </div>
+    </ng-container>
+    <div *ngIf="!isLoaded">
+        <div class="skeleton">
+            <ion-skeleton-text animated="true"></ion-skeleton-text>
+        </div>
+        <div class="skeleton">
+            <ion-skeleton-text animated="true"></ion-skeleton-text>
+        </div>
+
+        <div class="skeleton">
+            <ion-skeleton-text animated="true"></ion-skeleton-text>
+        </div>
+    </div>
+</ion-content>
+

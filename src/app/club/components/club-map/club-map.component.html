@@ -1,0 +1,10 @@
+<div *ngIf="(clubIsLoaded$ | async)"
+  class="map-container"><!-- (click)="openClubMap()" -->
+  <img #imgMap id="imgMap" alt="" height="100"/>
+</div>
+
+<div *ngIf="(clubIsLoaded$ | async) === (false || null || undefined)">
+  <ion-thumbnail class="w-100" style="height: 33vh;">
+    <ion-skeleton-text animated style="height: 33vh;border-radius:15px;"></ion-skeleton-text>
+  </ion-thumbnail>
+</div>

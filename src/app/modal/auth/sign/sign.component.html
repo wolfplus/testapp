@@ -1,0 +1,72 @@
+<ng-container [ngSwitch]="portal">
+    <ng-container *ngSwitchCase="'sign'">
+        <ion-content class="container-sign" style="background: var(--app-dark-or-not-color)!important;">
+            <div class="flex aic jcc d-col h-100">
+                <div>
+                    <img [src]='logoUrl' class='logo-app' (error)="updateUrlLogo($event)" alt='application logo' />
+                    <img *ngIf="!env.useMb" [src]="logoImage" (error)="updateUrlLogo($event)" class='illustration-app' alt='application logo' />
+                    <div class="explanation-text flex aic jcc">
+                        {{ 'connect_account_text' | translate }}
+                    </div>
+                </div>
+                <ion-grid class="bloc-action flex d-col jcse do-px-2">
+                    <ion-row>
+                        <ion-col class="continue" (click)="close()">
+                            <div class="w-100 t-center cursor-continue">
+                                {{ 'continue_as_a_guest' | translate }}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6" class="col-btn">
+                            <ion-button
+                                data-test="iHaveAnAccount"
+                                mode="ios"
+                                expand="block"
+                                class="btn-next btn-signin"
+                                (click)="goToSignIn()">
+                                <div class="do-p-2">
+                                    {{ 'i_have_an_account' | translate }}
+                                </div>
+                            </ion-button>
+                        </ion-col>
+                        <ion-col size="6" class="col-btn">
+                            <ion-button
+                                mode="ios"
+                                fill="outline"
+                                expand="block"
+                                class="btn-next btn-signup do-btn"
+                                (click)="goToSignUp()">
+                                <div class="do-p-2">
+                                    {{ 'signup' | translate }}
+                                </div>
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <app-select-locale></app-select-locale>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        
+            <div class="border-bottom-left"></div>
+            <div class="border-bottom-right"
+                [ngClass]="{
+                    'color-primary': secondaryColorIsWhite,
+                    'color-secondary': !secondaryColorIsWhite
+                }"
+            >
+            </div>
+        </ion-content>
+    </ng-container>
+    <ng-container *ngSwitchCase="'signin'">
+        <app-sign-in [ngStyle]="{'height': '100%', 'overflow': 'auto'}" (event)="portal = 'signup'; setMail = $event;"></app-sign-in>
+    </ng-container>
+    <ng-container *ngSwitchCase="'signup'">
+      <app-sign-up [ngStyle]="{'height': '60%'}" (event)="portal = 'signin'" [setMail]="setMail"></app-sign-up>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+    </ng-container>
+</ng-container>

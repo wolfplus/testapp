@@ -1,0 +1,63 @@
+
+<ion-header class="header-account">
+  <ion-toolbar class="toolbar-account">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{'my_account' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ng-container *ngIf="userData && isLoaded">
+  <ion-content
+    #pageContent
+    [scrollEvents]="true">
+    <app-header-account
+      [userData$]="userData$"
+      class="header dspl-blck">
+    </app-header-account>
+    <app-tabs-account
+      class="dspl-blck z-index-2"
+      [userData]="userData"
+      [selectedView]="selectedTab"
+      (changeTab)="changeTab($event)">
+    </app-tabs-account>
+    <app-profil-account *ngIf="selectedTab == 'PROFIL'"
+      [bookings]="bookings"
+      [nextBookings]="nextBookings"
+      [pastBookings]="pastBookings"
+      [userData]="userData"
+      (refreshData)="refreshLevels()">
+    </app-profil-account>
+    <ion-skeleton-text *ngIf="!isLoaded" animated class="card-my-booking-skeleton" style="height: 120px; width:92%; margin: auto;"></ion-skeleton-text>
+    <app-informations-account *ngIf="selectedTab == 'INFORMATIONS'"
+      [userId]="userData['id']"
+      (logout)="logout()"
+      (refreshData)="refreshLevels()">
+    </app-informations-account>
+  </ion-content>
+</ng-container>
+
+<ng-container *ngIf="!userData && !isLoaded">
+  <div class="flex d-col jcc loading-style">
+    <div class="pos-rel do-mb-4">
+      <ion-skeleton-text animated
+        class="profil-header-skeleton">
+      </ion-skeleton-text>
+      <div class="avatar-skeleton-container">
+        <ion-thumbnail class="avatar-skeleton">
+          <ion-skeleton-text animated style="border-radius:50%;"></ion-skeleton-text>
+        </ion-thumbnail>
+      </div>
+    </div>
+    <ion-skeleton-text animated
+      class="levels-skeleton">
+    </ion-skeleton-text>
+    <ion-skeleton-text animated
+      class="bookings-skeleton">
+    </ion-skeleton-text>
+    <ion-skeleton-text animated
+    class="bookings-skeleton">
+    </ion-skeleton-text>
+  </div>
+</ng-container>

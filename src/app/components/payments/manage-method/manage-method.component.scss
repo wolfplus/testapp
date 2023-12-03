@@ -1,0 +1,32 @@
+.payment-method-choice {
+  min-height: 5rem;
+  border-radius: 1rem;
+  border: 1px solid;
+  background-color: var(--app-dark-or-not-color);
+  padding: 1rem;
+  font-weight: bold;
+}
+
+ion-select::part(icon){
+  .select-icon-inner {
+    left:0!important;
+  }
+}
+
+ion-item::part(native) {
+  padding: 0!important;
+}
+
+.seg-providers {
+  margin-top: 1rem;
+  color: #2e3138;
+}
+
+.icon-card {
+  object-fit: contain;
+}
+
+app-e-pay {
+  width: 100%;
+  width: -moz-available;
+}

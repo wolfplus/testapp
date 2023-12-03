@@ -1,0 +1,34 @@
+<div class="avatar-name-container pos-rel flex">
+  <div class="img-container">
+    <ion-avatar [ngStyle]="{'width': imageSize, 'height': imageSize}">
+      <!-- <img *ngIf="!imageUrl"
+        src="assets/images/avatar.png" alt="avatar"> -->
+      <img *ngIf="imageUrl === undefined"
+        src="{{ 'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + nameForAvatar }}"
+        alt="">
+      <img *ngIf="imageUrl"
+        src="{{ baseUrl + imageUrl }}" alt="">
+    </ion-avatar>
+  </div>
+  <div class="text-container flex d-col jcc aifs h-100"
+    [ngClass]="{
+      'tablet-participant-price': fontSizes == FontSize.TABLET_PARTICIPANT_PRICE,
+      'tablet-location': fontSizes == FontSize.TABLET_LOCATION,
+      'small-fonts': fontSizes == FontSize.SMALL,
+      'medium-fonts': fontSizes == FontSize.MEDIUM,
+      'large-fonts': fontSizes == FontSize.LARGE,
+      'light-text': colorStyle == ColorStyle.LIGHT,
+      'dark-text': colorStyle == ColorStyle.DARK
+    }">
+    <div class="title">
+      {{ titleToDisplay }}
+    </div>
+    <div class="subtitle">
+      {{ subtitle }}
+    </div>
+  </div>
+  <div class="flex h-100">
+    <!-- select="extra" -->
+    <ng-content></ng-content>
+  </div>
+</div>

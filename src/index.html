@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Réservez en quelques clics</title>
+
+  <base href="/" />
+
+  <meta name="color-scheme" content="light dark" />
+  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
+  <!-- Add Stripe library-->
+
+  <!-- add to homescreen for ios -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <!-- theme and plugins. should be loaded in the HEAD section -->
+  <link rel="stylesheet"
+  href="https://epaync.nc/static/js/krypton-client/V4.0/ext/classic-reset.min.css">
+  <script
+      src="https://epaync.nc/static/js/krypton-client/V4.0/ext/classic.js">
+  </script>
+  <style>
+    .kr-payment-button {
+      display: none !important;
+    }
+  </style>
+  <style>
+    .kr-security-code .kr-visibility-button {
+      width: 30px !important;
+    }
+
+    .kr-pan .kr-icon-wrapper-root.kr-multi-brand {
+      margin-right: 12px !important;
+    }
+
+    .kr-embedded .kr-form-error.kr-form-error-visible {
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body>
+  <app-root></app-root>
+  <script src="https://js.stripe.com/v3/"></script>
+</body>
+
+</html>

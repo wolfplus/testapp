@@ -1,0 +1,29 @@
+<ion-header>
+    <ion-toolbar color="'var(--app-dark-or-not-color)'" class="do-pt-1">
+        <ion-buttons slot="start">
+          <ion-button (click)="back()">
+            <ion-icon src="assets/icon/globals/arrow-back.svg">
+            </ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="page-title">{{ 'wallet' | translate }}</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+<div class="block-wallet inner-content">
+    <div class="balance">
+        {{ wallet.balance | price_format : currency }}
+    </div>
+</div>
+
+<ion-footer>
+    <ion-button (click)="consumeWallet(wallet)"
+        data-test="pay-with-wallet"
+        class="btn-next"
+        mode="ios"
+        [disabled]="wallet.balance + (wallet.overdraftAuthorized !== undefined ? wallet.overdraftAuthorized : 0) <= 0">
+        <div class="do-p-2">
+            {{ 'consume_wallet' | translate }}
+        </div>
+    </ion-button>
+</ion-footer>

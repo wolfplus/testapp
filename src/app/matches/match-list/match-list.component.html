@@ -1,0 +1,90 @@
+<ion-list class="wrapper-tablet" *ngIf="(matchesAreLoaded$ | async) === true || isLoadingMoreData === true">
+
+  <div class="d-flex flex-wrap show-tablet">
+    <div *ngFor="let match of matches$ | async; let i = index;" class="separated">
+      <app-match-card
+      [match]='match'
+      [userId]='userId'
+      [config]="MatchCardConfig.FULL"
+      (reloadMatches)="reload($event)">
+    </app-match-card>
+    </div>
+  </div>
+
+  <div *ngFor="let match of matches$ | async; let i = index;"
+    class="match-card hide-tablet">
+    <app-match-card
+      [match]='match'
+      [userId]='userId'
+      [config]="MatchCardConfig.FULL"
+      (reloadMatches)="reload($event)">
+    </app-match-card>
+  </div>
+
+</ion-list>
+<!-- TODO: translation -->
+<div *ngIf="(matches$ | async)?.length < 1 && (matchesAreLoaded$ | async) === true && ((matchesLoadingError$ | async) === null || (matchesLoadingError$ | async) === undefined)"
+  class="flex d-col jcfs aic do-p-2">
+  <div class="flex jcc do-pt-2 do-pb-2 do-pl-7 do-pr-7 w-100">
+    <img class="no-match-tablet" src="assets/images/illustrations{{(env.useMb)?'_' + env.marqueBlanche.pathName:''}}/no_match.svg" alt="">
+  </div>
+  <!-- <div class="request-result-title do-pt-2 do-pb-2">
+    {{ 'oops' | translate }}
+  </div> -->
+  <div *ngIf="!env.useMb"
+    class="request-result-text do-pt-2 do-pb-2">
+    <div>{{ 'match_no_results_general' | translate }}</div>
+    <div>{{ 'increase_radius' | translate }}</div>
+  </div>
+
+  <div *ngIf="env.useMb"
+    class="request-result-text do-pt-2 do-pb-2">
+    <div>{{ 'match_no_results_wl' | translate }}</div>
+    <div>{{ 'try_another_day' | translate }}</div>
+  </div>
+
+</div>
+<div *ngIf="(matchesLoadingError$ | async) !== undefined"
+  class="flex d-col jcfs aic do-p-2">
+  <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+    <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/error.svg" alt="">
+  </div>
+  <!-- <div class="resuest-result-title do-pt-2 do-pb-2">
+    {{ 'oops' | translate }}
+  </div> -->
+  <div class="request-result-text do-pt-2 do-pb-2">
+    <div>{{ (matchesLoadingError$ | async) }}</div>
+  </div>
+</div>
+
+<!-- SKELETON -->
+<div *ngIf="( ( ( (matchesAreLoaded$ | async) === false && isLoadingMoreData === false ) ||
+            ((matchesAreLoaded$ | async) === undefined && isLoadingMoreData === false ) ) &&
+            (matchesLoadingError$ | async) === undefined && (matchesAreLoading$ | async) === true ) ||
+            ((matchesAreLoaded$ |async) === false &&
+            (matchesAreLoading$ |async) === false &&
+            (matchesLoadingError$ |async) === undefined)"
+  class="do-p-2">
+  <ion-thumbnail style="height:33vh; width:100%;border-radius:5px;margin-bottom:2rem;">
+    <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+  </ion-thumbnail>
+  <ion-thumbnail style="height:33vh; width:100%;border-radius:5px;margin-bottom:2rem;">
+    <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+  </ion-thumbnail>
+</div>
+
+<!-- TODO; add a class for loading errors -->
+<!-- <div *ngIf="matchesLoadingError !== null"
+  class="error-message">
+  {{ 'match_loading_error_text' | translate }} {{ matchesLoadingError }}
+</div> -->
+<ion-infinite-scroll
+  threshold="50px"
+  (ionInfinite)="loadMoreData($event)">
+  <!-- TODO: translate loading text -->
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="{{'loading_more_matches' | translate }}">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+

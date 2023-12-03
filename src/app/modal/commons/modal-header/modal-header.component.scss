@@ -1,0 +1,31 @@
+.header {
+  .subtitle {
+    display: block;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: var(--app-font-size);
+    font-weight: 800;
+    padding-bottom: 0.2rem;
+  }
+  .basket {
+    right: 1rem;
+    top: 1.8rem;
+    .content {
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+      .price {
+        font-size: var(--app-font-size);
+        position: relative;
+        top: -0.5rem;
+      }
+      ion-badge {
+        position: relative;
+        left: 0.3rem;
+      }
+      ion-icon {
+        font-size: 2rem;
+      }
+    }
+  }
+}

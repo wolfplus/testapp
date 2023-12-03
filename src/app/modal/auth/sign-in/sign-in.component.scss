@@ -1,0 +1,190 @@
+.sign-container {
+
+  img.logo_app {
+    display: block;
+    max-width: 50vw;
+    max-height: 33%;
+    margin: 2rem auto 0;
+    transition: all 2s ease;
+  }
+
+
+
+  .card-sign-in {
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // margin: 2rem auto;
+    /* TODO: CSS variable */
+    border-radius: .9rem;
+  }
+
+  .card-sign-in.error {
+    label {
+      color: var(--ion-color-danger);
+    }
+    .error-message {
+      margin-top: 1rem;
+      color: var(--ion-color-danger);
+      font-weight: 600;
+      font-size: 1.3rem;
+    }
+  }
+
+
+}
+
+input.password-input {
+  border-radius: .5rem;
+  /* TODO: replace with class or variable */
+  border: 1px solid #adadad;
+  font-size: 2rem;
+  font-weight: 700;
+  min-height: 3rem;
+  max-height: 3rem;
+  text-align: left;
+  padding-left: 1rem;
+  display: block;
+  width: 100%;
+}
+
+.forgot-password {
+  text-align: center;
+}
+
+.input-phone-css {
+  width: 100%;
+}
+
+img.close {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  width: 1.5rem;
+}
+
+/* .full-footer {
+  min-height: 90%;
+} */
+.display-input-tablet {
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .cursor-continue {
+      cursor: pointer;
+    }
+    .continue {
+      font-size: 1.7rem !important;
+      font-style: italic !important;
+    }
+    .logo_app {
+      max-width: 13vw !important;
+      max-height: 30% !important;
+    }
+    .update-password-img{
+      max-width: 7vw !important;
+      max-height: 15% !important;
+    }
+    .title {
+      font-size: 3rem !important;
+    }
+    .subtitle {
+      font-size: 2rem !important;
+    }
+    .create-account {
+      font-style: italic !important;
+      font-size: 1.7rem !important;
+      cursor: pointer !important;
+    }
+    .do-p-2 {
+      font-size: 2rem !important;
+    }
+    .display-input-tablet {
+      display: initial;
+    }
+    .display-input-normal {
+      display: none;
+    }
+    .title {
+      text-align: center;
+      font-weight: 700;  
+    }
+}
+
+.sign-in-btns-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign-in-btns {
+  margin: 0;
+  &:first-child {
+    margin-right: 30px;
+  }
+}
+
+.link-text {
+  font-weight: bold;
+}
+
+.email-input {
+  padding: 0px 30px !important;
+  border-radius: 0.5rem;
+  border: 1px solid #E8E8E8;
+}
+
+.form-group {
+  position: relative;
+  img {
+    position: absolute;
+    top: 17px;
+    z-index: 2;
+    width: 20px;
+  }
+  .eye {
+    right: 12px;
+    cursor: pointer;
+  }
+  .first {
+    left: 12px;
+  }
+}
+
+.continue {
+  width: 100%;
+  color: var(--ion-color-primary);
+  font-weight: 800;
+  .forgot-password {
+    margin-top: 4rem;
+  }
+}
+
+.return-login {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 22px;
+}
+
+.register-now {
+  margin-top: 35%;
+}
+
+.biometric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.cgu-link {
+  display: block;
+  text-align: center;
+  padding: 20px;
+  color: black;
+}

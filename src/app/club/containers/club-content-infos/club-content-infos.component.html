@@ -1,0 +1,16 @@
+<div> <!--  *ngIf="!contentIsLoaded$ | async" -->
+  <app-club-timetable class="app-container"></app-club-timetable>
+  <app-about-club class="app-container"></app-about-club>
+  <app-club-activities class="app-container"></app-club-activities>
+  <app-club-location class="app-container"></app-club-location>
+  <app-club-services class="app-container"></app-club-services>
+  <!-- <app-club-reviews class="app-container"></app-club-reviews> -->
+  <app-club-map 
+    class="app-container mb-3"
+  >
+  </app-club-map>
+  <app-button-round *ngIf="contentIsLoaded$ | async"
+    textKey="book_now"
+    (click)="bookNow()">
+  </app-button-round>
+</div>

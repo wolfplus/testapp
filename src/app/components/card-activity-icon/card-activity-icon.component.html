@@ -1,0 +1,25 @@
+<!--  (click)="addActivity()"  -->
+<div class="filter-tag-btn"
+  data-test="card-activity-icon"
+  [ngClass]="{'active': isSelected}">
+  <!-- TODO: get the images from the api -->
+  <div class="flex jcc aic pos-rel w-100 h-100 z-index-99">
+    <app-svg-container *ngIf="icon && isSelected"
+      [svg]="icon"
+      [inputClass]="'icon-m'">
+    </app-svg-container>
+    <div class="label-container">
+      {{ title }}
+      <!-- {{ title | slice:0:10 }} -->
+    </div>
+  </div>
+  <div *ngIf="backgroundImgUrl"
+    class="bg-img-container">
+    <img [src]="backgroundImgUrl" alt=""
+      class="bg-img">
+  </div>
+  <div *ngIf="isSelected"
+    class="bg-overlay"
+    [ngStyle]="setGradient()">
+  </div>
+</div>

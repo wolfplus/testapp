@@ -1,0 +1,57 @@
+<ion-header>
+    <app-header-club
+        [club]="club"
+        [activities]="activities"
+        [isPreferred]="isAPreferredClub"
+        (closeAction)="close()"
+        (changePref)="changePref()">
+    </app-header-club>
+    <div *ngIf="club"
+        class="flex aic jcsb do-py-1 do-px-2">
+        <app-avatar-name
+            class="dspl-blck w-100 display-normal"
+            [imageUrl]="club.logo?.contentUrl"
+            [imageSize]="'14vw'"
+            [title]="club.name"
+            [subtitle]="club.address[0] + ', ' + club.zipCode + ', ' + club.city"
+            [fontSizes]="FontSize.LARGE"
+            [colorStyle]="ColorStyle.DARK">
+        </app-avatar-name>
+        <app-avatar-name
+        class="dspl-blck w-100 display-tablet"
+        [imageUrl]="club.logo?.contentUrl"
+        [imageSize]="'6vw'"
+        [title]="club.name"
+        [subtitle]="club.address[0] + ', ' + club.zipCode + ', ' + club.city"
+        [fontSizes]="FontSize.LARGE"
+        [colorStyle]="ColorStyle.DARK">
+    </app-avatar-name>
+        <app-club-distance
+            [clubLocation$]="clubLocation$"
+            [userLocation$]="userLocation$">
+        </app-club-distance>
+    </div>
+    <app-nav-bar-club *ngIf="!env.useMb" [selectedView]="selectedView" (changeView)="changeView($event)">
+    </app-nav-bar-club>
+</ion-header>
+<ion-content>
+    <app-information-club *ngIf="selectedView === 'informations' && club !== undefined"
+        [club]="club">
+    </app-information-club>
+    <app-match-club *ngIf="selectedView === 'matchs' && club !== undefined"
+        [clubId]="club?.id"
+        [userId]="user?.id">
+    </app-match-club>
+</ion-content>
+<ion-footer>
+    <ion-button
+        translucent="true"
+        mode="ios"
+        expand="block"
+        class="btn-next"
+        (click)="bookNow()">
+        <div class="do-p-2">
+            {{ 'book_now' | translate }}
+        </div>
+    </ion-button>
+</ion-footer>

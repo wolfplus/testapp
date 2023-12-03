@@ -1,0 +1,117 @@
+<app-default-header (back)="backAction()" [title]="prestation.label" [backgroundImage]="prestation.mainPhoto ? (env.pathFiles + prestation.mainPhoto?.contentUrl) : null"></app-default-header>
+<ion-content>
+    <div class="content-booking-group" *ngIf="ready">
+        <div class="description" [innerHTML]="prestation.description">
+        </div>
+        <div class="content-selection-participants">
+            <div class="section-title">{{ 'select_number_attenders' | translate}}</div>
+            <ion-grid style="padding: 0">
+                <ng-container *ngIf="from == 'formula'">
+                    <ion-row>
+                        <ion-col size="6" class="text-left">
+                            <div class="title-cat-participant">
+                                {{ 'players' | translate | titlecase }}
+                            </div>
+                        </ion-col>
+                        <ion-col size="1">
+                            <div class="btn-count" *ngIf="formulaParticipant > minParticipants" (click)="lessFormulaParticipant()">-</div>
+                        </ion-col>
+                        <ion-col size="4">
+                            <div class="count-val">{{ formulaParticipant }}</div>
+                        </ion-col>
+                        <ion-col size="1">
+                            <div class="btn-count" *ngIf="formulaParticipant < maxParticipants" (click)="addFormulaParticipant()">+</div>
+                        </ion-col>
+                    </ion-row>
+                </ng-container>
+
+                <ng-container *ngIf="from != 'formula'">
+                    <ion-row *ngFor="let cat of categories">
+                        <ion-col size="1">
+                            <ion-icon name="user" class="user-icon"></ion-icon>
+                        </ion-col>
+                        <ion-col size="5">
+                            <div class="title-cat-participant">
+                                {{ cat.category.label }}
+                            </div>
+                            <div class="subtitle-cat-participant">
+                                {{ cat.category.description }}
+                            </div>
+                        </ion-col>
+                        <ion-col size="1">
+                            <div class="btn-count" *ngIf="countParticipant.get(cat.category['@id']) > 0 && !(this.from === 'leisure' && this.categories.length === 1)" (click)="lessParticipant(cat.category['@id'])">-</div>
+                        </ion-col>
+                        <ion-col size="4">
+                            <div class="count-val">{{ countParticipant.get(cat.category['@id']) }}</div>
+                        </ion-col>
+                        <ion-col size="1">
+                            <div class="btn-count" (click)="addParticipant(cat.category['@id'])">+</div>
+                        </ion-col>
+                    </ion-row>
+                </ng-container>
+
+                <ion-row>
+                    <ion-col size="7">
+                        <div class="section-title">{{ 'select_a_date' |  translate }}</div>
+                    </ion-col>
+                    <ion-col size="5">
+                        <div (click)="showCalendar()" class="calendar-choice">{{ selectedDay | date: 'dd/MM/yyyy' }}</div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <div class="content-selection-slots">
+            <div class="section-title">{{'select_slot' | translate}}</div>
+            <div class="bloc-day" *ngFor="let dateShow of showDates">
+                <div class="bloc-day-header" (click)="showDate(dateShow)">
+                    <span>{{ dateShow | date : 'EEE dd MMMM yyyy' }}</span>
+                    <div [class]="(dateShow.format('yyyymmdd') == selectedDay.format('yyyymmdd'))?'arrow':'arrow-disabled'">
+                        <img src="assets/icon/globals/arrow-back.svg" class="icon-back">
+                    </div>
+                </div>
+                <div class="content-slots" *ngIf="dateShow.format('yyyymmdd') == selectedDay.format('yyyymmdd')">
+                    <ion-skeleton-text *ngIf="skeleton" animated class="slot-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text *ngIf="skeleton" animated class="slot-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text *ngIf="skeleton" animated class="slot-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text *ngIf="skeleton" animated class="slot-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text *ngIf="skeleton" animated class="slot-skeleton"></ion-skeleton-text>
+                    <ion-skeleton-text *ngIf="skeleton" animated class="slot-skeleton"></ion-skeleton-text>
+
+                    <ng-container *ngFor="let slot of availableSlots(); let i = index;">
+                        <div [ngClass]="{'disable': (totalParticipant() < 1 && from != 'formula'), 'slot-bloc': true}"
+                             (click)="selectSlot(slot)"
+                             *ngIf="(showMore || i < 6)"
+                        >
+                            <div class="date-bloc">{{slot.startAt}}</div>
+                            <div class="available" *ngIf="from != 'formula'">{{slot.available}} places dispo</div>
+                        </div>
+                    </ng-container>
+                    <div class="show-more" *ngIf="availableSlots().length > 6 && !showMore">
+                        <label (click)="showMoreSlots()">{{ 'see_more' | translate }} ></label>
+                    </div>
+                    <div *ngIf="availableSlots().length == 0 && !skeleton" class="no-dispo">{{'no_availability_at_date' |  translate }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!ready">
+        <ion-skeleton-text class="skeleton-1" animated="true" style="border-top-left-radius: 30px; border-top-right-radius: 30px"></ion-skeleton-text>
+        <ion-skeleton-text class="skeleton-1" animated="true"></ion-skeleton-text>
+    </div>
+
+    <div class="bloc-modal-choice" *ngIf="choicePlayground" (click)="closeModalPlayground($event)">
+
+        <div class="bloc-choice-playground">
+            <div class="section-title">
+                <span >{{'select_playground' | translate }}</span>
+            </div>
+            <div class="select-choices div-select">
+                <ion-select *ngIf="getAvailablePlaygrounds()" cancelText="{{'close' | translate }}" (ionChange)="changedPlayground($event)" interface="action-sheet" selectedText="{{selectedPlayground? selectedPlayground.name : ''}}">
+                    <ion-select-option *ngFor="let playground of getAvailablePlaygrounds()" [value]="playground">{{playground.name}}</ion-select-option>
+                </ion-select>
+            </div>
+
+            <ion-button class="refill-button" color="primary" (click)="confirmSelectedSlot()">{{ 'validate' | translate }}</ion-button>
+        </div>
+    </div>
+</ion-content>

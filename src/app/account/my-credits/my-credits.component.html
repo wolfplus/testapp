@@ -1,0 +1,64 @@
+<app-default-header
+    [title]="'my_credits'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div class="do-mt-2">
+        <div class="text text-content">{{'content_my_credits'|translate}}</div>
+        <div *ngIf="credits && credits.length">
+            <div class="block-credit" *ngFor="let data of credits">
+                <div class="club_name" *ngIf="data.credits.length > 0">
+                    {{data?.club?.name}}
+                </div>
+                <div *ngFor="let credit of data.credits; last as isLast" (click)="seeCreditDetails(credit)" class="credit-item do-px-2" [ngStyle]="{'border-bottom': isLast ? 'none' : 'solid 1px #f2f3f6'}">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="9">
+                                <div class="credit-name">{{credit.name}}</div>
+                                <div class="credit-expire" *ngIf="credit.expiresAt">{{'expired'|translate}}: {{credit.expiresAt|moment : 'DD-MM-YYYY'}}</div>
+                            </ion-col>
+                            <ion-col size="3">
+                                <div class="credit-balance">
+                                    <img src="assets/icon/account/coins.svg" class="coins" alt=""/>
+                                    <div>{{credit.balance}}</div>
+                                    <img src="assets/images/icons/chevron-forward-outline.svg" class="icon-next">
+                                </div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ancienne image d'erreur, remplacé par un skeleton -->
+
+        <div *ngIf="isLoaded && credits.length === 0">
+            <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+                <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_credits.svg" alt="">
+            </div>
+        </div>
+
+        <div *ngIf="!isLoaded">
+            <ion-list>
+                <ion-item>
+                    <ion-thumbnail slot="start">
+                        <ion-skeleton-text></ion-skeleton-text>
+                      </ion-thumbnail>
+                      <ion-label>
+                        <h3>
+                          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                        </h3>
+                        <p>
+                          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                        </p>
+                        <p>
+                          <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        </p>
+                      </ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+        
+    </div>
+</ion-content>

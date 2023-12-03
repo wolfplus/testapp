@@ -1,0 +1,42 @@
+.background {
+  --background: var(--background-gray);
+}
+
+.center-segment {
+  justify-content: center;
+}
+
+.no-product {
+  font-weight: bold;
+  font-size: large;
+}
+
+.no-product-img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+  margin-bottom: 5rem;
+  img {
+    height: 10rem;
+    width: 10rem;
+  }
+}
+
+.skeleton-shop {
+  margin-top: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .skeleton-text {
+    width: 80%;
+    height: 1rem;
+  }
+
+  .skeleton-card {
+    width: 100%;
+    height: 5rem;
+  }
+}

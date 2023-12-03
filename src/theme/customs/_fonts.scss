@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Panton-Regular';
+  font-style: normal;
+  src: url('../../assets/fonts/panton/Panton-Regular.ttf');
+  font-display: swap
+}
+
+@font-face {
+  font-family: 'Panton-Light';
+  font-style: normal;
+  src: url('../../assets/fonts/panton/Panton-Light.ttf');
+  font-display: swap
+}
+
+@font-face {
+  font-family: 'Panton-Black';
+  font-style:normal;
+  src: url('../../assets/fonts/panton/Panton-Black.ttf');
+  font-display: swap
+}
+
+.font-1-300 {
+  font-family: 'Panton-Regular';
+  font-weight: 300;
+}
+.font-1-400 {
+  font-family: 'Panton-Regular';
+  font-weight: 400;
+}
+.font-1-500 {
+  font-family: 'Panton-Regular';
+  font-weight: 500;
+}
+.font-1-600 {
+  font-family: 'Panton-Regular';
+  font-weight: 600;
+}

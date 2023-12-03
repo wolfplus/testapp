@@ -1,0 +1,87 @@
+.image-container {
+
+  img {
+    /* TODO: remove once pics are in the rigth format */
+    background: white;
+  }
+}
+
+.action-btns {
+  background: linear-gradient(180deg,rgba(2,0,36,0.500437675070028) 0%, rgba(0,0,0,0.2539390756302521) 35%, rgba(62,62,62,0.1026785714285714) 100%);
+}
+
+.back-button {
+
+  ion-icon[name="chevron-back-outline"] {
+    color: white;
+    font-size: 3rem;
+  }
+}
+
+.share-btn-container {
+  width: 3.5rem;
+
+  ion-icon {
+    color: white;
+    font-size: 3rem;
+  }
+}
+
+.event-detail-header-text {
+  z-index: 999;
+  margin-top: -1.5rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  position: relative;
+  // background: white;
+
+  .event-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  .event-location {
+    color: var(--ion-secondary-text-color);
+  }
+
+  .event-price {
+    height: 100%;
+    color: var(--ion-color-primary);
+
+    .price {
+      font-size: 1.4rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .per-pers {
+      font-size: 1.2rem;
+      text-transform: lowercase;
+    }
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .image-container{
+      padding-top: 20% !important;
+    }
+    .event-name {
+      font-size: 2.5rem !important;;
+    }
+    .event-location {
+      font-size: 1.8rem !important;;
+    }
+    .price {
+      font-size: 2rem !important;;
+    }
+    .per-pers {
+      font-size: 1.8rem !important;;
+    }
+    .shared-button {
+      cursor: pointer;
+    }
+}

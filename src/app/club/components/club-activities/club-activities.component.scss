@@ -1,0 +1,19 @@
+.activities-chips {
+  overflow-x: scroll;
+
+  .chip {
+    // TODO add a variable for chip background
+    background: #D2D7E4;
+    border-radius: .5rem;
+    font-weight: 400;
+    text-transform: capitalize;
+  
+    .activity-icon {
+      width: 2rem;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

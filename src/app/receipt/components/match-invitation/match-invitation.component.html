@@ -1,0 +1,17 @@
+<div class="card-conversation">
+    <ion-grid class="w-100">
+        <ion-row>
+            <ion-col size="10">
+                <div class="date">le {{notification.createdAt | moment: 'DD/MM/Y HH:mm'}}</div>
+                <div class="bloc-message">
+                    <div class="title">{{notification.content}}</div>
+                    <app-match-card *ngIf="match !== null"
+                        [match]="match"
+                        [config]="MatchCardConfig.SHORT">
+                    </app-match-card>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>
+

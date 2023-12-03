@@ -1,0 +1,29 @@
+<!-- *ngFor="let photo of club?.photos" -->
+<div class="img-ratio-16-9">
+    <ng-container *ngIf="club?.photos.length; else defaultImg">
+        <ion-img [src]="path + club?.photos[0].contentUrl" class="img-ratio">
+        </ion-img>
+    </ng-container>
+    <ng-template #defaultImg>
+        <ion-img [src]="'assets/images/banner_default.png'" class="img-ratio">
+        </ion-img>
+    </ng-template>
+    <app-header-actions
+    [isFavoris]="true"
+      (closeEvent)="close()"
+      (preferred)="changePreferred()"
+      [isPreferred]="isPreferred"
+      [deepLink]="deepLink"
+      [shareMessage]="shareMessage"
+      [shareSubject]="shareSubject"
+    ></app-header-actions>
+    <div *ngIf="activities"
+        class="pos-abs-btm w-100 scroll-x-start flex do-p-1">
+        <app-activity-levels *ngFor="let activity of activities"
+            class="dspl-blck do-mr-1"
+            [activityName]="activity.name"
+            [colors]="activity.colors"
+            [activityIcon]="activity.icon">
+        </app-activity-levels>
+    </div>
+</div>

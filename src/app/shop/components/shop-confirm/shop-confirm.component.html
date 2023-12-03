@@ -1,0 +1,89 @@
+<ion-content class="background">
+  <div class="page-title">{{ "shop_cart_your_cart" | translate }}</div>
+  <div class="block-info shadow-bottom-ligth">
+    <div class="flex jcsb margin-bottom" *ngFor="let shopItem of items">
+      <div class="flex d-row">
+        <div class="first-letter-cap flex count">{{ shopItem.count }} x</div>
+        <div class="first-letter-cap flex jcc">
+          {{ shopItem.item.name }}
+        </div>
+        <div class="gift" *ngIf="shopItem.item.customData">
+           ({{ 'gift' | translate }})
+        </div>
+      </div>
+      <div class="flex">
+        {{
+          shopItem.count * shopItem.item.unitaryPrice
+            | price_format: clubCurrency
+        }}
+      </div>
+    </div>
+    <div class="flex jcsb">
+      <div class="first-letter-cap flex label big-font">
+        {{ "booking_payment_price_details_total" | translate }}
+      </div>
+      <div class="flex label big-font">
+        {{ getTotalPriceToString() | price_format: clubCurrency }}
+      </div>
+    </div>
+  </div>
+  <div class="page-title">{{ "shop_cart_payment" | translate }}</div>
+  <div class="block-info shadow-bottom-ligth no-padding-lr">
+    <ion-list>
+      <ion-item *ngIf="platform.is('desktop') || platform.is('mobileweb')">
+        <app-stripe-payment (paymentData) = "paymentData($event)"></app-stripe-payment>
+      </ion-item>
+      <ion-item
+        *ngIf="(platform.is('ios') || platform.is('android')) && !platform.is('desktop') && !platform.is('mobileweb')"
+        detail="true"
+        (click)="presentCreditCardModal()"
+      >
+        <div *ngIf="selectedCreditCard == undefined">
+          {{ "add_payment_card" | translate }}
+        </div>
+        <ion-thumbnail *ngIf="selectedCreditCard" item-start class="do-mr-1">
+          <img
+            class="icon-card"
+            src="assets/icon/credit_card/{{ selectedCreditCard.type }}.png"
+            width="100%"
+          />
+        </ion-thumbnail>
+        <div class="selectedCard" *ngIf="selectedCreditCard">
+          <div class="flex aic jcsb">
+            <div class="card-number">
+              {{
+                (selectedCreditCard.number | hide_number_card) +
+                  " " +
+                  "-" +
+                  " " +
+                  selectedCreditCard.expMonth +
+                  "/" +
+                  selectedCreditCard.expYear
+              }}
+            </div>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item
+        *ngIf="client && client.wallet && restToPay > 0 && !withWallet && !noWallet"
+        detail="true"
+        (click)="presentWalletModal()"
+        data-test="open-wallet-modal"
+      >
+        {{ "use_wallet" | translate }}
+      </ion-item>
+      <ion-item
+        *ngFor="let payment of payments; let i = index"
+        (click)="removePayment(i)"
+      >
+        <span *ngIf="payment.provider === 'wallet'">
+          {{
+            ("cancel_use_wallet" | translate) +
+              " " +
+              (payment.amount | price_format: clubCurrency)
+          }}
+        </span>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

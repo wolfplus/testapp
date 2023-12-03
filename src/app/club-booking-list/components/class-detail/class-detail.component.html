@@ -1,0 +1,207 @@
+<ion-header>
+  <div class="image-container img-ratio-modal-header w-100 pos-rel">
+    <img src="{{ imageUrl }}" alt="" class="img-ratio" />
+    <div class="action-btns pos-abs-top flex jcsb w-100">
+      <div class="icon-back do-mt-2 do-mb-2 do-ml-2" (click)="dismiss(true)">
+        <ion-icon name="chevron-back"></ion-icon>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-border"></div>
+</ion-header>
+
+<ion-content fullscreen="true" *ngIf="booking">
+  <div class="content" style="position: relative;">
+    
+    <div class="title" style="width: 100%;" *ngIf="participated && isReady">
+      <span class="title-info" *ngIf="participated=='paid'">
+        <ion-icon name="star"></ion-icon>
+        {{"you-participate" | translate}}
+      </span>
+      <span class="title-info" *ngIf="participated=='in-queue' && (booking.userPositionInQueue !== null && booking.userPositionInQueue !== undefined)">
+        <ion-icon name="time"></ion-icon>
+        <div>{{"waiting-list-position" | translate}}</div>
+        &nbsp;<div>#{{booking.userPositionInQueue}}</div>
+      </span>
+    </div>
+
+    <div class="title" style="width: 100%;">
+      <span class="title-course">{{booking.name}}</span>
+    </div>
+    <!-- <span class="user-group">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 svg-group" viewBox="0 0 20 20" fill="currentColor">
+          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+        </svg>
+        <span *ngIf="booking.participantsCount < booking.maxParticipantsCountLimit && isReady" class="still-free">{{booking.participantsCount}}/{{booking.maxParticipantsCountLimit}}</span>
+        <span *ngIf="booking.participantsCount >= booking.maxParticipantsCountLimit && isReady" class="complete">COMPLET</span>
+        <ion-skeleton-text *ngIf="!isReady" class="complete"animated></ion-skeleton-text>
+    </span> -->
+
+    <div class="bloc-date">
+      <label class="date">{{booking.startAt | date:'fullDate' | titlecase}}</label>
+      <label class="activity">{{ booking.activity.name }}</label>
+    </div>
+
+    <div class="block-info">
+      <div class="info">
+        <div>{{'event_start' | translate}}</div>
+        <div>{{booking.startAt | date:'H:mm'}}</div>
+      </div>
+      <div class="vertical-separator"></div>
+      <div class="info">
+        <div>{{'duration' | translate}}</div>
+        <div>{{getDiffInMin()}}</div>
+      </div>
+      <div class="vertical-separator"></div>
+      <div class="info">
+        <div>{{'participants' | translate}}</div>
+        <div participantsInfoColor [participantsCount]="booking.participantsCount" [maxParticipantsCountLimit]="booking.maxParticipantsCountLimit">
+          <ng-container *ngIf="booking.participantsCount < booking.maxParticipantsCountLimit; else complete">
+            {{booking.participantsCount}} / {{booking.maxParticipantsCountLimit}} part.
+          </ng-container>
+
+          <ng-template #complete>
+            {{'complete' | translate}}
+          </ng-template>
+        </div>
+      </div>
+      
+      <!-- <div class="vertical-separator"></div> -->
+      <!-- <div class="info">
+        <div>{{'participants' | translate}}</div>
+        <ion-skeleton-text *ngIf="!isReady" class="complete"animated></ion-skeleton-text>
+        <div *ngIf="booking.participantsCount == 0 && isReady">{{'none' | translate}}</div>
+        <div class="participants" *ngIf="booking.participantsCount > 0 && isReady">
+          <ion-avatar  *ngIf="iconParticipants['hydra:totalItems'] > 5" style="background: var(--ion-color-primary);color: white;" class="avatar">
+            <span style="justify-content: center;">+{{iconParticipants['hydra:totalItems'] - 5}}</span>
+          </ion-avatar>
+          <ion-avatar class="avatar" *ngFor="let participant of iconParticipants['hydra:member'] | slice:0:5; index as i; last as last">
+            < !-- <span>{{i}}</span>
+            <img
+            src="{{
+              'https://eu.ui-avatars.com/api/?background=' +
+                'black' +
+                '&color=fff&name=' +
+                participant?.client?.firstName +
+                ' ' +
+                participant?.client?.firstName
+            }}"
+            />
+          </ion-avatar>
+        </div>
+      </div> -->
+    </div>
+    <div *ngIf="description && description.description && description.description.length > 0" class="block-description">
+      <div class="title title-description">{{'shop_item_detail_description' | translate}}</div>
+      <div class="description"></div>
+      <div 
+        class="description"
+        [innerHtml]="
+          sanitizer.bypassSecurityTrustHtml(
+            description.description
+          )
+        "
+      ></div>
+    </div>
+    <div class="block-level">
+      <div class="line">
+        <div class="level-title">{{'required_levels' | translate}}</div>
+        <label class="level-badge" *ngIf="booking.timetableBlockPrice.minActivityLevel; else all_levels">
+          <ng-container *ngIf="booking.timetableBlockPrice.minActivityLevel">
+            {{booking.timetableBlockPrice.minActivityLevel.label}}
+          </ng-container>
+
+          <ng-container *ngIf="booking.timetableBlockPrice.maxActivityLevel && (booking.timetableBlockPrice.maxActivityLevel.label != booking.timetableBlockPrice.minActivityLevel.label)">
+            &nbsp;-&nbsp;{{booking.timetableBlockPrice.maxActivityLevel.label}}
+          </ng-container>
+        </label>
+
+        <ng-template #all_levels>
+          <label class="level-badge">{{'all_levels' | translate}}</label>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="block-coach" *ngIf="booking.coaches?.length > 0">
+      <div class="rigth-part" *ngFor="let coach of booking.coaches">
+        <ion-avatar class="coach-avatar">
+          <img *ngIf="coach.avatar != null"
+            [src]="env.domainAPI + coach.avatar.contentUrl"
+          />
+          <img *ngIf="coach.avatar == null"
+          src="{{'https://eu.ui-avatars.com/api/?background=' + 'black' + '&color=fff&name=' + coach?.firstName + ' ' + coach?.lastName}}"
+          />
+        </ion-avatar>
+
+        <div class="coach-identity">
+          <div class="name">{{coach.firstName}} {{coach.lastName}}</div>
+          <div class="type">{{'coach' | translate}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+
+<ion-footer *ngIf="!isReady">
+  <ion-skeleton-text animated style="height: 60px;"></ion-skeleton-text>
+</ion-footer>
+<ion-footer *ngIf="participated && isReady">
+  <ion-button (click)="openModal()" *ngIf="participated=='no'" class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "btn.booking" | translate }}
+    </div>
+  </ion-button>
+
+  <div class="go-to-comments-btn">
+    <ion-button
+            size="large"
+            shape="round"
+            fill="solid"
+            color="primary"
+            (click)="goToComments()">
+      <ion-icon name="chatbubble-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-button (click)="openModal()" *ngIf="participated=='unpaid'"  class="btn-next btn-danger" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "paid_validate" | translate }}
+    </div>
+  </ion-button>
+  <ion-button (click)="openModal()" *ngIf="participated=='waiting-list'"  class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "subscribe-waiting-list" | translate }}
+    </div>
+  </ion-button>
+  <ion-button *ngIf="participated=='paid'" (click)="canceledAttender()" class="btn-next cancel" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "cancel" | translate }}
+    </div>
+  </ion-button>
+  <ion-button *ngIf="participated=='in-queue'" (click)="canceledAttender()" class="btn-next cancel" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "cancel-waiting-list" | translate }}
+    </div>
+  </ion-button>
+  <ion-button *ngIf="participated=='waiting'"  disabled="true" class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "join_course" | translate }} {{startMessage | date: 'd MMM y'}} à {{startMessage | date: 'HH:mm'}}
+    </div>
+  </ion-button>
+  <ion-button *ngIf="participated=='completed'"  disabled="true" class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "completed" | translate }}
+    </div>
+  </ion-button>
+  <ion-button *ngIf="participated=='no-required'" disabled="true"  class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "no-required-level" | translate }}
+    </div>
+  </ion-button>
+  <ion-button *ngIf="participated == 'no-access'" disabled="true" class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2">
+      {{ "reserved_subscriber" | translate }}
+    </div>
+  </ion-button>
+
+</ion-footer>

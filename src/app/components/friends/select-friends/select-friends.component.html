@@ -1,0 +1,163 @@
+<app-default-header
+        [title]="'add_participants'"
+        [subtitle]="" 
+        [showDone]="selectedFriendsCopy?.length !== selectedFriends?.length"
+        (actionDone)="closeModal(true)"
+        (back)="closeModal(false)">
+    <div class="input-search-block do-p-2">
+        <ion-input #inputSearchFriend
+                type="text"
+                placeholder="{{ 'search_friend_placeholder' | translate }}">
+            <img *ngIf="!showSearchSpinner"
+                 slot="start"
+                 src="assets/icon/home/header/search-icon.svg" >
+            <div *ngIf="showSearchSpinner"
+                 slot="start"
+                 [ngClass]="{'load-complete': searchComplete, 'load-error': displaySearchErrorMessage}"
+                 class="circle-loader do-m-1">
+                <div *ngIf="searchComplete && displaySearchErrorMessage === false"
+                     class="checkmark draw"
+                     [ngClass]="{'block': searchComplete}">
+                </div>
+                <div *ngIf="searchComplete && displaySearchErrorMessage === true"
+                     class="cross draw"
+                     [ngClass]="{'block': searchComplete}">
+                </div>
+            </div>
+        </ion-input>
+    </div>
+</app-default-header>
+
+<ion-content>
+    <div *ngIf="displaySkeleton"
+    class="flex user-skeleton last do-p-2">
+    <ion-avatar slot="start" class="flex jcc aic">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-avatar>
+    <ion-label class="flex asc">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-label>
+</div>
+
+    <div *ngIf="!displaySkeleton && searchResults.length === 0 && hasLoaded" class="friend-list do-p-2">
+        <ng-container *ngFor="let user of preSearchUsersToShow">
+            <div class="flex aic jcsb do-mb-2">
+                <app-avatar-name  *ngIf="user"
+                    class="dspl-blck hide-tablet"
+                    [imageUrl]="user.avatar !== null ? user.avatar.contentUrl : undefined"
+                    [imageSize]="'12vw'"
+                    [title]="user.firstName + ' ' + user.lastName"
+                    [subtitle]="user.levelToDisplay"
+                    [fontSizes]="FontSize.MEDIUM"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+                <app-avatar-name  *ngIf="user"
+                    class="dspl-blck show-tablet"
+                    [imageUrl]="user.avatar !== null ? user.avatar.contentUrl : undefined"
+                    [imageSize]="'5vw'"
+                    [title]="user.firstName + ' ' + user.lastName"
+                    [subtitle]="user.levelToDisplay"
+                    [fontSizes]="FontSize.MEDIUM"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+                <ion-button *ngIf="((levelRequired && user.hasRequiredLevel) ||
+                                    !levelRequired) &&
+                                    !user.hasBeenAdded"
+                    (click)="addFriend(user);"
+                    data-test="add-friend-button">
+                    <span *ngIf="action === 'add'">
+                        {{ 'add' | translate }}
+                    </span>
+                    <span *ngIf="action === 'invite'">
+                        {{ 'invite' | translate }}
+                    </span>
+                </ion-button>
+                <ion-button *ngIf="((levelRequired && user.hasRequiredLevel) ||
+                                    !levelRequired) &&
+                                    user.hasBeenAdded"
+                    fill="solid"
+                    color="light"
+                    (click)="removeFriend(user); user.hasBeenAdded = false;">
+                    <ion-icon name="checkmark-outline"
+                        slot="start"
+                        color="medium">
+                    </ion-icon>
+                    <span *ngIf="action === 'add'">
+                        {{ 'added' | translate }}
+                    </span>
+                    <span *ngIf="action === 'invite'">
+                        {{ 'invited' | translate }}
+                    </span>
+                </ion-button>
+            </div>
+        </ng-container>
+    </div>
+    <div *ngIf="!displaySkeleton && searchResults.length > 0 && hasLoaded" class="friend-list do-p-2">
+        <ng-container *ngFor="let res of searchResults">
+            <div class="flex aic jcsb do-mb-2">
+                <app-avatar-name  *ngIf="res"
+                    class="dspl-blck hide-tablet"
+                    [imageUrl]="undefined"
+                    [imageSize]="'12vw'"
+                    [title]="res.firstName + ' ' + res.lastName"
+                    [subtitle]="res.levelToDisplay"
+                    [fontSizes]="FontSize.MEDIUM"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+                <app-avatar-name  *ngIf="res"
+                    class="dspl-blck show-tablet"
+                    [imageUrl]="undefined"
+                    [imageSize]="'5vw'"
+                    [title]="res.firstName + ' ' + res.lastName"
+                    [subtitle]="res.levelToDisplay"
+                    [fontSizes]="FontSize.MEDIUM"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+                <ion-button *ngIf="((levelRequired && res.hasRequiredLevel) ||
+                                    !levelRequired) &&
+                                    !res.hasBeenAdded"
+                    (click)="addFriend(res);"
+                    data-test="add-friend-button">
+                    <span *ngIf="action === 'add'">
+                        {{ 'add' | translate }}
+                    </span>
+                    <span *ngIf="action === 'invite'">
+                        {{ 'invite' | translate }}
+                    </span>
+                </ion-button>
+                <ion-button *ngIf="((levelRequired && res.hasRequiredLevel) ||
+                                    !levelRequired) &&
+                                    res.hasBeenAdded"
+                    fill="solid"
+                    color="light"
+                    (click)="removeFriend(res); res.hasBeenAdded = false;">
+                    <ion-icon name="checkmark-outline"
+                        slot="start"
+                        color="medium">
+                    </ion-icon>
+                    <span *ngIf="action === 'add'">
+                        {{ 'added' | translate }}
+                    </span>
+                    <span *ngIf="action === 'invite'">
+                        {{ 'invited' | translate }}
+                    </span>
+                </ion-button>
+            </div>
+        </ng-container>
+    </div>
+
+    <ion-skeleton-text *ngIf="(!preSearchUsersToShow || preSearchUsersToShow.length < 1) && typeOfUser === 'friend' && !hasLoaded" class="card-no-friends" animated></ion-skeleton-text>
+
+     <div *ngIf="!displaySkeleton && (!preSearchUsersToShow || preSearchUsersToShow.length < 1) && ((typeOfUser === 'friend' && hasLoaded) || (typeOfUser === 'customer'))">
+        <div *ngIf="typeOfUser == 'friend'" class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_friend.svg" alt="">
+        </div>
+        <div *ngIf="typeOfUser == 'friend'" class="do-p-2 text-center">
+            {{ 'no_friends_added_yet' | translate }}
+        </div>
+        <div *ngIf="typeOfUser == 'customer' && searchResults.length === 0" class="do-p-2 text-center">
+            {{ 'search_customer' | translate }}
+        </div>
+    </div>
+</ion-content>
+

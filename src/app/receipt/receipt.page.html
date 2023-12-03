@@ -1,0 +1,25 @@
+<ion-header translucent="true">
+  <ion-toolbar color="var(--app-dark-or-not-color)">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <div class="title" style="color: var(--app-dark-or-not-color-contrast)">{{ 'inbox' | translate }}</div>
+  </ion-toolbar>
+  <app-tabs-receipt class="header"
+    (changeView)="changeView($event)">
+  </app-tabs-receipt>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed"
+    (ionRefresh)="refresh($event)">
+    <ion-refresher-content
+      pullingIcon=null
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <app-notifications *ngIf="view === 'NOTIFICATIONS'"
+    [refresh$]="refresh$">
+  </app-notifications>
+  <app-invits *ngIf="view === 'INVITS'">
+  </app-invits>
+</ion-content>

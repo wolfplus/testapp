@@ -1,0 +1,52 @@
+.detail-club {
+  min-height: 9rem;
+  max-height: 9rem;
+  width: 100%;
+
+  .title {
+    font-weight: 800;
+    font-size: 1.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .subtitle {
+    font-weight: 500;
+    font-size: var(--app-font-size);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .logo-club {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 2pt 3pt rgba(0,0,0,0.02);
+  }
+
+  .distance {
+    display: inline-flex;
+    border-radius: 3rem;
+    background-color: var(--ion-color-primary);;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 2pt 3pt;
+  }
+}
+
+.display-tablet{
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .display-tablet{
+        display: initial;
+    }
+    .display-normal {
+      display: none;
+    }
+  }
+

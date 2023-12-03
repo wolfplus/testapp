@@ -1,0 +1,12 @@
+<div *ngIf="(distance$ | async) as distance"
+  class="club-distance flex aic">
+  <div *ngIf="showIcon"
+    class="icon-container flex do-mr-0-5">
+    <img src="assets/images/icons/map_pin_icon.svg" alt="">
+  </div>
+  <div
+    class="distance-container flex jcc aib">
+    <div class="distance-number do-mr-0-5">{{ distance }}</div>
+    <div class="distance-km">km</div>
+  </div>
+</div>

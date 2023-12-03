@@ -1,0 +1,58 @@
+<ion-header>
+    <app-default-header [title]="'your_payment'"
+        [subtitle]=""
+        (back)="close()"
+        [backgroundImage]="env.pathFiles + this.booking.club?.mainPhoto?.contentUrl"
+    >
+    </app-default-header>
+</ion-header>
+<ion-content>
+    <div *ngIf="booking && client && timetableBlockPrice"
+        class="container">
+        <app-manage-method
+            [participant]="participant"
+            [booking]="booking"
+            [price]="timetableBlockPrice"
+            [methods]="methods"
+            [cart]="cart"
+            [club]="booking.club"
+            [client]="client"
+            [from]="'booking_attender'"
+            [restToPay]="restToPay"
+            (backPayments)="getPayments($event)"
+            (changeMethod)="changeMethod($event)"
+            (changeProviderBack)="changeProvider($event)"
+            (creditCardSelected)="updateSelectedCard($event)"
+            (triggerPaymentData)="triggerPaymentData($event)">
+        </app-manage-method>
+    </div>
+</ion-content>
+
+<ion-footer >
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-button *ngIf="selectedMethod === 'per_participant' && restToPay > 0"
+                    mode="ios"
+                    expand="block"
+                    class="btn-next"
+                    (click)="confirmPayments()"
+                    [disabled]="!webStripeElementCompleted"
+                >
+                    <div class="do-p-2">
+                        {{ restToPay | price_format : club.currency }} - {{ 'confirm_booking.paid_validate' | translate }}
+                    </div>
+                </ion-button>
+                <ion-button *ngIf="selectedMethod !== 'on_the_spot' && restToPay <= 0"
+                    mode="ios"
+                    expand="block"
+                    class="btn-next"
+                    (click)="confirmPayments()">
+                    <div class="do-p-2">
+                        {{ 'confirm_booking.validate' | translate }}
+                    </div>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-footer>

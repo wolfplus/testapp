@@ -1,0 +1,128 @@
+[
+  {
+    "group": "profil",
+    "show": true,
+    "children": [
+      {
+        "name": "title_information",
+        "link": "/account/informations",
+        "component": "InformationsComponent",
+        "show": true
+      },
+      {
+        "name": "title_sports",
+        "link": "/account/my-activities",
+        "component": "ActivitiesComponent",
+        "show": true
+      },
+      {
+        "name": "title_preferences",
+        "link": "/account/my-preferences",
+        "component": "MyPreferencesComponent",
+        "show": false
+      },
+      {
+        "name": "title_friends",
+        "link": "/account/my-friends",
+        "component": "MyFriendsComponent",
+        "show": true
+      },
+      {
+        "name": "title_favoris",
+        "link": "/account/my-clubs",
+        "component": "MyClubsComponent",
+        "show": false
+      }
+    ]
+  },
+  {
+    "group": "complexe",
+    "show": true,
+    "children": [
+      {
+        "name": "title_bookings",
+        "link": "/account/my-bookings",
+        "component": "MyBookingsComponent",
+        "show": true
+      },
+      {
+        "name": "title_courses",
+        "link": "/account/my-courses",
+        "component": "MyCoursesComponent",
+        "show": true
+      },
+      {
+        "name": "title_events",
+        "link": "/account/my-events",
+        "component": "MyEventsComponent",
+        "show": false
+      },
+      {
+        "name": "title_subscriptions",
+        "link": "/account/my-subscriptions",
+        "component": "MySubscriptionsComponent",
+        "show": true
+      },
+      {
+        "name": "my_consumption",
+        "link": "/account/my-consumption",
+        "component": "MyConsumptionComponent",
+        "show": true
+      },
+      {
+        "name": "title_credits",
+        "link": "/account/my-credits",
+        "component": "MyCreditsComponent",
+        "show": true
+      },
+      {
+        "name": "title_wallet",
+        "link": "/account/my-wallets",
+        "component": "MyWalletsComponent",
+        "show": true
+      },
+      {
+        "name": "title_operations",
+        "link": "/account/my-operations",
+        "component": "MyOperationsComponent",
+        "show": false
+      }
+    ]
+  },
+  {
+    "group": "other",
+    "show": true,
+    "children": [
+      {
+        "name": "title_payment_method",
+        "link": "/account/my-payment-type",
+        "component": "MyPaymentTypeComponent",
+        "show": true
+      },
+      {
+        "name": "title_params",
+        "link": "/account/params",
+        "component": "ParamsComponent",
+        "show": false
+      },
+     {
+       "name": "title_password",
+       "link": "/account/password",
+       "component": "PasswordComponent",
+       "show": true
+     },
+     {
+       "name": "change_your_phone",
+       "link": "/account/phone-number",
+       "component": "PhoneNumberComponent",
+       "show": true
+     },
+     {
+       "name": "title_cgu",
+       "link": "/account/cgu",
+       "component": "CGUComponent",
+       "show": false
+     }
+    ]
+  }
+]

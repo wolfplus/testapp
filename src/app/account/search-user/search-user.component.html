@@ -1,0 +1,116 @@
+<app-default-header
+        [title]="'search_users'"
+        [subtitle]=""
+        (back)="goBack()">
+    <div class="input-search-block do-p-2">
+        <ion-input #inputSearchFriend #autofocus
+                   type="text"
+                   placeholder="{{ 'search_user_placeholder' | translate }}">
+            <img *ngIf="showSearchSpinner === false"
+                 slot="start" src="assets/icon/home/header/search-icon.svg" >
+            <div *ngIf="showSearchSpinner"
+                 slot="start"
+                 [ngClass]="{'load-complete': searchComplete, 'load-error': displaySearchErrorMessage}"
+                 class="circle-loader do-m-1">
+                <div *ngIf="searchComplete && displaySearchErrorMessage === false"
+                     class="checkmark draw"
+                     [ngClass]="{'block': searchComplete}">
+                </div>
+                <div *ngIf="searchComplete && displaySearchErrorMessage === true"
+                     class="cross draw"
+                     [ngClass]="{'block': searchComplete}">
+                </div>
+            </div>
+        </ion-input>
+    </div>
+
+</app-default-header>
+
+<ion-content>
+    <div *ngIf="displaySkeleton"
+        class="flex user-skeleton last do-p-2">
+        <ion-avatar slot="start" class="flex jcc aic">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label class="flex asc">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-label>
+    </div>
+
+    <ng-container *ngIf="foundUsers.length > 0">
+        <div class="friend-list do-py-2">
+            <div *ngFor="let user of foundUsers"
+                class="friend-card flex aic jcsb do-px-2 do-py-1 ion-activatable"
+                (click)="presentPlayerModal(user.id)">
+                <ion-ripple-effect></ion-ripple-effect>
+                <app-avatar-name
+                    class="dspl-blck hide-tablet"
+                    [imageUrl]="user.avatar !== null && user.avatar.contentUrl ? user.avatar.contentUrl : undefined"
+                    [imageSize]="'15vw'"
+                    [title]="user.lastName !== undefined ? user.firstName + ' ' + user.lastName : user.firstName + ' ' + user.shortcutLastName"
+                    [subtitle]="user.levelToDisplay"
+                    [fontSizes]="FontSize.MEDIUM"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+                <app-avatar-name
+                    class="dspl-blck show-tablet"
+                    [imageUrl]="user.avatar !== null && user.avatar.contentUrl ? user.avatar.contentUrl : undefined"
+                    [imageSize]="'5vw'"
+                    [title]="user.lastName !== undefined ? user.firstName + ' ' + user.lastName : user.firstName + ' ' + user.shortcutLastName"
+                    [subtitle]="user.levelToDisplay"
+                    [fontSizes]="FontSize.MEDIUM"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+                <div class="flex">
+                    <ion-icon *ngIf="user.isFriend || user.isPendingFriend"
+                        style="font-size: 2.5rem;"
+                        name="person">
+                    </ion-icon>
+                    <ion-icon *ngIf="user.isFriend"
+                        style="font-size: 2rem; margin-left: -1rem;"
+                        name="checkmark-outline">
+                    </ion-icon>
+                    <!-- <ion-icon *ngIf="!user.isFriend"
+                        style="font-size: 2rem; margin-left: -1rem;"
+                        name="add">
+                    </ion-icon> -->
+                    <ion-icon *ngIf="user.isPendingFriend"
+                        style="font-size: 2rem; margin-left: -1rem;"
+                        name="time-outline">
+                    </ion-icon>
+                </div>
+                <!--ion-button--
+                    fill="outline"
+                    color="medium"
+                    (click)="removeFriend(friend)">
+                    <span>
+                        {{ 'delete' | translate }}
+                    </span>
+                </ion-button-->
+            </div>
+        </div>
+    </ng-container>
+    <div *ngIf="!foundUsers || foundUsers.length < 1 && !displaySkeleton">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7 img-center">
+            <!-- <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_friend.svg" alt=""> -->
+        </div>
+        <div *ngIf="!searchComplete"
+            class="do-p-2 text-center">
+            {{ 'do_a_user_search' | translate }}
+        </div>
+        <div *ngIf="searchComplete"
+            class="do-p-2 text-center">
+            {{ 'no_user_found' | translate }}
+        </div>
+    </div>
+
+    <ion-infinite-scroll
+        threshold="50px"
+        (ionInfinite)="loadMoreUsers()">
+        <!-- TODO: translate loading text -->
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="{{'loading_more_users' | translate }}">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

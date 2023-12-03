@@ -1,0 +1,61 @@
+.header {
+  width: 100%;
+  height: min-content;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  .title {
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .close {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+  }
+  .search-activity {
+    background-color: var(--app-dark-or-not-color);
+    color: #6E7FAA;
+    border: 2px solid #E8E8E8;
+    width: 100%;
+    border-radius: .5rem;
+    text-align: left;
+    box-shadow: 0px 10px 9.9rem #0000000D;
+    img {
+      margin: 1rem;
+      width: 1.5rem;
+    }
+  }
+}
+
+.block-activities {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  .item-activity {
+    width: 50%;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 700;
+    padding: 3pt;
+    .activity {
+      background: transparent linear-gradient(90deg, #FF5673 0%, #FF8C48 100%) 0% 0% no-repeat padding-box;
+      box-shadow: 0 10px 14px #0000000D;
+      border-radius: 1rem;
+      padding: 2rem 1rem 2rem 1rem;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      font-size: 1.3rem;
+      margin: 0;
+    }
+  }
+}

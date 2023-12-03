@@ -1,0 +1,70 @@
+
+<ng-container *ngIf="selectedPlayground && !reload" style="padding-bottom: 60px">
+    <div class="header-playground">
+        <div class="btn-bloc"  (click)="prevPlayground()">
+            <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+        </div>
+        <div class="header-title">{{ selectedPlayground.name }}</div>
+        <div class="btn-bloc" (click)="nextPlayground()">
+            <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+        </div>
+    </div>
+
+    <div class="content-planning">
+        <div class="timeline">
+            <ng-container *ngFor="let time of timeline">
+                <label *ngIf="time != '00:00'" [style]="'min-height: ' + getSizeBloc() + 'px; max-height: ' + getSizeBloc() + 'px; '" >{{ time }}</label>
+            </ng-container>
+        </div>
+
+        <div class="slots-planning">
+
+            <ng-container *ngFor="let slot of dataClosedSlots">
+                <div class="slot-planning"
+                     *ngIf="isShowingSlot(slot.startAt)"
+                     [style]="'order: ' + getOrder(slot.startAt) + '; min-height: ' + getSizeBlocSlot(slot) + 'px; max-height: ' + getSizeBlocSlot(slot) + 'px; '">
+                    <div class="bloc"
+                         [style]="'min-height: ' + (getSizeBlocSlot(slot) - 10) + 'px; max-height: ' + (getSizeBlocSlot(slot) - 10) + 'px; '"
+                    >{{ slot.startAt }}</div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngFor="let slot of dataSlots">
+                <div class="slot-planning"
+                     *ngIf="isShowingSlot(slot.startAt)"
+                     [style]="'order: ' + getOrder(slot.startAt) + '; min-height: ' + getSizeBlocSlot(slot) + 'px; max-height: ' + getSizeBlocSlot(slot) + 'px; '">
+                    <div class="bloc"
+                         [style]="'min-height: ' + (getSizeBlocSlot(slot) - 10) + 'px; max-height: ' + (getSizeBlocSlot(slot) - 10) + 'px; '"
+                    >
+                        <div [class]="isBookableTime(slot) ? 'button-book' : 'button-book disabled'" (click)="choicesDuration(slot)" >
+                            <ion-icon class="icon-btn" name="add-circle"></ion-icon>
+                            <span>{{ 'btn.booking' | translate }}</span>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="bookings">
+                <div class="booking-planning" *ngFor="let booking of bookings"
+                     [style]="'order: ' + getOrder(booking.startAt, true) + '; min-height: ' + getSizeBlocBooking(booking) + 'px; max-height: ' + getSizeBlocBooking(booking) + 'px; '"
+                >
+                    <div class="bloc"
+                         [style]="'min-height: ' + (getSizeBlocBooking(booking) - 10) + 'px; max-height: ' + (getSizeBlocBooking(booking) - 10) + 'px; '"
+                    >
+                        <div class="name">{{ booking.name }}</div>
+                        <div class="duration">{{ booking.duration / 60 }} {{ 'minutes' | translate }}</div>
+                        <div class="participants" >
+                            <ng-container *ngFor="let participant of booking.participants">
+                                <img *ngIf="!participant.avatar" class="avatar" src="assets/images/avatar.png" alt="avatar" alt="">
+                                <img *ngIf="participant.avatar" class="avatar" src="{{ env.pathFiles + participant.avatar.contentUrl }}" >
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+
+</ng-container>
+

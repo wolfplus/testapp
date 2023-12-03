@@ -1,0 +1,92 @@
+.short-event-block {
+  width: 22rem;
+  height: 190pt;
+  position: relative;
+  display: inline-block;
+  margin: 4pt;
+  margin-right: 10px;
+  .event-img {
+    position: relative;
+    width: 100%;
+    height: 80%;
+    border-radius: .5rem;
+    object-fit: cover;
+    background: rgb(36,86,145);
+    background: linear-gradient(360deg, rgba(36,86,145,1) 0%, rgba(255,255,255,0) 60%);
+  }
+  .filtre {
+    border-radius: .5rem .5rem 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 70%;
+    background: rgb(36,86,145);
+    background: linear-gradient(360deg, #0a2d74 0%, rgba(255,255,255,0) 100%);
+  }
+  .bloc-info {
+    position: absolute;
+    top: 70%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0 0 .5rem .5rem;
+    background-color: var(--app-dark-or-not-color);
+    box-shadow: 0 0 2px 1px #00000029;
+    .bloc-left {
+      position: absolute;
+      top: .5rem;
+      left: 0;
+      bottom: .5rem;
+      right: 30%;
+      border-right: 1px solid #cccccc;
+      .title {
+        text-align: left;
+        position: absolute;
+        display: block;
+        color: #000207;
+        left: 3pt;
+        right: 0;
+        font-size: 1.4rem;
+        width: 100%;
+        font-weight: 700;
+        bottom: 0pt;
+      }
+      .date{
+        margin: 2pt;
+        text-align: left;
+        position: absolute;
+        left: 3pt;
+        right: 3pt;
+        font-size: 2rem;
+        font-weight: 400;
+        color: #000207;
+        .icon-users {
+
+        }
+      }
+    }
+    .bloc-right {
+      position: absolute;
+      top: .5rem;
+      left: 70%;
+      bottom: .5rem;
+      right: 0;
+      .icon-attenders {
+        position: absolute;
+        top: 12pt;
+        left: 3pt;
+      }
+      .counter {
+        position: absolute;
+        top: 1.5rem;
+        right: .5rem;
+        color: #77838F;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+}

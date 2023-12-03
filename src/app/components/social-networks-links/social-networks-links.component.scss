@@ -1,0 +1,17 @@
+.links {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 4rem;
+
+  .link {
+    display: flex;
+    height: fit-content;
+  }
+}
+
+.centered {
+  justify-content: center;
+}

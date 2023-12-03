@@ -1,0 +1,70 @@
+<app-default-header (back)="close()" [title]="'Souscription abonnement'" [subtitle]="subscription.name"
+                    [backgroundImage]="photoClub"></app-default-header>
+<ion-content>
+    <div class="bloc-sub-process">
+        <div class="bloc-detail">
+            <div class="title">Informations abonnement</div>
+            <div class="infos-row">
+                <div class="info">
+                    <div class="title">Description</div>
+                    <div class="detail">{{ subscription.description }}</div>
+                </div>
+                <div class="info">
+                    <div class="title">Tarifs</div>
+                    <div class="detail"><span>{{ subscription.amount | price_format: club.currency }} / {{ subscription.period }}</span></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bloc-detail">
+            <div class="title">Valider nos conditions d'abonnement</div>
+
+            <div class="conditions-link" (click)="showConditions()">
+                Voir les condition d'abonnement
+            </div>
+
+            <ion-grid class="check-condition">
+                <ion-row>
+                    <ion-col size="3">
+                        <ion-checkbox [(ngModel)]="checkCondition"></ion-checkbox>
+                    </ion-col>
+                    <ion-col size="9">Je certifie avoir lu et valide les conditions d'abonnement en lien ci-dessus.</ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+        <div class="bloc-detail">
+            <div class="title">Informations de paiement</div>
+
+            <app-manage-method
+                    [price]="{}"
+                    [methods]="['complete']"
+                    [cart]="cart"
+                    [club]="club"
+                    [client]="client"
+                    [restToPay]="totalToPay()"
+                    (backPayments)="getPayments()"
+                    (changeProviderBack)="changeProvider()"
+                    (creditCardSelected)="updateSelectedCard($event)"
+                    (triggerPaymentData)="triggerPaymentData()"
+            >
+            </app-manage-method>
+
+        </div>
+    </div>
+
+
+
+</ion-content>
+<ion-footer>
+    <ion-button
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            (click)="confirm()"
+            [disabled]="!checkCondition"
+    >
+        <div class="do-p-2">Valider ma souscription</div>
+    </ion-button>
+</ion-footer>

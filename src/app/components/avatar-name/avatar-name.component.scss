@@ -1,0 +1,126 @@
+
+
+.avatar-name-container {
+
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .img-container {
+    margin-right: 1rem;
+    ion-avatar {
+      background: white;
+      width: 12vw;
+      height: 12vw;
+
+      img {
+        object-fit: cover!important;
+        /* TODO CSS variable */
+        border: 1px solid #a3a3a3;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+  }
+}
+
+.text-container {
+  height: 100%;
+  flex-grow: 3;
+
+  .title {
+    text-align: start!important;
+    font-weight: bolder;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  .subtitle {
+    text-align: start!important;
+    font-size: var(--app-font-small-size) !important;
+    // TODO: [CSS variable]
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.tablet-participant-price {
+  .title {
+    font-size: 1.1em;
+  }
+  .subtitle {
+    font-size: 0.8em;
+  }
+}
+
+.tablet-location {
+  .title {
+    font-size: 1.3em;
+  }
+  .subtitle {
+    font-size: 1em;
+  }
+}
+
+.small-fonts {
+  .title {
+    font-size: 1.3rem;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+  }
+}
+
+.medium-fonts {
+  .title {
+    font-size: 1.6rem;
+  }
+  .subtitle {
+    font-size: 1.3rem;
+  }
+}
+
+.large-fonts {
+  .title {
+    font-size: 1.8rem;
+  }
+  .subtitle {
+    font-size: 1.4rem;
+  }
+}
+
+.light-text {
+  .title {
+    color: white!important;
+  }
+  .subtitle {
+    color: white!important;
+  }
+}
+
+.dark-text {
+  .title {
+    color: var(--ion-text-color);
+  }
+  .subtitle {
+    color: var(--ion-secondary-text-color);
+  }
+}
+
+.img-container img {
+  vertical-align: baseline;
+}
+
+
+@media only screen and (min-width: 768px) {
+  ion-avatar {
+    width: 3vw !important;
+    height: 3vw !important;
+  }
+}

@@ -1,0 +1,194 @@
+@use "sass:math";
+
+.modal-container {
+  background-color: var(--app-dark-or-not-color);
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  padding: 2rem;
+}
+
+.list-result {
+  width: 100%;
+  background-color: rgba(0,0,0,0);
+  margin-top: .5rem;
+  text-align: center;
+  padding: .5rem;
+  border-bottom: 1px solid #9d9fa6;
+}
+::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+.native-input {
+  padding-left: 1rem;
+}
+
+ion-icon.geolocError {
+  color: var(--ion-color-danger);
+}
+
+/* TODO: REFACTORING MAKE A COMPONENT */
+// LOADER
+// Define vars we'll be using
+$brand-success: var(--ion-color-primary);
+$loader-size: 1.5rem;
+$check-height: 1em; // $loader-size/3;
+$check-width: .15em; // $check-height/3;
+$check-left: 25%;// ($loader-size/6 + $loader-size/12);
+$check-thickness: .2rem;
+$check-color: $brand-success; // white;
+
+.circle-loader {
+  margin-right: math.div($loader-size, 3);
+  border: .15rem solid var(--ion-color-primary);
+  border-left-color: $check-color;
+  animation: loader-spin 1.2s infinite linear;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 50%;
+  width: $loader-size;
+  height: $loader-size;
+}
+
+.load-complete {
+  -webkit-animation: none;
+  animation: none;
+  border-color: var(--ion-color-primary); //rgba(17, 240, 221, 0.5);
+  transition: border 500ms ease-out;
+
+  &.load-error {
+    border-color: var(--ion-color-danger);
+  }
+}
+
+.checkmark {
+  display: none;
+
+  &.block {
+    display: block;
+  }
+
+  &.draw:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+  }
+
+  &:after {
+    opacity: 1;
+    height: $check-height;
+    width: $check-width;
+    transform-origin: left top;
+    border-right: $check-thickness solid $check-color;
+    border-top: $check-thickness solid $check-color;
+    content: '';
+    left: 25%;//$check-left;
+    top: 50%;//$check-height;
+    position: absolute;
+  }
+}
+
+.cross {
+  display: none;
+
+  &.block {
+    display: block;
+  }
+
+  &.draw:before, &.draw:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: cross;
+  }
+
+  &.draw:before {
+    transform: scaleX(-1) rotate(45deg);
+  }
+
+  &.draw:after {
+    transform: scaleX(-1) rotate(-45deg);
+  }
+
+  &:before {
+    opacity: 1;
+    height: 1em;
+    width: .15em;
+    background-color: #e01b1b;
+    content: "";
+    left: 45%;
+    top: 0%;
+    position: absolute;
+  }
+
+  &:after {
+    opacity: 1;
+    height: 1em;
+    width: .15em;
+    background-color: #e01b1b;
+    content: "";
+    left: 45%;
+    top: 0%;
+    position: absolute;
+  }
+}
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: $check-width;
+    opacity: 1;
+  }
+  40% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+  100% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+}
+
+@keyframes cross {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: .15em;
+    opacity: 1;
+  }
+  40% {
+    height: 1em;
+    width: .2em;
+    opacity: 1;
+  }
+  100% {
+    height: 1em;
+    width: .15em;
+    opacity: 1;
+  }
+}
+
+///////////////////

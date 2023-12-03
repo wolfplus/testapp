@@ -1,0 +1,33 @@
+.block-events {
+  min-height: fit-content;
+  .title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: capitalize;
+  }
+  .scroll-h-container {
+    display: inline-flex;
+    min-width: 100%;
+    max-width: 100%;
+    flex: 1;
+    flex-direction: row;
+    overflow: scroll;
+    .card-short-event {
+      display: table-row;
+    }
+    .card-short-event-skeleton {
+      display: inline-block;
+      width: 22rem;
+      min-width: 22rem;
+      height: 190pt;
+      position: relative;
+      margin: 4pt;
+      margin-right: 10px;
+      border-radius: .5rem;
+    }
+  }
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}

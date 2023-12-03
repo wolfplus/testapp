@@ -1,0 +1,59 @@
+.credit-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 20px;
+    .token-icon {
+        font-size: xx-large;
+    }
+    .tokens {
+        overflow-y: scroll;
+        margin-top: 27px;
+        .no-credit {
+            font: bold 16px/20px Panton-Regular;
+            letter-spacing: 0;
+            color: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+    }
+    .button-pay {
+        width: 100%;
+
+        padding: 10px;
+
+        ion-button {
+            margin: 0 20px;
+        }
+    }
+}
+
+.label-title {
+    font: bold 17px/16px Panton-Regular;
+    letter-spacing: 0;
+}
+
+.label-subtitle {
+    font: normal 14px/24px Panton-Regular;
+    letter-spacing: -0.26px;
+    color: #8D8D8D;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    font-size: xx-large;
+}
+
+.skeleton {
+    width: 100%;
+    ion-skeleton-text {
+        margin-top: 10px;
+        height: 30px;
+        border-radius: 5px;
+    }
+}

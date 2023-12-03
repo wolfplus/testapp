@@ -1,0 +1,52 @@
+{
+  "menu": [
+    {
+      "name": "home",
+      "icon": "home.svg",
+      "link": "/home",
+      "show": true
+    },
+    {
+      "name": "match",
+      "icon": "events.svg",
+      "link": "/matches",
+      "show": true
+    },
+    {
+      "name": "book",
+      "icon": "add-circle-outline.svg",
+      "link": "/select-booking",
+      "show": false
+    },
+    {
+      "name": "friend",
+      "icon": "users.svg",
+      "link": "/account/my-friends",
+      "show": true
+    },
+    {
+      "name": "events",
+      "icon": "events.svg",
+      "link": "/home",
+      "show": false
+    },
+    {
+      "name": "shop",
+      "icon": "shop.svg",
+      "link": "/shop",
+      "show": true
+    },
+    {
+      "name": "account",
+      "icon": "account.svg",
+      "link": "/account/me",
+      "show": true
+    },
+    {
+      "name": "receipt",
+      "icon": "envelop.svg",
+      "link": "/receipt",
+      "show": true
+    }
+  ]
+}

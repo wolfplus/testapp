@@ -1,0 +1,104 @@
+<div *ngIf="userData?.activities.length > 0; else noActivities;"
+     class="levels-container scroll-x-center">
+    <app-level-card *ngFor="let activity of userData.activities"
+                    class="dspl-blck scroll-sa-center"
+                    [ngClass]="{'single-display': userData.activities.length === 1}"
+                    [activity]="activity">
+    </app-level-card>
+</div>
+
+<ng-template #noActivities>
+    <div class="no-levels-container flex aic d-col w-100 do-p-2">
+        <div>
+            {{ 'user_has_no_activity' | translate }}
+        </div>
+        <ion-button
+                fill="outline"
+                expand="block"
+                mode="ios"
+                class="btn-confirm"
+                (click)="goToUserActivities()">
+            <div class="do-p-2">
+                {{ 'fill_your_activities' | translate }}
+            </div>
+        </ion-button>
+    </div>
+</ng-template>
+
+<app-last-booking class="dspl-blck"
+                  [bookings]="bookings"
+                  [nextBookings]="nextBookings"
+                  [pastBookings]="pastBookings"
+                  (noBooking)="updateBookingsDisplay($event)"
+                  [noChange]="true"
+                  (refreshMatches)="updateMatches($event)">
+</app-last-booking>
+<ion-skeleton-text animated *ngIf="!showMatchCardsSkeleton" class="card-my-booking-skeleton" style="height: 120px; width:92%; margin: auto; margin-top:15px"></ion-skeleton-text>
+
+<div *ngIf="!env.useMb && matchs?.length > 0"
+     class="block-container">
+    <div class="flex do-p-1-2">
+        <div class="section-title">
+            {{'your_matches'|translate}}
+        </div>
+        <div class="title-stroke"></div>
+    </div>
+    <div class="horizontal">
+        <ion-slides pager="true">
+            <ion-slide *ngFor="let match of matchs">
+                <app-match-card-tablet
+                        class="dspl-blck show-tablet"
+                        [match]="match"
+                        [userId]="user?.id"
+                        [config]="MatchCardConfig.FULL"
+                        (reloadMatches)=getMatches()>
+                </app-match-card-tablet>
+                <app-match-card
+                        class="dspl-blck hide-tablet"
+                        [match]="match"
+                        [userId]="user?.id"
+                        [config]="MatchCardConfig.FULL"
+                        (reloadMatches)=getMatches()>
+                </app-match-card>
+            </ion-slide>
+        </ion-slides>
+    </div>
+</div>
+
+<app-matchs *ngIf="env.useMb"
+            [userId]="user?.id"
+            [section]="'profile'"
+            [noChange]="true"
+            (noMatch)="updateMatchsDisplay($event)">
+</app-matchs>
+
+<!-- <div *ngIf="showMatchCardsSkeleton"
+  class="do-p-2">
+  <ion-thumbnail style="height:33vh; width:100%;border-radius:5px;margin-bottom:2rem;">
+    <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+  </ion-thumbnail>
+</div> -->
+<!-- If user has no bookings -->
+<div *ngIf="env.useMb">
+    <div *ngIf="displayNoBooking && displayNoMatch && !showMatchCardsSkeleton"
+         class="no-booking-container t-center do-pb-2">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_result.svg" alt="">
+        </div>
+        <div class="title-message">
+            {{ 'nothing_planned' | translate }}
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!env.useMb">
+    <div *ngIf="displayNoBooking && matchs?.length === 0 && !showMatchCardsSkeleton"
+         class="no-booking-container t-center do-pb-2">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_result.svg" alt="">
+        </div>
+        <div class="title-message">
+            {{ 'nothing_planned' | translate }}
+        </div>
+    </div>
+</div>

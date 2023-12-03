@@ -1,0 +1,19 @@
+<div class="flex d-col pos-abs-btm-left w-100 club-summary-container">
+  <div class="mb-1 name-container">
+    <span class="name">{{ (clubSummary$ | async)?.name }}</span>
+  </div>
+  <div class="mb-1 address-short-container">
+    <span class="mr-0-5 city">{{ (clubSummary$ | async)?.city }}</span>
+    <span class="mr-0-5 zip-short">{{ (clubSummary$ | async)?.zipCode }}</span>
+  </div>
+  <div class="flex aic flxw reviews-distance-container">
+    <!-- <div class="flex aic reviews-container">
+      <app-club-review-short class="dspl-blck mr-1"></app-club-review-short>
+    </div> -->
+    <div class="club-distance-container">
+      <app-club-distance></app-club-distance>
+    </div>
+  </div>
+</div>
+
+

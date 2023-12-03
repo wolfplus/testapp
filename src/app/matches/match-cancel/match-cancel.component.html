@@ -1,0 +1,59 @@
+<div class="pos-rel h-100">
+  <div [@fadeInFadeOut]
+    class="backdrop h-100"
+    (click)="onBackBtnClicked()">
+  </div>
+  <div [@slideInSlideOut]
+    class="tickets-selector pos-abs-btm">
+    <ion-grid>
+      <ion-row>
+        <ion-col (click)="onBackBtnClicked()"
+         size="1"
+         class="flex jcc aic">
+         <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="10">
+          <div class="title flex jcc aic">
+            {{ 'cancel_match' | translate }}
+          </div>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+         <div class="warning-text">
+            {{ 'match_cancelation_warning_text' | translate }}
+            <span class="warning-text-booking">{{ 'match_cancelation_warning_booking' | translate }}</span>
+         </div>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+
+      <ion-row>
+        <app-match-card *ngIf="match"
+          class="dspl-blck do-p-2 w-100"
+          [match]="match"
+          [config]="MatchCardConfig.SHORT">
+        </app-match-card>
+      </ion-row>
+      <!-- CANCEL PARTICIPATION BUTTON -->
+      <ion-row>
+       <ion-col size="1"></ion-col>
+       <ion-col size="10">
+         <ion-button
+          class="btn-next"
+          (click)="onCancelParticipationClicked()"
+          expand="block"
+          mode="ios"
+          color="secondary">
+          <div class="do-p-2">
+            {{ 'cancel_my_match' | translate }}
+          </div>
+         </ion-button>
+       </ion-col>
+       <ion-col size="1"></ion-col>
+     </ion-row>
+    </ion-grid>
+  </div>
+</div>

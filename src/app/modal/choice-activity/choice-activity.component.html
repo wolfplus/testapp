@@ -1,0 +1,24 @@
+<ion-header class="header">
+    <div>
+        <img src="assets/icon/globals/arrow-back.svg" class="close" (click)="close()">
+        <div class="title">Activités</div>
+    </div>
+    <ion-input class="search-activity" type="text" placeholder="{{ 'search_placeholder' | translate }}" [(ngModel)]="searchActivity" >
+        <img src="assets/icon/home/header/search-icon.svg" >
+    </ion-input>
+
+</ion-header>
+<ion-content>
+    <div class="block-activities">
+        <ng-container *ngFor="let items of activities|async">
+            <ng-container *ngFor="let activity of items['hydra:member']">
+                <div  *ngIf="search(activity.name)" class="item-activity" (click)="choiceActivity(activity.name, activity.id)">
+                    <div class="activity"  >
+                        {{activity.name}}
+                    </div>
+                </div>
+            </ng-container>
+
+        </ng-container>
+    </div>
+</ion-content>

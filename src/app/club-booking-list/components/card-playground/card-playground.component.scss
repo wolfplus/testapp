@@ -1,0 +1,204 @@
+.playground-slot {
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.5rem solid var(--background-dark-gray);
+
+  .empty_playground {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--app-font-color);
+    text-align: justify;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .section-title {
+    margin: 1rem 1rem -0.6rem 0;
+  }
+
+  .title-stroke {
+    background: var(--ion-color-primary);
+    align-self: flex-end;
+    height: 0.2rem;
+  }
+
+  .info-playground.section-subtitle {
+    color: var(--ion-color-medium);
+    margin-top: 0.2rem;
+  }
+
+  h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  .info-playground {
+    font-size: var(--app-font-size);
+    font-weight: 600;
+    margin-top: 0;
+  }
+
+  .slot-slot {
+    margin-right: 0.5rem;
+    padding: 0.5rem 0.1rem;
+  }
+
+  .slot-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    color: var(--app-font-color);
+    margin-top: 1rem;
+    border-bottom: 0.1rem solid var(--background-dark-gray);
+    &.last {
+      border-bottom: none;
+    }
+  }
+
+  .start-time {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-right: 1rem;
+  }
+
+  .start-time .label {
+    display: flex;
+    font-size: var(--app-small-size);
+  }
+  .start-time .time {
+    display: flex;
+    font-weight: 600;
+    font-size: var(--app-font-big-size);
+  }
+
+  .slot-description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-right: 1rem;
+  }
+
+  .slot-description .title {
+    display: flex;
+    color: var(--ion-color-dark);
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+  .slot-description .description {
+    display: flex;
+    font-size: var(--app-font-small-size);
+    color: var(--ion-color-medium);
+  }
+  .slot-description .duration-attendees {
+    display: flex;
+    font-size: var(--app-font-small-size);
+    color: var(--ion-color-primary);
+  }
+
+  .slot-price-list {
+    width: -webkit-fill-available;
+    ion-item {
+      padding: 0 0;
+      min-height: unset;
+    }
+    ion-label {
+      margin: 0 0;
+      font-size: var(--app-font-size);
+      color: var(--app-font-color);
+      font-weight: bold;
+    }
+  }
+
+  .slot-price {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    margin-right: 1rem;
+
+    font-size: var(--app-font-size);
+
+    .label {
+      display: flex;
+      align-self: center;
+      color: #76767d;
+      margin-right: 1rem;
+    }
+    .price {
+      display: flex;
+      align-self: center;
+      font-weight: 600;
+      color: var(--ion-color-primary);
+      white-space: nowrap;
+    }
+
+    &.closed {
+      width: 100%;
+      justify-content: flex-end;
+      align-items: center;
+      div {
+        display: flex;
+      }
+      ion-icon {
+        display: flex;
+        margin: 0 1rem;
+      }
+    }
+  }
+
+  ion-icon {
+    color: var(--app-font-color);
+    font-size: var(--app-font-big-size);
+  }
+
+  .start-time.not-available {
+    color: #d2d3d4;
+    border: 1px solid #f8f9fa;
+  }
+
+  .label-not-available {
+    font-size: var(--app-font-size);
+    /* TODO: CSS variable */
+    color: #d2d3d4;
+    text-align: center;
+  }
+
+  .time-slot-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+  }
+
+  .color-primary {
+    color: var(--ion-color-primary);
+  }
+
+  .color-secondary {
+    color: var(--ion-color-secondary);
+  }
+
+  .lastPrice {
+    --border-color : transparent;
+  }
+
+  .onePrice {
+    --border-color : transparent;
+  }
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .playground-slot {
+      border-bottom: none;
+    }
+    .tablet-section {
+      border-bottom: 0.5px solid #80808036 !important;
+    }
+    .ion-activatable {
+      cursor: pointer;
+    }
+  }

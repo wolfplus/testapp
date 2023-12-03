@@ -1,0 +1,102 @@
+ion-list {
+  min-height: 100%;
+  padding: 2rem !important;
+}
+
+ion-list,
+ion-footer {
+
+  background: var(--background-gray) !important;
+}
+
+ion-item-sliding {
+  background: white;
+  margin-bottom: 2rem;
+  border-radius: 0.9rem;
+
+  ion-item-option {
+    /* TODO: CSS variable */
+    background: #ededf8;
+  }
+}
+
+ion-item {
+  background: var(--app-dark-or-not-color);
+  border-radius: 0.9rem;
+
+  &::part(native) {
+    .input-wrapper {
+      border: none !important;
+    }
+  }
+
+  ion-thumbnail {
+    align-self: flex-start;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  ion-label {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+ion-icon[name="trash-outline"] {
+  font-size: 3rem;
+  color: var(--ion-color-danger);
+}
+
+.star {
+  /* TODO: CSS variable */
+  color: #fadf11;
+}
+
+.user-name {
+  font-size: 1.8rem;
+  font-weight: bold;
+  font-family: "Panton-Regular";
+  /* text-overflow: ellipsis; */
+  overflow: hidden;
+  margin-right: 1rem;
+  white-space: break-spaces;
+}
+
+.comment-date,
+.comment-time {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--ion-secondary-text-color);
+}
+
+.user-comment {
+  white-space: break-spaces;
+  margin-top: 1rem;
+  img {
+    max-height: 2rem;
+  }
+}
+
+.post-comment-button {
+  ion-button::part(native) {
+    background: transparent;
+    color: black;
+  }
+}
+
+.message-input {
+  padding: 0 1rem;
+  border-radius: 0.9rem;
+  background: white;
+}
+
+ion-textarea {
+  min-height: 3rem;
+}
+
+.native-textarea {
+  min-height: 2rem;
+  height: fit-content !important;
+}

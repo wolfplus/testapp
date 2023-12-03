@@ -1,0 +1,12 @@
+---
+-
+    name: Back office deploy on pre-production environnement
+    hosts: preprod
+    gather_facts: false
+    vars:
+        ansistrano_deploy_from: "{{ playbook_dir }}/../www"
+        ansistrano_deploy_to: "/home/doinsport/www/pass.v3/master"
+        ansistrano_keep_releases: 5
+        ansistrano_deploy_via: "rsync"
+    roles:
+        - { role: ansistrano.deploy }

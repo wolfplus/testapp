@@ -1,0 +1,64 @@
+// TODO: remove class / Duplicated
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 1rem;
+
+  .card-subscription {
+    width: 100%;
+    display: flex;
+    margin-bottom: 1rem;
+    align-content: center;
+    align-items: center;
+    vertical-align: middle;
+    border-bottom: .5rem solid rgba(100, 100, 100, 0.2);
+
+    .title-club {
+      color: #222455;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .title-subscription {
+      font-size: var(--app-font-size);
+      font-weight: 900;
+    }
+
+    img {
+      border-radius: .5rem;
+      object-fit: cover;
+      width: 50pt;
+      height: 50pt;
+      margin: auto;
+    }
+
+    .icon-goto {
+      display: none;
+      transform: rotate(180deg);
+      width: 1rem;
+      height: 1rem;
+      border-radius: 0;
+      object-fit: cover;
+      margin: auto;
+    }
+  }
+}
+
+.m-auto {
+  margin: auto;
+}
+
+p-justify {
+  text-align: justify;
+  padding: 1rem;
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .sub-content-tablet{
+      text-align: center;
+      font-size: 2rem !important;
+    }
+}

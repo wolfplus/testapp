@@ -1,0 +1,16 @@
+<div class="card-conversation">
+    <ion-grid class="w-100">
+        <ion-row>
+            <ion-col size="10">
+                <div class="date">le {{notification.createdAt | moment: 'DD/MM/Y HH:mm'}}</div>
+                <div class="bloc-message">
+                    <div class="title">{{notification.content}}</div>
+                    <app-card-my-booking *ngIf="booking !== null"
+                        [booking]="booking"
+                        [cardConfig]="BookingCardConfig.MEDIUM">
+                    </app-card-my-booking>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>

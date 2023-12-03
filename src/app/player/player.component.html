@@ -1,0 +1,71 @@
+<ion-content #pageContent
+    [scrollEvents]="true">
+    <ng-container *ngIf="player">
+        <app-header-account *ngIf="player"
+            class="header dspl-blck"
+            [userData$]="player$"
+            [config]="ProfileConfig.PLAYER"
+            (manageFriendship)="manageFriendship($event)"
+            (goBack)="close()">
+        </app-header-account>
+        <div *ngIf="player?.activities.length > 0"
+            class="levels-container scroll-x-center">
+            <app-level-card *ngFor="let activity of player.activities"
+                class="dspl-blck scroll-sa-center"
+                [ngClass]="{'single-display': player.activities.length === 1}"
+                [activity]="activity">
+            </app-level-card>
+        </div>
+<!-- 
+        <div *ngIf="player?.visitedClubs.length"
+            class="flex do-p-2 hide-tablet">
+            <div class="section-title">
+                {{ 'visited_clubs' | translate }}
+            </div>
+            <div class="title-stroke"></div>
+        </div>
+
+        <div class="scroll-x-container scroll-x-center flex jcsb aic w-100 do-px-2 do-pb-1 hide-tablet">
+            <ng-container *ngFor="let club of player?.visitedClubs">
+                <app-card-short-club
+                    class="card-club"
+                    [club]="club">
+                </app-card-short-club>
+            </ng-container>
+        </div> -->
+        <div *ngIf="!player?.visitedClubs.length && !player?.activities.length"
+            class="flex d-col jcfs aic do-p-2 hide-tablet">
+            <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+                <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/error.svg" alt="">
+            </div>
+            <div class="request-result-text do-pt-2 do-pb-2">
+                <div>{{ 'user_with_no_preferences' | translate }}</div>
+            </div>
+        </div>
+    </ng-container>
+    
+    <ng-container *ngIf="!player">
+        <div class="flex d-col jcc">
+          <div class="pos-rel do-mb-4">
+            <ion-skeleton-text animated
+              class="profil-header-skeleton">
+            </ion-skeleton-text>
+            <div class="avatar-skeleton-container">
+              <ion-thumbnail class="avatar-skeleton">
+                <ion-skeleton-text animated style="border-radius:50%;"></ion-skeleton-text>
+              </ion-thumbnail>
+            </div>
+          </div>
+          <ion-skeleton-text animated
+            class="levels-skeleton">
+          </ion-skeleton-text>
+          <ion-skeleton-text animated
+            class="bookings-skeleton">
+          </ion-skeleton-text>
+          <ion-skeleton-text animated
+          class="bookings-skeleton">
+          </ion-skeleton-text>
+        </div>
+      </ng-container>
+
+  </ion-content>

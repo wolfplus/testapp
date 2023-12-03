@@ -1,0 +1,88 @@
+
+<div class="do-py-2">
+    <!-- <div class="timetable flex-row">
+        <label>{{'timetable' | translate }}</label>
+        <select class="timetable-list">
+            <option value="" *ngFor="let timetable of club.timetables"></option>
+        </select>
+    </div> -->
+    <div class="description do-p-2">
+        {{ club?.description }}
+    </div>
+    <div class="flex do-p-1-2">
+        <div class="section-title">
+            {{ 'pictures' | translate }}
+        </div>
+        <div class="title-stroke"></div>
+    </div>
+    <div class="photos do-p-2">
+        <img *ngFor="let photo of club.photos"
+            class="photo"
+            [src]="path + photo.contentUrl"
+            (click)="viewPic(path + photo.contentUrl)">
+    </div>
+    <div class="flex do-p-1-2">
+        <div class="section-title">
+            {{'services' | translate }}
+        </div>
+        <div class="title-stroke"></div>
+    </div>
+    <div class="services do-p-2 w-100 scroll-x-center">
+        <div class="service" *ngFor="let service of services">
+            <div class="icon-service">
+                <app-svg-container
+                    [svg]="service.icon"
+                    [iconColor]="'#2c2b2c'"
+                    [inputClass]="'icon-m'">
+                </app-svg-container>
+            </div>
+            <div class="service-name" >
+                {{ service.name }}
+            </div>
+        </div>
+    </div>
+    <div class="flex do-p-1-2">
+        <div class="section-title">
+            {{ 'location' | translate }}
+        </div>
+        <div class="title-stroke"></div>
+    </div>
+    <div class="flex map do-p-2">
+        <app-map [club]="club"></app-map>
+    </div>
+    <div class="flex do-p-1-2">
+        <div class="section-title">
+            {{ 'complex_links' | translate }}
+        </div>
+        <div class="title-stroke"></div>
+    </div>
+    <div class="links do-p-2"
+        [ngClass]="{'centered': links.length < 2}">
+        <div *ngIf="club.webSiteUrl"
+            href="#"
+            class="link"
+            target="_blank"
+            (click)="openLink(club.webSiteUrl)">
+            <ion-icon name="globe"></ion-icon>
+        </div>
+
+        <div *ngFor="let link of links"
+            href="#"
+            class="link"
+            target="_blank"
+            (click)="openLink(link.url)">
+            <ion-icon name="{{ 'logo-' + link.name }}"></ion-icon>
+        </div>
+
+        <!--  <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon>
+
+        <ion-icon name="logo-facebook"></ion-icon>
+        <ion-icon name="logo-twitter"></ion-icon>
+        <ion-icon name="logo-instagram"></ion-icon> -->
+    </div>
+</div>

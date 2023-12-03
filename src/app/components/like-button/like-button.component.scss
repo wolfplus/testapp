@@ -1,0 +1,17 @@
+.like-btn-ctnr {
+  z-index: 999;
+
+  svg {
+    width: 2.5rem;
+    object-fit: contain;
+
+    &.colored {
+      /* Add a variable */
+      fill: #F9005B;
+    }
+    &.white {
+      fill: white;
+    }
+  }
+  
+}

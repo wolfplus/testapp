@@ -1,0 +1,18 @@
+<div class="event-date-type-container flex aic mt-1"
+  [ngStyle]="{'color': textColor, 'justify-content': textAlign }"
+>
+  <span *ngIf="showIcon"
+    class="clock-icon mr-0-5">
+    <!-- TODO add inline svg -->
+    <img src="assets/images/icons/clock.svg" alt=""
+    >
+  </span>
+  <!-- TODO: format date and time with moment -->
+  <span class="event-day-of-week mr-0-5">{{ date.toString() | moment: "ddd" }}</span>
+  <span class="dot mr-0-5"></span>
+  <span class="event-date-short mr-0-5">{{ date.toString() | moment: "M, MMM" }}</span>
+  <span class="dot mr-0-5"></span>
+  <span class="event-time mr-0-5">{{ date.toString() | moment: "HH:mm" }}</span>
+  <span class="dot mr-0-5"></span>
+  <span class="event-formula mr-0-5">{{ type }}</span>
+</div>

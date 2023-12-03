@@ -1,0 +1,84 @@
+<app-modal-header
+  [isPage]="(showCategories && !showCategoryDetail && !showItemDetail)"
+  [showCart]="true"
+  [title]="'shop' | translate"
+  [totalItems]="totalItems"
+  (backButtonAction)="handleBackButton()"
+  (cartButtonAction)="handleCartButton()"
+></app-modal-header>
+<ion-content  class="background">
+  <ng-container *ngIf="shopCategories?.length > 0 && hasLoaded">
+    <app-shop-categories
+            *ngIf="!showConfirm && showCategories && shopCategories"
+            [categories]="shopCategories"
+            (clickOnCategorieEvent)="clickOnCategorie($event)"
+    >
+    </app-shop-categories>
+    <app-shop-list
+            *ngIf="!showConfirm && showCategoryDetail"
+            [description]="descriptionCat"
+            [clubCurrency]="clubCurrency$ | async"
+            (clickOnItemEvent)="clickOnItem($event)"
+            (loadMoreData)="loadMoreData($event)"
+    ></app-shop-list>
+    <app-shop-item-details
+            *ngIf="!showConfirm && showItemDetail"
+            [item]="item"
+            [toGift]="toGift"
+            [totalItems]="totalSameItems"
+            [clubCurrency]="clubCurrency$ | async"
+            [clubPhotoUrl]="clubPhotoUrl$ | async"
+            (clickOnAddItemToCard)="clickOnAddItemToCard($event)"
+            (clickOnRemoveItemFromCard)="clickOnRemoveItemFromCard()"
+    ></app-shop-item-details>
+    <app-shop-confirm
+            *ngIf="showConfirm"
+            (updatePaymentEvent)="updatePayment($event)"
+            (creditCardSelectedEvent)="creditCardSelected($event)"
+            [items]="cartState.getStates(clubIdStorage).items"
+            [totalPrice]="cartState.getStates(clubIdStorage).totalPrice"
+            [clubCurrency]="clubCurrency$ | async"
+            [user]="user"
+            [client]="client"
+            (triggerPaymentData)="triggerPaymentData($event)"
+    ></app-shop-confirm>
+
+  </ng-container>
+
+  <ng-container *ngIf="shopCategories?.length === 0 && !hasLoaded">
+    <div class="skeleton-shop">
+      <ion-skeleton-text class="skeleton-text" animated></ion-skeleton-text>
+      <ion-skeleton-text class="skeleton-card" animated></ion-skeleton-text>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="shopCategories?.length === 0 && hasLoaded">
+    <div class="no-product-img">
+      <img src="assets/icon/shop/shopping-cart.svg">
+    </div>
+    <p class="do-p-1 text-center m-0 no-product">
+      Aucun produit
+    </p>
+    <div class="do-p-1 text-center">
+      Il n'y a rien à acheter par ici, reviens plus tard !
+    </div>
+  </ng-container>
+
+</ion-content>
+<app-shop-footer
+  (click)="updateCard()"
+  [showDisabledFooter]="showDisabledFooter"
+  [priceItem]="item.unitaryPrice"
+  [totalSameItems]="totalSameItems"
+  [totalPriceSameItems]="totalPriceSameItems"
+  [clubCurrency]="clubCurrency$ | async"
+  *ngIf="!showConfirm && showItemDetail"
+></app-shop-footer>
+<app-shop-confirm-footer
+  *ngIf="showConfirm"
+  [totalPrice]="cartState.getStates(clubIdStorage).totalPrice"
+  [clubCurrency]="clubCurrency$ | async"
+  [isDisable]="!enable"
+  [payments]="payments"
+  (payEvent)="pay()"
+>
+</app-shop-confirm-footer>

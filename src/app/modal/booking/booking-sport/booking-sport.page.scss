@@ -1,0 +1,30 @@
+ion-content{
+    --background: var(--background-gray);
+}
+
+.content {
+
+  .page-title{
+    margin: 0;
+    padding: 1.5rem;
+    display: flex;
+    font-weight: bold;
+  }
+  .subtitle{
+    font-size: var(--app-font-size);
+    margin: 0;
+    padding: 1.5rem;
+  }
+
+}
+
+app-booking-add-user-choice-modal {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+

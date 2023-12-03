@@ -1,0 +1,107 @@
+.card-container {
+
+  // TODO: add variable for color and border
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  
+  .picture-text-container {
+    width: 40%;
+  
+    .picture-container {
+      background: black;
+      border-radius: 1.5rem;
+      height: 100%;
+    }
+  
+    .time-duration-container {
+      color: white;
+      z-index: 9;
+  
+      .time {
+        font-size: 2.5rem;
+      }
+  
+      .duration {
+        font-weight: 400;
+      }
+  
+      .duration, .time {
+        text-shadow:  0px 2px 4px rgba(150, 150, 150, 1);
+      }
+    }
+  }
+  
+  .course-description-container {
+    width: 60%;
+  
+    .title {
+      text-transform: capitalize;
+      font-size: 2rem;
+    }
+  
+    .dot {
+      display: block;
+      width: .4rem;
+      height: .4rem;
+      background: gray;
+      border-radius: 50%;
+    }
+  
+    .attenders {
+      font-size: 2rem;
+      // Change with variable
+      font-weight: 400;
+      text-transform: lowercase;
+    }
+  
+    .levels {
+      width: 100%;
+      font-size: 2.2rem;
+      // Change with variable
+      font-weight: 400;
+      .from-level, .to-level {
+        border: 1px solid;
+        border-radius: .5rem;
+  
+        span {
+          padding: .2rem 2rem;
+        }
+      }
+      .from-level {
+        // TODO: change with variable
+        border-color: #9DF0E6;
+        color: #9DF0E6;
+      }
+      .to-level {
+        // TODO: change with variable
+        border-color: #F8E23A;
+        color: #F8E23A;
+      }
+    }
+  
+    .description {
+  
+      p {
+        font-size: 2.2rem;
+        font-weight: 400;
+      }
+    }
+  
+    .join-button-container {
+      width: 100%;
+      display: flex;
+  
+      span {
+        width: 50%;
+        padding: .3rem;
+        font-size: 1.4rem;
+        text-align: center;
+        text-transform: uppercase;
+        border: 2px solid;
+        border-radius: 1.5rem;
+      }
+    }
+  
+  
+  }
+
+}

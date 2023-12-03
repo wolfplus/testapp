@@ -1,0 +1,51 @@
+.block-locale {
+  display: flex;
+  flex-direction: row;
+  border-radius: 1rem;
+  border: 1pt solid #adb0b5;
+  padding: 0 .5rem 0 .5rem;
+  align-items: center;
+  img {
+    width: 12pt;
+    height: 12pt;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  label {
+    margin-left: .5rem;
+    font-size: 1.3rem;
+    font-weight: 400;
+
+  }
+  .block-list-locale {
+    position: absolute;
+    z-index: 999;
+    background-color: var(--app-dark-or-not-color);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    top: 2rem;
+    width: 180px;
+    right: 0;
+    border-radius: .5rem;
+    border: 1pt solid #adb0b5;
+    box-shadow: 0 0 10px 1.5rem rgba(100,100,100,0.2);
+    .list-item-locale {
+      padding: 0.5rem;
+      min-height: 1rem;
+      border-bottom: 1pt solid #adb0b5;
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      label {
+        margin-left: 1.5rem;
+        font-size: 1.3rem;
+        font-weight: 400;
+
+      }
+    }
+  }
+}

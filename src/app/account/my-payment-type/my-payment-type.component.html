@@ -1,0 +1,106 @@
+<ion-header>
+    <app-default-header
+        [title]="'payments_method'"
+        [subtitle]=""
+        (back)="close()">
+    </app-default-header>
+</ion-header>
+<ion-content>
+    <div class="do-px-2 do-y-1">
+        <ng-container *ngFor="let card of cards, let i = index">
+        <div class="card-block" [class]="card.default?' default':''">
+            <div class="selectedCard">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="3" style="align-items: center;"><img class="icon-card" src="assets/icon/credit_card/{{card.type}}.png" width="100%"></ion-col>
+                        <ion-col size="7">
+                            <div class="card-name">{{card.name}}</div>
+                            <div class="card-number">{{card.number | hide_number_card}}</div>
+                            <div class="card-expiry">{{card.expMonth}}/{{card.expYear}}</div>
+                        </ion-col>
+                        <ion-col size="2" class="flex jcsb">
+                            <ion-icon name="checkmark-outline"
+                                (click)="defineDefault(i)">
+                            </ion-icon>
+                            <!-- <ion-button
+                                mode="ios"
+                                expand="block"
+                                class="do-btn"
+                                (click)="defineDefault(i)">
+                                {{ 'default' | translate }}
+                            </ion-button> -->
+                            <ion-icon name="trash"
+                                (click)="removeCard(i)"
+                            ></ion-icon>
+                            <!-- <ion-button
+                                mode="ios"
+                                expand="block"
+                                class="do-btn"
+                                (click)="removeCard(i)">
+                                {{ 'remove' | translate }}
+                            </ion-button> -->
+                            <!-- <button (click)="defineDefault(i)">{{'default'|translate}}</button>
+                            <button (click)="removeCard(i)">{{'remove'|translate}}</button> -->
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+        </ng-container>
+        <div class="card-block" *ngIf="addCardShow">
+            <div class="selectedCard" >
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>{{'add_payment_method'|translate}}</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <input #cardName type="text" class="card-name-input" placeholder="{{'card_owner_name'|translate}}">
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <input #cardNumber type="text" class="card-number-input" placeholder="4242 4242 4242 4242">
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="6"
+                         class="flex jcsb">
+                            <input #cardMonth type="text" class="card-month-input" placeholder="MM">
+                            <input #cardYear type="text" class="card-year-input" placeholder="YY">
+                        </ion-col>
+                        <ion-col size="6">
+                            <input #cardCVC type="text" class="card-cvc-input" placeholder="XXX">
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <ion-button
+                                mode="ios"
+                                expand="block"
+                                class="do-btn"
+                                (click)="addCard(cardName, cardNumber, cardMonth, cardYear, cardCVC)">
+                                <div class="do-p-2">
+                                    {{ 'confirm_card_payment' | translate }}
+                                </div>
+                            </ion-button>
+                            <!-- <button class="btn-add-card" (click)="addCard(cardName, cardNumber, cardMonth, cardYear, cardCVC)"><label>{{'confirm_card_payment'|translate}}</label></button> -->
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button
+        mode="ios"
+        expand="block"
+        class="btn-next"
+        (click)="addCardShow = !addCardShow">
+        <div class="do-p-2">
+            {{ 'add_payment_method' | translate }}
+        </div>
+    </ion-button>
+    <!-- <button class="btn-add" (click)="addCardShow = !addCardShow"><label>{{'add_payment_method'|translate}}</label></button> -->
+</ion-footer>

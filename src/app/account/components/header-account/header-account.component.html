@@ -1,0 +1,175 @@
+<div class="account-header pos-rel">
+  <div class="img-ratio-modal-header w-100 pos-rel">
+      <img *ngIf="!env.useMb"
+              class="img-ratio flex-center"
+              [src]="bgHeaderImage"
+              (error)="updateUrlBg()"/>
+      <img *ngIf="env.useMb"
+              class="img-ratio flex-center"
+              [src]="urlPath + clubPhoto?.contentUrl"
+              (error)="updateUrlBg()"/>
+      <div *ngIf="config === ProfileConfig.USER"
+       class="pos-abs-full-cover flex jcc aifs">
+        <div class="page-title do-mt-2">
+            {{ title | translate }}
+        </div>
+      </div>
+      <!-- IF PLAYER PROFILE -->
+      <ion-grid *ngIf="config === ProfileConfig.PLAYER"
+        class="header w-100 pos-abs-full-cover">
+        <ion-row class="w-100 header-actions">
+            <ion-col size="2"
+                class="flex aic jcc">
+                <ion-icon src="assets/icon/globals/arrow-back.svg"
+                  class="icon-back"
+                  (click)="backAction()">
+                </ion-icon>
+                <!-- <img (click)="backAction()" src="assets/icon/globals/arrow-back.svg" class="icon-back"> -->
+            </ion-col>
+            <ion-col size="8">
+                <div class="page-title text-center">{{ title | translate }}</div>
+            </ion-col>
+            <ion-col size="2" class="flex aic jcc" *ngIf="userData?.friendshipStatus === 'friend'">
+              <ion-icon src="assets/icon/account/remove-friend.svg"
+                  class="icon-back"
+                  (click)="updateFriendshipStatus('remove')">
+                </ion-icon>
+            </ion-col>
+            <ion-col size="2"
+              class="flex aic jcc add-position" *ngIf="userData?.friendshipStatus === 'not_friend' || userData?.friendshipStatus === 'friend_request_pending_from_you' || userData?.friendshipStatus === 'friend_request_pending_from_him'">
+              <div *ngIf="userData?.friendshipStatus === 'not_friend'"
+                class="flex button-add2"
+                (click)="updateFriendshipStatus('add')">
+              <span *ngIf="userData?.friendshipStatus === 'not_friend'" class="add-contact1 ">{{'add-friend' | translate}}</span>
+             </div>
+              <div *ngIf="userData?.friendshipStatus === 'friend_request_pending_from_you'"
+                class="flex button-add"
+                (click)="updateFriendshipStatus('cancel_request')">
+                <span class="waiting-contact">{{'invitation_sent' | translate}}</span>
+              </div>x
+              <div class="text-center" *ngIf="userData?.friendshipStatus === 'friend_request_pending_from_him'">
+                <div class="button-accept" (click)="accept()">
+                  <ion-icon
+                  style="font-size: 2.5rem; vertical-align: text-bottom;"
+                  class="person "
+                  name="person">
+                  </ion-icon>
+                  <ion-icon
+                    style="font-size: 2rem; margin-left: -1rem;"
+                    class="checkmark-circle-outline"
+                    name="checkmark-circle-outline">
+                  </ion-icon>
+                  <span class="waiting-contact">{{'m_accept' | translate}}</span>
+                </div>
+                <div class="button-decline"  (click)="refuse()">
+                  <ion-icon
+                  style="font-size: 2.5rem;  vertical-align: text-bottom;"
+                  class="person "
+                  name="person">
+                  </ion-icon>
+                  <ion-icon
+                    style="font-size: 2rem; margin-left: -1rem;"
+                    class="close-circle-outline"
+                    name="close-circle-outline">
+                  </ion-icon>
+                  <span class="waiting-contact">{{'m_refuse' | translate}}</span>
+                </div>
+              </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    </div>
+    <div class="do-p-1">
+      <div class="counters flex jcsb w-100">
+        <div class="counter flex d-col jcc aic">
+          <div class="count">
+              {{ userData?.totalBookings }}
+          </div>
+          <div class="text">
+              {{ 'bookings' | translate }}
+          </div>
+        </div>
+        <div class="separator flex">
+        </div>
+        <div class="counter flex d-col jcc aic">
+          <div class="count">
+              {{ userData?.totalMatches }}
+          </div>
+          <div class="text">
+              {{ 'matches' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="user-profile-avatar flex jcc aic pos-rel w-100 z-index-2 display-normal">
+        <div class="pos-rel flex jcc"
+          style="width: 25vw;">
+          <app-svg-container
+            class="dspl-blck pos-abs-full-cover w-100"
+            style="top: -25vw;height:25vw;width:25vw!important;"
+            [svg]="userAvatarPin"
+            [inputClass]="'icon-xxxl'"
+            [iconColor]="'var(--ion-color-primary)'">
+          </app-svg-container>
+          <div class="pos-rel"
+            style="width: 22vw;">
+            <ion-avatar *ngIf="isLoaded && userData" class="dspl-blck pos-abs-full-cover w-100"
+              style="height: 22vw; top: -23.5vw;">
+                <ion-img *ngIf="userData?.avatar"
+                  [src]="urlPath + userData?.avatar.contentUrl"
+                  class="img-ratio flex-center">
+                </ion-img>
+                <ion-img *ngIf="!userData?.avatar"
+                  class="img-ratio flex-center"
+                  [src]="avatarAlternative + userData?.firstName + '+' + userData?.lastName">
+                </ion-img>
+            </ion-avatar>
+          </div>
+        </div>
+      </div>
+      <div class="user-profile-avatar flex jcc aic pos-rel w-100 z-index-2 display-tablet">
+        <div class="pos-rel flex jcc safari_only_logo"
+          style="width: 25vw;">
+          <app-svg-container
+            class="dspl-blck pos-abs-full-cover w-100 safari_only"
+            style="top: -9vw; height: 9vw; width: 9vw!important;left: 24.5vw;"
+            [svg]="userAvatarPin"
+            [inputClass]="'icon-xxxl'"
+            [iconColor]="'var(--ion-color-primary)'">
+          </app-svg-container>
+          <div class="pos-rel"
+            style="width: 6vw;">
+            <ion-avatar class="dspl-blck pos-abs-full-cover w-100"
+              style="height: 6vw;top: -7.5vw;left: 16.5vw;">
+                <ion-img *ngIf="userData?.avatar"
+                  [src]="urlPath + userData?.avatar.contentUrl"
+                  class="img-ratio flex-center">
+                </ion-img>
+                <ion-img *ngIf="!userData?.avatar"
+                  class="img-ratio flex-center"
+                  [src]="avatarAlternative + userData?.firstName + '+' + userData?.lastName">
+                </ion-img>
+            </ion-avatar>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="flex jcc aic w-100 do-mt-2">
+      <span class="firstname">{{ userData?.firstName }}</span>
+      <span class="lastname">{{ userData?.lastName }}</span>
+  </div>
+  <div *ngIf="userData?.city"
+      class="flex aic jcc w-100">
+      <div class="map-icon">
+         <ion-icon src="assets/images/icons/map_pin_icon.svg"></ion-icon>
+      </div>
+      <div class="city">
+          <span>
+              {{ userData?.city }}
+          </span>
+          <span *ngIf="userData?.zipCode">
+              {{ ' (' + userData?.zipCode +')' }}
+          </span>
+      </div>
+  </div>
+</div>

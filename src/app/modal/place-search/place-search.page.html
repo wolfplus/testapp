@@ -1,0 +1,185 @@
+<ion-header>
+  <app-modal-header
+    [title$]="title$"
+    (backButtonClicked)="dismiss()"
+  >
+  </app-modal-header>
+  <app-search-input class="search-input dspl-blck do-pl-2 do-pr-2 do-pt-1 do-pb-1">
+  </app-search-input>
+  <ion-toolbar color="'var(--app-dark-or-not-color)'" class="do-pl-2 do-pr-2">
+    <ion-buttons>
+      <ion-button
+        mode="ios"
+        color="primary"
+        (click)="searchAroundMe()">
+        <!-- <app-svg-container
+          [inputClass]="icon-s"
+          [svg]="aroundMeIcon"
+        >
+        </app-svg-container> -->
+        <!--  && !displayGeolocErrorMessage -->
+        <ion-icon *ngIf="!showGeolocSPinner || displayGeolocErrorMessage"
+          [ngClass]="{'geolocError': displayGeolocErrorMessage}"
+          name="locate-outline"
+          slot="start">
+        </ion-icon>
+        <!-- SPINNER  -->
+        <div *ngIf="showGeolocSPinner && !displayGeolocErrorMessage"
+          [ngClass]="{'load-complete': loadComplete, 'load-error': displayGeolocErrorMessage}"
+          class="circle-loader">
+          <div *ngIf="loadComplete && displayGeolocErrorMessage === false"
+            class="checkmark draw"
+            [ngClass]="{'block': loadComplete}">
+          </div>
+          <!-- <div *ngIf="loadComplete && displayGeolocErrorMessage === true"
+            class="cross draw"
+            [ngClass]="{'block': loadComplete}">
+          </div> -->
+        </div>
+        <div [ngClass]="{'error-message': displayGeolocErrorMessage}">
+          {{ 'around_me' | translate }}
+        </div>
+      </ion-button>
+      <!-- <div *ngIf="displayGeolocErrorMessage"
+        class="error-message" color="danger">
+        {{ 'geolocation_error_message' | translate }}
+      </div> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="modal-container">
+    <ion-grid>
+      <!-- RECENT SEARCH -->
+      <ion-row *ngIf="recentPlaceSearch && showRecentSearch">
+        <ion-row>
+          <div class="section-title">
+            {{ this.translate.instant('last_search') }}
+          </div>
+        </ion-row>
+        <ion-row>
+          <ion-list *ngIf="recentPlaceSearch.cities && recentPlaceSearch?.cities?.length"
+            lines="none"
+            class="list-result">
+            <ion-item *ngFor="let city of recentPlaceSearch.cities"
+              button="true"
+              detail="true"
+              mode="md"
+              lines="none"
+              class="flex aic jcfs"
+              (click)="selectCityAndSearchClub(city, true)">
+              <app-svg-container
+                slot="start"
+                [inputClass]="'icon-m'"
+                [svg]="pinIcon"
+                [iconColor]="'white'">
+              </app-svg-container>
+              {{ city }}
+            </ion-item>
+          </ion-list>
+        </ion-row>
+        <ion-row>
+          <ion-list *ngIf="recentPlaceSearch?.clubs && recentPlaceSearch?.clubs?.length"
+            lines="none"
+            class="list-result test">
+            <ion-item *ngFor="let club of recentPlaceSearch?.clubs"
+              button="true"
+              detail="true"
+              mode="md"
+              (click)="goToClub(club)">
+              <app-avatar-name
+                class="dspl-blck w-100"
+                [imageUrl]="club.logo?.contentUrl"
+                [imageSize]="'12vw'"
+                [title]="club.name"
+                [subtitle]="club.address[0] + ',' + club.zipCode + ',' + club.city"
+                [fontSizes]="FontSize.SMALL"
+                [colorStyle]="ColorStyle.DARK">
+              </app-avatar-name>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+      </ion-row>
+      <ion-row *ngIf="noRecentSearchMessage?.length && showRecentSearch">
+        <div>
+          {{ noRecentSearchMessage }}
+        </div>
+      </ion-row>
+      <ion-row *ngIf="skeletonShowRecent">
+        <ion-skeleton-text animated class="skeleton-section-title"></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-row>
+
+      <!-- CITIES CORRESPONDING TO THE SEARCH INPUT &&  WHERE THERE IS CLUBS-->
+      <ion-row *ngIf="searchInput?.length > 2">
+        <ion-row>
+          <div class="section-title">{{ 'places' | translate}}</div>
+        </ion-row>
+        <ion-row *ngIf="searchClubCitiesResult?.length">
+          <ion-list
+            lines="none"
+            class="list-result">
+            <ion-item *ngFor="let city of searchClubCitiesResult"
+              button="true"
+              detail="true"
+              mode="md"
+              (click)="selectCityAndSearchClub(city)">
+              <ion-label>{{ city }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+        <ion-row *ngIf="noCityMessage?.length">
+          <div>
+            {{ noCityMessage}}
+          </div>
+        </ion-row>
+        <ion-row *ngIf="skeletonShowCities">
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-row>
+      </ion-row>
+
+      <!-- CLUBS WHERE CLUB NAMES CORRESPOND WITH THE SEARCH INPUT  -->
+      <ion-row *ngIf="searchInput?.length > 2">
+        <ion-row>
+          <div class="section-title">
+            {{ this.translate.instant('complexes') }}
+          </div>
+        </ion-row>
+        <ion-row *ngIf="searchClubByNameResult?.length">
+          <ion-list
+            lines="none"
+            class="list-result">
+            <ion-item *ngFor="let club of searchClubByNameResult"
+              button="true"
+              detail="true"
+              mode="md"
+              (click)="goToClub(club)"> <!--  [routerLink]="'club/' + club.id" -->
+              <app-avatar-name
+                class="dspl-blck w-100"
+                [imageUrl]="club.logo?.contentUrl"
+                [imageSize]="'8vw'"
+                [title]="club.name"
+                [subtitle]="club.address ? club.address[0] + ',' + club.zipCode + ',' + club.city : '' "
+                [fontSizes]="FontSize.SMALL"
+                [colorStyle]="ColorStyle.DARK">
+              </app-avatar-name>
+            </ion-item>
+          </ion-list>
+        </ion-row>
+        <ion-row *ngIf="noClubMessage?.length">
+          <div>
+            {{ noClubMessage }}
+          </div>
+        </ion-row>
+        <ion-row *ngIf="skeletonShowClub">
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-row>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

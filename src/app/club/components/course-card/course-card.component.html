@@ -1,0 +1,55 @@
+<div class="card-container flex jcsb pb-2 mb-2">
+  <div class="picture-text-container pos-rel mr-1">
+    <div class="picture-container">
+      <!-- TODO: add an image class -->
+      <img src="{{ course.photo }}" alt="" style="width:100%;height:auto;object-fit:contain;">
+    </div>
+    <div class="time-duration-container pos-abs-top-left w-100 h-100 flex d-col aic jcc">
+      <div class="time">
+        <span *ngIf="course.date != undefined">
+          {{ course.date.toString()  | moment : 'HH:mm' }}
+        </span>
+      </div>
+      <div class="duration">
+        <span>
+          {{ course.duration }} min
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="course-description-container flex d-col jcsb aic ml-1">
+    <div class="title flex jcs aib w-100 mb-1">
+      <span class="mr-0-5">
+        {{ course.name }} .
+      </span>
+      <!-- <span class="dot mr-0-5 asc"></span> -->
+      <span class="attenders asb mr-0-5">
+        {{ course.attenders }}/{{ course.max_attenders }}
+      </span>
+      <span *ngIf="course.attenders > 1"
+        class="attenders">
+        {{ 'participate' | translate }}
+      </span>
+      <span *ngIf="course.attenders <= 1"
+        class="attenders">
+        {{ 'participate_single' | translate }}
+      </span>
+    </div>
+    <div class="flex jcs w-100">
+      <app-activity-levels
+        [levels]="course.levels"
+        [colors]="levelsColors"
+      >
+      </app-activity-levels>
+    </div>
+    <div class="description">
+      <p>
+        {{ course.description }}
+      </p>
+    </div>
+    <div class="join-button-container"
+    >
+      <span>{{ 'join' | translate }}</span>
+    </div>
+  </div>
+</div>

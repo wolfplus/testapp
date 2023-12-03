@@ -1,0 +1,11 @@
+<div class="error-api">
+    <div class="error-api-text">
+        <ion-icon class="icon" name="hammer"></ion-icon>
+        <ng-container *ngIf="isMobile">
+            {{ 'error_api_message_mobile' | translate }}
+        </ng-container>
+        <ng-container *ngIf="!isMobile">
+            {{ 'error_api_message_desktop' | translate }}
+        </ng-container>
+    </div>
+</div>

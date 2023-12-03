@@ -1,0 +1,23 @@
+<div class="avatar-container pos-rel mr-2">
+  <ion-avatar class="pos-rel">
+    <img src="{{attender.avatar}}" alt="">
+    <div class="player-level pos-abs-btm flex jcc aic"
+      [ngClass]="{'level_one': attender.level == 1,
+        'level_two': attender.level == 2,
+        'level_three': attender.level == 3,
+        'level_four': attender.level == 4,
+        'level_five': attender.level == 5,
+        'level_six': attender.level == 6,
+        'level_seven': attender.level == 7,
+        'level_eight': attender.level == 8,
+        'level_nine': attender.level == 9,
+        'level_ten': attender.level == 10}">
+      <!-- TODO: find attender level for this activity -->
+      <!-- {{ attender.sport.level }} -->
+      4
+    </div>
+  </ion-avatar>
+  <div class="player-name mt-1">
+    {{ attender.name }}
+  </div>
+</div>

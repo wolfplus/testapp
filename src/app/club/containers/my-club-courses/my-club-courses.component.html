@@ -1,0 +1,95 @@
+<div *ngIf="(coursesAreLoaded$ | async)"
+  class="events-container">
+  <div class="flex jcsb aic events-header">
+    <div class="section-title">
+      {{ title$ | async }}
+    </div>
+    <div class="filters">
+     <div class="caldendar"></div>
+     <div class="filters"></div>
+    </div>
+  </div>
+  <div class="courses-container flex d-col jcsb pt-2">
+    <ng-container *ngFor="let course of courses">
+      <app-course-card
+        [course]="course"
+      >
+      </app-course-card>
+    </ng-container>
+  </div>
+</div>
+<!-- Club Courses skeleton -->
+<!-- TODO: move the skeleton into the child component -->
+<div *ngIf="(coursesAreLoaded$ | async)"
+  class="app-container">
+  <div style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+    <ion-skeleton-text animated style="width: 40%;height:1.5rem;"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 30%;height:2rem;"></ion-skeleton-text>
+    <ion-skeleton-text animated style="width: 10%;height:2rem;"></ion-skeleton-text>
+  </div>
+  <ion-list style="width:100%; margin:2rem auto;">
+    <ion-item >
+      <ion-thumbnail slot="start" style="width:30%;height:15rem;">
+        <ion-skeleton-text animated style="border-radius:15px;"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <div style="display:flex;justify-content:space-between;width:90%;">
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:50%;height:1rem;align-self:flex-end;"></ion-skeleton-text>
+        </div>
+        <p style="display:flex;justify-content:space-between;width:70%;">
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;border-radius: 5px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;border-radius: 5px;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width:100%;height:6rem;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width:50%;height:2rem;border-radius: 15px;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item >
+      <ion-thumbnail slot="start" style="width:30%;height:15rem;">
+        <ion-skeleton-text animated style="border-radius:15px;"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <div style="display:flex;justify-content:space-between;width:90%;">
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:50%;height:1rem;align-self:flex-end;"></ion-skeleton-text>
+        </div>
+        <p style="display:flex;justify-content:space-between;width:70%;">
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;border-radius: 5px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;border-radius: 5px;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width:100%;height:6rem;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width:50%;height:2rem;border-radius: 15px;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+    <ion-item >
+      <ion-thumbnail slot="start" style="width:30%;height:15rem;">
+        <ion-skeleton-text animated style="border-radius:15px;"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <div style="display:flex;justify-content:space-between;width:90%;">
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:50%;height:1rem;align-self:flex-end;"></ion-skeleton-text>
+        </div>
+        <p style="display:flex;justify-content:space-between;width:70%;">
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;border-radius: 5px;"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width:45%;height:1.5rem;border-radius: 5px;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width:100%;height:6rem;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width:30%;height:2rem;border-radius: 15px;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>

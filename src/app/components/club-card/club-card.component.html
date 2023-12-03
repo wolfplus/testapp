@@ -1,0 +1,28 @@
+<div class="do-card-container pos-rel flex d-col">
+
+  <div *ngIf="club"
+    class="do-card-pic">
+    <!-- TODO: match.club.photos[0] -->
+    <!-- <img src="{{ baseUrl + club.mainPhoto.contentUrl}}" alt="" class="img-ratio"> -->
+    <ion-img *ngIf="club?.mainPhoto !== null"
+      src="{{ baseUrl + club?.mainPhoto?.contentUrl}}" alt="" class="img-ratio">
+    </ion-img>
+    <ion-img *ngIf="!club?.mainPhoto"
+      src="" alt="" class="img-ratio">
+    </ion-img>
+  </div>
+
+  <app-avatar-name *ngIf="club"
+    class="dspl-blck w-100"
+    [imageUrl]="club?.logo ? club?.logo.contentUrl : 'undefined'"
+    [imageSize]="'12vw'"
+    [title]="club.name"
+    [subtitle]="club.address[0]"
+    [fontSizes]="FontSize.MEDIUM"
+    [colorStyle]="ColorStyle.LIGHT">
+    <app-club-distance
+      [clubLocation$]="clubLocation$"
+      [userLocation$]="userLocation$">
+    </app-club-distance>
+  </app-avatar-name>
+</div>

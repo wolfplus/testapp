@@ -1,0 +1,208 @@
+<ion-header>
+    <ion-toolbar color="'var(--app-dark-or-not-color)'" class="do-pt-1">
+        <ion-buttons slot="start">
+          <ion-button (click)="back()">
+            <ion-icon src="assets/icon/globals/arrow-back.svg">
+            </ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="page-title">{{ 'payment_card' | translate }}</ion-title>
+      </ion-toolbar>
+</ion-header>
+
+<div class="card-block inner-content">
+    <!-- <div class="subtitle">
+        {{ 'payment_mode' | translate }}
+    </div> -->
+    <!-- <ng-container *ngIf="cards.length === 0">
+        <div class="selectedCard">
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        {{ 'add_payment_method' | translate }}
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <input #cardName
+                            type="text"
+                            class="card-name-input"
+                            placeholder="{{'card_owner_name'|translate}}">
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <input #cardNumber
+                            type="text"
+                            class="card-number-input"
+                            placeholder="4242 4242 4242 4242">
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="6"
+                        class="flex jcsb">
+                        <input #cardMonth
+                            type="text"
+                            class="card-month-input"
+                            placeholder="MM">
+                        <input #cardYear
+                            type="text"
+                            class="card-year-input"
+                            placeholder="YY">
+                    </ion-col>
+                    <ion-col size="6">
+                        <input #cardCVC
+                            type="text"
+                            class="card-cvc-input"
+                            placeholder="XXX">
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <button class="btn-add-card"
+                            (click)="addCard(cardName, cardNumber, cardMonth, cardYear, cardCVC)">
+                            <div>
+                                {{ 'confirm_card_payment' | translate }}
+                            </div>
+                        </button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ng-container> -->
+    <ion-list>
+        <ng-container *ngFor="let card of cards, let i = index">
+            <ion-item class="selectedCard" *ngIf="card.default || showAllCards">
+                <div class="flex jcsb aic w-100">
+                    <ion-thumbnail item-start>
+                        <img class="card-icon"
+                            src="assets/icon/credit_card/{{card.type}}.png"
+                            width="100%">
+                    </ion-thumbnail>
+                    <div class="card-holder">
+                        {{ card.name }}
+                    </div>
+                    <div class="flex jcsb aic">
+                        <div class="card-number">
+                            {{ card.number | hide_number_card }}
+                        </div>
+                        <div class="card-expiration">
+                            {{card.expMonth}}/{{card.expYear}}
+                        </div>
+                    </div>
+                    <div item-end>
+                        <img *ngIf="!showAllCards"
+                            src="assets/icon/globals/arrow-back.svg"
+                            (click)="showAll()"
+                            item-end
+                            class="action">
+                        <ion-button item-end *ngIf="showAllCards"
+                            (click)="defineDefault(i)">
+                            {{ 'choose' | translate }}
+                        </ion-button>
+                    </div>
+                    <ion-icon name="trash"
+                              (click)="removeCard(i)"
+                    ></ion-icon>
+                </div>
+                <!-- <ion-grid>
+                    <ion-row>
+                        <ion-col size="3"
+                            style="align-items: center;">
+                            <img class="card-icon"
+                                src="assets/icon/credit_card/{{card.type}}.png"
+                                width="100%">
+                        </ion-col>
+                        <ion-col size="7">
+                            <div class="card-holder">
+                                {{ card.name }}
+                            </div>
+                            <div class="flex jcsb aic">
+                                <div class="card-number">
+                                    {{ card.number | hide_number_card }}
+                                </div>
+                                <div class="card-expiration">
+                                    {{card.expMonth}}/{{card.expYear}}
+                                </div>
+                            </div>
+                        </ion-col>
+                        <ion-col size="2">
+                            <img *ngIf="!showAllCards"
+                                src="assets/icon/globals/arrow-back.svg"
+                                (click)="showAll()"
+                                class="action">
+                            <ion-button *ngIf="showAllCards"
+                                (click)="defineDefault(i)">
+                                {{ 'choose' | translate }}
+                            </ion-button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid> -->
+            </ion-item>
+        </ng-container>
+    </ion-list>
+    <div *ngIf="showAllCards"
+        class="selectedCard">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    {{ 'add_payment_method' | translate }}
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <input #cardName
+                        type="text"
+                        class="card-name-input"
+                        placeholder="{{ 'card_owner_name' | translate }}">
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <input #cardNumber
+                        type="text"
+                        class="card-number-input"
+                        placeholder="4242 4242 4242 4242"
+                           [ngClass]="{'error': errorCard}"
+                           (input)="check($event, 0)">
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="6">
+                    <input #cardMonth
+                        type="text"
+                        class="card-month-input"
+                        placeholder="MM"
+                           [ngClass]="{'error': errorMonth}"
+                           (input)="check($event, 1)">
+                    <input #cardYear
+                        type="text"
+                        class="card-year-input"
+                        placeholder="YY"
+                           [ngClass]="{'error': errorYear}"
+                           (input)="check($event, 2)">
+                </ion-col>
+                <ion-col size="6">
+                    <input #cardCVC
+                        type="text"
+                        class="card-cvc-input"
+                        placeholder="XXX"
+                           [ngClass]="{'error': errorCVC}"
+                           (input)="check($event, 3)">
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="12">
+                    <ion-button class="btn-add-card"
+                        expand="block"
+                        mode="ios"
+                        (click)="addCard(cardName, cardNumber, cardMonth, cardYear, cardCVC)">
+                        <div>
+                            {{ 'confirm_card_payment' | translate }}
+                        </div>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="pos-rel h-100 w-100">
+    <div [@fadeInFadeOut]
+        class="backdrop h-100 w-100"
+        (click)="onBackBtnClicked()">
+    </div>
+    <div [@slideInSlideOut] class="sharing-options pos-abs-btm">
+        <!-- <ion-list-header class="header-modal">
+            <div class="back-icon">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </div>
+            <ion-label class="title"> {{ 'add_user' | translate }} </ion-label>
+        </ion-list-header>
+
+        <div class="choice"
+            (click)="openAddModal('friend')">
+            <div style="width: 30%; display: flex; justify-content: center;">
+                <ion-icon name="people"></ion-icon>
+            </div>
+            <div style="width: 70%; display: flex; justify-content: flex-start;">
+                <p>{{ 'add_a_friend' | translate }}</p>
+            </div>
+        </div>
+        <div class="choice"
+            (click)="openAddModal('customer')">
+            <div style="width: 30%; display: flex; justify-content: center;">
+                <ion-icon name="reader"></ion-icon>
+            </div>
+            <div style="width: 70%; display: flex; justify-content: flex-start;">
+                <p>{{ 'add_a_customer_club' | translate }}</p>
+            </div>
+        </div> -->
+        <ion-grid>
+            <ion-row class="do-pl-2 do-pr-2">
+              <ion-col (click)="onBackBtnClicked()"
+                size="1"
+                class="flex jcc aic">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </ion-col>
+              <ion-col size="10">
+                <div class="title flex jcc aic">
+                    {{ 'add_user' | translate }}
+                </div>
+              </ion-col>
+              <ion-col size="1"></ion-col>
+            </ion-row>
+
+            <ion-row class="do-pl-2 do-pr-2">
+              <ion-item
+                lines="none"
+                mode="ios"
+                (click)="openAddModal('friend')">
+                <ion-icon name="people" slot="start"></ion-icon>
+                <ion-label class="invite-friend">
+                    {{ 'add_a_friend' | translate }}
+                </ion-label>
+              </ion-item>
+            </ion-row>
+
+            <ion-row class="do-pl-2 do-pr-2">
+              <ion-item
+                lines="none"
+                mode="ios"
+                detail="false"
+                (click)="openAddModal('customer')">
+                <ion-icon name="reader" slot="start"></ion-icon>
+                <ion-label class="invite-friend" style="white-space: normal;">
+                    {{ 'add_a_customer_club' | translate }}
+                </ion-label>
+              </ion-item>
+            </ion-row>
+          </ion-grid>
+    </div>
+</div>

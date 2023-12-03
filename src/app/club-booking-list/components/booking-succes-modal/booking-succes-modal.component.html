@@ -1,0 +1,56 @@
+<ion-content>
+    <!-- BOOKING CREATED SUCCESS -->
+    <div
+        class="booking-create-success flex d-col aic jcc h-100 w-100"
+        (click)="onScreenTapped()">
+        <div class="flex jcc aic h-40vh w-80">
+            <img class="image-success" src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/success.svg"
+                alt="">
+        </div>
+        <div class="h-50vh w-100 flex d-col jcsb aic">
+        <!-- BOOKING CREATED TEXT -->
+        <br>
+        
+        <div *ngIf="msgCourse" class="flex d-col jcc aic">
+            <div class="request-result-title t-center" style="font-family: 'Panton-Regular' !important;">
+                {{ msgCourse | translate }}
+            </div>
+        </div>
+
+
+            <div class="flex d-col jcc aic" *ngIf="!environmentService.overwriteMatchEvent() && msgCourse !== 'an_error_has_occured'">
+                <div class="request-result-title t-center">
+                {{ 'booking_created' | translate }}
+                </div>
+                <div *ngIf="!msgCourse && environmentService.getEnvFile().marqueBlanche.useMatch" class="match-available-now t-center">
+                {{ 'wanna_create_match' | translate }}
+                </div>
+            </div>
+            <ion-button *ngIf="!env.marqueBlanche.userUI" fill="outline"
+                        class="btn-next"
+                        mode="ios"
+                        (click)="goCreateMatch()">
+                <div class="do-p-2">
+                    {{ 'create_a_match' | translate }}
+                </div>
+            </ion-button>
+            <div class="go-to-create-match-btn">
+                <ion-button fill="outline"
+                            class="btn-next calendar-btn"
+                            mode="ios"
+                            (click)="addToCalendar()">
+                    <div class="agenda-btn">
+                        <ion-icon name="calendar-outline"></ion-icon>
+                        <span>{{ 'add_to_agenda' | translate }}</span>
+                    </div>
+                </ion-button>
+            </div>
+            <br>
+            <div class="touch w-100 t-center"
+            data-test="touch-to-continue">
+                {{ 'touch_to_continue' | translate }}
+            </div>
+        </div>
+    </div>
+    <!-- END OF BOOKING CREATED SUCCESS -->
+</ion-content>

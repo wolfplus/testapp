@@ -1,0 +1,44 @@
+.backdrop {
+  min-height: 50%;
+  background: black;
+  opacity: 0.2;
+}
+
+.tickets-selector {
+  position: absolute;
+  bottom:0;
+  border-radius: 1.5rem 1.5rem 0 0;
+  width: 100%;
+  background: white;
+  padding: 1rem 0 3rem;
+
+  ion-icon {
+    font-size: 3rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .number-input {
+    font-weight: bold;
+    max-width: 80%;
+    font-size: 2rem;
+    text-align: center;
+    padding: 1rem;
+    /* margin: 1rem; */
+    border: 1px solid var(--ion-secondary-text-color);
+    border-radius: 1.5rem;
+  }
+
+  .warning-text {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--ion-secondary-text-color);
+    &-booking {
+      display: block;
+      font-weight: bold;
+      color: red;
+    }
+  }
+}

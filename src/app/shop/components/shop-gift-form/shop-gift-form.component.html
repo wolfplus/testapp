@@ -1,0 +1,38 @@
+<app-default-header
+        [title]="'title_form_formule' | translate"
+        [backgroundImage]="null"
+        (back)="dismiss()"
+></app-default-header>
+<ion-content >
+    <div class="description">
+        <label>
+            {{ 'gift-description' | translate }}
+        </label>
+    </div>
+    <div class="content-form">
+        <ng-container>
+            <app-custom-input
+                    *ngFor="let element of formData"
+                    [type]="element.field.type"
+                    [placeholder]="element.field.label"
+                    [required]="element.required"
+                    [name]="element.field.name"
+                    [error]="errors[element.field.name] ? errors[element.field.name] : false"
+                    [model]="form[element.field.name]"
+                    (onChange)="changeInput($event)"
+            ></app-custom-input>
+        </ng-container>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-button
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            (click)="validForm(true)"
+    >
+        <div class="do-p-2">{{ 'validate' | translate }}</div>
+    </ion-button>
+</ion-footer>

@@ -1,0 +1,17 @@
+<div class="flex jcsb flxw reviews-short-container">
+  <div class="flex mr-1 reviews-stars">
+    <img *ngFor="let star of createRange(star)"
+      src="assets/images/icons/star_full.svg" 
+      alt="">
+      <img *ngFor="let emptyStar of createRange(5 - star)"
+        src="assets/images/icons/star_empty.svg" 
+        alt="">
+  </div>
+  <div class="reviews">
+    <div class="reviews-number">
+      <!-- TODO: dynamic content -->
+      <span class="mr-0-5">{{clubReviewsNumber}}</span>
+      <span class="mr-0-5">avis</span>
+    </div>
+  </div>
+</div>

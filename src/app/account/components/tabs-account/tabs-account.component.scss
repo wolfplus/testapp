@@ -1,0 +1,29 @@
+.tabs-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  position: sticky;
+  .tabs-item {
+    width: 50%;
+    text-align: center;
+    font-weight: 400;
+    font-size: 1.8rem;
+    color: var(--app-dark-or-not-color-contrast)!important;
+    border-bottom: 1px solid #8B99BB;
+  }
+  .tabs-item.active {
+    color: #4251F8;
+    font-weight: 700;
+    border-bottom: 3px solid #4251F8;
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    ion-segment{
+      width: 40%;
+      margin: auto;
+    }
+}

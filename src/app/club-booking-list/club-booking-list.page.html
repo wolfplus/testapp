@@ -1,0 +1,123 @@
+<app-club-booking-header
+  [name]="clubName"
+  [clubTimezone]="clubTimezone"
+  [minDuration]="minDuration|async"
+  [showTimes]="setTimes"
+  [openningHour]="openningHour"
+  [closingHour]="closingHour"
+  [filterSelected]="filterSelected"
+  (reload)="reload($event)"
+  (changeSelectedTime)="changeSelectedTime($event)"
+  (changeCours)="changeCours($event)"
+  [selectedTime]="selectedTime"
+  [selectedDate]="date"
+  [clubId]="guid"
+  [clubDetails]="clubDetails"
+  [coursSelected]="coursSelected"
+  [eventSelected]="eventSelected"
+  [from]="from"
+  [showTimeline]="isBySlot"
+  [isBySlot]="isBySlot"
+>
+</app-club-booking-header>
+
+
+<ion-content #contentScroll id="scroll-content" [ngClass]="{'bg-custom': coursSelected || eventSelected}" >
+
+  <app-schedule-sport
+      *ngIf="!isBySlot && playgrounds && playgrounds.length > 0"
+      [playgrounds]="playgrounds"
+      [club]="clubDetails"
+      [activityId]="selectedActivityId"
+      [selectedTime]="selectedTime"
+      [reload]="reloadSchedule"
+      (bookingSuccess)="dealWithCreateBookingResponse($event)"
+  ></app-schedule-sport>
+
+  <ng-container *ngIf="isBySlot">
+    <div class="tablet-section skeleton-playground" *ngIf="showSkeletonPlayground">
+      <ion-skeleton-text animated class="skeletonTitle"></ion-skeleton-text>
+      <ion-skeleton-text animated class="skeletonSubtitle"></ion-skeleton-text>
+      <ion-skeleton-text animated class="skeletonSlot"></ion-skeleton-text>
+
+      <ion-skeleton-text animated class="skeletonTitle"></ion-skeleton-text>
+      <ion-skeleton-text animated class="skeletonSubtitle"></ion-skeleton-text>
+      <ion-skeleton-text animated class="skeletonSlot"></ion-skeleton-text>
+    </div>
+
+
+    <ng-container *ngIf="!showSkeletonPlayground && !coursSelected && !eventSelected">
+      <div *ngFor="let playground of playgrounds" class="margin-tablet">
+        <ng-container *ngFor="let activity of playground.activities">
+          <app-card-playground
+                  [clubCurrency]="clubCurrency"
+                  [clubTimeZone]="clubDetails.timezone"
+                  [date]="date"
+                  [selectedTime]="selectedTime"
+                  (setMinStep)="setMinStep($event)"
+                  (bookingSuccess)="dealWithCreateBookingResponse($event)"
+                  [playground]="playground"
+                  [activity]="activity"
+                  class="playgrounds-tablet"
+          >
+          </app-card-playground>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!showSkeletonPlayground && allCourses && (coursSelected || eventSelected)">
+      <ng-container *ngFor="let oneCourse of allCourses">
+        <app-card-cours
+                [showDate]="eventSelected"
+                (reloadCourse)="reload($event)"
+                [oneCourse]="oneCourse">
+        </app-card-cours>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="!showSkeletonPlayground && allCourses.length == 0 && coursSelected">
+      <ng-container>
+        <div class="no-product-img">
+          <svg id="Capa_1" enable-background="new 0 0 512.001 512.001" height="60" viewBox="0 0 512.001 512.001" width="60" xmlns="http://www.w3.org/2000/svg"><g><path d="m45.126 493.5c-24.882 0-45.125-20.243-45.125-45.125v-180.75h30v35.294c0 23.467 9.139 45.528 25.731 62.121 22.26 22.259 34.519 51.855 34.519 83.335 0 24.882-20.243 45.125-45.125 45.125zm-15.125-112.017v66.893c0 8.34 6.785 15.125 15.125 15.125s15.125-6.785 15.125-15.125c0-23.467-9.139-45.528-25.731-62.121-1.556-1.556-3.062-3.147-4.519-4.772z" fill="#3f3b56"/><path d="m69.496 299.626h-37.496c-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32h37.496z" fill="#b72e1d"/><path d="m512.001 107.62v128l-128 32c0 88.37-71.63 160.01-160 160.01s-160-71.64-160-160.01c0-88.36 71.63-160 160-160h96l56.19 12.7 39.81-12.7z" fill="#e86539"/><path d="m512.001 107.62v128l-128 32c0 88.37-71.63 160.01-160 160.01v-320.01h96l56.19 12.7 39.81-12.7z" fill="#b72e1d"/><circle cx="224.001" cy="267.4" fill="#ff9961" r="96"/><path d="m320.001 267.4c0 53.02-42.98 96-96 96v-192c53.02 0 96 42.98 96 96z" fill="#e86539"/><path d="m320.001 107.625 32 64h64v-64z" fill="#9b0902"/><g fill="#f2a72d"><path d="m309.485 38.057h30v38.822h-30z" transform="matrix(.707 -.707 .707 .707 54.403 246.277)"/><path d="m397.106 40.604h38.822v30h-38.822z" transform="matrix(.707 -.707 .707 .707 82.677 310.808)"/><path d="m355.19 18.5h30v38.822h-30z"/></g></g></svg><br>
+        </div>
+        <p class="do-p-1 text-center m-0 no-product">
+          {{ 'no-courses_title' | translate }}
+        </p>
+        <div class="do-p-1 text-center">
+          {{ 'no-courses' | translate }}
+        </div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="!showSkeletonPlayground && allCourses.length == 0 && eventSelected">
+      <ng-container>
+        <div class="no-product-img">
+          <svg id="Capa_1" enable-background="new 0 0 512.001 512.001" height="60" viewBox="0 0 512.001 512.001" width="60" xmlns="http://www.w3.org/2000/svg"><g><path d="m45.126 493.5c-24.882 0-45.125-20.243-45.125-45.125v-180.75h30v35.294c0 23.467 9.139 45.528 25.731 62.121 22.26 22.259 34.519 51.855 34.519 83.335 0 24.882-20.243 45.125-45.125 45.125zm-15.125-112.017v66.893c0 8.34 6.785 15.125 15.125 15.125s15.125-6.785 15.125-15.125c0-23.467-9.139-45.528-25.731-62.121-1.556-1.556-3.062-3.147-4.519-4.772z" fill="#3f3b56"/><path d="m69.496 299.626h-37.496c-17.673 0-32-14.327-32-32 0-17.673 14.327-32 32-32h37.496z" fill="#b72e1d"/><path d="m512.001 107.62v128l-128 32c0 88.37-71.63 160.01-160 160.01s-160-71.64-160-160.01c0-88.36 71.63-160 160-160h96l56.19 12.7 39.81-12.7z" fill="#e86539"/><path d="m512.001 107.62v128l-128 32c0 88.37-71.63 160.01-160 160.01v-320.01h96l56.19 12.7 39.81-12.7z" fill="#b72e1d"/><circle cx="224.001" cy="267.4" fill="#ff9961" r="96"/><path d="m320.001 267.4c0 53.02-42.98 96-96 96v-192c53.02 0 96 42.98 96 96z" fill="#e86539"/><path d="m320.001 107.625 32 64h64v-64z" fill="#9b0902"/><g fill="#f2a72d"><path d="m309.485 38.057h30v38.822h-30z" transform="matrix(.707 -.707 .707 .707 54.403 246.277)"/><path d="m397.106 40.604h38.822v30h-38.822z" transform="matrix(.707 -.707 .707 .707 82.677 310.808)"/><path d="m355.19 18.5h30v38.822h-30z"/></g></g></svg><br>
+        </div>
+        <p class="do-p-1 text-center m-0 no-product">
+          {{ 'no-events_title' | translate }}
+        </p>
+        <div class="do-p-1 text-center">
+          {{ 'no-events' | translate }}
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <div class="footer-action" *ngIf="isMultiSchedule">
+    <div class="action-type-planning" (click)="changeTypeSchedule()">
+      <label>{{ (isBySlot ? 'see_by_schedule' : 'see_by_slots') | translate }}</label>
+    </div>
+  </div>
+
+  <ion-infinite-scroll *ngIf="eventSelected && allCourses.length != 0"
+                       threshold="0"
+                       (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="{{'Chargement'}}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+
+

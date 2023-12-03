@@ -1,0 +1,47 @@
+<div *ngIf="showSkeleton || bookings.length"
+  class="block-my-bookings">
+  <!-- <div class="section-title">{{ 'home_page.my_bookings.title' | translate }}</div> -->
+  <div *ngIf="nextBookings?.length || pastBookings?.length"
+    class="flex jcsb do-p-1-2">
+    <div *ngIf="nextBookings?.length"
+      class="section-title do-mr-3">
+      {{ 'home_page.my_next_courses' | translate }}
+    </div>
+    <div *ngIf="pastBookings?.length && nextBookings?.length === 0"
+      class="section-title do-mr-3">
+      {{ 'home_page.my_last_courses' | translate }}
+    </div>
+  </div>
+
+  <div class="horizontal">
+    <div *ngIf="showSkeleton"
+        class="flex aic w-100">
+      <ion-skeleton-text class="card-my-booking-skeleton" animated></ion-skeleton-text>
+      </div>
+    <ion-slides *ngIf="bookings.length"
+      [pager]="bookings.length < 5 ? false : true"
+      class="display-list-tablet"
+      [options]="slideOptTablet">
+      <ion-slide  *ngFor="let booking of bookings">
+        <app-card-cours
+      (reloadCourse)="reload()"
+      [oneCourse]="booking">
+      </app-card-cours>
+
+      </ion-slide>
+    </ion-slides>
+    <ion-slides *ngIf="bookings.length"
+      [pager]="bookings.length < 3 ? false : true"
+      class="display-list-normal" 
+      [options]="slideOpt">
+      <ion-slide *ngFor="let booking of bookings" >
+        <app-card-cours
+      (reloadCourse)="reload()"
+      [oneCourse]="booking">
+      </app-card-cours>
+      </ion-slide>
+    </ion-slides>
+
+
+  </div>
+</div>

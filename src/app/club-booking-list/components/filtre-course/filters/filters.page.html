@@ -1,0 +1,92 @@
+<ion-header translucent="true">
+  <ion-toolbar color="'var(--app-dark-or-not-color)'" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button
+        (click)="close()"
+        mode="ios">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="page-title ion-text-center">{{ 'filters' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid class="filters-container">
+
+    <ion-row class="section-title do-pl-2 do-pr-2 t-center">
+      {{ 'filters_title.activity' | translate }}
+    </ion-row>
+    <!--  *ngIf="(activities$ | async) !== null" -->
+    <ion-row *ngIf="activities"
+      class="do-pl-2 do-pr-2">
+      <ion-col size="4" *ngFor="let activity of activities; let i = index">
+        <app-card-activity-icon
+          [title]="activity.name"
+          [guid]="activity.id"
+          [icon]="activity.icon"
+          [colors]="activity.colors"
+          [isSelected]="filterSections[i]"
+          (click)="selectFilter(i, activity)"
+          >
+        </app-card-activity-icon>
+      </ion-col>
+    </ion-row>
+   <!--  <ion-row class="sorters-container do-p-2">
+      <ion-row class="section-title">
+        <div class="t-center w-100">
+          {{ 'sort_results' | translate }}
+        </div>
+      </ion-row>
+      <ion-row class="flex fww w-100">
+        <ion-col size="4" *ngFor="let sorter of sorters; let i as index"
+          (click)="sorterClicked(sorter, i)">
+          <div class="filter-tag-btn"
+            [ngClass]="{'active':sorterIsSelected(sorter.value)}"
+          >
+            {{ sorter.translate | translate  }}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-row> -->
+
+    <ion-row *ngIf="!activities"
+      class="do-pl-2 do-pr-2">
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+      <ion-col size="4">
+        <ion-skeleton-text class="filter-tag-skeleton" animated></ion-skeleton-text>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-button
+    data-test="apply-filter-button"
+    class="btn-next"
+    expand="block"
+    mode="ios"
+    (click)="apply()"
+  >
+    <div class="do-p-2">
+      {{ 'apply' | translate }}
+    </div>
+  </ion-button>
+</ion-footer>

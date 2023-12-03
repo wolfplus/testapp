@@ -1,0 +1,4 @@
+platforms:
+  android:
+    versionName: 6.1.231130
+    versionCode: 61231130

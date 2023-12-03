@@ -1,0 +1,105 @@
+.conditions-link {
+  background-color: #e3e3e3;
+  color: #383a3e;
+  font-size: 15px;
+  font-weight: 800;
+  padding: 5px;
+  border-radius: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.bloc-sub-process {
+
+  .bloc-detail {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-bottom: 10px solid #F0F2F4;
+    .title {
+      font-size: 2rem;
+      font-weight: 800;
+      width: 100%;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+    .infos-col {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .info {
+        width: calc(100% / 3);
+        display: flex;
+        flex-direction: column;
+        &.b-right {
+          border-right: 1px solid #9d9fa6;
+        }
+        .title {
+          width: 100%;
+          text-align: center;
+          color: #1B1B29;
+          font-weight: 800;
+          font-size: 1.6rem;
+          margin-bottom: 10px;
+        }
+        .detail {
+          width: 100%;
+          text-align: center;
+          color: #7E838E;
+          font-weight: 500;
+          font-size: 1.5rem;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    .infos-row {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .info {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 5px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #F0F2F4;
+        &.b-bottom {
+          border-bottom: 1px solid #9d9fa6;
+        }
+        .title {
+          color: #9A9A9A;
+          width: 60%;
+          text-align: left;
+          font-weight: 800;
+          font-size: 1.3rem;
+          margin-bottom: 5px;
+          span {
+            color: #FE9828;
+            font-weight: 900;
+            font-size: 1.5rem;
+          }
+        }
+        .detail {
+          float: right;
+          text-align: right;
+          color: #7E838E;
+          margin-bottom: 5px;
+          width: inherit;
+          span {
+            background-color: #F0F2F4;
+            border-radius: 20px;
+            color: #8B8B92;
+            text-align: center;
+            padding: 5px 10px 5px 10px;
+            font-weight: 800;
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+}

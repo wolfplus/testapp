@@ -1,0 +1,74 @@
+<div>
+    <app-filters-booking class="dspl-blck"
+        [displayCalendarPicker]="true"
+        [config]="FiltersConfig.CLUB"
+        [clubId]="clubId">
+    </app-filters-booking>
+
+    <ng-container *ngIf="todayMatches?.length">
+      <div class="eventDay">{{ 'today' | translate }}</div>
+      <app-match-card *ngFor="let match of todayMatches"
+          [match]="match"
+          [config]="MatchCardConfig.CLUB"
+          [userId]="userId"
+          class="dspl-blck do-p-2">
+      </app-match-card>
+    </ng-container>
+    <ng-container *ngIf="tomorrowMatches?.length">
+      <div class="eventDay">{{ 'tomorrow' | translate }}</div>
+      <app-match-card *ngFor="let match of tomorrowMatches"
+          [match]="match"
+          [config]="MatchCardConfig.CLUB"
+          [userId]="userId"
+          class="dspl-blck do-p-2">
+      </app-match-card>
+    </ng-container>
+    <ng-container *ngIf="otherDaysMatchesByDate?.length">
+      <div *ngFor="let matchByDate of otherDaysMatchesByDate">
+        <div class="eventDay">{{ matchByDate.date }}</div>
+        <app-match-card *ngFor="let match of matchByDate.matches"
+          [match]="match"
+          [config]="MatchCardConfig.CLUB"
+          [userId]="userId"
+          class="dspl-blck do-p-2">
+        </app-match-card>
+      </div>
+    </ng-container>
+    <!-- TODO: translation -->
+    <div
+      *ngIf="displayNoMatchMessage"
+      class="flex d-col jcfs aic do-p-2">
+      <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+        <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_match.svg" alt="">
+      </div>
+      <!-- <div class="request-result-title do-pt-2 do-pb-2">
+      {{ 'oops' | translate }}
+    </div> -->
+      <div class="request-result-text do-pt-2 do-pb-2">
+        <div>{{ 'match_no_results_club' | translate }}</div>
+        <div>{{ 'try_another_day' | translate }}</div>
+      </div>
+    </div>
+    <div *ngIf="displayErrorMessage" class="flex d-col jcfs aic do-p-2">
+      <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+        <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/error.svg" alt="">
+      </div>
+      <!-- <div class="resuest-result-title do-pt-2 do-pb-2">
+      {{ 'oops' | translate }}
+    </div> -->
+      <div class="request-result-text do-pt-2 do-pb-2">
+        <div>{{ matchesLoadingError }}</div>
+      </div>
+    </div>
+    <ion-skeleton-text animated class="skeleton" *ngIf="showSkeleton"></ion-skeleton-text>
+</div>
+
+<ion-infinite-scroll
+  threshold="50px"
+  (ionInfinite)="loadMoreData($event)">
+  <!-- TODO: translate loading text -->
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="{{'loading_more_matches' | translate }}">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

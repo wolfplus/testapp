@@ -1,0 +1,18 @@
+<app-default-header
+        [title]="'Contactez-nous'"
+        [subtitle]=""
+        (back)="close()">
+</app-default-header>
+<ion-content >
+    <div class="content-form-message">
+        <p>Vous avez une question sur l'une de nos prestations ? Vous souhaitez partager votre avis sur l'application ? N'hésitez pas à nous écrire et notre équipe prendra le temps de vous faire un retour.</p>
+        <div>
+            <textarea [(ngModel)]="message" placeholder="Saisir ici votre message.." class="textarea-contact" rows="10"></textarea>
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <div (click)="send()" [class]="disabled?'btn-message disabled':'btn-message'">
+        Envoyer mon message
+    </div>
+</ion-footer>

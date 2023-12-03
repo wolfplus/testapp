@@ -1,0 +1,149 @@
+<app-default-header
+    [title]="'personnal_information'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div *ngIf="data">
+        <div class="flex aic jcc w-100 do-p-2">
+            <input
+                type="file"
+                #fileInput
+                hidden="true"
+                accept="image/*"
+            />
+            <ion-avatar class="pos-rel"
+                (click)="addPic()">
+                <img *ngIf="!data.imageAvatar"
+                    src="{{ 'https://eu.ui-avatars.com/api/?background=DBDBDB&color=fff&name=' + data.avatarName }}"
+                    alt="">
+
+                <img *ngIf="data.imageAvatar"
+                    [src]="urlPath + data.imageAvatar"
+                    alt="">
+
+                <div class="edit-pic-btn pos-abs-btm-right">
+                    <ion-icon src="assets/images/icons/pencil.svg"></ion-icon>
+                </div>
+            </ion-avatar>
+        </div>
+        <div class="form-group">
+            <ion-input class="form-input"
+                autocomplete="name"
+                [type]="'text'"
+                [(ngModel)]="data.firstName"
+                #firstName
+                placeholder="{{'firstName'|translate}}">
+                <ion-icon src="assets/images/icons/user.svg"
+                    slot="start">
+                </ion-icon>
+            </ion-input>
+        </div>
+        <div class="form-group">
+            <ion-input class="form-input"
+                autocomplete="family-name"
+                [type]="'text'"
+                [(ngModel)]="data.lastName"
+                #lastName
+                placeholder="{{'lastName'|translate}}">
+                <ion-icon src="assets/images/icons/user.svg"
+                    slot="start">
+                </ion-icon>
+            </ion-input>
+        </div>
+        <div class="form-group">
+            <ion-input class="form-input"
+                autocomplete="email"
+                [type]="'email'"
+                [(ngModel)]="data.email"
+                #email
+                placeholder="{{'email'|translate}}">
+                <ion-icon src="assets/images/icons/email.svg"
+                    slot="start">
+                 </ion-icon>
+            </ion-input>
+        </div>
+        <div class="form-group">
+            <ion-input class="form-input"
+                autocomplete="address-line1"
+                [type]="'text'"
+                [(ngModel)]="data.addressTmp"
+                #address
+                placeholder="{{ 'address' | translate }}">
+                <ion-icon src="assets/images/icons/map_pin_icon.svg"
+                    slot="start">
+                </ion-icon>
+            </ion-input>
+        </div>
+        <div class="form-group">
+            <ion-input class="form-input"
+                autocomplete="address-level4"
+                [type]="'text'"
+                [(ngModel)]="data.city"
+                #city
+                placeholder="{{ 'city' | translate }}">
+                <ion-icon src="assets/images/icons/map_pin_icon.svg"
+                    slot="start">
+                </ion-icon>
+            </ion-input>
+        </div>
+        <div class="form-group">
+            <ion-input class="form-input"
+                autocomplete="postal-code"
+                [type]="'text'"
+                [(ngModel)]="data.zipCode"
+                #zipCode
+                placeholder="{{ 'zipcode' | translate }}">
+                <ion-icon src="assets/images/icons/map_pin_icon.svg"
+                    slot="start">
+                </ion-icon>
+            </ion-input>
+        </div>
+        <div class="form-group">
+            <label (click)="triggerCalendar()" class="date-label">
+                <ion-input class="form-input date"
+                           autocomplete="birthdate"
+                           [type]="'text'"
+                           (click)="triggerCalendar()"
+                           placeholder="{{ 'label_birthday' | translate }}"
+                           disabled
+                           [value]="data.birthDate ? moment(data.birthDate).format('DD/MM/YYYY') : ''">
+                    <ion-icon name="calendar-outline"
+                              slot="start">
+                    </ion-icon>
+                </ion-input>
+            </label>
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button
+        strong="true"
+        mode="ios"
+        expand="block"
+        class="btn-next"
+        (click)="confirm()">
+        <div class="do-p-2">
+            {{ 'validate' | translate }}
+        </div>
+    </ion-button>
+</ion-footer>
+<div (click)="closeCalendar($event)" class="calendar-modal" *ngIf="openCalendar">
+    <div class="calendar-wrapper">
+        <ion-datetime
+                class="datepicker"
+                [max]="maxDate"
+                [(ngModel)]="data.birthDate"
+                [value]="data.birthDate"
+                displayFormat="DD MM YY"
+                doneText="{{ doneText }}"
+                cancelText="{{ cancelText }}"
+                presentation="date"
+        >
+        </ion-datetime>
+        <ion-buttons class="calendar-btns" slot="buttons">
+            <ion-button color="primary" (click)="dateTimeAction(false)">{{ 'cancel' | translate }}</ion-button>
+            <ion-button color="primary" (click)="dateTimeAction(true)">{{ 'validate' | translate }}</ion-button>
+        </ion-buttons>
+    </div>
+</div>

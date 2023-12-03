@@ -1,0 +1,123 @@
+.phone-code-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 200pt;
+  background-color: var(--ion-color-primary);
+  z-index: 999;
+  padding-top: 2rem;
+
+  label {
+    text-align: left;
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    color: white;
+    font-size: var(--app-font-size);
+    font-weight: 600;
+  }
+
+  .input-numbers {
+    display: flex;
+    flex-direction: row;
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+    .input-block {
+      padding: 1rem;
+
+      .input-code {
+        width: 80%;
+        height: 5rem;
+        box-shadow: 0px 10px 99px #0000000D;
+        border: 2px solid #E8E8E8;
+        border-radius: 10pt;
+        background-color: var(--app-dark-or-not-color);
+        min-height: 3rem;
+        max-height: 50px;
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+      }
+    }
+  }
+
+  .block-action {
+    width: 100%;
+    padding-left: 3rem;
+    padding-right: 3rem;
+
+    .count {
+      text-align: center;
+    }
+
+    .button-valid {
+      background-color: #FF483B;
+      width: 100%;
+      padding: 1rem;
+      border-radius: 1rem;
+      color: white;
+      font-size: var(--app-font-size);
+      font-weight: 500;
+    }
+  }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.email {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  input {
+    border: none;
+    border-radius: 5px;
+    height: 40px;
+    margin: 10px;
+    padding: 10px;
+  }
+}
+
+.btn-next {
+  width: 92%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.return-login {
+  display: block;
+  width: 20%;
+  color: #fff;
+  text-align: center;
+}
+
+.footer-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .btn-next {
+    margin: 0 7rem 0 0;
+    width: 40%;
+  }
+}
+
+.cgu-link {
+  display: block;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  a {
+    color: #f23b2b;
+  }
+}

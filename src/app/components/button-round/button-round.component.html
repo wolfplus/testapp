@@ -1,0 +1,15 @@
+<div (click)="onButtonClicked()"
+  [@rubberButton]="buttonClicked? 'clicked' : 'unclicked'"
+  class="flex jcc aic app-btn">
+  <span *ngIf="(loaderIsActive$ | async) === false"
+    [class]="backgroundTextColorClass"
+    [ngClass]="{'uppercase': uppercase}">
+    {{ textKey | translate }}
+  </span>
+  <div *ngIf="(loaderIsActive$ | async) && isSubmitBtn" class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

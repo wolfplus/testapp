@@ -1,0 +1,18 @@
+<div class="wrapper">
+    <img [src]="logoUrl" class="img-logo"/>
+    <label class="title">
+        {{ 'need_update_title' | translate }}
+    </label>
+    <label class="subtitle">
+        {{ 'need_update_subtitle' | translate }}
+    </label>
+    <ion-button *ngIf="platform.is('ios')" (click)="updateApp()" [href]="appleUrl">
+        Mettre à jour
+    </ion-button>
+    <ion-button *ngIf="platform.is('android')" (click)="updateApp()" [href]="androidUrl">
+        Mettre à jour
+    </ion-button>
+    <ion-button (click)="dismiss()">
+        Passer
+    </ion-button>
+</div>

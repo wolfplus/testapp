@@ -1,0 +1,21 @@
+{
+  "completed": "Événement complet",
+  "home_page": {
+    "my_next_courses": "Mes événements à venir",
+    "my_last_courses": "Mes derniers événements"
+  },
+  "course_validated": "Ta réservation à l'événement a bien été validé",
+  "friend_already_in": "Vos amis sont déjà présent dans cet événement",
+  "no-access-course": "%firstName% %lastName%: Événement réservé aux abonnés du club",
+  "title_courses": "Mes événements",
+  "no-courses_title": "Aucun événement",
+  "no-courses": "Aucun événement disponible, modifie tes critères de recherche.",
+  "message_alert_participant_cancelation_course": "Es-tu sûr(e) de vouloir annuler ta participation à cet événement ?",
+  "you_do_not_have_past_cours": "Tu n'as aucun événement passé.",
+  "you_do_not_have_canceled_cours": "Tu n'as aucun événement annulé.",
+  "you_do_not_have_upcoming_cours": "Tu n'as aucun événement à venir.",
+  "title_booking_type": {
+    "booking": "Réservations",
+    "court": "Événements"
+  }
+}

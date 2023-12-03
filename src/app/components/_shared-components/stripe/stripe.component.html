@@ -1,0 +1,15 @@
+
+  <form id="payment-form">
+    <div class="name">
+      <label>
+        Nom sur la carte
+      </label>
+      <input [(ngModel)]="userFullName" id="name" (input)="nameChange()" />
+    </div>
+
+    <label>
+      Information de la carte
+    </label>
+    <div class="card-number" id="card-element" data-test="stripe-iframe"><!--Stripe.js injects the Card Element--></div>
+    <p id="card-error" role="alert"></p>
+  </form>

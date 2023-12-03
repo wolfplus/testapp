@@ -1,0 +1,31 @@
+<div *ngIf="(proposals && proposals[0])" class="choices shadow-bottom-ligth">
+  <ion-radio-group #radioGroup  value="{{proposals[0].count}}">
+    <div
+      *ngFor="let proposal of proposals"
+      class="attendee"
+      (click)="onChange(proposal.count)"
+    >
+      <div class="radio">
+        <ion-radio
+          slot="start"
+          mode="md"
+          value="{{ proposal.count }}"
+        ></ion-radio>
+        <ion-label *ngIf="proposal.count === 1" [class.selected]="radioGroup.value == proposal.count"
+          style="text-transform: lowercase;">
+          {{ proposal.count }} {{ "one_attender" | translate }}
+        </ion-label>
+        <ion-label *ngIf="proposal.count > 1" [class.selected]="radioGroup.value == proposal.count"
+          style="text-transform: lowercase;">
+          {{ proposal.count }} {{ "attenders" | translate }}
+        </ion-label>
+      </div>
+      <ion-text class="price">{{
+        proposal.price * proposal.count | price_format: currency
+      }}</ion-text>
+    </div>
+  </ion-radio-group>
+</div>
+
+<ion-skeleton-text *ngIf="!(proposals && proposals[0])" class="proposal-skeleton " animated>
+  </ion-skeleton-text>

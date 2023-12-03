@@ -1,0 +1,32 @@
+.b-b, .b-t {
+  border-bottom: 1px solid;
+}
+
+.b-t {
+  border-top: 1px solid;
+}
+
+.b-b, .b-t {
+  // TODO: add a color variable for the border
+  border-color:rgba(128, 128, 128, 0.2)
+}
+
+.b-rad-1 {
+  border-radius: .5rem;
+}
+
+.b-rad-2 {
+  border-radius: 10px;
+}
+
+.b-rad-3 {
+  border-radius: 1.5rem;
+}
+
+.b-rad-4 {
+ border-radius: 20px;
+}
+
+.b-rad-100 {
+  border-radius: 100%;
+}

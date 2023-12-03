@@ -1,0 +1,34 @@
+<app-default-header
+        [title]="'title_form_formule' | translate"
+        [backgroundImage]="prestation.mainPhoto ? (env.pathFiles + prestation.mainPhoto?.contentUrl) : null"
+        (back)="close()"
+></app-default-header>
+<ion-content >
+    <h3 class="title m-3">{{ 'information_for_booking' | translate }}</h3>
+    <div class="content-form">
+        <ng-container *ngIf="ready">
+            <app-custom-input
+                    *ngFor="let element of blockPrice.form.fields"
+                    [type]="element.field.type"
+                    [placeholder]="element.field.label"
+                    [required]="element.required"
+                    [name]="element.field.name"
+                    [error]="errors[element.field.name] ? errors[element.field.name] : false"
+                    [model]="form[element.field.name]"
+                    (onChange)="changeInput($event)"
+            ></app-custom-input>
+        </ng-container>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-button
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            (click)="validForm(true)"
+    >
+        <div class="do-p-2">{{ 'validate' | translate }}</div>
+    </ion-button>
+</ion-footer>

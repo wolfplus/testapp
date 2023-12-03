@@ -1,0 +1,56 @@
+.text {
+  font-size: var(--app-font-size);
+  font-weight: 500;
+}
+.text-content {
+  text-align: justify;
+  padding: 2rem;
+}
+.block-credit {
+  width: 100%;
+  margin-top: 1rem;
+  .club_name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    background: rgba(3, 23, 75, 0.05);
+    padding: 1.5rem;
+  }
+  .credit-name {
+    font-size: var(--app-font-size);
+    font-weight: 600;
+    color: var(--ion-color-primary);
+  }
+  .credit-expire {
+    font-size: var(--app-font-size);
+    font-weight: 400;
+    color: #3E3F68;
+  }
+  .credit-balance {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .coins {
+      width: 12px;
+      margin-right: 5px;
+    }
+    .icon-next {
+      margin-left: 20px;
+      width: 20px;
+    }
+     div {
+       font-size: 1.8rem;
+       color: var(--ion-color-primary);
+       font-weight: 700;
+     }
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .text-content{
+      text-align: center;
+      font-size: 2rem !important;
+    }
+}

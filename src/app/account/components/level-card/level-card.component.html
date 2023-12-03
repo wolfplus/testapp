@@ -1,0 +1,47 @@
+<div class="level-block">
+  <div class="level-header">
+    <div class="icon-container">
+      <app-svg-container
+        class="dspl-blck"
+        [svg]="activity.icon"
+        [inputClass]="'icon-xl'"
+        [iconColor]="'white'">
+    </app-svg-container>
+  </div>
+  <div class="activity">
+    {{ activity.name }}
+  </div>
+</div>
+  <div class="level-body">
+    <div class="counters flex jcsb w-100">
+      <div class="counter flex d-col jcc aic">
+          <div class="count">
+              {{ activity.userBookingsCount }}
+          </div>
+          <div class="text">
+              {{ 'bookings' | translate }}
+          </div>
+      </div>
+      <div class="separator">
+        <ion-icon src="assets/images/icons/stats_ico.svg"></ion-icon>
+      </div>
+
+      <div class="counter flex d-col jcc aic">
+        <div class="count">
+          {{ activity.userMatchesCount }}
+        </div>
+        <div class="text">
+            {{ 'matches' | translate }}
+        </div>
+      </div>
+  </div>
+  <div class="progress-bar pos-rel w-100">
+    <div class="progress-bar-inner"
+      [ngStyle]="setGradient(activity.colors)"
+    >
+    </div>
+    <div class="level-text-overlay">
+      {{ activity.userCurrentLevelIdentifier + '.' + ' ' + activity.userCurrentLevelLabel }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<ng-container>
+  <div class="section-description">
+    {{ description }}
+  </div>
+  <ng-container *ngIf="(items$ | async) as items">
+    <div
+      *ngFor="let item of items; let index = index; let isLast = last"
+      (click)="clickOnItem(item)"
+      [ngClass]="{ 'shadow-bottom-ligth': isLast }"
+      class="item ion-activatable ripple-parent"
+      data-test="shop-item-list"
+    >
+      <ion-ripple-effect></ion-ripple-effect>
+      <div class="left-part">
+        <ion-text class="title">{{ item.name }}</ion-text>
+        <ng-container *ngIf="item.paymentTokenPack">
+          <ion-text
+            class="subtitle"
+            *ngFor="let label of item.paymentTokenPack.items; let isLast = last"
+          >
+            {{ label.quantity }} x {{ label.paymentToken.name }}
+            <span *ngIf="!isLast"> - </span>
+          </ion-text>
+        </ng-container>
+        <ion-text class="description">{{ item.shortDescription }}</ion-text>
+      </div>
+      <ion-text class="price">{{
+        item.unitaryPrice / 100 | currency: clubCurrency
+      }}</ion-text>
+    </div>
+  </ng-container>
+</ng-container>
+<ion-infinite-scroll
+        threshold="50px"
+        (ionInfinite)="loadMoreDataScroll($event)">
+  <ion-infinite-scroll-content
+          loadingSpinner="bubbles">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>

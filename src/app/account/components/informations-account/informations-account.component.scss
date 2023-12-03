@@ -1,0 +1,55 @@
+.list {
+
+  .list-group {
+    /* TODO: CSS light bg variable */
+    background-color: white;
+    color: var(--ion-secondary-text-color);
+    padding: 1rem 2rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+
+  .list-item {
+    padding: 2rem;
+    /* TODO: CSS border variable */
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 1.6rem;
+    font-weight: bold;
+
+    .icon-goto {
+      color: lightgray;
+      transform: rotate(180deg);
+    }
+
+    ion-grid {
+      padding: 0!important;
+      ion-row,
+      ion-col {
+        padding: 0!important;
+      }
+    }
+
+    .logout {
+      color: var(--ion-color-primary);
+      cursor: pointer;
+    }
+
+    .delete-account {
+      margin-top: 15px;
+      color: var(--ion-color-danger);
+      cursor: pointer;
+    }
+
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .cursor-tablet{
+      cursor: pointer;
+    }
+  }

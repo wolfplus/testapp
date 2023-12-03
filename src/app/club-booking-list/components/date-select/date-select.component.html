@@ -1,0 +1,45 @@
+<div class="flex jcsb aic">
+    <div class="block-date-select" >
+
+        <ion-button *ngFor="let date of dates$ | async"
+            fill="outline"
+            mode="ios"
+            class="date-slot"
+            [class]="{
+                'active':(date.format('YYYYMMDD') == selectedDate.format('YYYYMMDD')),
+                'after-active': nextActive(date, selectedDate)
+            }"
+            (click)="selectDate(date)">
+            <div>
+                <label>{{('days.short.'+date.format('d')) | translate }}</label>
+                <label class="date">{{ date.format('DD') }}</label>
+                <label>{{('months.short.'+date.format('M')) | translate }}</label>
+            </div>
+        </ion-button>
+    </div>
+    <div class="calendar-btn">
+        <ion-button
+            no-padding
+            fill="outline"
+            mode="ios"
+            (click)="openCalendar()"
+            class="btn-date-calendar" >
+            <app-svg-container
+                slot="icon-only"
+                [svg]="calendarIcon"
+                [inputClass]="'icon-m'"
+                [iconColor]="'var(--ion-color-primary)'">
+            </app-svg-container>
+            <!-- TODO: delete -->
+            <!-- <img src="assets/icon/globals/calendar-icon.svg" /> -->
+        </ion-button>
+    </div>
+</div>
+
+<ion-calendar *ngIf="showCalendar"
+    [@enterLeave]
+    [(ngModel)]="selectedDateFormat"
+    (change)="onChange($event)"
+    [format]="'YYYY-MM-DD HH:mm:ss'"
+    [options]="calendarOptions">
+</ion-calendar>

@@ -1,0 +1,91 @@
+.card-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.1);
+    padding: .5rem;
+    margin-top: 1rem;
+    border-radius: .5rem;
+
+    &.default {
+        border: 1px solid var(--ion-color-primary);
+    }
+
+    .selectedCard {
+        display: flex;
+        width: 100%;
+        align-items: center;
+
+        img.icon-card {
+            margin: auto;
+            width: 70%;
+        }
+
+        img.action {
+            margin: auto;
+            transform: rotate(180deg);
+        }
+
+        .card-name {
+            display: block;
+            font-size: var(--app-font-size);
+            font-weight: 600;
+        }
+
+        .card-number {
+            display: inline-flex;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        .card-expiry {
+            display: inline-flex;
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-left: 1rem;
+        }
+
+        .card-name-input,
+        .card-number-input,
+        .card-month-input,
+        .card-year-input,
+        .card-cvc-input{
+            width: 100%;
+            min-height: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 500;
+            /* TODO: CSS class or variable */
+            border-radius: 1rem;
+            /* TODO: change that */
+            border: 1pt solid #1C93DD;
+            background-color: var(--app-dark-or-not-color);
+            color: #222455;
+            padding: .5rem;
+        }
+
+        .card-month-input,
+        .card-year-input {
+            display: inline;
+            width: 45%;
+        }
+    }
+}
+
+/* TODO: delete */
+/* .btn-add {
+    display: flex;
+    padding: 1.5rem;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    border: 1pt solid rgba(0,0,0,0.3);
+    align-content: center;
+    text-align: center;
+
+    label {
+        font-weight: 600;
+        font-size: 1.8rem;
+        width: 100%;
+        text-align: center;
+    }
+} */

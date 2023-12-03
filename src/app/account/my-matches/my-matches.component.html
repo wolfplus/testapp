@@ -1,0 +1,154 @@
+<app-default-header
+    [title]="'my_matches'"
+    [subtitle]=""
+    (back)="close()">
+    <ion-segment
+        (ionChange)="segmentChanged($event)"
+        value="{{selectedView}}"
+        scrollable="true"
+        mode="md"
+        class="header-center">
+        <ion-segment-button style="width: 33%" value="next">
+            <!-- TODO: fix translate pipe issue -->
+            <ion-label class="tabs-item">{{'to_come'|translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button style="width: 33%" value="past">
+            <ion-label class="tabs-item">{{'passed_matches'|translate}}</ion-label>
+        </ion-segment-button>
+        <ion-segment-button style="width: 33%" value="canceled">
+            <ion-label class="tabs-item">{{'canceled_matches'|translate}}</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</app-default-header>
+<ion-content>
+    <div class="matches-container">
+        <ng-container *ngIf="matches?.length">
+            <ng-container *ngIf="pastMatches?.length">
+                <ng-container *ngFor="let matchesByDate of pastMatchesByDate">
+                    <div class="eventDay">{{ matchesByDate.date }}</div>
+                    <app-match-card *ngFor="let match of matchesByDate.events"
+                        [match]="match"
+                        [config]="MatchCardConfig.FULL"
+                        [userId]="this.user.id"
+                        [isEditable]="false"
+                        class="dspl-blck do-p-2 hide-tablet">
+                    </app-match-card>
+                    <app-match-card-tablet *ngFor="let match of matchesByDate.events"
+                        [match]="match"
+                        [config]="MatchCardConfig.FULL"
+                        [userId]="this.user.id"
+                        [isEditable]="false"
+                        class="dspl-blck do-p-2 show-tablet">
+                    </app-match-card-tablet>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="yesterdayMatches?.length">
+                <app-match-card *ngFor="let match of yesterdayMatches"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    [userId]="this.user.id"
+                    [isEditable]="false"
+                    class="dspl-blck do-p-2 hide-tablet">
+                </app-match-card>
+                <app-match-card-tablet *ngFor="let match of yesterdayMatches"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    [userId]="this.user.id"
+                    [isEditable]="false"
+                    class="dspl-blck do-p-2 show-tablet">
+                </app-match-card-tablet>
+            </ng-container>
+            <ng-container *ngIf="todayMatches?.length">
+                <div class="eventDay">{{ 'today' | translate }}</div>
+                <app-match-card *ngFor="let match of todayMatches"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    [userId]="this.user.id"
+                    [isEditable]="match.canceled === false"
+                    class="dspl-blck do-p-2 hide-tablet">
+                </app-match-card>
+                <app-match-card-tablet *ngFor="let match of todayMatches"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    [userId]="this.user.id"
+                    [isEditable]="match.canceled === false"
+                    class="dspl-blck do-p-2 show-tablet">
+                </app-match-card-tablet>
+            </ng-container>
+            <ng-container *ngIf="tomorrowMatches?.length">
+                <div class="eventDay">{{ 'tomorrow' | translate }}</div>
+                <app-match-card *ngFor="let match of tomorrowMatches"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    [userId]="this.user.id"
+                    [isEditable]="match.canceled === false"
+                    class="dspl-blck do-p-2 hide-tablet">
+                </app-match-card>
+                <app-match-card-tablet *ngFor="let match of tomorrowMatches"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    [userId]="this.user.id"
+                    [isEditable]="match.canceled === false"
+                    class="dspl-blck do-p-2 show-tablet">
+                </app-match-card-tablet>
+            </ng-container>
+            <ng-container *ngIf="otherDaysMatches?.length">
+                <ng-container *ngFor="let matchesByDate of otherDaysMatchesByDate">
+                    <div class="eventDay">{{ matchesByDate.date }}</div>
+                    <app-match-card *ngFor="let match of matchesByDate.events"
+                        [match]="match"
+                        [config]="MatchCardConfig.FULL"
+                        [userId]="this.user.id"
+                        [isEditable]="match.canceled === false"
+                        class="dspl-blck do-p-2 hide-tablet">
+                    </app-match-card>
+                    <app-match-card-tablet *ngFor="let match of matchesByDate.events"
+                        [match]="match"
+                        [config]="MatchCardConfig.FULL"
+                        [userId]="this.user.id"
+                        [isEditable]="match.canceled === false"
+                        class="dspl-blck do-p-2 show-tablet">
+                    </app-match-card-tablet>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+    <!-- SKELETON -->
+    <div *ngIf="showSkeleton"
+        class="do-p-2">
+        <ion-thumbnail style="height:33vh; width:100%;border-radius:5px;margin-bottom:2rem;">
+        <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-thumbnail style="height:33vh; width:100%;border-radius:5px;margin-bottom:2rem;">
+        <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+        </ion-thumbnail>
+    </div>
+    <!-- ILLUSTRATION -->
+    <div *ngIf="!showSkeleton && !matches?.length">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_match.svg" alt="">
+        </div>
+        <div *ngIf="selectedView === 'next'"
+            class="do-p-2 text-center">
+            {{ 'you_do_not_have_upcoming_matches' | translate }}
+        </div>
+        <div *ngIf="selectedView === 'past'"
+            class="do-p-2 text-center">
+            {{ 'you_do_not_have_past_matches' | translate }}
+        </div>
+        <div *ngIf="selectedView === 'canceled'"
+            class="do-p-2 text-center">
+            {{ 'you_do_not_have_canceled_matches' | translate }}
+        </div>
+    </div>
+    <!-- INFINITE SCROLL -->
+    <ion-infinite-scroll
+        threshold="50px"
+        (ionInfinite)="loadMoreData()">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="{{'loading_more_matches' | translate }}">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+

@@ -1,0 +1,61 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-right: 1rem;
+  padding-left: 1rem;
+
+  .block-notification {
+    border-radius: .5rem;
+    padding: .5rem;
+    margin-top: 1rem;
+    height: 6rem;
+    width: 100%;
+
+  }
+
+  .notif-title {
+    font-weight: bold;
+  }
+
+  .notif-text {
+    font-size: 1.4rem;
+  }
+
+  .notif-text,
+  .notif-title {
+    white-space: break-spaces;
+  }
+
+  .notif-date {
+    font-size: 1.2rem;
+    text-align: right;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+
+  .notif-icon-container {
+    border-radius: 50%;
+    background: var(--ion-color-primary);
+    padding: .8rem;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+
+    .notif-icon {
+      object-fit: contain;
+    }
+  }
+
+  .unread-dot {
+    background: var(--ion-color-danger);
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+}

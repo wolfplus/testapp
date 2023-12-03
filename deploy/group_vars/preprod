@@ -1,0 +1,3 @@
+---
+deploy_to: /home/doinsport/www/pass.v3/develop
+env: preprod

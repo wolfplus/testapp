@@ -1,0 +1,21 @@
+<div *ngIf="discovers.length > 0"
+    class="block-discovers do-pb-1">
+  <div class="section-title do-pl-2 do-pr-2">
+    {{ 'home_page.discovers.title' | translate }}
+  </div>
+  <p class="do-pl-2 do-pr-2">
+    {{ 'home_page.discovers.description' | translate }}
+  </p>
+  <!-- [scrollEvents]="true" -->
+  <div class="block-list"
+    #slide>
+
+    <app-club-pic-card *ngFor="let club of discovers"
+      class="dspl-blck do-pl-1 do-pr-1 do-pb-1"
+      [club]="club"
+      [userLocation$]="userLocation$">
+
+    </app-club-pic-card>
+  </div>
+
+</div>

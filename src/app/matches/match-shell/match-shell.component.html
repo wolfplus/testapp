@@ -1,0 +1,46 @@
+<ion-header
+  translucent="true">
+  <!--
+  appScrollHideHeader
+  [scrollContent]="pageContent" -->
+  <ion-toolbar color="'var(--app-dark-or-not-color)'">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="page-title" *ngIf="!environmentService.overwriteMatchEvent()">{{ 'matches' | translate }}</ion-title>
+    <ion-title class="page-title" *ngIf="environmentService.overwriteMatchEvent()">{{ 'Stages' | translate }}</ion-title>
+  </ion-toolbar>
+
+  <app-header
+    [from]="SearchType.MATCH"
+    class="dspl-blck">
+  </app-header>
+  <!-- (reload)="reloadMatches(true)" -->
+  <app-date-select class="dspl-blck">
+  </app-date-select>
+  <app-filters-booking class="dspl-blck"
+    [displayCalendarPicker]="false">
+  </app-filters-booking>
+</ion-header>
+<ion-content
+  #pageContent
+  [scrollEvents]="true">
+  <!-- class="dspl-blck" -->
+  <app-match-list
+    [userId]="user?.id"
+    [isLoadingMoreData]="isLoadingMoreData"
+    (reloadMatches)="reloadMatches($event)">
+  </app-match-list>
+</ion-content>
+
+
+<div class="add-btn" *ngIf="!environmentService.overwriteMatchEvent()">
+  <ion-button
+    size="large"
+    shape="round"
+    fill="solid"
+    color="primary"
+    (click)="createMatch()">
+    <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+  </ion-button>
+</div>

@@ -1,0 +1,163 @@
+<app-header *ngIf="!environnement.useMb">
+</app-header>
+<ion-content [scrollEvents]="true">
+  <div class="body-container">
+    <ion-buttons slot="end" class="btn-burger">
+      <ion-menu-button style="color: white;"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end" class="btn-qrcode"
+                 *ngIf="showQrCode()
+             && userMe">
+      <label (click)="openQrCode()">
+        <img src="/assets/icon/home/qr-code.png"/>
+      </label>
+    </ion-buttons>
+    <app-header-mb *ngIf="environnement.useMb"
+      class="dspl-blck header-tablet bck-all zindex-1"
+      [userName]="userMe?.firstName"
+      [userAvatar]="userMe?.avatar?.contentUrl"
+      [clubs]="clubs"
+      [clubSelected]="clubSelected"
+      (refreshClubs)="refreshClubs($event)">
+    </app-header-mb>
+    <app-actions
+            *ngIf="environnement.useMb && clubSelected != null"
+      class="dspl-blck action-tablet"
+      (refreshClubs)="refreshClubs($event)"
+      [clubs]="clubs"
+      [userId]="userMe?.id"
+      [clubSelected]="clubSelected">
+    </app-actions>
+    <app-activities *ngIf="!environnement.useMb" class="dspl-blck scroll-sa-center bck-all">
+    </app-activities>
+    <app-last-news class="bck-all" *ngIf="environnement.useMb">
+    </app-last-news>
+    <app-last-booking *ngIf="userMe !== null && userMe !== undefined"
+      class="dspl-blck bck-all"
+      [userMe]="userMe"
+      [bookings]="bookings"
+      [nextBookings]="nextBookings"
+      [pastBookings]="pastBookings"
+      (refreshMatches)="updateMatches($event)">
+    </app-last-booking>
+    <ion-skeleton-text animated *ngIf="skeletonBookings" class="card-my-booking-skeleton" style="height: 120px; width:92%; margin: auto;"></ion-skeleton-text>
+    <!-- <app-last-course *ngIf="user !== null && user !== undefined"
+    class="dspl-blck bck-all"
+    [resetFormSubject]="resetFormSubject.asObservable()"
+    [refresh$]="refresh$"
+    (refreshMatches)="updateMatches($event)">
+  </app-last-course> -->
+    <app-my-clubs *ngIf="!environnement.useMb"
+      class="dspl-blck bck-all">
+    </app-my-clubs>
+    <app-matchs
+    class="bck-all"
+      [userId]="userMe?.id"
+      [userMe]="userMe"
+      [section]="'home'"
+      [matchs]="matchs"
+      [titleMatch]="titleMatch"
+      [resetFormSubject]="resetFormSubject.asObservable()"
+      [refreshMatches$]="refreshMatches$">
+    </app-matchs>
+    <app-discovers class="bck-all" *ngIf="!environnement.useMb">
+    </app-discovers>
+
+    <ng-container class="bck-all" *ngIf="environnement.useMb && clubSelected">
+      <div class="flex do-p-1-2 bck-all">
+        <div class="section-title" *ngIf="clubSelected.photos.length > 0">
+            {{ 'pictures' | translate }}
+        </div>
+      </div>
+      <div class="scroll-x-start bck-all">
+        <div class="photos do-p-2 flex d-col">
+         <div class="flex" *ngIf="clubSelected">
+           <img *ngFor="let photo of clubSelected.photos; index as i"
+                class="photo"
+                [src]="environnement.pathFiles + photo.contentUrl"
+                (click)="viewPic(i)">
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-x-start hide-tablet bck-all">
+        <!-- <app-social-networks-links *ngFor="let club of clubs"
+          class="dspl-blck do-mb-2 w-100"
+          [clubWebSiteUrl]="club.webSiteUrl"
+          [links]="club.socialNetworks">
+        </app-social-networks-links> -->
+      </div>
+    </ng-container>
+    <ng-container class="bck-all" *ngIf="sponsors && sponsors.length && clubSelected.sponsorConfiguration.enabled">
+      <div class="flex do-p-1-2 bck-all">
+        <div class="section-title">
+          {{ 'sponsors' | translate }}
+        </div>
+      </div>
+      <div [style]="{'background': clubSelected.sponsorConfiguration.appBannerBackgroundColor + ' !important'}" class="scroll-x-start bck-all">
+        <div class="photos do-p-2 flex d-col">
+          <div class="flex" *ngIf="clubSelected">
+            <ng-container *ngFor="let item of sponsors">
+              <div *ngIf="item.photo" class="sponsor-container">
+                <img
+                        [src]="environnement.pathFiles + item.photo.contentUrl"
+                        class="photo"
+                        (click)="openSponsor(item)">
+                <span class="sponsor-name">{{ item.name }}</span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div class="scroll-x-start hide-tablet bck-all">
+        <!-- <app-social-networks-links *ngFor="let club of clubs"
+          class="dspl-blck do-mb-2 w-100"
+          [clubWebSiteUrl]="club.webSiteUrl"
+          [links]="club.socialNetworks">
+        </app-social-networks-links> -->
+      </div>
+    </ng-container>
+
+
+    <div *ngIf="environnement.useMb && userMe" class="block-container margin-tablet bck-all">
+      <div class="flex do-p-1-2">
+          <div class="section-title">
+            {{'my_account'|translate}}
+          </div>
+      </div>
+      <div class="horizontal flex-row">
+        <div class="link" (click)="goTo('MySubscriptionsComponent')">
+          <img class="icon-drop" src="assets/images/icons/vip.svg" alt="">
+          <p class="link-description">{{'subscription'|translate}}</p>
+        </div>
+        <div class="link" (click)="goTo('MyCreditsComponent')">
+          <img class="icon-drop" src="assets/images/icons/credit.svg" alt="">
+          <p class="link-description">{{'credit'|translate}}</p>
+        </div>
+        <div class="link" (click)="goTo('MyWalletsComponent')">
+          <img class="icon-drop" src="assets/images/icons/wallet.svg" alt="">
+            <p class="link-last-description">{{'wallet'|translate}}</p>
+        </div>
+      </div>
+    </div>
+    <!-- <app-home-account *ngIf="user !== null && user !== undefined"
+      class="dspl-blck">
+    </app-home-account> -->
+  </div>
+</ion-content>
+<ion-modal class="photo-viewer-modal" [isOpen]="modalIsOpen" (didDismiss)="onCloseModal()">
+  <ng-template>
+    <ion-content>
+      <ion-icon (click)="onCloseModal()" name="close-outline"></ion-icon>
+      <swiper-container centered-slides="true" slides-per-view="1" pagination="true" pagination-type="fraction" pagination-el=".pagination-custom">
+        <swiper-slide *ngFor="let photo of slidePhotos; index as i">
+          <img
+               class="photo"
+               [src]="environnement.pathFiles + photo.contentUrl">
+        </swiper-slide>
+      </swiper-container>
+      <div class="pagination-custom"></div>
+    </ion-content>
+  </ng-template>
+</ion-modal>

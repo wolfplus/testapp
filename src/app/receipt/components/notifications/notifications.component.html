@@ -1,0 +1,67 @@
+<div class="container">
+    <div *ngIf="skeleton"
+        class="flex d-col jcc aic">
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+        <ion-skeleton-text animated class="block-notification"></ion-skeleton-text>
+    </div>
+
+    <ng-container *ngIf="notifications?.length > 0 && club != null">
+        <ion-list>
+            <ion-item *ngFor="let notification of notifications"
+                appObserveVisibility
+                [debounceTime]="300"
+                (visible)="onVisible(notification)"
+                (click)="open(notification)">
+                <ion-thumbnail slot="start"
+                    class="notif-icon-container pos-rel">
+                    <img *ngIf="notification.targetType === 'booking-'"
+                        src="assets/icon/receipt/message-icon.svg"
+                        class="notif-icon">
+                    <img *ngIf="notification.targetType === 'match'"
+                        src="assets/icon/receipt/event-icon.svg"
+                        class="notif-icon">
+                    <img *ngIf="notification.targetType === 'booking'"
+                        src="assets/icon/receipt/booking-icon.svg"
+                        class="notif-icon">
+                        <div *ngIf="notification.viewed === false"
+                            class="unread-dot">
+                        </div>
+                </ion-thumbnail>
+                <ion-label>
+                    <div class="notif-title">{{ notification.title }}</div>
+                    <div class="notif-text">{{ notification.content }}</div>
+                    <div class="notif-date">{{ dateDateString(notification.createdAt) }}</div>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </ng-container>
+
+    <div *ngIf="!skeleton && notifications?.length === 0"
+        class="flex d-col jcfs aic do-p-2">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_notifications.svg"
+                class="w-100">
+        </div>
+        <div class="request-result-text do-pt-2 do-pb-2">
+            <div class="title-message">
+                {{ 'no_notification_currently' | translate }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<ion-infinite-scroll
+    threshold="50px"
+    (ionInfinite)="loadMoreData($event)">
+    <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="{{'loading_more_notifications' | translate }}">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>

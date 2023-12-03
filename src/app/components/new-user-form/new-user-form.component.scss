@@ -1,0 +1,75 @@
+ion-avatar {
+  width: 31vw;
+  height: 31vw;
+
+}
+
+.form-group {
+  position: relative;
+  width: 100%;
+  padding-top: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  .icon-show {
+    position: absolute;
+    top: 40px;
+    right: 30px;
+    width: 3rem;
+    z-index: 2;
+  }
+  .form-input {
+    width: 100%;
+    border-radius: .9rem;
+    /* TODO: CSS variable */
+    border: 1px solid rgba(0,0,0,0.1);
+    font-size: 1.6rem;
+    font-weight: 600;
+
+    ion-icon {
+      margin: 0 2rem;
+    }
+  }
+  .form-label {
+    font-size: 1.4rem;
+    font-weight: 600;
+    padding-bottom: 5pt;
+  }
+
+  .native-input.sc-ion-input-ios,
+  .native-input.sc-ion-input-md {
+    line-height: 1;
+    --padding-bottom: 2rem;
+    --padding-top: 2rem;
+    --padding-end: 2rem;
+    --padding-start: 2rem;
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    ion-avatar{
+      width: 11vw;
+      height: 11vw;
+    }
+    .subtitle {
+      font-size: 2rem !important;
+    }
+}
+
+.subtitle {
+  display: block;
+  text-align: center;
+}
+
+.footer-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .btn-next {
+    margin: 0 7rem 0 0;
+    width: 40%;
+  }
+}
+

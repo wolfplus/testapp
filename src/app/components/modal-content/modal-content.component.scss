@@ -1,0 +1,543 @@
+@use "sass:math";
+
+ion-header {
+  background: white;
+  z-index: 999!important;
+  margin-bottom: 1rem;
+}
+
+ion-toolbar {
+  --border-color: transparent!important;
+}
+
+/* .btn-next {
+  height: auto;
+  width: 100%;
+
+  ion-button::part(native) {
+    border-radius: 24px 24px 0 0!important;
+  }
+} */
+
+.select-booking-text {
+/* TODO: CSS variable */
+  color: var(--ion-secondary-text-color);
+}
+
+.no-booking-container {
+  padding: 1rem 2rem;
+
+  .find-club-btn {
+    margin: 3rem 0;
+
+    ion-button::part(native) {
+      font-size: 1.4rem;
+      --border-radius: var(--border-radius-1);
+      .button-native {
+        padding-inline: 3rem;
+      }
+    }
+  }
+}
+
+// TODO : move to shared class
+.form-validation-error-text {
+  color: var(--ion-color-danger);
+  text-align: center;
+}
+
+// MATCH DETAILS
+.match-details {
+  margin-bottom: 5rem;
+  .form-input,
+  .sc-ion-textarea-ios-h,
+  .sc-ion-textarea-md-h {
+    // TODO: add an input class
+    padding: 1.5rem;
+    border-radius: .9rem;
+    border-color: var(--ion-secondary-text-color);
+    border-style: solid;
+    border-width: 1px;
+    width: 100%;
+    font-size: 1.4rem;
+    color: var(--ion-secondary-text-color);
+  }
+}
+
+.match-infos {
+  padding: 3rem 0rem 2rem 0rem;
+}
+
+.match-level {
+  .level-label {
+    font-size: 1.1rem;
+    color: var(--ion-secondary-text-color);
+  }
+
+  .restrict-toggle {
+    font-size: 1.6rem;
+  }
+}
+
+.selected-levels {
+
+  .levels {
+    font-weight: bold;
+  }
+}
+
+////////////////////////
+
+.participants-segment {
+  margin-bottom: 4rem;
+
+  .participants {
+
+    .nb-of-tickets {
+      font-size: var(--app-font-size);
+    }
+
+    .tickets-nb-input {
+      margin: 0 1rem;
+      width: 4rem;
+      text-align: center;
+      font-weight: bold;
+      border: 1px solid var(--ion-secondary-text-color);
+      border-radius: .5rem;
+      color: var(--ion-text-color);
+    }
+  }
+}
+
+ion-icon[name="remove-circle-outline"],
+ion-icon[name="add-circle-outline"] {
+  font-size: 3rem;
+}
+
+ion-icon[name="people"] {
+  /* TODO: CSS variable */
+  color: darkgray;
+  font-size: 1.8rem;
+}
+
+ion-icon::part(detail) {
+  color: var(--ion-text-color);
+}
+
+.add-friend, .invite-friend {
+  font-size: 1.6rem;
+  color: var(--ion-text-color);
+}
+
+// MATCH CREATE SUCCESS
+.match-create-success {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  height: 100%;
+  width: 100vw;
+  padding: 0 2rem;
+  z-index: 999;
+  background: var(--app-dark-or-not-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .touch {
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
+  }
+
+  // LOADER
+  // Define vars we'll be using
+  $brand-success: var(--ion-color-primary); // white;
+  $loader-size: 33vw;// 9rem;
+  $check-height: 4.75em;// 2.75em; // $loader-size/3;
+  $check-width: 3.2em;// 1.75em; // $check-height/3;
+  $check-left: 25%;// ($loader-size/6 + $loader-size/12);
+  $check-thickness: 1.5rem; // .9rem;
+  $check-color: #A5EB78; // white;//$brand-success;
+
+  .circle-loader {
+    margin-bottom: math.div($loader-size, 3);
+    border: .5rem solid rgba(0, 0, 0, 0.2);
+    border-left-color: $check-color;
+    animation: loader-spin 1.2s infinite linear;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 50%;
+    width: $loader-size;
+    height: $loader-size;
+  }
+
+  .load-complete {
+    -webkit-animation: none;
+    animation: none;
+    border-color: var(--ion-color-primary);// rgba(143, 226, 207, 0.5); //  rgba(255, 255, 255, 0.5);
+    transition: border 500ms ease-out;
+    &.error {
+      border-color: rgba(226, 143, 143, 0.5);
+    }
+  }
+
+  .checkmark {
+    display: none;
+
+    &.block {
+      display: block;
+    }
+
+    &.draw:after {
+      animation-duration: 800ms;
+      animation-timing-function: ease;
+      animation-name: checkmark;
+      transform: scaleX(-1) rotate(135deg);
+    }
+
+    &:after {
+      opacity: 1;
+      height: $check-height;
+      width: $check-width;
+      transform-origin: left top;
+      border-right: $check-thickness solid $check-color;
+      border-top: $check-thickness solid $check-color;
+      content: '';
+      left: 20%;//$check-left;
+      top: 50%;//$check-height;
+      position: absolute;
+    }
+  }
+
+  .cross {
+    display: none;
+
+    &.block {
+      display: block;
+    }
+
+    &.draw:before, &.draw:after {
+      animation-duration: 800ms;
+      animation-timing-function: ease;
+      animation-name: cross;
+    }
+
+    &.draw:before {
+      transform: scaleX(-1) rotate(45deg);
+    }
+
+    &.draw:after {
+      transform: scaleX(-1) rotate(-45deg);
+    }
+
+    &:before {
+      opacity: 1;
+      height: 17vw;
+      width: 1em;
+      background-color: var(--ion-color-danger);
+      content: "";
+      left: 45%;
+      top: 25%;
+      position: absolute;
+    }
+
+    &:after {
+      opacity: 1;
+      height: 17vw;
+      width: 1em;
+      background-color: var(--ion-color-danger);
+      content: "";
+      left: 45%;
+      top: 25%;
+      position: absolute;
+    }
+  }
+
+  @keyframes loader-spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes checkmark {
+    0% {
+      height: 0;
+      width: 0;
+      opacity: 1;
+    }
+    20% {
+      height: 0;
+      width: $check-width;
+      opacity: 1;
+    }
+    40% {
+      height: $check-height;
+      width: $check-width;
+      opacity: 1;
+    }
+    100% {
+      height: $check-height;
+      width: $check-width;
+      opacity: 1;
+    }
+  }
+
+  @keyframes cross {
+    0% {
+      height: 0;
+      width: 0;
+      opacity: 0;
+    }
+    20% {
+      height: 0;
+      opacity: .2;
+    }
+    40% {
+      height: 3em;
+      opacity: .4;
+    }
+    100% {
+      height: 3em;
+      width: .5em;
+      opacity: 1;
+    }
+  }
+}
+///////////////////
+
+// IONIC COMPONENTS
+
+ion-range.levels-range {
+  padding: 0!important;
+  &::part(bar){
+    --bar-height: .5rem;
+    --bar-border-radius: .5rem;
+    /* TODO: CSS variable */
+    --bar-background: #DADCE0; // var(--ion-color-light);
+  }
+
+  &::part(bar-active) {
+    --bar-height: .5rem;
+    --bar-border-radius: .5rem;
+  }
+
+  &::part(knob) {
+    --knob-size: 2.5rem;
+  }
+
+  &::part(tick) {
+    top: calc(var(--height)/4);
+    height: calc(var(--height)/2);
+    width: 1px;
+    background: var(--ion-color-light);
+  }
+}
+
+/* ion-button.btn-next {
+  margin: 0!important;
+  .button-native {
+    --border-radius: 2.5rem 2.5rem 0 0;
+    font-size: 2rem;
+  }
+} */
+
+/* TODO delete if unused */
+ion-toggle {
+  --background-checked: var(--ion-color-primary-tint);
+  &:host(.ion-color.toggle-checked) .toggle-icon {
+    background: #DADCE0; // rgba(var(--ion-color-base-rgb), 0.5);
+  }
+ /*  --background: #000;
+  --handle-background: #7a49a5;
+  --handle-background-checked: #000; */
+}
+
+ion-item {
+  /* TODO: CSS variable */
+  color: var(--ion-secondary-text-color);
+}
+
+.show-tablet {
+  display: none;
+}
+.hide-tablet{
+  display: block;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .do-paragraph {
+      font-size: 1.6em;
+    }
+    .hide-tablet{
+      display: none !important;
+    }
+    .show-tablet {
+      display: block;
+    }
+    .image-error-tablet, .image-success-tablet {
+      width: 40%;
+    }
+   ion-segment {
+     justify-content: center;
+   }
+.success-checkmark {
+  width: 80px;
+  height: 115px;
+  margin: 0 auto;
+  
+  .check-icon {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      border-radius: 50%;
+      box-sizing: content-box;
+      border: 4px solid #4CAF50;
+      
+      &::before {
+          top: 3px;
+          left: -2px;
+          width: 30px;
+          transform-origin: 100% 50%;
+          border-radius: 100px 0 0 100px;
+      }
+      
+      &::after {
+          top: 0;
+          left: 30px;
+          width: 60px;
+          transform-origin: 0 50%;
+          border-radius: 0 100px 100px 0;
+          animation: rotate-circle 4.25s ease-in;
+      }
+      
+      &::before, &::after {
+          content: '';
+          height: 100px;
+          position: absolute;
+          background: #FFFFFF;
+          transform: rotate(-45deg);
+      }
+      
+      .icon-line {
+          height: 5px;
+          background-color: #4CAF50;
+          display: block;
+          border-radius: 2px;
+          position: absolute;
+          z-index: 10;
+          
+          &.line-tip {
+              top: 46px;
+              left: 14px;
+              width: 25px;
+              transform: rotate(45deg);
+              animation: icon-line-tip 0.75s;
+          }
+          
+          &.line-long {
+              top: 38px;
+              right: 8px;
+              width: 47px;
+              transform: rotate(-45deg);
+              animation: icon-line-long 0.75s;
+          }
+      }
+      
+      .icon-circle {
+          top: -4px;
+          left: -4px;
+          z-index: 10;
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          position: absolute;
+          box-sizing: content-box;
+          border: 4px solid rgba(76, 175, 80, .5);
+      }
+      
+      .icon-fix {
+          top: 8px;
+          width: 5px;
+          left: 26px;
+          z-index: 1;
+          height: 85px;
+          position: absolute;
+          transform: rotate(-45deg);
+          background-color: #FFFFFF;
+      }
+  }
+}
+
+@keyframes rotate-circle {
+  0% {
+      transform: rotate(-45deg);
+  }
+  5% {
+      transform: rotate(-45deg);
+  }
+  12% {
+      transform: rotate(-405deg);
+  }
+  100% {
+      transform: rotate(-405deg);
+  }
+}
+
+@keyframes icon-line-tip {
+  0% {
+      width: 0;
+      left: 1px;
+      top: 19px;
+  }
+  54% {
+      width: 0;
+      left: 1px;
+      top: 19px;
+  }
+  70% {
+      width: 50px;
+      left: -8px;
+      top: 37px;
+  }
+  84% {
+      width: 17px;
+      left: 21px;
+      top: 48px;
+  }
+  100% {
+      width: 25px;
+      left: 14px;
+      top: 45px;
+  }
+}
+
+@keyframes icon-line-long {
+  0% {
+      width: 0;
+      right: 46px;
+      top: 54px;
+  }
+  65% {
+      width: 0;
+      right: 46px;
+      top: 54px;
+  }
+  84% {
+      width: 55px;
+      right: 0px;
+      top: 35px;
+  }
+  100% {
+      width: 47px;
+      right: 8px;
+      top: 38px;
+  }
+}
+    
+}

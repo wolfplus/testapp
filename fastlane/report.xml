@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: app_store_connect_api_key" time="0.001929">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: update_project_team" time="0.063287">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: cp -fr Info.plist ../ios/App/App" time="0.006172">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: set_info_plist_value" time="0.001788">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: set_info_plist_value" time="0.001474">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: set_info_plist_value" time="0.00144">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: set_info_plist_value" time="0.000961">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

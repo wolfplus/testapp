@@ -1,0 +1,85 @@
+<app-default-header
+    [title]="'my-wallet'"
+    [subtitle]="wallet?.club?.name"
+    (back)="close()">
+</app-default-header>
+
+<ion-content>
+    <div *ngIf="!showSkeleton && !showHistory" class="wrapper-wallet">
+        <h3 class="dispo">{{'wallet_available' | translate}}</h3>
+        <p class="solde">{{wallet?.balance | price_format: wallet?.club?.currency}}</p>
+        <div class="wallet-details" *ngIf="lastTransactions.length > 0">
+            <label class="detail-title">
+                {{'last-transactions' | translate}}
+            </label>
+            <ion-item *ngFor="let lastTrans of lastTransactions; let isLast = last" class="detail" lines="{{isLast ? 'none' : 'full'}}">
+                <div *ngIf="lastTrans" class="detail-block-1">
+                    <label class="detail-label">
+                        {{lastTrans.label}}
+                    </label>
+                    <label class="detail-date">
+                        {{lastTrans.createdAt | date:'dd/MM/yyyy' }}
+                    </label>
+                </div>
+                <div *ngIf="lastTrans" class="detail-block-2">
+                    <label class="detail-amount debit" *ngIf="lastTrans.debit">
+                       - {{ lastTrans.debit | price_format: clubCurrency }}
+                    </label>
+                    <label class="detail-amount credit" *ngIf="lastTrans.credit">
+                       + {{ lastTrans.credit | price_format: clubCurrency }}
+                    </label>
+                </div>
+            </ion-item>
+        </div>
+        <div class="gray-border" *ngIf="lastTransactions.length > 0">
+
+        </div>
+        <div class="history-button" (click)="showHistoricWallet()" *ngIf="lastTransactions.length > 0">
+            <label class="history-label">
+                {{'history' |  translate}}
+            </label>
+            <img src="assets/images/icons/chevron-forward-outline.svg" class="icon-back">
+        </div>
+    </div>
+
+    <div *ngIf="!showSkeleton && showHistory" class="wrapper-wallet">
+        <div class="historic-title">
+            {{'history' |  translate}}
+        </div>
+        <div class="wallet-details">
+            <ion-item *ngFor="let wDet of walletDetails; let isLast = last" class="detail" lines="{{isLast ? 'none' : 'full'}}">
+                <div class="detail-block-1">
+                    <label class="detail-label">
+                        {{ wDet.label}}
+                    </label>
+                    <label class="detail-date">
+                        {{ wDet.createdAt | date:'dd/MM/yyyy' }}
+                    </label>
+                </div>
+                <div class="detail-block-2">
+                    <label class="detail-amount debit" *ngIf="wDet.debit">
+                       - {{ wDet.debit | price_format: clubCurrency }}
+                    </label>
+                    <label class="detail-amount credit" *ngIf="wDet.credit">
+                        + {{ wDet.credit | price_format: clubCurrency }}
+                    </label>
+                </div>
+            </ion-item>
+        </div>
+        <ion-infinite-scroll
+                *ngIf="nextPage"
+                threshold="50px"
+                (ionInfinite)="loadMoreData()">
+            <!-- TODO: translate loading text -->
+            <ion-infinite-scroll-content
+                    loadingSpinner="bubbles"
+                    loadingText="{{'loading_more_details' | translate }}">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </div>
+
+    <div *ngIf="showSkeleton" class="wrapper-wallet">
+        <h3  class="dispo">{{'wallet_available' | translate}}</h3>
+        <p class="solde"><ion-skeleton-text animated style="width: 30%; margin: auto;"></ion-skeleton-text></p>
+    </div>
+</ion-content>

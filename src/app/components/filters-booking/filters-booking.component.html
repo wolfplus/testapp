@@ -1,0 +1,34 @@
+<div *ngIf="(filters  | async).length > 0 || displayCalendarPicker"
+  class="scroll-h-container"
+  [@outAnimation]>
+  <div *ngIf="displayCalendarPicker"
+    class="info-filter calendar flex aic jcc"
+    (click)="tapCalendar()">
+    <div class="title">
+      <img src="assets/icon/globals/calendar-icon.svg">
+    </div>
+    <div class="value-calendar">
+      {{ getDateSelectedString() }}
+    </div>
+  </div>
+  <div>
+    <app-filter-button *ngIf="config === FiltersConfig.CLUB"
+      class="do-mr-1 z-index-1"
+      [clubId]="clubId">
+    </app-filter-button>
+  </div>
+  <ng-container *ngIf="(filters  | async).length">
+    <div *ngFor="let filter of filters | async; let i = index" class="info-filter">
+      <div class="value">{{ filter.label }}</div>
+      <ion-icon name="close" class="filter-close" (click)="removeFilter(i)"></ion-icon>
+    </div>
+  </ng-container>
+</div>
+
+<ion-calendar *ngIf="showCalendar"
+  [(ngModel)]="date"
+  (change)="onChange()"
+  [type]="type"
+  [format]="'YYYY-MM-DD'"
+  [options]="calendarOptions">
+</ion-calendar>

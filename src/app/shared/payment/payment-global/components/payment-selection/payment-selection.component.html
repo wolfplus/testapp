@@ -1,0 +1,126 @@
+<div class="pos-rel h-100 w-100">
+    <div [@fadeInFadeOut]
+         class="backdrop h-100 w-100"
+         (click)="onBackBtnClicked()">
+    </div>
+    <div [@slideInSlideOut] class="sharing-options pos-abs-btm">
+            <label class="label-title">
+                {{('payment' | translate)}}
+            </label>
+            <div class="method-selection" (click)="openSelect()">
+                <div class="method-selector" *ngIf="selectedMethod">
+                    <p class="label-method">{{selectedMethod | translate}}</p>
+                    <p class="price" *ngIf="toPay">{{toPay | price_format: club.currency }}</p>
+                    <p class="price-skeleton" *ngIf="!toPay"><ion-skeleton-text></ion-skeleton-text></p>
+                    <p>
+                        <ion-icon name="chevron-down"></ion-icon>
+                    </p>
+                    <ion-select
+                                #select1
+                                cancelText="{{'cancel' | translate}}"
+                                interface="action-sheet"
+                                [(ngModel)]="selectedMethod"
+                                (ionChange)="changeSelectedMethod()"
+                    >
+                        <ion-select-option *ngFor="let m of methods" value="{{m}}">{{ m | translate }}</ion-select-option>
+                    </ion-select>
+                </div>
+                <div class="description">
+                    <label *ngIf="selectedMethod  === 'complete'">
+                        {{'complete-payment-desc' | translate }}
+                    </label>
+                    <label *ngIf="selectedMethod  === 'per_participant'">
+                        {{'per-part-payment-desc' | translate }}
+                    </label>
+                    <label *ngIf="selectedMethod  === 'instalment'">
+                        {{'instalment-payment-desc' | translate }}
+                    </label>
+                    <label *ngIf="selectedMethod  === 'on_the_spot'">
+                        {{'on-the-spot-payment-desc' | translate }}
+                    </label>
+                    <label *ngIf="selectedMethod  === 'deposit'">
+                        {{'deposit-payment-desc' | translate }}
+                    </label>
+                </div>
+            </div>
+            <label *ngIf="this.selectedMethod !== 'on_the_spot'" class="label-title mt-3">
+                {{'how-to-pay' | translate }}
+            </label>
+            <div class="payment-type">
+<!--                <div-->
+<!--                        *ngIf="platform.is('mobileweb') || platform.is('desktop')"-->
+<!--                        [ngClass]="{'card-payment': true, 'disabled': selectedCredit, 'selected': hasValidCard }">-->
+<!--                    <app-stripe-payment [deleteCard]="resetCard" (paymentData) = "paymentData($event)"></app-stripe-payment>-->
+<!--                </div>-->
+                <div *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'instalment' || selectedMethod === 'deposit'" [ngClass]="{'card-payment': true, 'disabled': selectedCredit, 'selected': selectedCard || useWallet }">
+                    <div class="d-flex flex-column align-items-center justify-content-between">
+                        <ion-icon *ngIf="!selectedCard" class="credit-card" name="card" (click)="showCreditCardModal()"></ion-icon>
+                        <div *ngIf="selectedCard" class="card-img">
+                            <img *ngIf="selectedCard.brand === 'Visa'" src="assets/icon/credit_card/visa.png"/>
+                            <img *ngIf="selectedCard.brand === 'Mastercard'" src="assets/icon/credit_card/mastercard.png"/>
+                            <img *ngIf="selectedCard.brand === 'American Express'" src="assets/icon/credit_card/american.png"/>
+                        </div>
+                        <ion-toggle
+                                #toggle
+                                *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'instalment'"
+                                [disabled]="(wallet.balance + (wallet.overdraftAuthorized !== undefined ? wallet.overdraftAuthorized : 0) <= 0)"
+                                [checked]="useWallet"
+                                (ionChange)="toggleUseWallet(toggle)" color="primary" class="p-2 mt-3"></ion-toggle>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label (click)="showCreditCardModal()" *ngIf="!selectedCard" class="title">{{'add-card' | translate}}</label>
+                        <div (click)="showCreditCardModal()" *ngIf="selectedCard" class="d-flex flex-column pl-3 pb-3 pr-3 wrapper-selected-card">
+                            <label *ngIf="selectedCard.ownerName" class="label-title-card">
+                                {{selectedCard.ownerName}}
+                            </label>
+                            <div class="label-subtitle-card d-flex align-items-center justify-content-between">
+                                <div>
+                                    <label class="ml-2">
+                                        {{selectedCard.last4}}
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="ml-3">
+                                        {{selectedCard.expMonth}}/{{selectedCard.expYear}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <label *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'instalment'"
+                               [style.opacity]="wallet.balance > 0 ? 1 : 0.5"
+                               class="subtitle d-flex align-items-center flex-grow-1 mt-3">
+                                    {{ 'use-wallet' | translate }} ({{ wallet.balance |  price_format: club.currency }})
+                        </label>
+                    </div>
+            </div>
+                <div (click)="showCreditModal()" *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant'" [ngClass]="{'card-payment': true, 'mar-top': true, 'selected': selectedCredit }">
+                    <div class="d-flex align-items-start">
+                        <ion-icon class="credit" name="server"></ion-icon>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label class="title">{{'use-credit' | translate}}</label>
+                        <label *ngIf="selectedCredit" class="subtitle">{{selectedCredit.price}} x {{selectedCredit.paymentToken.name}}</label>
+                        <label *ngIf="!selectedCredit" class="subtitle">{{'select-credit' | translate}}</label>
+                    </div>
+                    <div class="d-flex flex-grow-1">
+                    </div>
+                </div>
+            </div>
+            <div class="button-pay">
+                <ion-button
+                        data-test="go-to-confirm-booking"
+                        mode="ios"
+                        expand="block"
+                        class="btn-next"
+                        [disabled]="
+                            selectedMethod !== 'on_the_spot' &&
+                            ((!selectedCredit && !selectedCard && !useWallet)
+                            || (!selectedCredit && !selectedCard && useWallet && wallet.balance + (wallet.overdraftAuthorized !== undefined ? wallet.overdraftAuthorized : 0) < toPay))"
+                        (click)="validatePayment()"
+                >
+                    <div class="do-p-2 ">{{(selectedMethod === 'on_the_spot' || selectedMethod === 'deposit' ? 'continue-validate-booking' : 'pay-validate-booking') | translate}}</div>
+                    <ion-icon name="arrow-forward-circle" size="30px"></ion-icon>
+                </ion-button>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="calendar-block">
+  <ion-buttons slot="start">
+    <ion-menu-button></ion-menu-button>
+  </ion-buttons>
+  <div class="page-title">{{ "book_playground" | translate }}</div>
+  <div class="subtitle" *ngIf="clubDetails">{{clubDetails.name}}</div>
+
+
+   <!--div *ngIf="clubDetails && clubDetails.lessonAvailable && clubDetails.sportAvailable" class="wrapped-switch">
+    <div class="no-switch" (click)="switchCours()" [ngClass]="{'active-switch': !coursSelected}">
+      {{ 'title_booking_type.booking' | translate }}
+    </div>
+    <div class="no-switch" (click)="switchCours()" [ngClass]="{'active-switch': coursSelected}">
+      {{ 'title_booking_type.court' | translate }}
+    </div>
+  </div-->
+
+  <app-date-select
+    *ngIf="!eventSelected"
+    (reload)="reloadPlaygrounds()"
+    class="dspl-blck do-pt-2 do-pr-2 do-pb-1 do-pl-2"
+  >
+  </app-date-select>
+  <app-filtre-playground
+    *ngIf="!coursSelected && !eventSelected"
+    [isBySlot]="isBySlot"
+    [openningHour]="openningHour"
+    [closingHour]="closingHour"
+    [coursSelected]="coursSelected"
+    [eventSelected]="eventSelected"
+    [selectedTime]="selectedTime"
+    [clubId]="clubId"
+    (reload)="reloadPlaygrounds()"
+    (setTimes)="updateTimes($event)"
+  >
+  </app-filtre-playground>
+  <!-- <app-filtre-course
+  *ngIf="coursSelected"
+  [filterSelected]="filterSelected"
+  [coursSelected]="coursSelected"
+  [clubId]="clubId"
+  (reload)="reloadBookings($event)"
+>
+</app-filtre-course> -->
+  <app-time-choice
+    data-test="time-choice-component"
+    [selectedTime]="selectedTime"
+    (changeTime)="changeTime($event)"
+    [times]="times"
+    *ngIf="showTimes && !coursSelected && !eventSelected && showTimeline"
+  ></app-time-choice>
+
+  <ion-calendar
+    *ngIf="calendar"
+    [(ngModel)]="date"
+    (change)="onChange()"
+    [type]="type"
+    [format]="'YYYY-MM-DD'"
+    class="calendar-block"
+    [options]="calendarOptions"
+  >
+  </ion-calendar>
+</div>

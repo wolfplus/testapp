@@ -1,0 +1,40 @@
+{
+  "menu": [
+    {
+      "name": "home",
+      "icon": "home.svg",
+      "link": "/home",
+      "show": true
+    },
+    {
+      "name": "stages",
+      "icon": "users.svg",
+      "link": "/matches",
+      "show": true
+    },
+    {
+      "name": "book",
+      "icon": "add-circle-outline.svg",
+      "link": "/select-booking",
+      "show": true
+    },
+    {
+      "name": "events",
+      "icon": "events.svg",
+      "link": "/home",
+      "show": false
+    },
+    {
+      "name": "account",
+      "icon": "account.svg",
+      "link": "/account/me",
+      "show": true
+    },
+    {
+      "name": "receipt",
+      "icon": "envelop.svg",
+      "link": "/receipt",
+      "show": true
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+<div style="height: 100%;
+min-height: 100%;
+min-width: 100%;
+width: 100%;
+flex-direction: column;
+box-sizing: border-box;
+display: flex;">
+
+    <div style="flex: 1 1 100%;
+box-sizing: border-box;text-align: center;">
+        <div class="sign-container">
+            <img *ngIf="true && !showUseForm" [src]="welcome" (error)="updateUrlWelcome()" class='logo_app'
+                alt='application logo' />
+            <img *ngIf="false && !showUseForm" [src]="passwordImage" (error)="updateUrlPassword()"
+                class='logo_app' alt='application logo' />
+            <!-- <ion-grid *ngIf="showUseForm" style="width: 100%;">
+                <ion-row>
+                    <ion-col>
+                        <app-new-user-form [phoneNumber]="phoneNumber" [serverSideErrors$]="signupErrors$"
+                            (confirmForm)="confirmUserForm($event)">
+                        </app-new-user-form>
+                    </ion-col>
+                </ion-row>
+            </ion-grid> -->
+
+
+            <div class="lock-block-bottom display-input-normal">
+                <div class="title do-py-1">
+                    {{ 'register_title' | translate }}
+                </div>
+                <div *ngIf="!codeTextshow" class="subtitle do-py-1 do-px-4">
+                    {{ 'register_subtitle' | translate }}
+                </div>
+                <div *ngIf="codeTextshow" class="subtitle do-py-1 do-px-4">
+                    {{ 'code_subtitle1' | translate }} <b>{{ email }}</b>. {{ 'code_subtitle2' | translate }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="flex: 1 1 100%;
+box-sizing: border-box;padding: 2rem;" [class]="isFocus?'full-footer':''" *ngIf="!showUseForm">
+        <app-phone-code *ngIf="showPhoneCode || showEmailInput" [signUp]="true" [setMail]="setMail" [showEmail]="showEmail" [phoneCode]="phoneCode" [phoneNumber]="phoneNumber"
+            (sendToEmail)="codeSended('input_email', $event)" (previous)="previous()" (setPhoneCode)="confirmPhoneCode($event)" (nextStep)="showEmail = false">
+        </app-phone-code>
+        <div *ngIf="showPhoneInput" class="card-sign-in top-element-bs" [class]="{'error':errorPhone}">
+            <!-- <ion-grid *ngIf="showUseForm"
+        style="width: 100%;">
+        <ion-row>
+            <ion-col>
+                <app-new-user-form
+                    [phoneNumber]="phoneNumber"
+                    [serverSideErrors$]="signupErrors$"
+                    (confirmForm)="confirmUserForm($event)">
+                </app-new-user-form>
+            </ion-col>
+        </ion-row>
+    </ion-grid> -->
+            <ion-grid style="width: 100%;">
+                <ion-row>
+                    <ion-col>
+                        <input #phoneInput type="tel" id="phoneUp" />
+                        <label *ngIf="errorPhoneMessage != ''" class="error-message">
+                            {{ errorPhoneMessage }}
+                        </label>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button mode="ios" fill="{{ secondaryColorIsWhite ? 'outline' : 'solid' }}" expand="block"
+                            [disabled]="errorPhoneMessage !== ''" class="btn-next btn-confirm-phone"
+                            (click)="requestPhoneCode()">
+                            <div class="do-p-2">
+                                {{ 'confirm_phone' | translate }}
+                            </div>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,20 @@
+<div slot="body" class="modal-content-duration">
+    <div class="title">
+        {{ startAt | date : 'EEE dd MMMM yyyy' | titlecase }} - {{ startAt | date: 'HH:mm' }}
+    </div>
+    <div class="subtitle">
+        {{ playgroundName }}
+    </div>
+    <div class="section-title-duration">
+        {{ 'select_duration_title' | translate }}
+    </div>
+
+    <div class="durations">
+        <ng-container *ngFor="let price of availablePrices()">
+            <div class="duration-bloc" (click)="selectDuration(price.duration)">
+                <span>{{ (price.duration / 60) }} MIN</span>
+                <label>{{ 'from' | translate }} {{ price.pricePerParticipant | price_format: (currency$ | async) }}</label>
+            </div>
+        </ng-container>
+    </div>
+</div>

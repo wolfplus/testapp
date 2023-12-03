@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="428" height="428" viewBox="0 0 428 428">
+  <defs>
+    <clipPath id="clip-check_green">
+      <rect width="428" height="428"/>
+    </clipPath>
+  </defs>
+  <g id="check_green" clip-path="url(#clip-check_green)">
+    <g id="check_green_3_" data-name="check_green(3)" transform="translate(54 28.892)">
+      <path id="Tracé_7976" data-name="Tracé 7976" d="M270.383,67.108,125.656,211.835a9.989,9.989,0,0,1-14.127,0l-62.3-62.3L0,198.762l93.977,93.979a34.81,34.81,0,0,0,24.614,10.2h0a34.808,34.808,0,0,0,24.61-10.2l176.41-176.409Z" fill="#a5eb78"/>
+      <g id="Groupe_2944" data-name="Groupe 2944" transform="translate(98.469 100.055)" opacity="0.1">
+        <path id="Tracé_7977" data-name="Tracé 7977" d="M362.6,119.888,176.375,306.119a38.106,38.106,0,0,1-18.632,10.232,34.8,34.8,0,0,0,20.122,6.417h0a34.808,34.808,0,0,0,24.61-10.2l176.409-176.4Z" transform="translate(-157.743 -119.888)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<div class="block-events">
+  <div class="section-title">{{ 'home_page.events.title' | translate }}</div>
+
+  <div class="scroll-h-container">
+
+    <ion-skeleton-text class="card-short-event-skeleton" animated *ngIf="skeletonShow"></ion-skeleton-text>
+    <ion-skeleton-text class="card-short-event-skeleton" animated *ngIf="skeletonShow"></ion-skeleton-text>
+
+    <app-card-short-event class="card-short-event" *ngIf="!skeletonShow"></app-card-short-event>
+    <app-card-short-event class="card-short-event" *ngIf="!skeletonShow"></app-card-short-event>
+    <app-card-short-event class="card-short-event" *ngIf="!skeletonShow"></app-card-short-event>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+# for iOS
+app_identifier ENV["PACKAGE_NAME"]
+apple_id ENV["DEVELOPPER_ACCOUNT"]
+team_id ENV["TEAMI_ID"]
+
+# for Android
+json_key_file ENV["JSON_KEY_FILE"]
+package_name ENV["PACKAGE_NAME"]

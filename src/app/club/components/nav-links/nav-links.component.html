@@ -1,0 +1,18 @@
+<div #listContainer class="list-container">
+
+  <ul #listContainerUl
+    class="w-100"
+  >
+    <li *ngFor="let link of clubLinks;let i = index"
+      [ngClass]="{selected: link.selected}"
+      (click)="onLinkClicked(link, i)">
+      {{ link.name }}
+    </li>
+  </ul>
+  <div #underlinerContainer class="nav-links-underline-container">
+    <div #underliner class="underliner">
+      <div class="inner-underliner"></div>
+    </div>
+  </div>
+</div>
+

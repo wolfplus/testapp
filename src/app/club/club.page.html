@@ -1,0 +1,37 @@
+<ion-content style="background:var(--page-bg-color);">
+  <!-- TODO: replace with page bg color variable -->
+  <app-club-header class="top-element-bs">
+  </app-club-header>
+
+  <!--     [@enterFromLeft]="(navFromDirection$ | async)?.navFrom == 'fromLeft'"--> <!--  && (navFromDirection$ | async)?.navFrom == 'fromLeft' -->
+  <app-club-content-infos *ngIf="(activeSection$ | async)?.name == 'infos'"
+    class="dspl-blck w-100"
+    style="color: var(--ion-color-tertiary-contrast);">
+  </app-club-content-infos>
+
+  <!-- <app-club-content-infos *ngIf="(activeSection$ | async)?.name == 'infos' && (navFromDirection$ | async)?.navFrom == 'fromRight'"
+    [@enterFromRight]="(navFromDirection$ | async)?.navFrom == 'fromRight'"
+    class="dspl-blck w-100"
+    style="color: var(--ion-color-tertiary-contrast);">
+  </app-club-content-infos> -->
+
+  <!--     [@enterFromLeft]="(navFromDirection$ | async)?.navFrom == 'fromRight'"--> <!--  && (navFromDirection$ | async)?.navFrom == 'fromRight' -->
+  <app-club-content-my-club *ngIf="(activeSection$ | async)?.name == 'my_club'"
+    class="dspl-blck w-100 mt-2"
+    style="color: var(--ion-color-tertiary-contrast);">
+  </app-club-content-my-club>
+
+  <!-- <app-club-content-my-club *ngIf="(activeSection$ | async)?.name == 'my_club' && (navFromDirection$ | async)?.navFrom == 'fromLeft'"
+    [@enterFromRight]="(navFromDirection$ | async)?.navFrom == 'fromLeft'"
+    class="dspl-blck w-100 mt-2"
+    style="color: var(--ion-color-tertiary-contrast);">
+  </app-club-content-my-club> -->
+
+  <!-- [@enterFromLeft]="(navFromDirection$ | async)?.navFrom == 'fromRight'"
+    [@enterFromRight]="(navFromDirection$ | async)?.navFrom == 'fromLeft'" -->
+  <app-club-content-matchs *ngIf="(activeSection$ | async)?.name == 'matches'"
+    class="dspl-blck w-100 h-100"
+    style="color: var(--ion-color-tertiary-contrast);">
+  </app-club-content-matchs>
+  <!-- <app-club-shop></app-club-shop> -->
+</ion-content>

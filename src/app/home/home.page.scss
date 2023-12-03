@@ -1,0 +1,279 @@
+.btn-burger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0,0,0,0);
+  color: #9d9fa6;
+}
+
+.btn-qrcode {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0);
+  color: #9d9fa6;
+  label {
+    background-color: white;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 10px black;
+    border-radius: 50%;
+    margin: 10px;
+    justify-content: center;
+    img {
+      width: 20px;
+    }
+  }
+}
+
+.logo-1{
+  margin-bottom: 35vh;
+}
+.body-container {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: var(--app-dark-or-not-color)!important;
+}
+
+.ios .body-container {
+  top: 55px;
+}
+
+.bloc-header-home {
+  min-height: 43rem;
+  margin-top: -85px;
+}
+
+.description {
+  font-size: var(--app-font-size);
+  font-weight: 400;
+  text-align: justify;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.photos {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+
+  .photo {
+    border-radius: 1rem;
+    width: 12rem;
+    height: 100pt;
+    margin-right: 1.5rem;
+    object-fit: cover;
+  }
+}
+
+.saut {
+  margin-top: 15px;
+}
+
+app-actions {
+  position: absolute;
+  top: 18rem;
+  background: white;
+  width: 88%;
+  left: 6%;
+  border-radius: 8px;
+  box-shadow: inset 0px 3px 6px #00000000, 0px 20px 20px #00000022;
+  z-index: 999;
+  height: fit-content;
+}
+
+.sponsor-container {
+  width: 12rem;
+  &:not(:last-child) {
+    margin-right: 7px;
+  }
+  .photo {
+    margin-right: 0;
+  }
+  .sponsor-name {
+    display: block;
+    text-align: center;
+  }
+}
+
+.icon-drop {
+  width: 50px;
+}
+
+.link-description {
+  font-size: 1em;
+  font-weight: 600;
+  margin: auto;
+}
+
+.link-last-description {
+  margin-bottom: 1rem;
+	font-size: 1em;
+	margin-top: 5px;
+  font-weight: 1000;
+  padding-left: 6px;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  padding-right: 5px;
+  padding-left: 5px;
+  overflow-x: scroll;
+}
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 10rem;
+  width: calc(100% / 4);
+  max-width: 20rem;
+  text-align: center;
+  margin: 15px;
+  background-color: white;
+  padding: 15px;
+  box-shadow: 0 0 10px 3px rgba(145, 145, 145, 0.2);
+  .icon-drop {
+    width: 40px;
+    margin: auto;
+  }
+  p.link-description {
+    font-size: 1rem;
+  }
+}
+
+:host ::ng-deep app-matchs ion-slides{
+  min-height: 200px !important;
+	max-height: 300px !important;
+}
+
+.bck-all {
+  background: #f5f5f8 !important;
+}
+
+.tabs-bottom {
+  margin-bottom: 30px !important;
+}
+
+.hide-tablet {
+  display: flex;
+}
+
+
+.show-tablet {
+  display: none;
+}
+
+.margin-sep {
+  padding-bottom: 65px;
+}
+.zindex-1 {
+  z-index: 2;
+}
+
+ion-content .body-container {
+  background-color: #f5f5f8 !important;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    .icon-drop {
+      width: 10%;
+    }
+    .header-tablet {
+      min-height: 250px;
+    }
+    :host ::ng-deep app-matchs ion-slides{
+      min-height: 200px !important;
+      max-height: 395px !important;
+    }
+    :host ::ng-deep app-matchs .sport-tag {
+      font-size: 1.3em !important;
+    }
+    :host ::ng-deep app-matchs .sport {
+      font-size: 1em !important;
+    }
+    .action-tablet {
+      position: absolute;
+      top: 160px;
+      width: 50%;
+      left: 24%;
+    }
+    .hide-tablet {
+      display: none;
+    }
+
+    .show-tablet {
+      display: initial;
+    }
+    .icon-drop {
+      width: 30%;
+    }
+    :host ::ng-deep app-matchs ion-avatar {
+      width: 6vw !important;
+      height: 6vw !important;
+    }
+  }
+
+  @media only screen
+  and (min-width: 1100px) {
+    .icon-drop {
+      width: 10%;
+    }
+    .action-tablet {
+      position: absolute;
+      width: 50%;
+      left: 24%;
+    }
+    :host ::ng-deep app-matchs ion-avatar {
+      width: 4vw !important;
+      height: 4vw !important;
+    }
+  }
+
+  ion-content {
+    --ion-background-color: #f5f5f8 !important;
+  }
+
+  .photo-viewer-modal {
+    --height: 100% !important;
+    --width: 100% !important;
+    --background: black;
+    ion-content{
+      --background: black;
+    }
+    ion-icon {
+      position: absolute;
+      z-index: 2;
+      top: 10px;
+      left: 10px;
+      width: 4em;
+      height: 4em;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+.pagination-custom {
+    position: absolute;
+    top: 0;
+    text-align: right;
+    padding: 20px;
+    color: white;
+  }
+
+swiper-container {
+  height: 100%;
+  .photo {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+}

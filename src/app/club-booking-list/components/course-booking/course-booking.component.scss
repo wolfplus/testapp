@@ -1,0 +1,196 @@
+ion-header {
+  min-height: 4rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .icon-back {
+    min-width: 1rem;
+    margin: 0.5rem;
+    font-size: var(--app-font-big-size);
+    color: var(--ion-color-text-header-home);
+    font-weight: bold;
+  }
+  .bottom-border {
+    width: 100%;
+    height: 1.5rem;
+    background-color: white;
+    border-top-left-radius: 1.5rem;
+    border-top: 2px solid white;
+    border-top-right-radius: 1.5rem;
+    position: relative;
+    bottom: 1.4rem;
+    z-index: 11;
+  }
+
+  margin-bottom: 25px
+}
+
+
+.content {
+  margin: -2rem 2rem 2rem 2rem;
+  .title {
+    text-align: center;
+    font-family: 'Panton-Regular';
+    font-weight: 600;
+  }
+  .subtitle {
+    font-size: 1.2em;
+    margin-top: 25px;
+  }
+
+  .first {
+    text-align: center;
+  }
+
+  .second {
+    display: inline-block;
+    background: var(--ion-color-primary);
+    color: white;
+    font-size: 1.2em;
+    width: 25px;
+    text-align: center;
+    border-radius: 26Px;
+    height: 25px;
+    font-weight: 900;
+  }
+
+  .third {
+    display: inline-block;
+    font-size: 1.4em;
+    width: 100px;
+    background: #F0F2F4;
+    margin-left: 15px;
+    margin-right: 15px;
+    border-radius: 25px;
+    padding: 15px;
+    font-weight: 900;
+  }
+
+  .fourth {
+    display: inline-block;
+    background: var(--ion-color-primary);
+    color: white;
+    font-size: 1.2em;
+    width: 25px;
+    text-align: center;
+    border-radius: 26Px;
+    height: 25px;
+    font-weight: 900;
+  }
+
+ 
+
+}
+
+
+
+.list-attenders {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.5rem;
+  background: white;
+  margin-top: 25px;
+  .user-skeleton {
+    border-bottom: 1px solid #e4eaf0;
+    padding: 1rem 0;
+    ion-avatar {
+      border: none;
+      width: 5rem;
+      height: 5rem;
+    }
+    ion-label {
+      width: 80%;
+      margin-left: 1rem;
+    }
+    &.last{
+      border-bottom: none;
+    }
+  }
+  .attender {
+    border-bottom: 1px solid #e4eaf0;
+    width: 100%;
+    padding: 1rem 0;
+
+    &.last {
+      border-bottom: none;
+    }
+
+    ion-avatar {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    .user-img {
+      object-fit: cover;
+    }
+    .user-title {
+      font-size: var(--app-font-size);
+      padding-left: 1rem;
+    }
+
+    .trash {
+      margin-left: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .user-price {
+    color: var(--ion-color-primary);
+    font-size: var(--app-font-size);
+  }
+
+  .add-attender {
+    border-bottom: 1px solid #e4eaf0;
+    padding: 1rem 0;
+
+    &.last {
+      border-bottom: none;
+    }
+
+    .title {
+      color: black;
+      font-size: var(--app-font-size);
+      margin-left: 1rem;
+    }
+
+    .btn-add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      /* TODO: css variable */
+      color: #7d7d8379;
+      background: #e4e5ea;
+      font-size: 3rem;
+    }
+  }
+}
+
+
+.avatar-size {
+	height: 50px;
+	width: 50px;
+}
+
+:host ::ng-deep ion-backdrop{
+  --backdrop-opacity: var(--ion-backdrop-opacity, 0.4) !important;
+}
+
+:host ::ng-deep .modal-wrapper{
+  height: 60%;
+	position: absolute;
+	bottom: 0px;
+}
+
+app-booking-add-user-choice-modal {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}

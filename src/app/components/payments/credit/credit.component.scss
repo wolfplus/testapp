@@ -1,0 +1,23 @@
+ion-header {
+  ion-icon {
+    font-size: 1.5rem;
+  }
+}
+
+ion-button.btn-use {
+  margin: 0;
+  max-width: fit-content;
+
+  &::part(native) {
+    padding: 0 !important;
+  }
+}
+
+.low-opacity {
+  opacity: .8;
+}
+
+.not-usable {
+  color: var(--ion-color-danger);
+  font-size: 1.2rem;
+}

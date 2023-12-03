@@ -1,0 +1,67 @@
+<!-- BOOKING CARD -->
+<div class="booking-card flex jcsb">
+  <div class="booking-card-pic pos-rel flex jcc aife do-p-0-5">
+    <img *ngIf="booking.activityType !== 'leisure' && booking.activityType !== 'lesson' && booking.activityType !== 'event' && booking?.club && booking?.club?.mainPhoto"
+      src="{{ baseUrl + booking?.club?.mainPhoto?.contentUrl }}" alt="">
+    <img *ngIf="(booking.activityType === 'leisure' || booking.activityType === 'lesson' || booking.activityType === 'event') && booking?.timetableBlockPrice && booking?.timetableBlockPrice?.mainPhoto"
+         src="{{ baseUrl + booking?.timetableBlockPrice?.mainPhoto?.contentUrl }}" alt="">
+    <img *ngIf="(booking.activityType === 'leisure' || booking.activityType === 'lesson' || booking.activityType === 'event') && (!booking?.timetableBlockPrice || !booking?.timetableBlockPrice?.mainPhoto) && (booking?.club && booking?.club?.mainPhoto)"
+         src="{{ baseUrl + booking?.club?.mainPhoto?.contentUrl }}" alt="">
+    <div class="sport-tag-container w-100">
+      <app-activity-levels
+        class="dspl-blck w-100"
+        [activityName]="booking?.activity?.name"
+        [activityIcon]="booking?.activity?.icon"
+        [colors]="booking?.activity?.colors"
+        [tagWidth]="'100%'"
+        [position]="ElementPosition.CENTER">
+      </app-activity-levels>
+    </div>
+  </div>
+  <div class="booking-card-content flex d-col jcsb aifs">
+    <div class="date">
+      <span class="event-day-of-week mr-0-5">
+        <app-full-date [startAt]="booking.startAt" [timeZone]="booking.club.timezone"></app-full-date>
+      </span>
+      <!-- <span class="event-date-short mr-0-5">{{ booking.startAt | moment: "M" }}</span>
+      <span class="event-time mr-0-5">{{ booking.startAt | moment: "LT" }}</span> -->
+    </div>
+    <div class="booking-card-title" *ngIf="booking.activityType !== 'leisure' && booking.activityType !== 'lesson' && booking.activityType !== 'event'">
+      {{ booking.club.name }}
+    </div>
+    <div class="booking-card-title" *ngIf="booking.activityType === 'leisure'">
+      {{ booking.timetableBlockPrice.label }}
+    </div>
+    <div class="booking-card-title" *ngIf="booking.activityType === 'lesson' || booking.activityType === 'event'">
+      {{ booking.name }}
+    </div>
+    <div class="duration-price">
+      <span  *ngIf="booking.activityType === 'sport' || booking.activityType === 'leisure'" class="duration">{{ getDuration() }} {{ 'minutes_short' | translate }} - </span>
+      <span  *ngIf="booking.activityType === 'lesson' || booking.activityType === 'event'" class="duration">{{ getDuration() }} {{ 'minutes_short' | translate }}</span>
+      <span class="price" *ngIf="booking.activityType === 'sport'">{{ (booking.pricePerParticipant) | price_format : booking.club.currency }} / {{ 'person_short' | translate }}</span>
+      <span class="price" *ngIf="booking.activityType === 'leisure'">{{ booking.price | price_format : booking.club.currency }}</span>
+    </div>
+    <div class="players flex aic">
+      <div class="icon flex do-mr-2">
+        <ion-icon name="people-outline"></ion-icon>
+      </div>
+      <div *ngIf="booking.activityType !== 'leisure'">
+        <span *ngIf="booking?.match !== null && booking?.match !== undefined">
+          {{ 'match_created' | translate }} - {{ booking.participantsCount }}
+        </span>
+        <span *ngIf="booking?.match === null || booking.match === undefined">{{ booking.participantsCount}} {{ " " }}</span>
+        <span *ngIf="booking?.participantsCount > 1"> / {{ booking.maxParticipantsCountLimit + " " }} {{ 's_participants' | translate }} </span>
+        <span *ngIf="booking?.participantsCount <= 1"> / {{ booking.maxParticipantsCountLimit + " " }} {{ 'attender' | translate }} </span>
+      </div>
+      <div *ngIf="booking.activityType === 'leisure'">
+          {{ booking.participantsCount }}
+          <span *ngIf="booking?.participantsCount > 1"> {{ 's_participants' | translate }} </span>
+          <span *ngIf="booking?.participantsCount <= 1"> {{ 'attender' | translate }} </span>
+      </div>
+    </div>
+  </div>
+  <div class="flex jcc aic">
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </div>
+</div>
+

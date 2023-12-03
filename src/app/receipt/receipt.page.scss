@@ -1,0 +1,17 @@
+.header-container {
+  background-color: var(--app-dark-or-not-color);
+  .header {
+    position: sticky;
+  }
+}
+.title {
+  width: 100%;
+  min-height: 50pt;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 1.8rem;
+  padding: 2rem;
+}

@@ -1,0 +1,26 @@
+<div class="pos-rel h-100">
+    <div [@fadeInFadeOut]
+      class="backdrop h-100"
+      (click)="onBackBtnClicked()">
+    </div>
+    <div [@slideInSlideOut]
+      class="tickets-selector pos-abs-btm">
+      <ion-grid>
+        <ion-row>
+          <ion-col (click)="onBackBtnClicked()" size="1" class="flex jcc aic">
+           <ion-icon name="chevron-back-outline"></ion-icon>
+          </ion-col>
+          <ion-col size="10">
+            <div class="title flex jcc aic">
+              {{ title }}
+            </div>
+          </ion-col>
+          <ion-col size="1"></ion-col>
+        </ion-row>
+      </ion-grid>
+      <ng-content>
+
+      </ng-content>
+    </div>
+  </div>
+  

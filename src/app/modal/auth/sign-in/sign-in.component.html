@@ -1,0 +1,246 @@
+<div style="height: 100%;
+min-height: 100%;
+min-width: 100%;
+width: 100%;
+flex-direction: column;
+box-sizing: border-box;
+display: flex;">
+
+
+    <div style="flex: 1 1 100%;box-sizing: border-box;text-align: center;">
+        <div class="sign-container ">
+            <img *ngIf="!showUpdatePassword && !showConfirmResetPassword" (error)="updateUrlWelcome()"
+                [src]="welcome" class='logo_app welcome-img' alt='application logo' />
+
+            <img *ngIf="showUpdatePassword && !showConfirmResetPassword" [src]="passwordImage"
+                (error)="updateUrlPassword()" class='logo_app update-password-img' alt='application logo' />
+
+            <img *ngIf="showConfirmResetPassword" [src]="forgotImage" (error)="updateUrlForgot()" class='logo_app forgot-password-img'
+                alt='application logo' />
+
+            <img *ngIf="showResetPassword" [src]="forgotImage" (error)="updateUrlForgot()" class='logo_app forgot-password-img'
+                alt='application logo' />
+
+            <div class="lock-block-bottom display-input-normal" *ngIf="!isFocus">
+                <ion-row *ngIf="showPhoneInput">
+                    <ion-col class="continue" (click)="close()">
+                        <div class="w-100 t-center cursor-continue">
+                            {{ 'continue_as_a_guest' | translate }}
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <div *ngIf="showPhoneInput" class="subtitle do-py-1 do-px-4">
+                    <ng-container *ngIf="inputType === 'email'">
+                        {{ 'enter_email' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="inputType === 'phone'">
+                        {{ 'enter_phone_number' | translate }}
+                    </ng-container>
+                </div>
+                <div *ngIf="!showPhoneInput && !showPhoneCode && !showConfirmResetPassword && !showResetPassword"
+                    class="subtitle do-py-1 do-px-4">
+                    <ng-container *ngIf="inputType === 'email'">
+                        {{ 'enter_your_password' | translate }} <b>{{ form.get('email').value }}</b>
+                    </ng-container>
+                    <ng-container *ngIf="inputType === 'phone'">
+                        {{ 'enter_your_password_phone' | translate }} <b>{{ phoneNumber }}</b>
+                    </ng-container>
+                </div>
+                <div class="flex d-col jcc aic">
+                    <div *ngIf="showConfirmResetPassword" class="title do-py-1 do-px-4">
+                        {{ 'forgotten_password' | translate }}
+                    </div>
+                    <div *ngIf="showConfirmResetPassword" class="subtitle do-py-1 do-px-4">
+                        {{ 'confirm_password_forgotten_text' | translate }}
+                    </div>
+
+                    <div *ngIf="showResetPassword" class="subtitle do-py-1 do-px-4">
+                        {{ 'forgotten_password' | translate }}
+                    </div>
+                    <div *ngIf="showResetPassword" class="subtitle do-py-1 do-px-4">
+                        {{ 'confirm_password_forgotten_text' | translate }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="display-input-tablet" *ngIf="!isFocus">
+                <div *ngIf="!showPhoneCode && !showResetPassword && !showConfirmResetPassword" class="title do-py-1">
+                    {{ 'happy_see_you' | translate }}
+                </div>
+                <ion-row *ngIf="showPhoneInput">
+                    <ion-col class="continue" (click)="close()">
+                        <div class="w-100 t-center cursor-continue">
+                            {{ 'continue_as_a_guest' | translate }}
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <div *ngIf="showPhoneInput" class="subtitle do-py-1 do-px-4">
+                    <ng-container *ngIf="inputType === 'email'">
+                        {{ 'enter_email' | translate }}
+                    </ng-container>
+                    <ng-container *ngIf="inputType === 'phone'">
+                        {{ 'enter_phone_number' | translate }}
+                    </ng-container>
+                </div>
+                <div *ngIf="!showPhoneInput && !showPhoneCode && !showConfirmResetPassword && !showResetPassword"
+                    class="subtitle do-py-1 do-px-4">
+                    <ng-container *ngIf="inputType === 'email'">
+                        {{ 'enter_your_password' | translate }} <b>{{ form.get('email').value }}</b>
+                    </ng-container>
+                    <ng-container *ngIf="inputType === 'phone'">
+                        {{ 'enter_your_password_phone' | translate }} <b>{{ phoneNumber }}</b>
+                    </ng-container>
+                </div>
+                <div class="flex d-col jcc aic">
+                    <div *ngIf="showConfirmResetPassword" class="title do-py-1 do-px-4">
+                        {{ 'forgotten_password' | translate }}
+                    </div>
+                    <div *ngIf="showConfirmResetPassword" class="subtitle do-py-1 do-px-4">
+                        {{ 'confirm_password_forgotten_text' | translate }}
+                    </div>
+
+                    <div *ngIf="showResetPassword" class="subtitle do-py-1 do-px-4">
+                        {{ 'forgotten_password' | translate }}
+                    </div>
+                    <div *ngIf="showResetPassword" class="subtitle do-py-1 do-px-4">
+                        {{ 'confirm_password_forgotten_text' | translate }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="flex: 1 1 100%;box-sizing: border-box;" [class]="isFocus?'full-footer':''">
+
+        <ion-button *ngIf="showConfirmResetPassword" mode="ios" expand="block" class="btn-next" (click)="sendCode()">
+            <div class="do-p-2">
+                {{ 'send_code' | translate }}
+            </div>
+        </ion-button>
+
+        <app-phone-code *ngIf="showPhoneCode" [showEmail]="inputType === 'phone'" [inputType]="inputType" (previous)="previous()" [phoneCode]="phoneCode" [phoneNumber]="phoneNumber" (sendCode)="sendCode()" (sendToEmail)="setEmail($event)" (setPhoneCode)="confirmPhoneCode($event)">
+        </app-phone-code>
+        <form [formGroup]="form" *ngIf="!showPhoneCode && !showConfirmResetPassword" (submit)="showPasswordInput ? confirmPassword() : confirmPhone()" class="card-sign-in top-element-bs"
+            [class]="{'error':errorPhone}">
+
+            <ion-grid *ngIf="showUpdatePassword" style="width: 100%;">
+                <ion-row>
+                    <ion-col>
+                        <app-password-update (confirm)="confirmUpdatePassword($event)">
+                        </app-password-update>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <ion-grid *ngIf="showPhoneInput" style="width: 100%;">
+                <ion-row>
+                    <ion-col class="form-group">
+                        <ion-input *ngIf="inputType === 'email'" class="email-input"
+                                   formControlName="email"
+                                   style="
+                                    --border-radius: 0.5rem;
+                                    --border-width: 1px;
+                                    --border-color: #E8E8E8;
+                                    --border-style: solid;"
+                                   [type]="'email'"
+                                   [ngClass]="{'form-input-error': !form.controls.email?.valid && (form.controls.email?.dirty || form.controls.email?.touched || submitAttempt)}"
+                                   autocomplete="email"
+                                   placeholder="exemple@doinsport.com">
+                        </ion-input>
+                        <ng-container *ngIf="inputType === 'phone'">
+                            <input type="tel" data-test="inputPhone" id="phone" />
+                        </ng-container>
+                        <label *ngIf="errorPhoneMessage != ''" class="error-message">
+                            {{ errorPhoneMessage }}
+                        </label>
+                        <img *ngIf="inputType === 'email'" class="first" src="./assets/icon/globals/mail.svg" />
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button class="btn-next btn-confirm-phone" mode="ios"
+                            fill="{{ secondaryColorIsWhite ? 'outline' : 'solid' }}" expand="block"
+                            (click)="confirmPhone()" data-test="confirmPhone">
+                            <div class="do-p-2" *ngIf="inputType === 'email'">
+                                {{ 'confirm_email' | translate }}
+                            </div>
+                            <div class="do-p-2" *ngIf="inputType === 'phone'">
+                                {{ 'confirm_phone' | translate }}
+                            </div>
+                        </ion-button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-grid *ngIf="showPasswordInput" style="width: 100%;">
+                <ion-row>
+                    <ion-col class="form-group">
+                        <ion-input class="email-input"
+                                   formControlName="password"
+                                   [type]="showPassword ? 'text' : 'password'"
+                                   [ngClass]="{'form-input-error': !form.controls.password?.valid && (form.controls.password?.dirty || form.controls.password?.touched || submitAttempt)}"
+                                   autocomplete="email"
+                                   placeholder="******">
+                        </ion-input>
+                        <div *ngIf="errorPhoneMessage != ''" class="error-message">
+                            {{ errorPhoneMessage }}
+                        </div>
+                        <img class="first" src="./assets/icon/globals/lock.svg" />
+                        <img class="eye" (click)="showPassword = !showPassword" src="./assets/icon/globals/eye.svg" />
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-button class="btn-next btn-confirm-password" data-test="confirmPassword" mode="ios"
+                            fill="{{ secondaryColorIsWhite ? 'outline' : 'solid' }}" expand="block"
+                            (click)="confirmPassword()">
+                            <div class="do-p-2">
+                                {{ 'validate' | translate }}
+                            </div>
+                        </ion-button>
+                        <a class="return-login" (click)="return()">{{ 'return_login' | translate }}</a>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+            <div class="cgu-link">
+                {{ 'cgu_text_1' | translate }}
+                <a target="_blank" href="https://doinsport.com/rgpd/">{{ 'cgu_text_2' | translate }}</a>
+            </div>
+        </form>
+
+        <ion-grid>
+            <ion-row *ngIf="!showPasswordInput && !showPhoneCode">
+                <ion-col class="continue">
+                    <div *ngIf="inputType === 'email'" class="forgot-password cursor-continue" (click)="changeInputType()">
+                        {{ 'login_with_number' | translate }}
+                    </div>
+                    <div *ngIf="inputType === 'phone'" class="forgot-password cursor-continue" (click)="changeInputType()">
+                        {{ 'login_with_email' | translate }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="showPhoneCode && inputType === 'email'">
+                <ion-col>
+                    <div class="forgot-password">
+                        {{ 'info_send_code1' | translate }} <b>{{ form.get('email').value }}</b>. {{ 'info_send_code2' | translate }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="showPhoneCode && inputType === 'phone'">
+                <ion-col>
+                    <div class="forgot-password">
+                        {{ 'info_send_code_phone' | translate }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="showPasswordInput">
+                <ion-col>
+                    <div class="forgot-password" (click)="sendCode()">
+                        {{ 'forgotten_password' | translate }}
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+
+
+</div>

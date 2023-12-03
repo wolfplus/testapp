@@ -1,0 +1,30 @@
+<ion-header translucent="true">
+    <app-default-header (back)="close()"
+        [title]="fromName">
+    </app-default-header>
+</ion-header>
+<ion-content>
+    <ng-container *ngFor="let conversation of conversations">
+        <app-booking-join *ngIf="conversation.targetType === 'booking'"
+            appObserveVisibility
+            [debounceTime]="300"
+            (visible)="onVisible(conversation)"
+            [club]="club"
+            [notification]="conversation">
+        </app-booking-join>
+        <app-friend-request *ngIf="conversation.targetType === 'friend_request'"
+            appObserveVisibility
+            [debounceTime]="300"
+            (visible)="onVisible(conversation)"
+                            [club]="club"
+            [notification]="conversation">
+        </app-friend-request>
+        <app-match-invitation *ngIf="conversation.targetType === 'match'"
+            appObserveVisibility
+            [debounceTime]="300"
+            (visible)="onVisible(conversation)"
+                              [club]="club"
+            [notification]="conversation">
+        </app-match-invitation>
+    </ng-container>
+</ion-content>

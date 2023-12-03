@@ -1,0 +1,47 @@
+<div class="event-detail-body app-container pos-rel b-rad-4">
+  <div class="price-container pos-abs-top-center flex jcc aic b-rad-4">
+    <span class="price">
+      <!-- TODO: get price and currency from event -->
+      9€
+    </span>
+    <span class="per-person">/{{ 'person_short' | translate }}</span>
+  </div>
+  <app-event-date-and-type
+    [date]="event?.startAt"
+    [type]="event?.type"
+    [showIcon]="false"
+    [textColor]="'var(--ion-color-primary)'"
+    [textAlign]="'center'"
+    style="font-size: 1.4rem;"> <!-- TODO: add variables for color and text -->
+  </app-event-date-and-type>
+  <app-event-title
+    class="dspl-blck mb-2"
+    [title]="event?.name"
+    [subtitle]="event?.club?.name">
+  </app-event-title>
+  <app-event-attenders
+    class="flex jcs pt-2 pb-2 b-b b-t"
+    [eventAttenders]="event?.attenders"
+    [maxAttenders]="event?.max_attenders">
+  </app-event-attenders>
+  <app-event-infos
+    [eventSport]="event?.category"
+    [eventLevels]="event?.levels"
+    [eventCategory]="event?.category"
+    [eventGender]="event?.gender"
+    [eventLimitRegistrationDate]="event?.limitRegistrationDate"
+    [eventCancellationConditions]="event?.cancellationConditions">
+  </app-event-infos>
+  <app-about
+    [title]="'description' | translate"
+    [description]="event?.description">
+  </app-about>
+  <app-club-location
+    [address]="event?.address.street">
+  </app-club-location>
+  <!-- TODO add an organizer container for the club summary card -->
+ <!--  <app-club-summary-card
+    [clubId]="event?.club.id"
+  >
+  </app-club-summary-card> -->
+</div>

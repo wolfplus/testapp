@@ -1,0 +1,2 @@
+[preprod]
+82.165.29.129 ansible_user=root ansible_connection=ssh ansible_ssh_user=root ansible_ssh_pass=&5rEN3f1?a

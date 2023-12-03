@@ -1,0 +1,185 @@
+.club-block {
+  position: relative;
+  display: flex;
+  min-height: 15rem;
+  max-height: 15rem;
+
+  ion-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 9;
+  }
+
+  .stripe-overlay {
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+    background: rgba(197, 197, 197, .5 );
+    padding: 1rem;
+  }
+
+  .club-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+
+  .club-subtitle {
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  .club-title,
+  .club-subtitle {
+    color: white;
+  }
+}
+
+.block-info-booking {
+  background: var(--ion-color-white);
+  padding: 1.5rem;
+
+  ion-col {
+    padding: 0;
+  }
+
+  .big-font {
+    font-size: var(--app-font-big-size);
+  }
+
+  .label {
+    color: var(--ion-color-primary);
+  }
+
+  .time {
+    font-size: var(--app-font-big-size);
+    color: var(--ion-color-primary);
+    font-weight: bold;
+  }
+
+  .big {
+    font-size: var(--app-font-big-size);
+  }
+
+  .left-border {
+    border-left: 1pt solid rgba(0, 0, 0, 0.1);
+    padding-left: 1.5rem;
+  }
+
+  .count {
+    color: var(--ion-color-primary);
+    margin-right: 1rem;
+  }
+
+  .count, .variation-price {
+    white-space: nowrap;
+  }
+
+  .margin-bottom {
+    margin-bottom: 1.5rem;
+  }
+
+  .address{
+    color: var(--app-font-color-gray);
+  }
+}
+
+/* .block-info-booking {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding-bottom: .5rem;
+
+  .left-border {
+    border-left: 1px solid rgba(0,0,0,0.1);
+  }
+} */
+
+/* .container-page {
+  padding-right: 1.5rem;
+  padding-left: 1.5rem;
+  background-color: white;
+  &.shadow {
+    box-shadow: 0 0 8px 1px rgba(0,0,0,0.1);
+  }
+}
+ */
+.attender-img {
+  object-fit: cover;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  box-shadow: 0 0 3px 1px rgba(0,0,0,0.1);
+}
+
+.title-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .cursor-continue {
+      cursor: pointer;
+    }
+    .club-title {
+      font-size: 2.5rem !important;
+    }
+    .club-subtitle {
+      font-size: 2rem !important;
+    }
+    .section-subtitle {
+      font-size: 2rem !important;
+      font-weight: 600 !important;
+    }
+    .small-text-2 {
+      font-size: 1.8rem !important;
+    }
+    .text-price-to-pay {
+      font-size: 2rem !important;
+      font-weight: 600 !important;
+    }
+    .title-name {
+      font-size: 2rem !important;
+    }
+    .attender-img {
+      width: 5rem !important;
+      height: 5rem !important;
+    } 
+    .justify-tablet {
+      justify-content: space-evenly;
+    }
+}
+
+app-booking-add-user-choice-modal {
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.agenda-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  ion-icon {
+    font-size: 21px;
+  }
+  span {
+    margin-left: 10px;
+  }
+}
+
+.calendar-btn {
+  font-size: 12px;
+  width: 95%;
+}

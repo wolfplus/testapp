@@ -1,0 +1,45 @@
+<div *ngIf="(servicesLoadingStates$ | async)?.servicesAreLoaded === true"
+  class="club-services-container">
+  <div class="section-title">
+    <span>{{ title$ | async }}</span>
+  </div>
+  <div class="flex">
+    <div class="flex jcc service-chips-container">
+      <div *ngFor="let service of services$ | async" 
+        class="mr-2 chip">
+        <div class="flex aic jcc icon-container">
+          <object type="image/svg+xml" 
+            [data]="sanitizer.bypassSecurityTrustResourceUrl('OUPS TODO :p' + service.icon.contentUrl)">
+          </object>
+        </div>
+        <div class="mt-1 service-name">
+          {{ service.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(servicesLoadingStates$ | async)?.servicesAreLoading === true">
+  <div class="skeleton section-title">
+    <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+  </div>
+  <div class="flex jcsb">
+    <ion-thumbnail style="height:4rem; width:4rem;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-thumbnail style="height:4rem; width:4rem;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-thumbnail style="height:4rem; width:4rem;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-thumbnail style="height:4rem; width:4rem;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-thumbnail style="height:4rem; width:4rem;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+</div>
+

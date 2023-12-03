@@ -1,0 +1,54 @@
+<ion-header *ngIf="!showSkeleton">
+  <div class="image-container img-ratio-modal-header w-100 pos-rel">
+    <ion-img
+      [src]="baseUrl + news?.mainPhoto.contentUrl"
+      alt=""
+      class="img-ratio"
+    >
+    </ion-img>
+    <app-header-actions
+      (closeEvent)="goBack()"
+    ></app-header-actions>
+  </div>
+</ion-header>
+<ion-content *ngIf="!showSkeleton">
+  <div class="flex do-px-2 do-pt-2">
+    <div class="news-title">
+      {{ news?.title }}
+    </div>
+  </div>
+  <div class="news-date w-100 flex aic do-pb-2 do-px-2">
+    <span> {{ publishedOnText }} &nbsp;</span>
+    <span>{{ news?.publicationStartDate | moment: "LL" }}</span>
+  </div>
+  <div
+    class="do-px-2 news-content"
+    [innerHtml]="sanitizer.bypassSecurityTrustHtml(news.content)"
+  ></div>
+</ion-content>
+
+<ion-header *ngIf="showSkeleton">
+  <ion-skeleton-text
+    animated
+    style="width: 100%; height: 165px"
+  ></ion-skeleton-text>
+</ion-header>
+<ion-content *ngIf="showSkeleton">
+  <ion-label>
+    <div class="flex do-px-2 do-pt-2 do-pb-2">
+        <ion-skeleton-text animated style="width: 90%;height: 2rem;"></ion-skeleton-text>
+    </div>
+    <div class="news-date w-100 flex aic do-pb-2 do-px-2">
+      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+    </div>
+    <div class="news-date w-100 flex aic  do-px-2" *ngFor="let item of [1, 2, 3, 4, 5]">
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </div>
+    <div class="news-date w-100 flex aic  do-px-2">
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </div>
+    <div class="news-date w-100 flex aic  do-px-2">
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </div>
+  </ion-label>
+</ion-content>

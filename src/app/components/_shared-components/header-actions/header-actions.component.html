@@ -1,0 +1,19 @@
+    <div class="header-actions pos-abs-top w-100 flex jcsb">
+        <div class="actions-top-left"
+            (click)="closeAction()">
+            <ion-icon src="assets/icon/globals/arrow-back.svg">
+            </ion-icon>
+        <!-- <img src="assets/icon/globals/arrow-back.svg" class="icon-action" (click)="close()">-->
+        </div>
+        <div class="actions-top-right flex jcsb" *ngIf="isShare">
+            <div (click)="shareAction()">
+                <ion-icon src="assets/images/icons/share.svg">
+                </ion-icon>
+            </div>
+            <div (click)="changePreferred()" *ngIf="isFavoris">
+                <ion-icon src="assets/images/icons/heart.svg"
+                    [ngClass]="{'liked': isPreferred}" class="do-ml-2">
+                </ion-icon>
+            </div>
+        </div>
+    </div>

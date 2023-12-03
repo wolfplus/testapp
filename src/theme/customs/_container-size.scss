@@ -1,0 +1,115 @@
+.dspl-b {
+  display: block;
+}
+
+.full-view-size {
+  width: 100vw;
+  height: 100vh;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.h-40vh {
+  height: 40vh;
+}
+
+.h-50vh {
+  height: 50vh;
+}
+
+.w-50vw {
+  width: 50vw
+}
+
+.max-w-100 {
+  max-width: 100%;
+}
+
+.max-width-form {
+  max-width: 290px;
+}
+
+.app-container {
+  width: 100%;
+  display: block;
+  padding: 2rem 0;
+}
+
+.app-section-container {
+  padding: 1rem 2rem;
+}
+
+.do-card-container {
+  box-shadow: 0 5pt 10pt rgba(110, 110, 110, 0.3);
+  width: 100%;
+  border-radius: var(--border-radius-2);
+  overflow: hidden;
+}
+
+//*** Images containers
+
+.img-ratio-1,
+.img-ratio-16-9,
+.img-ratio-4-3,
+.img-ratio-card-header,
+.img-ratio-modal-header,
+.img-ratio-club-card,
+.img-ratio-pic-card-1,
+.img-ratio-pic-card-2 {
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  z-index: 9;
+  img.img-ratio, ion-img.img-ratio {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+// aspect ration 1:1
+.img-ratio-1 {
+  padding-top: 100%;
+}
+// Custom ratio 95%
+.img-ratio-pic-card-1 {
+  padding-top: 133%;
+}
+// Custom ratio 92%
+.img-ratio-pic-card-2 {
+  padding-top: 110%;
+}
+// aspect ratio 4:3
+.img-ratio-4-3 {
+  padding-top: 75%;
+}
+// aspect ratio 16:9d
+.img-ratio-16-9 {
+  padding-top: 56.25%;
+}
+.img-ratio-modal-header {
+  padding-top: 20%;
+}
+.img-ratio-card-header {
+  padding-top: 17.5%;
+}
+.img-ratio-club-card {
+  padding-top: 25%;
+}
+
+@media screen and (max-width: 790px) {
+  .img-ratio-modal-header {
+    padding-top: 40%;
+  }
+}
+

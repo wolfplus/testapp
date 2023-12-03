@@ -1,0 +1,22 @@
+<div class="manage-part-wrapper">
+    <h3 class="title"> {{ 'attenders' | translate }}</h3>
+    <p class="subtitle">{{ 'user-presence-subtitle' | translate }}</p>
+    <ion-radio-group #radioGroup  value="i_do_not_participate">
+        <div
+                *ngFor="let part of participantsList"
+                class="attendee"
+                (click)="onChange(part.label)"
+        >
+            <div class="radio">
+                <ion-radio
+                        slot="start"
+                        mode="md"
+                        value="{{ part.label }}"
+                ></ion-radio>
+                <ion-label [class.selected]="radioGroup.value === part.label">
+                    {{ part.label | translate }}
+                </ion-label>
+            </div>
+        </div>
+    </ion-radio-group>
+</div>

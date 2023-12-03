@@ -1,0 +1,100 @@
+.booking-card {
+  margin-bottom: 2rem;
+
+  .booking-card-pic {
+    width: 25vw;
+    height: 25vw;
+    max-width: 25vw;
+    max-height: 25vw;
+    border-radius: .5rem;
+    overflow: hidden;
+    margin-right: 1.5rem;
+    flex-basis: 100%;
+
+    img {
+      position: absolute;
+      top:0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .sport-tag-container {
+      color: white;
+
+      .event-tags {
+        .sport-tag {
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .booking-card-content {
+    height: auto;
+    flex-basis: 100%;
+
+    .date {
+      font-size: 1.4rem;
+      color: var(--ion-secondary-text-color);;
+    }
+
+    .booking-card-title {
+      font-family: 'Roboto-Black', sans-serif;
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+
+    .duration-price {
+      font-size: 1.4rem;
+    }
+  }
+
+  .players {
+    color: var(--ion-color-primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  ion-icon[name="chevron-forward-outline"] {
+    font-size: 2rem;
+    color: var(--ion-secondary-text-color);
+  }
+
+}
+
+.booking-card-content{
+  justify-content: center !important;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .booking-card-content{
+      justify-content: center !important;
+      cursor: pointer;
+    }
+    .booking-card-pic{
+      width: 14vw !important;
+      height: 14vw !important;
+      max-width: 14vw !important;
+      max-height: 14vw !important;
+    }
+    .booking-card-pic {
+      margin-right: 30px !important;
+    }
+    .date {
+      font-size: 1.5rem !important;
+    }
+    .booking-card-title {
+      font-size: 2.5rem !important;
+    }
+    .duration-price {
+      font-size: 2rem !important;
+    }
+    .players {
+      font-size: 1.8rem !important;
+    }
+}

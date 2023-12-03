@@ -1,0 +1,44 @@
+.block-wallet {
+  width: 100%;
+  margin-top: 1rem;
+
+  ion-img::part(image) {
+    border-radius: .9rem;
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+  }
+
+  .club-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+}
+
+.wallet-balance {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-left: 10px !important;;
+}
+
+.wallet-content {
+  text-align: center;
+}
+
+ion-icon {
+  vertical-align: sub !important;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .wallet-content{
+      text-align: center;
+      font-size: 2rem !important;
+    }
+    ion-img::part(image) {
+      width: 15vw !important;;
+      height: 15vw !important;;
+      object-fit: cover !important;;
+    }
+}
+

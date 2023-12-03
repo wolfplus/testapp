@@ -1,0 +1,124 @@
+ion-row {
+  width: 100%;
+}
+s
+.filters-container {
+  margin-bottom: 3rem;
+  position: relative;
+  width: 100%;
+  background-color: var(--app-dark-or-not-color);
+  color: var(--ion-color-primary);
+  text-align: center;
+
+  .filter-tag-btn {
+    flex-basis: calc(33% - 1rem);
+    flex-grow: 1;
+  }
+
+
+  /* .card-sort-skeleton {
+    border-radius: 1.5rem;
+    text-align: center;
+    padding: .5rem;
+    margin-top: .5rem;
+    width: 100pt;
+  } */
+
+  /* TODO: delete */
+  /* .btn-select {
+    background-color: #F1F5F8;
+    color: var(--ion-color-medium);
+    font-size: 12pt;
+    border-radius: 1.5rem;
+    text-align: center;
+    padding: .5rem;
+    margin-top: .5rem;
+  }
+  .btn-select.selected {
+    background-color: #EB7276;
+    color: white;
+  }
+
+  img.close {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 1.5rem;
+  }
+  :host {
+    --knob-border-radius: 50%;
+    --knob-background: #00A5D8!important;
+    --knob-box-shadow: none;
+    --knob-size: 22px;
+    --bar-height: .5rem;
+    --bar-background: rgba(var(--ion-color-primary-rgb, 56, 128, 255), 0.26);
+    --bar-background-active: #00A5D8!important;
+    --bar-border-radius: 0;
+    --height: 42px;
+    --pin-background: var(--ion-color-primary, #3880ff);
+    --pin-color: var(--ion-color-primary-contrast, #fff);
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  p {
+    display: block;
+    width: 100%;
+    font-size: 12pt;
+    font-weight: 500;
+    color: #2e3138;
+    margin-top: 1pt;
+  } */
+}
+.item-native::after {
+  border: none;
+}
+
+
+.distance-container {
+
+  .distance-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  /* .range-container {
+    ion-range.range-distance {
+      padding: 0!important;
+      &::part(bar){
+        --bar-height: 1rem;
+        --bar-border-radius: .5rem;
+      }
+
+      &::part(bar-active) {
+        --bar-height: 1rem;
+        --bar-border-radius: .5rem;
+      }
+    }
+  } */
+
+}
+
+ion-range.range-distance {
+  padding: 0!important;
+  &::part(bar){
+    --bar-height: 1rem;
+    --bar-border-radius: .5rem;
+    --bar-background: var(--ion-color-light);
+  }
+
+  &::part(bar-active) {
+    --bar-height: 1rem;
+    --bar-border-radius: .5rem;
+  }
+
+  &::part(knob) {
+    --knob-size: 3rem;
+  }
+}
+
+/* TODO: move to the _skeleton.scss */
+.filter-tag-skeleton {
+  width: calc(33vw - 1rem - (4rem / 3));
+  border-radius: .9rem;
+  height: 11vw;
+}

@@ -1,0 +1,50 @@
+.block-payments {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  border-radius: 0pt 1rem 1rem 0pt;
+}
+
+.min-vh-100-np {
+  min-height: 100%;
+  padding: unset;
+}
+.text-price-to-pay {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.btn-validate {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 500;
+  padding: .5rem 2rem .5rem 2rem;
+  background: #1C93DD;
+  border: 2px solid #1C93DD;
+  color: white;
+  border-radius: .5rem;
+  text-align: center;
+  margin: auto;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  min-height: 4rem;
+  label {
+    width: 100%;
+    text-align: center;
+  }
+}
+.bt-2 {
+  padding-bottom: .5rem;
+  //border-bottom: .5rem solid rgba(28, 147, 221, 0.2);
+}
+
+.block-info-booking {
+  border-top: 1pt solid rgba(0,0,0,0.1);
+  border-bottom: 1pt solid rgba(0,0,0,0.1);
+  padding-bottom: .5rem;
+  .left-border {
+    border-left: 1pt solid rgba(0,0,0,0.1);
+  }
+}

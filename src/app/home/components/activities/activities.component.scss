@@ -1,0 +1,24 @@
+.block-activities {
+  display: flex;
+  background: var(--ion-color-primary);
+  .activities-scroll {
+    padding: 2rem;
+
+    app-sport-card {
+      display: block;
+    }
+  }
+}
+
+.activity-card-skeleton {
+  width: 20vw;
+  height: 20vw;
+  position: relative;
+  margin-right: 1rem;
+  border-radius: .9rem;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}

@@ -1,0 +1,86 @@
+<div class="card-container pos-rel p-2 mb-3 middle-element-bs">
+  <div class="time-container pos-abs-top-center flex jcc">
+    <!-- {{ match?.startDate | moment: 'HH:mm'  }} -->
+    <!-- TODO: Convert startDate to format hh:mm -->
+    <div class="time flex b-rad-4 background-text-color-primary">17:30</div>
+  </div>
+  <div class="card-header pt-0-5 pb-1 b-b">
+    <div class="match-name p-0-5">
+      <!-- TODO: match.name or  match.label-->
+      {{ match?.name }}
+    </div>
+    <div class="playground-specs flex jcc aic">
+      <!-- TODO: match.playground ?  -->
+      <div>{{ match?.playground.name }}</div>
+      <div class="dot"></div>
+      <!-- match.playground.type ? -->
+      <div>Terre battue</div>
+      <div class="dot"></div>
+      <!-- match.playground.option ? -->
+      <div>Filmé NGTV</div>
+    </div>
+  </div>
+  <div class="card-body mt-1 pb-1 b-b">
+    <!-- TODO: find out what typeof(level) is: Array of objects or Array of numbers-->
+    <!-- TODO: find out if match has a sport property -->
+    <app-activity-levels
+      [levels]="match?.activityLevels"
+      [activityName]="match?.playground.sport.label"
+      [colors]="colors">
+    </app-activity-levels>
+    <div class="date-duration flex jcc aic mb-2">
+      <div class="clock flex jcc aic mr-1">
+        <img src="assets/images/icons/clock.svg" alt="">
+      </div>
+      <div class="date-short">
+        <!-- TODO: convert date to short date -->
+        <!-- {{ match?.startDate | moment: 'HH:mm' }} -->
+        Lun 19 OCt
+      </div>
+      <div class="dot"></div>
+      <div class="duration">
+        <!-- TODO calcultate duration from startDate and endDate -->
+        <!-- {{ match.duration }} {{ 'minutes_short' | translate }} -->
+        {{ 'duration' | translate}} 60 min
+      </div>
+    </div>
+    <div class="attenders flex jcc mb-1">
+      <ng-container *ngFor="let attender of match.participants">
+        <!-- TODO: replace avatar with button -->
+        <app-event-attender-avatar
+          [attender]="attender">
+        </app-event-attender-avatar>
+      </ng-container>
+      <ng-container *ngFor="let availablePlace of ((match.participantsCountlist - match.participantsCount )| to_array)">
+        <div class="avatar-container pos-rel"
+          (click)="joinMatch(match, match?.id)">
+          <!-- TODO: add and image svg or png for the plus -->
+          <ion-avatar class="do-mr-1">
+            <img src="assets/images/icons/plus.png" alt="">
+          </ion-avatar>
+        </div>
+      </ng-container>
+    </div>
+    <div class="attenders-and-price flex jcc aic">
+      <div *ngIf="match?.participantsCount <= 1"
+        class="attenders-count">
+        {{ match?.participantsCount }} / {{ match.participantsCountlist}} {{ 'participate_single' | translate }}
+      </div>
+      <div *ngIf="match?.participantsCount > 1"
+        class="attenders-count">
+        {{ match?.participantsCount }} / {{ match.participantsCountlist}} {{ 'participate_many' | translate }}
+      </div>
+      <div class="dot"></div>
+      <div class="price">
+        <!-- TODO: find out if match price is per pers. Add currency to match.club -->
+        <!-- {{ match.price }} {{ match.club.currency }}/ {{ 'person' | translate }} -->
+        9€ / personne
+      </div>
+    </div>
+  </div>
+  <div class="card-footer flex jcc pt-1"
+    (click)="joinMatch(match, match?.id)">
+  <!-- TODO: add translation -->
+    <span class="secondary">{{ 'join_match' | translate }}</span>
+  </div>
+</div>

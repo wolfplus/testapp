@@ -1,0 +1,121 @@
+<app-default-header
+    [title]="'your_activities'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div class="flex-column do-p-2" *ngIf="data && view === 'list'">
+        <ng-container *ngFor="let item of data">
+            <div class="sport-block do-mb-1" (click)="updateActivity(item)">
+                <div class="card-title flex jcc aic w-100 h-100">
+                    <div class="t-center">
+                        {{ item.activity.name }}
+                    </div>
+                    <div class="card-subtitle">
+                        <img src="assets/icon/globals/chart.svg" class="icon">{{item.activityLevels[0].identifier}} - {{item.activityLevels[0].label}}
+                    </div>
+                </div>
+                <div class="bg-img-container">
+                    <img *ngIf="item.activity.photo" [src]="baseUrl + '' + item.activity.photo.contentUrl" alt=""
+                         class="bg-img" >
+                </div>
+                <div class="bg-overlay"
+                     [ngStyle]="setGradient(item.activity.colors)">
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+    <div class="flex-column" *ngIf="view === 'choices_activity' && isLoaded">
+        <ion-grid class="w-100">
+            <ion-row>
+                <ion-col size="6" *ngFor="let activity of activities" (click)="selectActivity(activity)">
+                    <div class="sport-block">
+                        <div class="card-title flex jcc aic w-100 h-100">
+                            <div class="t-center no-wrap">
+                                {{ activity.name }}
+                            </div>
+                        </div>
+                        <div class="bg-img-container">
+                            <img *ngIf="activity.photo" [src]="baseUrl + '' + activity.photo.contentUrl" alt=""
+                                 class="bg-img" >
+                        </div>
+                        <div class="bg-overlay"
+                             [ngStyle]="setGradient(activity.colors)">
+                        </div>
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+    <div class="flex-column text-center" *ngIf="view === 'choices_level'">
+        <div class="subtitle">
+            {{'select_your_level'|translate}}
+        </div>
+        <div class="selection do-pt-1 do-pb-1 do-pl-2 do-pr-2">
+            <div class="sport-block">
+                <div class="card-title flex jcc aic w-100 h-100">
+                    <div class="t-center">
+                        {{ selectedActivity.name }}
+                    </div>
+                </div>
+                <div class="bg-img-container">
+                    <img *ngIf="selectedActivity.photo" [src]="baseUrl + '' + selectedActivity.photo.contentUrl" alt=""
+                         class="bg-img" >
+                </div>
+                <div class="bg-overlay"
+                     [ngStyle]="setGradient(selectedActivity.colors)">
+                </div>
+            </div>
+        </div>
+        <ng-container *ngFor="let level of choiceLevels">
+            <div class="level" >
+                <div class="title" (click)="selectLevel(level)" [ngClass]="(selectedLevel.id === level.id) ? 'active' : ''">
+                    {{ level.label }}
+                </div>
+                <div class="description" *ngIf="selectedLevel.id === level.id"
+                    [innerHtml]="level.description">
+                </div>
+                <div class="flex-column" *ngIf="selectedLevel.id === level.id">
+                    <div class="label-rank" *ngFor="let rank of level.ranks" (click)="selectRank(rank)" [ngClass]="(selectedRank === rank) ? 'active' : ''">
+                        {{rank}}
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-button *ngIf="view === 'list'"
+            fill="solid"
+            expand="block"
+            mode="ios"
+            class="btn-next"
+            (click)="addActivity()">
+            <div class="do-p-2">
+                {{ 'add_activity' | translate }}
+            </div>
+        </ion-button>
+        <ion-button *ngIf="view === 'choices_level'"
+            fill="outline"
+            mode="ios"
+            expand="block"
+            class="link-back btn-next"
+            (click)="view = 'choices_activity'">
+            <div class="do-p-2">
+                {{'go_back'|translate}}
+            </div>
+        </ion-button>
+        <ion-button *ngIf="view === 'choices_level' && selectedLevel.id && (selectedRank || selectedLevel.ranks.length === 0)"
+            expand="block"
+            mode="ios"
+            class="btn-next"
+            (click)="confirmActivityLevel()">
+            <div class="do-p-2">
+                {{ 'validate' | translate }}
+            </div>
+        </ion-button>
+</ion-footer>
+

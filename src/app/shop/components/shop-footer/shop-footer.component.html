@@ -1,0 +1,67 @@
+<ion-footer
+  [ngClass]="{
+    border:
+      (!showDisabledFooter &&
+        totalSameItems > 0 &&
+        totalPriceSameItems !== 0) ||
+      (!showDisabledFooter &&
+        totalSameItems > 0 &&
+        totalPriceSameItems === 0) ||
+      (!showDisabledFooter &&
+        totalSameItems === 0 &&
+        totalPriceSameItems !== 0) ||
+      (showDisabledFooter && totalSameItems > 0)
+  }"
+>
+  <ion-button
+    mode="ios"
+    expand="block"
+    class="btn-next"
+    (click)="updateCard()"
+    [disabled]="showDisabledFooter && totalPriceSameItems === 0"
+    data-test="update-cart"
+  >
+    <div
+      class="do-p-2"
+      *ngIf="
+        !showDisabledFooter && totalSameItems > 0 && totalPriceSameItems !== 0
+      "
+    >
+      {{
+        "shop_item_cart_button_label_update"
+          | translate
+            : { amount: totalPriceSameItems | price_format: clubCurrency }
+      }}
+    </div>
+    <div
+      class="do-p-2"
+      *ngIf="
+        !showDisabledFooter && totalSameItems > 0 && totalPriceSameItems === 0
+      "
+    >
+      {{ "shop_item_cart_button_label_remove" | translate }}
+    </div>
+    <div
+      class="do-p-2"
+      *ngIf="
+        !showDisabledFooter && totalSameItems === 0 && totalPriceSameItems !== 0
+      "
+    >
+      {{
+        "shop_item_cart_button_label_add"
+          | translate
+            : { amount: totalPriceSameItems | price_format: clubCurrency }
+      }}
+    </div>
+    <div class="do-p-2" *ngIf="showDisabledFooter && totalSameItems > 0">
+      {{ "shop_item_cart_button_label_added" | translate }}
+    </div>
+    <div class="do-p-2" *ngIf="showDisabledFooter && totalSameItems === 0">
+      {{
+        "shop_item_cart_button_label_add"
+          | translate
+            : { amount: priceItem | price_format: clubCurrency }
+      }}
+    </div>
+  </ion-button>
+</ion-footer>

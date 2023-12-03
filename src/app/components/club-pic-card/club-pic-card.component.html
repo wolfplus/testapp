@@ -1,0 +1,53 @@
+<!-- <div class="short-club-block" (click)="showClub()"> -->
+<div class="img-ratio-pic-card-2 flex d-col"
+  (click)="showClub()">
+  <ng-container *ngIf="club?.photos?.length > 0">
+    <ion-img [src]="filesPath + club.photos[0].contentUrl"
+      class="my-club-img img-ratio"
+      alt="sport img">
+    </ion-img>
+  </ng-container>
+  <ng-container *ngIf="!club?.photos && club?.mainPhoto?.contentUrl">
+    <ion-img [src]="filesPath + club.mainPhoto"
+      class="my-club-img img-ratio"
+      alt="sport img">
+    </ion-img>
+    <ion-img *ngIf="club?.mainPhoto?.contentUrl"
+      [src]="filesPath + club?.mainPhoto?.contentUrl"
+      class="my-club-img img-ratio"
+      alt="sport img">
+    </ion-img>
+  </ng-container>
+  <!-- <div class="favoris">
+      <app-svg-container
+        [svg]="heartIcon"
+        [inputClass]="'icon-m'"
+        [iconColor]="heartColor">
+      </app-svg-container>
+    </div> -->
+  <div class="pos-abs-top-right do-m-1">
+    <!--  *ngIf="clubLocation && userLocation" -->
+    <app-club-distance class="flex jcfe aife h-100"
+      [clubLocation$]="clubLocation$"
+      [userLocation$]="userLocation$">
+    </app-club-distance>
+  </div>
+  <div class="pos-abs-btm w-100">
+    <div class="bottom">
+      <div class="name-city do-p-1">
+        <div class="club-name">{{club.name}}</div>
+        <div class="club-city">{{club.city}} ({{ zipCode }})</div>
+      </div>
+      <ng-container *ngIf="club">
+        <div class="flex scroll-x-start do-pl-1">
+          <app-activity-levels *ngFor="let activity of club.activities"
+            [activityName]="activity?.name"
+            [activityIcon]="activity?.icon"
+            [colors]="activity?.colors">
+          </app-activity-levels>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

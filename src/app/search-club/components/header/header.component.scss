@@ -1,0 +1,21 @@
+.block-filters {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--app-dark-or-not-color);
+}
+.title {
+  width: 100%;
+  padding: .5rem;
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+.filter-button {
+  // width: 20%;
+  margin: 0 0 0 1rem;
+}
+.search-input {
+  flex-grow: 2;
+  // width: 80%;
+  margin: auto;
+}

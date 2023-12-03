@@ -1,0 +1,125 @@
+<!-- <div class="credit-wrapper">
+    <div class="close">
+        <ion-icon name="close" (click)="closeModal()"></ion-icon>
+    </div>
+    <div *ngIf="!loader" class="tokens">
+        <div *ngIf="creditsBalance.length === 0" class="no-credit">
+            Tu n'as aucun crédit utilisable pour cette réservation.
+            Recharge ton compte auprès du complexe !
+        </div>
+        <ion-radio-group #radioGroup *ngIf="creditsBalance.length > 0 && creditsBalance.length"
+                         [value]="selectedCredit ? selectedCredit.paymentToken.id : null" class="credit-list">
+            <ion-item lines="none" *ngFor="let cred of creditsBalance" class="d-flex">
+                <div class="d-flex w-100 justify-content-around">
+                    <div class="d-flex align-items-center justify-content-center p-3">
+                        <ion-radio
+                                slot="start"
+                                mode="md"
+                                value="{{cred.paymentToken.id}}"
+                        ></ion-radio>
+                    </div>
+                    <div class="d-flex flex-column p-3">
+                        <label class="label-title">
+                            {{cred.paymentToken.name}}
+                        </label>
+                        <label class="label-subtitle">
+                            {{cred.price}} Credits ({{cred.clientBalance}} restants)
+                        </label>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-radio-group>
+    </div>
+    <div class="skeleton" *ngIf="loader">
+        <ion-skeleton-text></ion-skeleton-text>
+        <ion-skeleton-text></ion-skeleton-text>
+        <ion-skeleton-text></ion-skeleton-text>
+    </div>
+    <div class="button-pay">
+        <ion-button
+                data-test="go-to-confirm-booking"
+                mode="ios"
+                expand="block"
+                [disabled]="(creditsBalance.length > 0 && !radioGroup?.value) || loader"
+                (click)="validateCredit()"
+        >
+            <div *ngIf="!loader && creditsBalance.length > 0" class="do-p-2">Sélectionner</div>
+            <div *ngIf="!loader && creditsBalance.length === 0"
+                 class="do-p-2"
+            >
+                Fermer
+            </div>
+        </ion-button>
+    </div>
+</div> -->
+
+
+
+<ion-header translucent="true">
+    <ion-toolbar color="'var(--app-dark-or-not-color)'" mode="ios">
+      <ion-buttons slot="start">
+        <ion-button
+          (click)="closeModal()"
+          mode="ios">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <div class="credit-wrapper">
+        <div *ngIf="!loader" class="tokens">
+            <div *ngIf="creditsBalance.length === 0" class="no-credit">
+                Tu n'as aucun crédit utilisable pour cette réservation.
+                Recharge ton compte auprès du complexe !
+            </div>
+            <ion-radio-group #radioGroup *ngIf="creditsBalance.length > 0 && creditsBalance.length"
+                             [value]="selectedCredit ? selectedCredit.paymentToken.id : null" class="credit-list">
+                <ion-item lines="none" *ngFor="let cred of creditsBalance" class="d-flex">
+                    <div class="d-flex w-100 justify-content-around">
+                        <div class="d-flex align-items-center justify-content-center p-3">
+                            <ion-radio
+                                    slot="start"
+                                    mode="md"
+                                    value="{{cred.paymentToken.id}}"
+                            ></ion-radio>
+                        </div>
+                        <div class="d-flex flex-column p-3">
+                            <label class="label-title">
+                                {{cred.paymentToken.name}}
+                            </label>
+                            <label class="label-subtitle">
+                                {{cred.price}} Credits ({{cred.clientBalance}} restants)
+                            </label>
+                        </div>
+                    </div>
+                </ion-item>
+            </ion-radio-group>
+        </div>
+        <div class="skeleton" *ngIf="loader">
+            <ion-skeleton-text></ion-skeleton-text>
+            <ion-skeleton-text></ion-skeleton-text>
+            <ion-skeleton-text></ion-skeleton-text>
+        </div>
+    </div>
+  </ion-content>
+  
+  <ion-footer>
+    <div class="button-pay">
+        <ion-button
+                data-test="go-to-confirm-booking"
+                mode="ios"
+                expand="block"
+                [disabled]="(creditsBalance.length > 0 && !radioGroup?.value) || loader"
+                (click)="validateCredit()"
+        >
+            <div *ngIf="!loader && creditsBalance.length > 0" class="do-p-2">Sélectionner</div>
+            <div *ngIf="!loader && creditsBalance.length === 0"
+                 class="do-p-2"
+            >
+                Fermer
+            </div>
+        </ion-button>
+    </div>
+  </ion-footer>

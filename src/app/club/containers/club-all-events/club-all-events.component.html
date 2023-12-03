@@ -1,0 +1,17 @@
+<app-modal-header
+  style="z-index:999;"
+  [title$]="title$"
+  [subtitle$]="subtitle$"
+  (backButtonClicked)="dismiss()"
+>
+</app-modal-header>
+<ion-content fullscreen="true"
+class="w-100 h-100 flex d-col aic jcc">
+<div class="events-container app-container">
+  <ng-container *ngFor="let event of (events$ | async)">
+    <app-event-card class="mb-2 dspl-b"
+      [clubEvent]="event">
+    </app-event-card>
+  </ng-container>
+</div>
+</ion-content>

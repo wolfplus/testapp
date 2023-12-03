@@ -1,0 +1,135 @@
+<ion-header translucent="true"
+            class="top-element-bs">
+    <app-default-header
+            [title]="'your_bookings'"
+            [subtitle]=""
+            [removeBackArrow]="env.marqueBlanche.userUI"
+            (back)="close()">
+        <ion-segment
+                (ionChange)="segmentChanged($event)"
+                value="{{selectedView}}"
+                scrollable="true"
+                mode="md"
+                class="header-center">
+            <ion-segment-button
+                    style="width: 33%"
+                    value="next">
+                <!-- TODO: fix translate pipe issue -->
+                <ion-label class="tabs-item">{{'to_come'|translate}}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button
+                    style="width: 33%"
+                    value="past">
+                <ion-label class="tabs-item">{{'passed_bookings'|translate}}</ion-label>
+            </ion-segment-button>
+            <ion-segment-button style="width: 33%"
+                                value="canceled">
+                <ion-label class="tabs-item">{{'canceled_bookings'|translate}}</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </app-default-header>
+</ion-header>
+<ion-content>
+    <ng-container *ngIf="bookings.length && showSkeleton === false"
+        class="booking-container do-mt-2">
+        <ng-container *ngIf="yesterdayBookings?.length">
+            <div class="eventDay">{{ 'yesterday' | translate }}</div>
+            <app-booking-card-short *ngFor="let booking of yesterdayBookings"
+                                    class="dspl-blck do-pl-2 do-pr-2 do-py-1"
+                                    [booking]="booking"
+                                    (click)="openBooking(booking)">
+            </app-booking-card-short>
+        </ng-container>
+        <ng-container *ngIf="pastBookings.length">
+            <ng-container *ngFor="let bookingsByDate of pastBookingsByDate">
+                <div class="eventDay">{{ bookingsByDate.date }}</div>
+                <app-booking-card-short *ngFor="let booking of bookingsByDate.events"
+                    class="dspl-blck do-pl-2 do-pr-2 do-py-1"
+                    [booking]="booking"
+                    (click)="openBooking(booking)">
+                </app-booking-card-short>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="todayBookings?.length">
+            <div class="eventDay">{{ 'today' | translate }}</div>
+            <app-booking-card-short *ngFor="let booking of todayBookings"
+                class="dspl-blck do-pl-2 do-pr-2 do-py-1"
+                [booking]="booking"
+                (click)="openBooking(booking)">
+            </app-booking-card-short>
+        </ng-container>
+        <ng-container *ngIf="tomorrowBookings?.length">
+            <div class="eventDay">{{ 'tomorrow' | translate }}</div>
+            <app-booking-card-short *ngFor="let booking of tomorrowBookings"
+                class="dspl-blck do-pl-2 do-pr-2 do-py-1"
+                [booking]="booking"
+                (click)="openBooking(booking)">
+            </app-booking-card-short>
+        </ng-container>
+        <ng-container *ngIf="otherDaysBookings?.length">
+            <ng-container *ngFor="let bookingsByDate of otherDaysBookingsByDate">
+                <div class="eventDay">{{ bookingsByDate.date }}</div>
+                <app-booking-card-short *ngFor="let booking of bookingsByDate.events"
+                    class="dspl-blck do-pl-2 do-pr-2 do-py-1"
+                    [booking]="booking"
+                    (click)="openBooking(booking)">
+                </app-booking-card-short>
+            </ng-container>
+        </ng-container>
+       <!--  <app-card-my-booking *ngFor="let booking of data"
+            [booking]="booking"
+            (reload)="reload()"
+            class="bloc-booking">
+        </app-card-my-booking> -->
+    </ng-container>
+
+    <div *ngIf="!showSkeleton && !bookings.length">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_result.svg" alt="">
+        </div>
+        <div *ngIf="selectedView === 'next'"
+            class="do-p-2 text-center">
+            {{ 'you_do_not_have_upcoming_bookings' | translate }}
+        </div>
+        <div *ngIf="selectedView === 'past'"
+            class="do-p-2 text-center">
+            {{ 'you_do_not_have_past_bookings' | translate }}
+        </div>
+        <div *ngIf="selectedView === 'canceled'"
+            class="do-p-2 text-center">
+            {{ 'you_do_not_have_canceled_bookings' | translate }}
+        </div>
+    </div>
+
+    <!-- SKELETON -->
+    <div *ngIf="showSkeleton"
+        style="height: 3rem; width: 100%;">
+        <div>
+            <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+        <div class="do-p-2">
+            <div *ngFor="let item of [1,2,3,4,5]"
+            class="flex jcfs aifs do-mb-1">
+            <ion-thumbnail style="height:25vw; width:25vw;margin-right:2rem;">
+                <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+            </ion-thumbnail>
+            <div class="flex d-col" style="width: 50%;">
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- INFINITE SCROLL -->
+    <ion-infinite-scroll
+        threshold="50px"
+        (ionInfinite)="loadMoreData()">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="{{'loading_more_bookings' | translate }}">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

@@ -1,0 +1,66 @@
+<ion-header>
+  <h3 class="title-header">{{'title_choice_club' | translate }}</h3>
+  <span class="finished" *ngIf="closed" (click)="close()">{{'action_completed' | translate}}</span>
+</ion-header>
+
+<ion-content>
+ <ion-searchbar
+     [(ngModel)]="term"
+     class="search_input"
+     showCancelButton="always"
+     placeholder="{{ 'to_search' | translate }}"
+     cancelButtonText="{{ 'cancel' | translate }}">
+ </ion-searchbar>
+ <!-- <ion-list *ngIf="clubs">
+     <ion-item *ngFor="let club of clubs | filter:term">
+         <div class="wrapper-select" (click)="changeClub(club)">
+             <ion-avatar class="avatar-select" slot="start">
+                 <img src="{{ baseUrl + club?.logo?.contentUrl }}">
+             </ion-avatar>
+             <ion-icon class="icon-select" *ngIf="club['@id'].indexOf(clubIdSelected) !== -1" slot="end" name="checkmark-circle-outline"></ion-icon>
+             <ion-label class="label-select">
+             <h2 class="title">{{club.name | truncate}}</h2>
+             <h3 class="subtitle" *ngIf="club?.description">{{club.description | truncate}}</h3>
+             </ion-label>
+         </div>
+     </ion-item>
+ </ion-list> -->
+<ng-container *ngIf="isLoaded && (env.marqueBlanche.countclub === clubs.length)">
+  <ion-card *ngFor="let club of clubs | filter:term" (click)="changeClub(club)">
+    <ion-item lines="none">
+      <ion-avatar class="avatar-select" slot="start">
+        <img src="{{ baseUrl + club?.logo?.contentUrl }}">
+    </ion-avatar>
+      <ion-label class="ft-weight">{{club.name | truncate}}</ion-label>
+      <svg version="1.1" id="Capa_1" *ngIf="club['@id'].indexOf(clubIdSelected) !== -1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"	 width="28px" height="28px" viewBox="0 0 229.153 229.153" style="fill: var(--ion-color-primary)"	 xml:space="preserve"><g>	<path d="M92.356,223.549c7.41,7.5,23.914,5.014,25.691-6.779c11.056-73.217,66.378-134.985,108.243-193.189		C237.898,7.452,211.207-7.87,199.75,8.067C161.493,61.249,113.274,117.21,94.41,181.744		c-21.557-22.031-43.201-43.853-67.379-63.212c-15.312-12.265-37.215,9.343-21.738,21.737		C36.794,165.501,64.017,194.924,92.356,223.549z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>
+    </ion-item>
+
+    <ion-card-content>
+      {{club.description | truncate: 120}}
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+
+
+
+ <div *ngIf="!isLoaded && (env.marqueBlanche.countclub !== clubs.length)">
+     <ion-list>
+         <ion-item>
+             <ion-thumbnail slot="start">
+                 <ion-skeleton-text></ion-skeleton-text>
+               </ion-thumbnail>
+               <ion-label>
+                 <h3>
+                   <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                 </h3>
+                 <p>
+                   <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                 </p>
+                 <p>
+                   <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                 </p>
+               </ion-label>
+         </ion-item>
+     </ion-list>
+ </div>
+</ion-content>

@@ -1,0 +1,40 @@
+.backdrop {
+  min-height: 50%;
+  background: black;
+  opacity: 0.2;
+}
+
+.sharing-options {
+  position: absolute;
+  bottom:0;
+  border-radius: 1.5rem 1.5rem 0 0;
+  width: 100%;
+  background: white;
+  padding: 1rem 0 3rem;
+
+  ion-icon {
+    font-size: 3rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .hide-tablet {
+      display: none;
+    }
+    .show-tablet {
+      display: block;
+    }
+  }

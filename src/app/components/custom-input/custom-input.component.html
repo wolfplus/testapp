@@ -1,0 +1,47 @@
+<ng-container *ngIf="show">
+    <div class="bloc-field">
+        <input [class]="error?'input-form error':'input-form'"
+               [placeholder]="placeholder + (required ? ' *': '')"
+               [disabled]="disabled"
+               [type]="type"
+               [(ngModel)]="model"
+               (change)="change()"
+               (click)="click()"
+               *ngIf="!['textarea', 'date', 'phone'].includes(type)"
+               [required]="required"
+        />
+        <input [class]="error?'input-form error':'input-form'"
+               [placeholder]="'DD/MM/YYYY'"
+               [disabled]="disabled"
+               [type]="type"
+               [(ngModel)]="model"
+               (change)="change()"
+               (click)="click()"
+               *ngIf="['date'].includes(type)"
+               [required]="required"
+        />
+        <textarea [class]="error?'text-form error':'text-form'"
+               [placeholder]="placeholder + (required ? ' *': '')"
+               [disabled]="disabled"
+               [(ngModel)]="model"
+               (change)="change()"
+               (click)="click()"
+               *ngIf="type === 'textarea'"
+               [required]="required"
+               rows="3"
+        ></textarea>
+        <input [class]="error?'input-form error':'input-form'"
+               data-test="inputPhone"
+               id="phone"
+               [placeholder]="placeholder + (required ? ' *': '')"
+               [disabled]="disabled"
+               [type]="type"
+               [(ngModel)]="model"
+               (change)="change()"
+               (click)="click()"
+               *ngIf="['phone'].includes(type)"
+               [required]="required"
+        />
+
+    </div>
+</ng-container>

@@ -1,0 +1,33 @@
+<div class="news-block">
+  <div class="img-block">
+    <ion-img *ngIf="clubNews?.mainPhoto && clubNews?.mainPhoto.contentUrl"
+      [src]="pathUrl + clubNews.mainPhoto.contentUrl"
+      class="my-club-news-img"
+      alt="news img">
+    </ion-img>
+    <ion-img *ngIf="!(clubNews?.mainPhoto && clubNews?.mainPhoto.contentUrl) && env?.useMb"
+      [src]="'assets/mb/' + this.env.marqueBlanche.pathName + '/' + 'logo_full.png'"
+      class="my-club-news-img"
+      alt="sport img">
+    </ion-img>
+    <ion-img *ngIf="!(clubNews?.mainPhoto && clubNews?.mainPhoto.contentUrl) && !env?.useMb"
+      [src]="'assets/images/banner_default.png'"
+      class="my-club-news-img"
+      alt="sport img">
+    </ion-img>
+  </div>
+  <div class="news-info flex d-col jcsb">
+    <div class="news-title">
+      {{ clubNews.title }}
+    </div>
+    <div class="news-text">
+      {{ clubNews.shortContent }}
+    </div>
+    <div class="news-date">
+      <ion-icon src="assets/images/icons/clock.svg"
+        class="do-mr-1">
+      </ion-icon>
+      <span>{{ clubNews.publicationStartDate | moment: "LL" }}</span>
+    </div>
+  </div>
+</div>

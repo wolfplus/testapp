@@ -1,0 +1,124 @@
+<div class="wrapper">
+    <div *ngIf="(photoUrl | async) as url;else emptyImg" class="img-playground" [style]="'background-image: url('
+      + baseUrl
+      + url
+      + '); z-index: 1; '">
+
+    </div>
+    <ng-template #emptyImg>
+        <div class="img-playground"></div>
+    </ng-template>
+    
+    <div class="header-recap">
+        <label class="recap-string">
+            {{ 'recap' | translate}}
+        </label>
+        <div class="recap-bloc">
+            <div class="recap-details">
+                <label class="date" *ngIf="!loader">{{booking.startAt | date: 'fullDate' | titlecase }}</label>
+                <label class="skeleton-label-long" *ngIf="loader">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </label>
+                <div class="price-recap">
+                    <label class="label-price">{{ 'price' | translate }} ({{ undefined | price_format: club.currency }})</label>
+                    <label *ngIf="initedBooking && !loader" class="price">{{ initedBooking.price | price_format: club.currency}}</label>
+                    <label class="skeleton-label-price" *ngIf="loader">
+                        <ion-skeleton-text animated></ion-skeleton-text>
+                    </label>
+                </div>
+            </div>
+            <div class="activity-name-duration">
+                <label class="activity" *ngIf="!loader"
+                       [style.background-image]="'linear-gradient(90deg, '
+                   + activity.colors[0] + ','
+                   + activity.colors[1] + ')'">
+                    {{activity.name}}
+                </label>
+                <label class="skeleton-label" *ngIf="loader">
+                    <ion-skeleton-text
+                            animated
+                    ></ion-skeleton-text>
+                </label>
+                <label *ngIf="!loader" class="duration">
+                    <ion-icon name="time-outline"></ion-icon> {{ duration / 60 }} min
+                </label>
+                <label class="skeleton-label" *ngIf="loader">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </label>
+                <label class="duration" *ngIf="initedBooking && !loader">
+                    <ion-icon name="people"></ion-icon> {{ initedBooking.maxParticipantsCountLimit }}
+                </label>
+                <label class="skeleton-label" *ngIf="loader">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </label>
+            </div>
+        </div>
+        <div class="slot-details">
+            <div class="start-at">
+                <label class="title">
+                    {{'timetable' | translate | titlecase }}
+                </label>
+                <label class="subtitle" *ngIf="!loader">
+                    {{ startAt }}
+                </label>
+                <label class="subtitle" *ngIf="!loader">
+                    {{endAt}}
+                </label>
+                <label class="skeleton-label-price" *ngIf="loader">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </label>
+            </div>
+            <div class="detail">
+                <label class="title">
+                    {{ 'playground' | translate }}
+                </label>
+                <label class="subtitle" *ngIf="!loader">
+                    {{selectedPlayground.name}}
+                </label>
+                <label class="skeleton-label-price" *ngIf="loader">
+                    <ion-skeleton-text animated></ion-skeleton-text>
+                </label>
+            </div>
+        </div>
+        <div *ngIf="selectedPlayground.bookingCancellationConditionType && !loader" class="cancelation-conditions">
+            <label class="label">
+                {{ 'terms_of_cancelation' | translate }}
+            </label>
+            <label class="condition">
+                <ng-container *ngIf="selectedPlayground.bookingCancellationConditionType === 'soft'">
+                    12 {{ 'hours' | translate }}
+                </ng-container>
+                <ng-container *ngIf="selectedPlayground.bookingCancellationConditionType === 'strict'">
+                    24 {{ 'hours' | translate }}
+                </ng-container>
+                <ng-container *ngIf="selectedPlayground.bookingCancellationConditionType === 'custom'">
+                    {{selectedPlayground.bookingCancellationConditionCustomHours / 3600}} {{ 'hours' | translate }}
+                </ng-container>
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<ion-footer *ngIf="!loader">
+    <ion-button
+            data-test="go-to-confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next"
+            (click)="switchPaymentModal($event)"
+    >
+        <div class="do-p-2">Passez au paiement</div>
+    </ion-button>
+</ion-footer>
+
+<app-payment-selection
+        *ngIf="showPaymentSelection && initedBooking"
+        [booking]="initedBooking"
+        [createdCart]="createdCart"
+        [club]="club"
+        [slot]="slot"
+        [methods]="methods"
+        [wallet]="wallet"
+        (closeModal)="switchPaymentModal($event)">
+</app-payment-selection>

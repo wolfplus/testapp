@@ -1,0 +1,74 @@
+<div class="do-card-container pos-rel w-100" (click)="openBooking()" *ngIf="booking">
+  <div class="do-card-header w-100">
+  <img *ngIf="booking.club.mainPhoto && booking.activityType !== 'leisure' && booking.activityType !== 'formula' && booking.activityType !== 'lesson' && booking.activityType !== 'event' && booking.activityType !== 'sport'"
+    [src]="pathUrl + booking.club.mainPhoto.contentUrl"
+    class="my-booking-club-img"
+    alt="sport img" />
+  <img *ngIf="((booking.activityType === 'leisure' || booking.activityType === 'formula' || booking.activityType === 'lesson' || booking.activityType === 'event')  && booking.timetableBlockPrice.mainPhoto)"
+       [src]="pathUrl + booking.timetableBlockPrice.mainPhoto.contentUrl"
+       class="my-booking-club-img"
+       alt="sport img" />
+  <img *ngIf="booking.activityType === 'sport' && booking.playgrounds[0].mainPhoto?.contentUrl"
+       [src]="pathUrl + booking.playgrounds[0].mainPhoto.contentUrl"
+       class="my-booking-club-img"
+       alt="sport img" />
+  <img *ngIf="booking.activityType === 'sport' && !booking.playgrounds[0].mainPhoto?.contentUrl && booking.club.mainPhoto.contentUrl"
+       [src]="pathUrl + booking.club.mainPhoto.contentUrl"
+       class="my-booking-club-img"
+       alt="sport img" />
+    <img *ngIf="(booking.activityType === 'lesson' || booking.activityType === 'event') && !booking.timetableBlockPrice.mainPhoto && booking.club.mainPhoto"
+         [src]="pathUrl + booking.club.mainPhoto.contentUrl"
+         class="my-booking-club-img"
+         alt="sport img" />
+  <img *ngIf="((booking.activityType === 'leisure' || booking.activityType === 'formula') && !booking.timetableBlockPrice.mainPhoto)"
+       [src]="'assets/images/banner_default.png'"
+       class="my-booking-club-img"
+       alt="sport img" />
+  <img *ngIf="env.useMb && !(booking.club.mainPhoto)"
+    [src]="'assets/images/banner_default.png'"
+    class="my-booking-club-img"
+    alt="sport img" />
+  </div>
+
+    <app-activity-levels
+    class="position-levels dspl-blck w-100 h-100 do-p-0-5"
+    [activityName]="booking?.activity?.name"
+    [activityIcon]="booking?.activity?.icon"
+    [colors]="booking?.activity?.colors"
+    [position]="ElementPosition.CENTER">
+  </app-activity-levels>
+  <div class="do-card-body w-100">
+    <div class="button-position">
+      <button *ngIf="bookingStatus === Period.PAST"
+        class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 25px !important;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+      </button>
+      <button *ngIf="bookingStatus === Period.NEXT"
+        class="btn-primary" style="padding-top: 3px;">
+        <ion-icon class="eye-size" name="eye-outline">
+        </ion-icon>
+      </button>
+    </div>
+    <div class="club-booking" *ngIf="booking.activityType !== 'leisure' && booking.activityType !== 'lesson' && booking.activityType !== 'event' && booking.activityType !== 'formula'">{{((!env.useMb)?booking?.club?.name:booking.playgrounds[0].name) | truncate : 12}}</div>
+    <div class="club-booking" *ngIf="booking.activityType === 'formula'">{{((!env.useMb)?booking?.club?.name:booking.timetableBlockPrice.label) | truncate : 12}}</div>
+    <div class="club-booking" *ngIf="booking.activityType === 'leisure'">{{((!env.useMb)?booking?.club?.name:booking.timetableBlockPrice.label) | truncate : 12}}</div>
+    <div class="club-booking" *ngIf="booking.activityType === 'lesson' || booking.activityType === 'event'">
+      {{ booking?.name | truncate : 12 }}
+    </div>
+    <div class="date-booking">
+      <span>{{booking.startAt | moment: "LL"}}</span>
+    </div>
+    <div class="duration-price-booking" *ngIf="booking.activityType === 'sport'">
+      {{ getDuration() }} min - {{ booking.pricePerParticipant | price_format: booking.club.currency }} / pers
+    </div>
+    <div class="duration-price-booking" *ngIf="booking.activityType === 'leisure' || booking.activityType === 'formula'">
+      {{ getDuration() }} min - {{ booking.price | price_format: booking.club.currency }}
+    </div>
+    <div class="duration-price-booking" *ngIf="booking.activityType === 'lesson' || booking.activityType === 'event'">
+      {{ getDuration() }} min
+    </div>
+  </div>
+
+</div>

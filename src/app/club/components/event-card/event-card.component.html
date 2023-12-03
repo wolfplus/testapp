@@ -1,0 +1,64 @@
+<div class="card-container mb-1">
+  <div class="pos-rel card-header">
+    <div class="card-header-pic"
+      [ngStyle]="{'width': imgWidth}"
+    >
+      <!-- TODO: add a class for images -->
+      <img src="{{ clubEvent.photo }}" alt="" style="width:100%;object-fit:contain;">
+    </div>
+    <div class="price-tag pos-abs-top flex d-col aic jcc pt-1 pb-1-5 pl-0-5 pr-0-5">
+      <div class="mb-0-5 price">
+        <!-- TODO: get Event price and event club currency -->
+        {{ clubEvent.pricePerParticipant }}
+      </div>
+      <!-- TODO: add translation -->
+      <div class="attenders">/ {{ 'person_short' | translate }}</div>
+    </div>
+    <div class="cta-button pos-abs-top-right flex"
+      (click)="participate()">
+      <span class="text">
+        <!-- TODO: add translation -->
+        {{ 'to_participate' | translate }}
+      </span>
+    </div>
+  </div>
+  <div class="card-body middle-element-bs">
+    <app-event-date-and-type
+      [date]="clubEvent.startAt"
+      [type]="clubEvent.type"
+      [showIcon]="true"
+      [textColor]="'var(--ion-color-primary)'"
+      [textAlign]="'flex-start'"
+      style="font-size: 1.4rem;"> <!-- TODO: add variables for color and text -->
+    </app-event-date-and-type>
+
+    <div class="event-title mt-0-5 mb-1">
+      <span>{{ clubEvent.name }}</span>
+    </div>
+
+    <div class="flex jcs">
+      <app-activity-levels
+        class="dspl-blck mb-1"
+        [activityName]="clubEvent?.category"
+        [levels]="clubEvent?.levels"
+        [colors]="levelsColors">
+      </app-activity-levels>
+    </div>
+    
+    <div class="card-footer flex jcs aic pt-1">
+      <span>{{ clubEvent.attenders }}</span>
+      <span>/</span>
+      <span class="mr-0-5">{{ clubEvent.max_attenders + " " }} </span>
+      <span *ngIf="clubEvent.attenders.length <= 1"
+        class="mr-0-5">
+        {{ 'participate_single' | translate}}
+      </span>
+      <span *ngIf="clubEvent.attenders.length > 1"
+        class="mr-0-5">
+        {{ 'participate_many' | translate}}
+      </span>
+      <span class="dot mr-0-5"></span>
+      <span class="mr-0-5">{{ clubEvent.gender }}</span>
+    </div>
+  </div>
+</div>

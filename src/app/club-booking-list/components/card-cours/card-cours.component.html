@@ -1,0 +1,66 @@
+<div *ngIf="oneCourse" class="card" (click)="openModal()">
+    <div class="card-header" [ngStyle]="setHeaderBgImg()">
+       <span *ngIf="showDate" class="time-group">
+           {{ oneCourse.startAt | date: "dd/MM/yyyy"}}
+           {{'at' | translate}}
+           {{ oneCourse.startAt | date: "HH:mm"}}
+       </span>
+        <span *ngIf="!showDate" class="time-group">{{ oneCourse.startAt | date: "HH:mm"}}</span>
+        <span class="user-group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 svg-group" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+          </svg>
+          <span *ngIf="oneCourse.participantsCount < oneCourse.maxParticipantsCountLimit" class="still-free">{{oneCourse.participantsCount}}/{{oneCourse.maxParticipantsCountLimit}}</span>
+          <span *ngIf="oneCourse.participantsCount >= oneCourse.maxParticipantsCountLimit" class="complete">COMPLET</span>
+           
+        </span>
+
+    </div>
+    <div class="card-body">
+        <div>
+            <app-activity-levels
+                class="activity-levels"
+                [activityName]="oneCourse?.activity?.name"
+                [activityIcon]="oneCourse?.activity?.icon"
+                [colors]="oneCourse?.activity?.colors">
+                </app-activity-levels>
+            <!-- <span class="activity-label">{{oneCourse.activity.name}}</span> -->
+        </div>
+        <div>
+            <h3 class="title-card">{{oneCourse.name}}</h3>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 svg-clock" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span class="diff-min">{{ getDiffInMin() }}</span>
+            </span>
+         
+
+            <span *ngIf="oneCourse.timetableBlockPrice.minActivityLevel != null" style="color:gray; margin-left: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 svg-clock" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                <span *ngIf="oneCourse.timetableBlockPrice.minActivityLevel">
+                    {{oneCourse.timetableBlockPrice.minActivityLevel.label}}
+                </span>
+
+                <span *ngIf="oneCourse.timetableBlockPrice.maxActivityLevel && (oneCourse.timetableBlockPrice.maxActivityLevel.label != oneCourse.timetableBlockPrice.minActivityLevel.label)">
+                    -
+
+                    {{oneCourse.timetableBlockPrice.maxActivityLevel.label}}
+                </span>
+            </span>
+
+            <span *ngIf="oneCourse.timetableBlockPrice.minActivityLevel == null" style="color:gray; margin-left: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 svg-clock" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                <span>
+                    {{'all_levels' | translate}}
+                </span>
+            </span>
+            
+        </div>
+
+    </div>
+</div>

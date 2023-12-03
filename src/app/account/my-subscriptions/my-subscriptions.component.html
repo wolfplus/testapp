@@ -1,0 +1,88 @@
+<app-default-header
+    [title]="'my_subscriptions'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <p class="p-justify do-px-2 sub-content-tablet">{{'my_subscription_content'|translate}}</p>
+    <div class="flex-column mt-3" *ngIf="data">
+        <ng-container *ngFor="let item of data">
+            <div *ngFor="let subscription of item.subscriptionCards" class="card-subscription">
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="3">
+                            <img *ngIf="item.club.photos[0]" [src]="pathUrl + item.club.photos[0].contentUrl">
+                        </ion-col>
+                        <ion-col size="8" class="m-auto">
+                            <div class="title-club">{{item.club.name}}</div>
+                            <div class="title-subscription">
+                                <img class="icon-goto" src="assets/icon/globals/card.svg">&nbsp;{{subscription.plan.name}}
+                            </div>
+                        </ion-col>
+                        <ion-col size="1" class="m-auto">
+                            <img class="icon-goto" src="assets/icon/globals/arrow-back.svg">
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="12">
+                            <div class="text-small">
+                                {{subscription.plan.description}}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="subscription.planPrice">
+                        <ion-col size="8">
+                            <div class="text-small">
+                                {{'price'|translate}} ({{subscription.planPrice.label}}) :
+                            </div>
+                        </ion-col>
+                        <ion-col size="4">
+                            <div class="price">
+                                {{subscription.planPrice.price | price_format: item.club.currency}}</div>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row *ngIf="subscription.automaticRenewal === undefined || subscription.automaticRenewal === false">
+                        <ion-col size="8">
+                            <div class="text-small">
+                                {{'end_engage'|translate}} :
+                            </div>
+                        </ion-col>
+                        <ion-col size="4">
+                            <div class="text-small">
+                                {{subscription.endDate | moment : 'DD-MM-YYYY'}}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
+        </ng-container>
+        <div *ngIf="isLoaded && data.length === 0"
+            class="do-p-2 text-center">
+            <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+                <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_subscription.svg" alt="">
+            </div>
+            {{ 'you_do_not_have_subscriptions' | translate }}
+        </div>
+    </div>
+
+    <div *ngIf="!isLoaded">
+        <ion-list>
+            <ion-item>
+                <ion-thumbnail slot="start">
+                    <ion-skeleton-text></ion-skeleton-text>
+                  </ion-thumbnail>
+                  <ion-label>
+                    <h3>
+                      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                    </p>
+                  </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

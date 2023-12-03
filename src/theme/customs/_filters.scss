@@ -1,0 +1,9 @@
+.text-overlay-filter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* TODO: add a variable for the color */
+  background: linear-gradient(360deg, #0a2d74 0%, rgba(255,255,255,0) 100%);
+}

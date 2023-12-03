@@ -1,0 +1,15 @@
+<div class="block-user">
+  <button *ngIf="showUserAction"
+    class="btn-action">
+    <img src="assets/icon/home/card-user.svg"
+      alt="icon filter"/>
+  </button>
+  <button *ngIf="showUserAction"
+    class="btn-action">
+    <img src="assets/icon/home/ring.svg"
+      alt="icon filter"/>
+  </button>
+  <app-locale-choice class="btn-action"
+    [showLabel]="!showUserAction">
+  </app-locale-choice>
+</div>

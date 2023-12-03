@@ -1,0 +1,23 @@
+{
+  "appId": "com.trenicom.royalboxingclub",
+  "appName": "Royal Boxing Club",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false,
+      "androidScaleType": "CENTER_CROP",
+      "splashFullScreen": true,
+      "splashImmersive": false
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "BackupWebStorage": "none",
+      "GOOGLE_MAPS_ANDROID_API_KEY": "AIzaSyDjiACgznEySOd0x8UvnkaoujYhLfohS68",
+      "GOOGLE_MAPS_IOS_API_KEY": "AIzaSyC94V2oDU8CZVbQCZyw4tDq4TXB_VTMztc"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<app-default-header (back)="close()" [title]="'Découvrez nos abonnements'" ></app-default-header>
+<ion-content>
+    <div class="flex-column">
+        <div class="bloc-detail">
+            <div class="infos-row">
+                <ng-container *ngFor="let subscription of subscriptions">
+                    <div [class]="(selectedSubscription && selectedSubscription.id == subscription.id)?'info b-right selected-sub':'info b-right'"
+                        (click)="selectSubs(subscription)"
+                    >
+                        <div class="title"><span>{{subscription.name}}</span><br> {{ subscription.description }}</div>
+                        <div class="detail">{{ subscription.amount | price_format: club.currency }} / {{subscription.period}}</div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            (click)="confirmChoice()"
+            [disabled]="(selectedSubscription === null)"
+    >
+        <div class="do-p-2">Choisir cet abonnement</div>
+    </ion-button>
+</ion-footer>

@@ -1,0 +1,15 @@
+<ion-segment
+        (ionChange)="segmentChanged($event)"
+        value="{{selectedView}}"
+        scrollable="true"
+        mode="md">
+    <ion-segment-button style="width: 50%"
+            value="NOTIFICATIONS">
+        <!-- TODO: fix translate pipe issue -->
+        <ion-label class="tabs-item">{{'notifications'|translate}}</ion-label>
+    </ion-segment-button>
+    <ion-segment-button style="width: 50%"
+            value="INVITS">
+        <ion-label class="tabs-item">{{'invits'|translate}}</ion-label>
+    </ion-segment-button>
+</ion-segment>

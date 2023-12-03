@@ -1,0 +1,165 @@
+<app-default-header (back)="close()" [title]="'validate_booking'" [subtitle]="club.name" [backgroundImage]="prestation.mainPhoto ? (env.pathFiles + prestation.mainPhoto?.contentUrl) : null"></app-default-header>
+<ion-content>
+    <div class="flex-column">
+        <div class="bloc-detail" *ngIf="showPaymentManage">
+            <div class="title">{{ 'booking_payment_your_booking' |  translate }}</div>
+            <div class="infos-col">
+                <div class="info b-right">
+                    <div class="title">{{ 'date' | translate}}</div>
+                    <div class="detail">{{ date | date: 'dd/MM/yyyy' }}</div>
+                </div>
+                <div class="info b-right">
+                    <div class="title">{{ 'time' | translate }}</div>
+                    <div class="detail">{{slot.startAt}}</div>
+                </div>
+                <div class="info">
+                    <div class="title">{{ 'duration' | translate }}</div>
+                    <div class="detail">{{prestation.duration / 60 }} min</div>
+                </div>
+            </div>
+
+            <div class="infos-row">
+                <div class="info b-right">
+                    <div class="title">{{ 'booking_payment_place' | translate }}</div>
+                    <div class="detail"><span>{{club.name}}</span></div>
+                </div>
+                <div class="info b-right">
+                    <div class="title">{{ 'service' | translate }}</div>
+                    <div class="detail"><span>{{prestation.label}}</span></div>
+                </div>
+                <div class="info">
+                    <div class="title">{{ 'cancel_conditions' | translate }}</div>
+                    <div class="detail"><span>Strictes - 24H</span></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bloc-detail" *ngIf="booking && showPaymentManage">
+            <div class="title">{{ 'confirm_booking.price_detail' | translate }}</div>
+
+            <div class="infos-row">
+<!--                <ng-container *ngIf="infoFormule">-->
+<!--                    <div class="info b-right">-->
+<!--                        <div class="title"><span> 1 x</span> {{ infoFormule.name }}</div>-->
+<!--                        <div class="detail">{{ infoFormule.amount | price_format: club.currency }}</div>-->
+<!--                    </div>-->
+<!--                </ng-container>-->
+                <ng-container *ngFor="let cat of dataParticipants">
+
+                    <div class="info b-right" >
+                        <div class="title">
+                            <span> {{ cat.count }} x </span> {{ cat.label }}
+                            <span *ngIf="cat.subscriptionCard">( {{ cat.subscriptionCard.name }} )</span>
+                        </div>
+                        <div class="detail">
+                            {{ (cat.price * cat.count) | price_format: club.currency }}
+                        </div>
+                    </div>
+
+                </ng-container>
+                <ng-container *ngIf="blockPrice.activityType == 'formula'">
+                    <div class="info b-right" >
+                        <div class="title">
+                            <span> {{ booking.participantsCount }} x </span>
+                            {{ 'players' | translate }}
+                        </div>
+                        <div class="detail">
+                            {{ booking.price | price_format: club.currency }}
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngFor="let option of booking?.playgroundOptions">
+                    <div class="info b-right" >
+                        <div class="title"><span> {{ option.quantity }} x </span> {{ option.option.label }}</div>
+                        <div class="detail">{{ option.price | price_format: club.currency }} </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="bloc-payment">
+            <div class="title" *ngIf="booking && showPaymentManage"><span class="content">{{ 'booking_payment_total_label' | translate }} </span><span class="amount">{{ restToPay | price_format: club.currency }}</span></div>
+
+            <app-manage-method
+                    *ngIf="showPaymentManage"
+                    [participant]="participant"
+                    [booking]="booking"
+                    [price]="blockPrice['@id']"
+                    [methods]="methods"
+                    [cart]="cart"
+                    [club]="club"
+                    [client]="client"
+                    [restToPay]="restToPay"
+                    (backPayments)="getPayments($event)"
+                    (changeMethod)="changeMethod($event)"
+                    (changeProviderBack)="changeProvider($event)"
+                    (creditCardSelected)="updateSelectedCard($event)"
+                    (triggerPaymentData)="triggerPaymentData($event)"
+            ></app-manage-method>
+        </div>
+        <div
+                class="shadow-bottom-ligth margin-bottom cgs_rules"
+                *ngIf="club.internalRulesUrl && club.generalTermsUrl && booking && client && showPaymentManage"
+                [innerHTML]="('gcs_and_rules_text' | translate: {gcs_link: club.generalTermsUrl, rules_link: club.internalRulesUrl, club: club.name})"
+        ></div>
+        <div
+                class="shadow-bottom-ligth margin-bottom cgs_rules"
+                *ngIf="!club.internalRulesUrl && club.generalTermsUrl && booking && client && showPaymentManage"
+                [innerHTML]="('gcs_text' | translate: {gcs_link: club.generalTermsUrl, club: club.name})"
+        ></div>
+    </div>
+    <div *ngIf="!showPaymentManage">
+        <ion-skeleton-text animated="true" style="height: 300px;"></ion-skeleton-text>
+
+        <ion-skeleton-text animated="true" style="height: 150px; margin-top: 10px"></ion-skeleton-text>
+
+        <ion-skeleton-text animated="true" style="height: 450px; margin-top: 10px"></ion-skeleton-text>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button
+            *ngIf="selectedMethod != 'on_the_spot' && restToPay > 0"
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            [disabled]="!webStripeElementCompleted"
+            (click)="confirmPayments()"
+    >
+        <div class="do-p-2">{{ 'booking_payment_button_label' | translate }}</div>
+    </ion-button>
+    <ion-button
+            *ngIf="selectedMethod != 'on_the_spot' && restToPay <= 0 && !booking.payments.length"
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            [disabled]="isLoading"
+            (click)="confirmBooking()"
+    >
+        <div class="do-p-2">{{ 'confirm_booking.validate' | translate }}</div>
+    </ion-button>
+    <ion-button
+            *ngIf="selectedMethod != 'on_the_spot' && restToPay <= 0 && booking.payments.length"
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            [disabled]="isLoading"
+            (click)="confirmPayments()"
+    >
+        <div class="do-p-2">{{ 'confirm_booking.validate' | translate }}</div>
+    </ion-button>
+    <ion-button
+            *ngIf="selectedMethod == 'on_the_spot'"
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            (click)="confirmBooking()"
+    >
+        <div class="do-p-2">{{ 'actions.labels.book' | translate }}</div>
+    </ion-button>
+</ion-footer>

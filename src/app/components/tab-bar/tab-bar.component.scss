@@ -1,0 +1,75 @@
+.display-none {
+  display: none;
+}
+
+.tabbar {
+  border-radius: .5rem .5rem 0 0;
+  background: var(--app-dark-or-not-color);
+  z-index: 9999;
+  min-height: 60px;
+  max-height: 60px;
+  /* TODO: CSS variable */
+  box-shadow: -2px 0 8px 0px rgba(0, 0, 0, 0.2);
+
+  &.iphoneX {
+    min-height: 70px;
+    padding-bottom: 20px;
+  }
+}
+
+.btn-tabbar {
+  --color: var(--ion-secondary-text-color);
+  font-size: 1rem;
+  background: var(--app-dark-or-not-color)!important;
+
+  ion-icon {
+    color: var(--ion-secondary-text-color);
+  }
+}
+
+.active {
+  // EFIVE
+  // color: var(--app-dark-or-not-color-contrast);
+  color: var(--ion-color-primary);
+  span {
+    // EFIVE
+    // color: var(--app-dark-or-not-color-contrast);
+    color: var(--ion-color-primary);
+    font-weight: 600;
+  }
+
+  ion-icon {
+    color: var(--ion-color-primary);
+  }
+}
+
+.btn-tabbar {
+  img {
+    height: 35%;
+  }
+}
+
+.notif-badge {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--ion-color-danger);
+  color: white;
+  padding: .5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+  font-weight: bold;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    ion-tab-button {
+      font-size: 1.35em !important;
+    }
+  }
+

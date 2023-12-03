@@ -1,0 +1,175 @@
+::-webkit-scrollbar {
+  width: 0px;  /* Remove scrollbar space */
+  background: transparent;  /* Optional: just make scrollbar invisible */
+}
+.bloc-version {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  bottom: 10px;
+}
+.col-list-menu ion-item::part(native) {
+  background-color: #EAEAEA!important;
+  border-bottom: 0.5px solid rgba(129, 129, 129, 0.5);
+}
+
+.sign-btn {
+  background-color: rgba(0, 0, 0, 0);
+  margin-top: 30px;
+  padding: 10px 5px 10px 5px;
+  border: 2px solid var(--ion-color-primary);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  span {
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ion-color-primary);
+  }
+}
+
+.profil-bloc {
+  background-color: rgb(46, 58, 73);
+  color: white;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+.sidemenu-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+  background-color: #EAEAEA;
+  color: #1e2130;
+  text-align: center;
+  h4 {
+    font-weight: 800;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+  }
+  .avatar-user {
+    border: 2px solid white;
+    min-width: 100px;
+    max-width: 100px;
+    min-height: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+    margin: auto;
+    text-align: center;
+    object-fit: cover;
+    box-shadow: 0 0 10px 5px rgba(145, 145, 145, 0.5);
+  }
+  .btn-account {
+    background-color: var(--ion-color-primary);
+    padding: 10px 5px 10px 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    span {
+      width: 100%;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ion-color-primary-constrat);
+    }
+  }
+  .col-list-menu {
+    background-color: rgba(255, 255, 255, 0.3);
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    .row-list-menu {
+      display: flex;
+      flex-direction: row;
+      ion-item {
+        margin: 0!important;
+        padding: 0!important;
+        ion-label {
+          margin: 0!important;
+        }
+      }
+    }
+  }
+}
+
+#menu-list {
+
+}
+
+ion-header {
+    // position: sticky;
+    background-color: var(--app-dark-or-not-color);
+    transition: all  400ms linear;
+
+    .page-title {
+      color: white;
+      text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  /* TODO: move to custom.scss */
+  /* SKELETON */
+
+  .profil-header-skeleton {
+    height: 15rem;
+    width: 100%;
+  }
+
+  .avatar-skeleton-container {
+    position: absolute;
+    bottom: -4rem;
+    z-index: 99;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .avatar-skeleton {
+    height:25vw;
+    width:25vw;
+  }
+
+  .levels-skeleton {
+    height: 8rem;
+  }
+
+  .bookings-skeleton {
+    height: 20rem;
+  }
+
+
+  @media only screen
+    and (min-width: 768px) {
+    .loading-style {
+      margin-top: 15%;
+      zoom: 0.75
+    }
+  }
+
+  :host ::ng-deep app-profil-account app-matchs app-avatar-name ion-avatar{
+    width: 6vw !important;
+    height: 6vw !important;
+  }
+
+  @media only screen
+    and (min-width: 1100px) {
+      :host ::ng-deep app-profil-account app-matchs app-avatar-name ion-avatar{
+        width: 5vw !important;
+        height: 5vw !important;
+      }
+  }
+
+  @media only screen
+    and (min-width: 1500px) {
+      :host ::ng-deep app-profil-account app-matchs app-avatar-name ion-avatar{
+        width: 4vw !important;
+        height: 4vw !important;
+      }
+  }
+

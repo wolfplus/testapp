@@ -1,0 +1,554 @@
+<ion-header translucent="true" class="z-index-99">
+  <ion-toolbar color="var(--app-dark-or-not-color)" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button *ngIf="step == 0"
+        (click)="close(false)"
+        mode="ios">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+      <ion-back-button *ngIf="step > 0"
+        mode="ios"
+        text="">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center page-title">
+      {{ 'create_match' | translate }}
+    </ion-title>
+  </ion-toolbar>
+  <app-step-indicators
+   [steps]="steps"
+   [modalIndexNumber]="step">
+  </app-step-indicators>
+</ion-header>
+<ion-content fullscreen="true">
+
+  <!-- BEGINNING OF LINK MY BOOKINGS / STEP 1 (index 0)-->
+  <div *ngIf="step == 0 && bookingsHaveFinishedLoading"
+    class="link-match do-p-2">
+    <div class="flex do-p-1-2">
+      <div class="section-title">
+        {{ 'my_bookings' | translate }}
+      </div>
+      <div class="title-stroke"></div>
+    </div>
+    <div *ngIf="bookings?.length"
+      class="do-paragraph select-booking-text">
+      <p>{{ 'select_booking_create_match' | translate }}</p>
+    </div>
+
+    <!-- TODO: If user has bookings -->
+    <!-- ion-list instead ? -->
+    <div *ngIf="bookings"
+      class="booking-list">
+      <!-- BOOKING CARD -->
+      <app-booking-card-short *ngFor="let booking of bookings"
+        class="dspl-blck"
+        [booking]="booking"
+        (click)="selectBooking(booking)">
+      </app-booking-card-short>
+      <!-- END OF BOOKING CARD -->
+    </div>
+
+    <!-- IF ERROR while requesting bookings -->
+    <div *ngIf="requestHasError && bookingsHaveFinishedLoading && bookings?.length < 1"
+      class="error flex d-col jcfs aic  do-p-2">
+      <!-- TODO: add error message and image-->
+     <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+        <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/error.svg" alt="">
+      </div>
+      <!-- <div class="request-result-title do-pt-2 do-pb-2">
+        {{ 'oops' | translate }}
+        </div> -->
+      <div class="request-result-text do-pt-2 do-pb-2">
+        <p class="error-message">
+          {{ 'get_bookings_error_msg' | translate }}
+        </p>
+        <p class="error-message">
+          {{ 'try_again_later' | translate }}
+        </p>
+      </div>
+    </div>
+
+    <!-- If user has no bookings -->
+    <div *ngIf="(!requestHasError) &&  bookingsHaveFinishedLoading && bookings?.length < 1"
+      class="no-booking-container t-center">
+      <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+        <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_result.svg" alt="">
+      </div>
+      <div *ngIf="!env.useMb">
+        <div class="request-result-title">
+          <!-- TODO: translation -->
+          {{ 'no_booking' | translate }}
+        </div>
+        <div class="request-result-text">
+          <p>
+            {{ 'no_booking_text' | translate }}
+          </p>
+        </div>
+        <div class="find-club-btn">
+          <ion-button fill="outline"
+            mode="ios"
+            class="btn-next"
+            (click)="goToClubSearch()">
+            <div class="do-p-2">
+              {{ 'find_a_club' | translate }}
+            </div>
+          </ion-button>
+        </div>
+      </div>
+
+      <div *ngIf="env.useMb">
+        <div class="request-result-title">
+          <!-- TODO: translation -->
+          {{ 'no_booking' | translate }}
+        </div>
+        <div class="request-result-text">
+          <p>
+            {{ 'no_booking_text_wl' | translate }}
+          </p>
+        </div>
+        <div class="find-club-btn">
+          <ion-button fill="outline"
+            mode="ios"
+            class="btn-next"
+            (click)="goToBookingList()">
+            <div class="do-p-2">
+              {{ 'book_playground_wl' | translate }}
+            </div>
+          </ion-button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="step == 0 && !bookingsHaveFinishedLoading"
+    class="do-p-2">
+    <div class="skeleton section-title">
+      <ion-skeleton-text animated style="width: 25%"></ion-skeleton-text>
+    </div>
+    <div class="skeleton do-mb-2">
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+    </div>
+    <div *ngFor="let item of [1,2,3,4,5]"
+      class="flex jcfs aifs do-mb-1">
+      <ion-thumbnail style="height:25vw; width:25vw;margin-right:2rem;">
+        <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+      </ion-thumbnail>
+      <div class="flex d-col" style="width: 50%;">
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEGINNING OF Fill match infos / STEP 2 (index 1) -->
+  <div *ngIf="step == 1" class="match-details do-p-2 do-pt-4">
+    <div class="match-form">
+      <input type="text"
+        class="form-input"
+        placeholder="{{ 'match_name' | translate }}"
+        [(ngModel)]="matchName">
+    </div>
+    <!-- TODO add a class for form error messages -->
+    <div *ngIf="displayMissingNameError"
+      class="form-validation-error-text">
+      {{ nameRequiredMessage }}
+    </div>
+    <div class="do-mb-2">
+      <div class="section-title">
+        {{ 'match_info' | translate }}
+      </div>
+      <ion-textarea placeholder="{{ 'match_create_infos_placeholder' | translate }}"
+        [(ngModel)]="matchInfos">
+      </ion-textarea>
+    </div>
+    <!-- LEVELS RANGE -->
+    <div class="sub-section-title flex aic">
+      <ion-icon name="cellular-outline" class="do-mr-1"></ion-icon>
+      {{ 'match_levels' | translate }}
+    </div>
+    <div *ngIf="activityLevels?.length > 1"
+      class="match-level">
+      <div class="level-label flex jcsb aic w-100">
+        <div>
+          {{ activityLevels[0]['identifier'] + ' - ' + activityLevels[0]['label'] }}
+        </div>
+        <div>
+          {{ activityLevels[activityLevels.length - 1]['identifier'] + ' - ' + activityLevels[activityLevels.length - 1]['label'] }}
+        </div>
+      </div>
+      <div class="do-pl-2 do-pr-2">
+        <!-- rangeSteps -->
+        <ion-range dualKnobs="true"
+          class="levels-range"
+          [(ngModel)]="matchLevels"
+          [min]="activityLevels[0]['identifier']"
+          [max]="activityLevels[activityLevels.length - 1]['identifier']"
+          [step]="rangeSteps"
+          mode="md"
+          snaps="true"
+          ticks="true"
+          pin="true"
+          debounce="200"
+          (ionChange)="rangeValuesChanged($event)">
+        </ion-range>
+      </div>
+      <div class="selected-levels flex aic">
+        <div class="do-mr-1">{{ ('selected_levels' | translate) + " " + ":" + " " }}</div>
+        <div *ngIf="!(matchLevels.lower == matchLevels.upper); else displayOnlyLower"
+          class="levels">
+          {{ " " + selectedLevelsToDisplay[0].identifier + "." + " " + selectedLevelsToDisplay[0].label }} -
+          {{ selectedLevelsToDisplay[1].identifier + "." + " " + selectedLevelsToDisplay[1].label }}
+        </div>
+        <ng-template #displayOnlyLower>
+          <div class="levels">
+            {{ selectedLevelsToDisplay[0].identifier + "." + selectedLevelsToDisplay[0].label }}
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div *ngIf="activityLevels?.length === 1" class="match-level">
+      <p>
+        {{activityLevels[0].label}}
+      </p>
+    </div>
+    <!-- RESTRICT LEVEL -->
+    <div *ngIf="activityLevels && activityLevels?.length > 1"
+      class="restrict-level flex d-col w-100">
+      <div class="sub-section-title flex jcsb aic w-100">
+        <div class="flex aic">
+          {{ 'restrict_level' | translate }}
+        </div>
+        <div class="toggle">
+          <ion-toggle color="primary"
+            [ngModel]="restrictLevel"
+            (ngModelChange)="restrictLevelChange($event)"
+            mode="md">
+          </ion-toggle>
+          <!-- (ionChange)="toggleChanged($event)" -->
+        </div>
+      </div>
+      <div *ngIf="restrictLevel"
+        class="do-paragraph">
+        {{ 'restrict_level_explanation' | translate }}
+      </div>
+      <div *ngIf="displayLevelRestrictionError"
+        class="do-paragraph do-danger">
+        {{ 'match_levels_restriction_error' | translate }}
+      </div>
+    </div>
+    <!-- RESTRICT ACCESS -->
+    <div class="restrict-access">
+      <div class="section-title">
+        {{ 'details' | translate }}
+      </div>
+      <div class="restrict-level flex d-col w-100">
+        <div class="sub-section-title flex jcsb aic w-10">
+          <span>
+            {{ 'set_match_as_private' | translate }}
+          </span>
+          <div class="toggle">
+            <ion-toggle color="primary"
+              [(ngModel)]="restrictAccess"
+              mode="md">
+            </ion-toggle><!--
+              (ionChange)="toggleChanged($event)" -->
+          </div>
+        </div>
+        <div *ngIf="restrictAccess"
+          class="do-paragraph">
+          {{ 'restrict_access_explanation' | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- END OF Fill match infos / STEP 2 (index 1)-->
+
+  <!-- BEGINNING OF ADD PARTICIPANTS AND VALIDATE / STEP 3 (index 2) -->
+  <div *ngIf="step == 2"
+    class="match-infos">
+    <!-- <app-match-card *ngIf="match"
+      class="dspl-blck do-pl-2 do-pr-2"
+      [match]="match"
+      [config]="MatchCardConfig.FULL"
+      [stopClick]="true">
+    </app-match-card> -->
+
+    <ion-segment
+      (ionChange)="segmentChanged($event)"
+      value="participants"
+      scrollable="true"
+      mode="md">
+      <ion-segment-button
+        value="participants">
+        <ion-label>{{ 'attenders' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        value="invited">
+        <ion-label>{{ 'invitations' | translate}}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div *ngIf="displayAttenders"
+      class="participants-segment">
+      <div class="participants flex jcc d-col do-pt-2">
+        <ion-item
+          button
+          lines="none"
+          mode="ios"
+          detail="true"
+          (click)="addOrInviteFriends('add')">
+          <ion-icon name="people" slot="start"></ion-icon>
+          <ion-label class="add-friend">
+            {{ 'add_friends' | translate }}
+          </ion-label>
+        </ion-item>
+        <ion-item
+          button
+          slot="start"
+          lines="none"
+          mode="ios"
+          detail="false"
+          color="light"
+          class="ticket-selector flex jcc aic">
+          <div class="nb-of-tickets">
+            {{ 'number_of_tickets_under_your_name' | translate }}
+          </div>
+          <div slot="end" class="flex jcc aic">
+            <div *ngIf="userNbOfTickets > 1"
+              (click)="removeParticipants()">
+              <ion-icon name="remove-circle-outline"
+                color="primary">
+              </ion-icon>
+            </div>
+            <input type="text"
+              [(ngModel)]="userNbOfTickets"
+              disabled
+              class="tickets-nb-input">
+            <div *ngIf="availableTickets > 0"
+              class="flex"
+              (click)="addParticipants()">
+              <ion-icon name="add-circle-outline"
+                color="primary">
+              </ion-icon>
+            </div>
+          </div>
+        </ion-item>
+        <div class="participants-list">
+          <ng-container *ngFor="let participant of match.participants; let i = index;">
+              <app-avatar-name *ngIf="!participant.user && participant.client"
+                               class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2 hide-tablet"
+                               [imageUrl]="undefined"
+                               [imageSize]="'14vw'"
+                               [title]="participant.client.firstName + ' ' + participant.client.lastName"
+                               [subtitle]="undefined"
+                               [fontSizes]="FontSize.LARGE"
+                               [colorStyle]="ColorStyle.DARK"
+                               [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+              </app-avatar-name>
+              <app-avatar-name *ngIf="!participant.user && participant.client"
+                               class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2 show-tablet"
+                               [imageUrl]="undefined"
+                               [imageSize]="'14vw'"
+                               [title]="participant.client.firstName + ' ' + participant.client.lastName"
+                               [subtitle]="undefined"
+                               [fontSizes]="FontSize.LARGE"
+                               [colorStyle]="ColorStyle.DARK"
+                               [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+              </app-avatar-name>
+              <app-avatar-name *ngIf="participant.user"
+                               class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2 hide-tablet"
+                               [imageUrl]="participant.user.avatar?.contentUrl ? participant.user.avatar?.contentUrl : undefined"
+                               [imageSize]="'14vw'"
+                               [title]="participant.user.firstName + ' ' + participant.user.lastName"
+                               [subtitle]="participant.user.levelToDisplay ? participant.user.levelToDisplay : undefined"
+                               [fontSizes]="FontSize.LARGE"
+                               [colorStyle]="ColorStyle.DARK"
+                               [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+              </app-avatar-name>
+              <app-avatar-name *ngIf="participant.user"
+                               class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2 show-tablet"
+                               [imageUrl]="participant.user.avatar?.contentUrl ? participant.user.avatar?.contentUrl : undefined"
+                               [imageSize]="'14vw'"
+                               [title]="participant.user.firstName + ' ' + participant.user.lastName"
+                               [subtitle]="participant.user.levelToDisplay ? participant.user.levelToDisplay : undefined"
+                               [fontSizes]="FontSize.LARGE"
+                               [colorStyle]="ColorStyle.DARK"
+                               [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+              </app-avatar-name>
+              <app-avatar-name *ngIf="!participant.user && !participant.client"
+                               class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2 show-tablet"
+                               [imageUrl]="undefined"
+                               [imageSize]="'14vw'"
+                               [title]="'invited'"
+                               [subtitle]="undefined"
+                               [fontSizes]="FontSize.LARGE"
+                               [colorStyle]="ColorStyle.DARK"
+                               [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+              </app-avatar-name>
+              <app-avatar-name *ngIf="!participant.user && !participant.client"
+                               class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2 hide-tablet"
+                               [imageUrl]="undefined"
+                               [imageSize]="'14vw'"
+                               [title]="'invited'"
+                               [subtitle]="undefined"
+                               [fontSizes]="FontSize.LARGE"
+                               [colorStyle]="ColorStyle.DARK"
+                               [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+              </app-avatar-name>
+          </ng-container>
+          <!-- <app-avatar-name *ngFor="let participant of match.participants; let i = index;"
+            class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2"
+            [imageUrl]="participant.user.id === match.userClient['@id'] && i > 0 ?
+              undefined :
+              participant.user.avatar !== null ? participant.user.avatar.contentUrl : undefined"
+            [imageSize]="'14vw'"
+            [title]="participant.user.id === match.userClient['@id'] && i > 0 ?
+              'invited':
+              participant.user.firstName + ' ' + participant.user.lastName"
+            [subtitle]="participant.user.id === match.userClient['@id'] && i > 0 ?
+              match.userClient.firstName + ' ' + (match.userClient.lastName | slice:0:1) + '.' :
+              participant.user.levelToDisplay"
+            [fontSizes]="'large'"
+            [colorStyle]="'dark'"
+            [organizerName]="match.userClient.firstName + ' ' + match.userClient.lastName">
+          </app-avatar-name> -->
+        </div>
+      </div>
+    </div>
+    <div *ngIf="displayInvitations">
+      <ion-item
+        button
+        lines="none"
+        mode="ios"
+        detail="true"
+        (click)="addOrInviteFriends('invite')">
+        <ion-icon name="people" slot="start"></ion-icon>
+        <ion-label class="invite-friend">
+          {{ 'invite_friends' | translate }}
+        </ion-label>
+      </ion-item>
+      <div class="participants-list">
+        <app-avatar-name *ngFor="let guest of match.userGuests"
+          class="dspl-blck do-pt-1 do-pb-1 do-pl-2 do-pr-2"
+          [imageUrl]="guest?.user?.avatar?.contentUrl"
+          [imageSize]="'14vw'"
+          [title]="guest.user.firstName + ' ' + guest.user.lastName"
+          [subtitle]="guest.user.levelToDisplay"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK">
+        </app-avatar-name>
+      </div>
+    </div>
+  </div>
+  <!-- END OF ADD PARTICIPANTS AND VALIDATE / STEP 3 (index 2) -->
+
+  <!-- INFINITE SCROLL -->
+  <ion-infinite-scroll *ngIf="step == 0 "
+    threshold="50px"
+    (ionInfinite)="loadMoreData()">
+    <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="{{'loading_more_bookings' | translate }}">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+
+<!-- MATCH CREATED SUCCESS / ERROR -->
+<div *ngIf="matchSubmitted"
+  class="match-create-success flex d-col aic jcc h-100 w-100"
+  (click)="onScreenTapped()">
+  <div class="flex jcc aic h-40vh w-100">
+    <img class="image-success-tablet" *ngIf="loadComplete && createMatchError === false"
+      src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/success.svg"
+      alt="">
+    <img class="image-error-tablet" *ngIf="loadComplete && createMatchError === true"
+      src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/error.svg"
+      alt="">
+  </div>
+  <!-- LOADER AND TEXT -->
+  <!--  *ngIf="createMatchError === false" -->
+  <div class="h-50vh w-100 flex d-col jcfs aic">
+    <!-- LOADER -->
+    <div class="circle-loader hide-tablet"
+      [ngClass]="{'load-complete': loadComplete, 'error': createMatchError}">
+      <div *ngIf="loadComplete && createMatchError === false"
+        class="checkmark draw"
+        [ngClass]="{'block': loadComplete}">
+      </div>
+      <div *ngIf="loadComplete && createMatchError === true"
+        class="cross draw"
+        [ngClass]="{'block': loadComplete}">
+      </div>
+    </div>
+
+    <div *ngIf="loadComplete && createMatchError === false" class="success-checkmark show-tablet ">
+      <div class="check-icon">
+        <span class="icon-line line-tip"></span>
+        <span class="icon-line line-long"></span>
+        <div class="icon-circle"></div>
+        <div class="icon-fix"></div>
+      </div>
+    </div>
+
+    <!-- MATCH CREATED TEXT -->
+    <div *ngIf="loadComplete && createMatchError === false"
+      class="request-result-title t-center">
+      {{ 'match_created' | translate }}
+    </div>
+    <div *ngIf="loadComplete && createMatchError === false"
+      class="match-available-now t-center">
+      {{ 'match_available_now' | translate }}
+    </div>
+
+    <!-- MAtch ERROR TEXT -->
+    <div *ngIf="loadComplete && createMatchError">
+      <div class="request-result-title do-pt-2 do-pb-2">
+        {{ 'oops' | translate }}
+      </div>
+      <div class="request-result-text t-center">
+        {{ 'match_error' | translate }}
+      </div>
+      <div class="request-result-text">
+        {{ 'match_has_not_been_created' | translate }}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loadComplete"
+    class="touch pos-abs-btm w-100 t-center">
+    {{ 'touch_to_continue' | translate }}
+  </div>
+
+</div>
+<!-- END OF MATCH CREATED SUCCESS -->
+
+<ion-footer *ngIf="showFooter"
+  class="ion-no-border">
+  <ion-button *ngIf="step != 0"
+    [style.opacity]="step === 1 && (levelsAreLoaded == false || (matchName === '' || matchName === undefined)) || displayLevelRestrictionError ? 0.4 : 1"
+    class="btn-next"
+    expand="block"
+    mode="ios"
+    (click)="step !== 2 ? goForward() : submitMatch()">
+    <div *ngIf="step !== 2"
+      class="do-p-2">{{ 'next' | translate }}
+    </div>
+    <div *ngIf="step == 2"
+      class="do-p-2">{{ 'validate_create_match' | translate }}
+    </div>
+  </ion-button>
+</ion-footer>
+
+<!-- TODO: might need to delete it -->
+<app-match-join *ngIf="showInvitationSelector"
+  [@slideInSlideOut]
+  [nbOfTickets]="userNbOfTickets"
+  [bookedTickets]="bookedTickets"
+  [availableTickets]="availableTickets"
+  [maxTickets]="maxTickets"
+  (closeJoinMatchModal)="showInvitationSelector = false">
+</app-match-join>

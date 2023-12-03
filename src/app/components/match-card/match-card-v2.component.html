@@ -1,0 +1,145 @@
+<div class="do-card-container pos-rel w-100" (click)="onCardClicked()">
+  <div class="do-card-header w-100">
+    <div *ngIf="config !== MatchCardConfig.CLUB && config !== MatchCardConfig.SHORT"
+      class="do-card-header-top pos-rel"
+      [ngStyle]="setHeaderBgImg()">
+      <div class="do-card-header-infos pos-rel flex do-p-1 z-index-2 tablet-header-card">
+        <div>
+          <h3 class="tablet-title">{{match?.name}}</h3>
+          <h5 class="tablet-subtitle">{{match.startAt|date:'mediumDate'}} •
+            <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z"/></svg> 
+            {{match?.participantsCount}}/{{match?.maxParticipantsCountLimit}}</h5>
+        </div>
+      </div>
+      <app-activity-levels
+      class="activity-levels"
+      [levels]="match?.activityLevels"
+      [activityName]="match?.activity?.name"
+      [activityIcon]="match?.activity?.icon"
+      [colors]="match?.activity?.colors"
+      [levelsRequired]="match?.activityLevelRequired">
+    </app-activity-levels>
+    </div>
+
+    <div *ngIf="config === MatchCardConfig.CLUB"
+      class="do-card-header-top">
+      <div class="do-card-header-infos pos-rel flex do-p-1 z-index-2">
+        <app-avatar-name class="dspl-blck w-100"
+          [imageUrl]="match?.userClient?.avatar ? match.userClient.avatar.contentUrl : match.club.mainPhoto.contentUrl"
+          [imageSize]="'4.5vw'"
+          [title]="match?.userClient ? match.userClient.firstName + ' ' + (match.userClient?.lastName | slice:0:1) : match.club.name"
+          [subtitle]="'organizer' | translate"
+          [fontSizes]="FontSize.SMALL"
+          [colorStyle]="ColorStyle.DARK"
+        >
+        <div *ngIf="match?.pricePerParticipant"
+          class="do-card-header-extra flex d-col">
+          <div class="price">{{ match?.pricePerParticipant | price_format: match?.club?.currency }}</div>
+          <div class="per-pers">/ {{ 'person_short' | translate }}</div>
+        </div>
+        </app-avatar-name>
+      </div>
+    </div>
+    <ion-grid *ngIf="config === MatchCardConfig.CLUB">
+      <ion-row>
+        <ion-col size="3" class="flex d-col jcc aisb">
+          <div class="time-label time-label-start t-center">
+            {{ 'event_start' | translate }}
+          </div>
+          <div *ngIf="match?.startAt"
+            class="time time-start t-center">
+            {{ startAt.toDate()| date: "HH:mm"}}
+          </div>
+        </ion-col>
+        <ion-col size="6" class="flex d-col jcc aisb">
+          <div class="time-label time-start duration t-center">
+            <div class="dot-separator">•</div> 
+              <span class="tablet-duration">
+                <div class="tablet-time">
+                  {{ match?.duration }}
+                </div>
+                <div class="tablet-time-unit">
+                  {{('minutes' | translate)}}
+                </div>              
+              </span>  
+            <div class="dot-separator">•</div>
+          </div>
+        </ion-col>
+        <ion-col size="3" class="flex d-col jcc aisb">
+          <div class="time-label time-label-end t-center">
+            {{ 'event_end' | translate }}
+          </div>
+          <div *ngIf="match?.endAt"
+            class="time time-end t-center">
+            {{ endAt.toDate()| date: "HH:mm"}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <!--  *ngIf="config === MatchCardConfig.FULL || config === MatchCardConfig.SHORT" -->
+    </ion-grid>
+    <!-- <div class="do-card-header-bottom w-100">
+      <app-activity-levels
+        class="activity-levels"
+        [levels]="match?.activityLevels"
+        [activityName]="match?.activity?.name"
+        [activityIcon]="match?.activity?.icon"
+        [colors]="match?.activity?.colors"
+        [levelsRequired]="match?.activityLevelRequired">
+      </app-activity-levels>
+    </div> -->
+  </div>
+  <div class="do-card-body">
+    <ion-grid>
+      <ion-row class="section-center" *ngIf="config === MatchCardConfig.FULL || config === MatchCardConfig.SHORT">
+        <ion-col size="3" class="flex d-col jcc aisb">
+          <div class="time-label time-label-start t-center">
+            {{ 'event_start' | translate }}
+          </div>
+          <div class="time time-start t-center">
+            {{ startAt.toDate()| date: "HH:mm"}}
+          </div>
+        </ion-col>
+        <ion-col *ngIf="match.duration" size="6" class="flex d-col jcc aisb">
+          <div class="time-label time-start duration t-center">
+            <div class="dot-separator">•</div> 
+              <span class="tablet-duration">
+                <div class="tablet-time">
+                  {{ match.duration }}
+                </div>
+                <div class="tablet-time-unit">
+                  {{('minutes' | translate)}}
+                </div>              
+              </span>  
+            <div class="dot-separator">•</div>
+          </div>
+        </ion-col>
+        <ion-col size="3" class="flex d-col jcc aisb">
+          <div class="time-label time-label-end t-center">
+            {{ 'event_end' | translate }}
+          </div>
+          <div class="time time-end t-center">
+            {{ endAt.toDate()| date: "HH:mm"}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="separator"></div>
+  <div *ngIf="config === MatchCardConfig.FULL"
+    class="do-card-footer flex jcsb aic w-100">
+    <app-avatar-name
+      class="dspl-blck w-100"
+      [imageUrl]="match?.userClient ? (match.userClient.avatar ? match.userClient.avatar.contentUrl : undefined) : match.club.logo.contentUrl"
+      [imageSize]="'8vw'"
+      [title]="match?.userClient ? match.userClient.firstName + ' ' + (match.userClient?.lastName | slice:0:1) : match.club.name"
+      [subtitle]="'organizer' | translate"
+      [fontSizes]="FontSize.TABLET_PARTICIPANT_PRICE"
+      [colorStyle]="ColorStyle.DARK">
+      <div *ngIf="match?.pricePerParticipant"
+        class="do-card-header-extra flex d-col">
+        <div class="price price-tablet">{{ match?.pricePerParticipant | price_format : match?.club?.currency }}</div>
+        <div class="per-pers">/ {{ 'person_short' | translate }}</div>
+      </div>
+    </app-avatar-name>
+</div>
+

@@ -1,0 +1,235 @@
+.do-card-container {
+  /* TODO [CSS variable] */
+  background: white;
+  border-radius: var(--border-radius-2)  var(--border-radius-2) ;
+
+  .do-card-header {
+    overflow: hidden;
+    color: white;
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid lightgray;
+
+    .do-card-header-top {
+      overflow: hidden;
+      border-radius: var(--border-radius-2) var(--border-radius-2) 0 0;
+    }
+
+    .do-card-header-pic {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left:0;
+      right:0;
+      overflow: hidden;
+    }
+  }
+
+  .time-label {
+    /* TODO [CSS variable] */
+    font-size: 1.5rem;
+    /* TODO [CSS variable] */
+    color: lightgray;
+    text-transform: capitalize;
+  }
+
+  .time {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--ion-text-color);
+  }
+
+  .duration {
+    font-size: 1.4rem;
+    text-transform: lowercase;
+  }
+
+  .do-card-header-extra {
+    height: 100%;
+    color: var(--ion-color-primary);
+    align-self: flex-end;
+    justify-self: flex-end;
+    line-height: normal;
+    background: #F0F2F4;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .do-card-header-bottom {
+    app-activity-levels {
+      display: block;
+      /* TODO [CSS variable] */
+      background: #F9FAFC;
+    }
+  }
+
+  .do-card-body {
+    padding: 0 1rem;
+  }
+
+  .do-card-body {
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid lightgray;
+    ion-grid {
+      padding: 0!important;
+    }
+  }
+
+  .do-card-footer {
+    padding: 1rem;
+    padding-top: 0px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    white-space: nowrap;
+    /* TODO add Montserrat font */
+  }
+
+  .per-pers {
+    font-size: 1.2rem;
+  }
+}
+
+app-avatar-name-tablet {
+  padding-bottom: 10px;
+}
+.do-card-header-infos {
+  padding: 0px;
+  display: block;
+}
+.do-card-footer {
+  padding-bottom: 2.5rem !important;
+}
+.do-card-container {
+  cursor: pointer;
+}
+.activity-levels {
+  background: #c7c2c21c;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: contents;
+}
+.time-label-start, .time-label-end {
+  color: #7E838E !important;
+  font-size: 0.7em;
+}
+.time-start, .time-end {
+  color: black !important;
+  font-family: 'Panton-Black';
+  font-size: 1.1em;
+}
+.price-tablet {
+  color: black;
+  font-size: 1em;
+  font-family: 'Panton-Black';
+}
+.per-pers {
+  color: black !important;
+  text-align: center;
+}
+.do-card-header, .do-card-body, .do-card-footer{
+  border: none !important;
+}
+.do-card-header-infos {
+  justify-content: center;
+}
+.tablet-title {
+  font: normal normal 900 20px/15px Panton-Black;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px #000000e2;
+  text-align: center;
+  margin-top: 0px;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.tablet-subtitle {
+  font: normal normal bold 16px/21px Panton-Black;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  text-align: center;
+  letter-spacing: 0.35px;
+  text-shadow: 0px 3px 6px #00000029;
+}
+.duration{
+  font-size: 1.3em !important;
+}
+.section-center {
+  justify-content: space-between;
+}
+.separator {
+  width: 90%;
+  margin: auto;
+  border: 1px solid #8A98BA;
+  opacity: 0.2;
+  margin-bottom: 10px;
+}
+.tablet-time {
+  max-height: 50px;
+  font-weight: 1000;
+  font-family: 'Panton-Black';
+  font-size: 1.4em !important;
+}
+.tablet-time-unit {
+  font-size: 0.7em !important;
+  font-weight: bold;
+  font-family: 'Panton-Regular';
+}
+.tablet-duration {
+  color: #7E838E !important;
+  padding-left: 8px;
+  padding-right: 8px;
+  display: inline-block;
+  vertical-align: sub;
+  padding-left: 25px;
+  padding-right: 25px;
+  font-size: 1.1em !important;;
+}
+.dot-separator {
+  color: var(--ion-color-primary);
+  font-size: 1.5em !important;;
+  display: inline-block;
+  vertical-align: super;
+}
+:host ::ng-deep app-activity-levels  .event-tags {
+  background: var(--ion-color-primary) !important;
+  padding: 10px;
+  margin-top: 4px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.user-icon {
+  fill:white;
+  padding-bottom: 5px;
+}
+:host ::ng-deep app-activity-levels .level-from,  :host ::ng-deep app-activity-levels .level-to{
+  background: #F0F2F4;
+border-radius: 8px;
+}
+:host ::ng-deep app-avatar-name .price-label {
+  background: #F0F2F4;
+  padding: 10px;
+  border-radius: 8px;
+}
+:host ::ng-deep app-avatar-name .title, :host ::ng-deep app-avatar-name .sub-title{
+  font-size: 0.8em !important;
+}
+
+
+
+@media only screen
+and (max-width: 380px) {
+  .dot-separator {
+      font-size: 1.5em !important;
+  }
+  .time-start, .time-end {
+      font-size: 1em !important;
+  }
+}
+
+
+
+

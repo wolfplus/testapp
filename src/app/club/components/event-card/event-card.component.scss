@@ -1,0 +1,78 @@
+app-event-card {
+  display: block;
+}
+
+.card-container {
+  // TODO: delete code if not needed
+  // width: 75vw;
+  //padding-top: 2rem;
+
+  .card-header-pic {
+    background: black;
+    border-radius: 1.5rem;
+  }
+  
+  .price-tag {
+    left: 2rem;
+    margin-top: -.8rem;
+    background: #FBE900;
+    z-index: 99;
+    
+    .price {
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+  
+    .attenders {
+      font-size: .8rem;
+    }
+  }
+  
+  .cta-button {
+    background: white;
+    border-radius: 1.5rem;
+    padding: .5rem 2rem;
+    margin: 2rem;
+    z-index: 99;
+  
+    .text {
+      font-size: .5rem;
+      text-transform: uppercase;
+    }
+  }
+  
+  .card-body {
+    margin-top: -3rem;
+    background: #ffffff;
+    border-radius: 1.5rem;
+    z-index: 99;
+    position: relative;
+    padding: 2rem 1.5rem;
+    font-weight: 200;
+
+    .event-title {
+      text-transform: capitalize;
+      span {
+        font-weight: bold;
+        font-size: 1.4rem;
+      }
+    }
+
+    .card-footer {
+      border-top: 1px solid rgba(128, 128, 128, 0.2);
+      font-size: .8rem;
+      font-weight: 400;
+    }
+
+  }
+
+}
+
+
+
+
+
+
+
+
+

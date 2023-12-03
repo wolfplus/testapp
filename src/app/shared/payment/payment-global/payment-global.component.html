@@ -1,0 +1,17 @@
+<app-modal-header
+        [title]="'booking_playground' | translate"
+        [subtitle]="playground.name"
+        [isPage]="false"
+        (backButtonAction)="closeModal({ success: false, booking: {} })">
+</app-modal-header>
+<app-payment-recap [selectedPlayground]="playgroundFullData"
+                   [booking]="booking"
+                   [club]="club"
+                   [slot]="slot"
+                   [methods]="methods"
+                   [activity]="activity | async"
+                   [wallet]="wallet"
+                   [duration]="duration"
+                   (closeModal)="closeModal($event)"
+                   *ngIf="playgroundFullData && activity !== undefined"
+></app-payment-recap>

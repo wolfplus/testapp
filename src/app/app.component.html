@@ -1,0 +1,80 @@
+<ion-app [class]="isHome ? 'remove-ion-page' : ''" class="zoom-tablet">
+  <ng-container *ngIf="!showErrorComponent">
+    <ng-container *ngIf="!useSidemenu">
+      <ion-content [@routeAnimations]="o && o.activatedRouteData
+  && o.activatedRouteData['animation']">
+        <ion-router-outlet style="background-color: var(--app-dark-or-not-color)!important;" id="menu-content" #o="outlet"></ion-router-outlet>
+      </ion-content>
+      <app-tab-bar></app-tab-bar>
+    </ng-container>
+
+    <ng-container *ngIf="useSidemenu">
+      <ion-split-pane contentId="main-content">
+        <ion-menu *ngIf="!env.marqueBlanche.userUI" contentId="main-content" type="overlay" style="max-width: 30rem;">
+          <ion-content>
+            <div class="sidemenu-content" >
+
+              <ion-menu-toggle auto-hide="false">
+                <ion-grid [routerLink]="'/account/me'" class="profil-bloc">
+                  <ion-row>
+                    <ion-col size="12">
+                      <ng-container *ngIf="accountMe$ | async as accountMe; else defaultAvatar">
+                        <img class="avatar-user" [src]="accountMe.avatar ? (env.pathFiles + accountMe.avatar?.contentUrl) : 'assets/images/avatar.png'">
+                      </ng-container>
+
+                      <ng-template #defaultAvatar>
+                        <img class="avatar-user" [src]="'assets/images/avatar.png'">
+                      </ng-template>
+
+                    </ion-col>
+                    <ion-col size="12">
+                      <ng-container *ngIf="accountMe$ | async as accountMe; else signIn">
+                        <h4>{{ accountMe.firstName }} {{ accountMe.lastName }}</h4>
+                        <span>{{ 'link_profil_params' | translate }}</span>
+                      </ng-container>
+
+                      <ng-template #signIn>
+                        <h4>{{ 'signin' | translate }}</h4>
+                        <span>{{ 'subtitle_sigin' | translate }}</span>
+                      </ng-template>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </ion-menu-toggle>
+
+              <ion-list class="col-list-menu">
+                <ng-container  *ngFor="let p of appPages; let i = index">
+                  <ng-container *ngIf="(env.marqueBlanche.useMatch || p.link !== '/matches') && p.name !== 'title_bookings'">
+                    <ion-menu-toggle class="row-list-menu" auto-hide="false" *ngIf="p.show">
+                      <ion-item style="margin: 0;" (click)="selectedIndex = i" routerDirection="root" [routerLink]="[p.link]" lines="none"
+                                detail="false" [class.selected]="selectedIndex == i">
+                        <ion-icon src="assets/icon/tabbar/{{ p.icon }}"></ion-icon>
+                        <ion-label style="padding: 10px;">{{ 'tabbar.' + p.name | translate }}</ion-label>
+                      </ion-item>
+                    </ion-menu-toggle>
+                  </ng-container>
+                  <ng-container *ngIf="p.name === 'title_bookings' && accountMe$ | async">
+                    <ion-menu-toggle class="row-list-menu" auto-hide="false" *ngIf="p.show">
+                      <ion-item style="margin: 0;" (click)="showMyBookings()" routerDirection="root" [routerLink]="" lines="none" detail="false">
+                        <ion-icon src="assets/icon/tabbar/{{ p.icon }}"></ion-icon>
+                        <ion-label style="padding: 10px;">{{ 'tabbar.' + p.name | translate }}</ion-label>
+                      </ion-item>
+                    </ion-menu-toggle>
+                  </ng-container>
+                </ng-container>
+              </ion-list>
+            </div>
+
+            <div class="bloc-version">
+              V{{ env.versionApp }}
+            </div>
+          </ion-content>
+        </ion-menu>
+
+        <ion-router-outlet id="main-content"></ion-router-outlet>
+
+      </ion-split-pane>
+    </ng-container>
+  </ng-container>
+  <app-error-api *ngIf="showErrorComponent"></app-error-api>
+</ion-app>

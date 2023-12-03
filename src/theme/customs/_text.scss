@@ -1,0 +1,51 @@
+.t-center {
+  text-align: center;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+
+.title-1 {
+  font-size: 2rem;
+}
+
+.small-text-1 {
+  font-size: 2rem;
+  font-weight: 400;
+  .bold {
+    font-weight: 500;
+  }
+}
+
+.small-text-2 {
+  font-size: var(--app-font-size);
+  font-weight: 400;
+  .bold {
+    font-weight: 500;
+  }
+}
+
+.min-width-center-1 {
+  max-width: 250px;
+  text-align: center;
+}
+
+.primary {
+  color: var(--ion-color-primary);
+}
+
+.secondary {
+  color: var(--ion-color-secondary);
+}
+
+.first-letter-cap::first-letter {
+  text-transform: capitalize;
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}

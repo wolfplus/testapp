@@ -1,0 +1,84 @@
+.list-attenders {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.5rem;
+  background: white;
+  .user-skeleton {
+    border-bottom: 1px solid #e4eaf0;
+    padding: 1rem 0;
+    ion-avatar {
+      border: none;
+      width: 5rem;
+      height: 5rem;
+    }
+    ion-label {
+      width: 80%;
+      margin-left: 1rem;
+    }
+    &.last{
+      border-bottom: none;
+    }
+  }
+  .attender {
+    border-bottom: 1px solid #e4eaf0;
+    width: 100%;
+    padding: 1rem 0;
+
+    &.last {
+      border-bottom: none;
+    }
+
+    ion-avatar {
+      width: 5rem;
+      height: 5rem;
+    }
+
+    .user-img {
+      object-fit: cover;
+    }
+    .user-title {
+      font-size: var(--app-font-size);
+      padding-left: 1rem;
+    }
+
+    .trash {
+      margin-left: 1rem;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .user-price {
+    color: var(--ion-color-primary);
+    font-size: var(--app-font-size);
+  }
+
+  .add-attender {
+    border-bottom: 1px solid #e4eaf0;
+    padding: 1rem 0;
+
+    &.last {
+      border-bottom: none;
+    }
+
+    .title {
+      color: var(--ion-secondary-text-color);
+      font-size: var(--app-font-size);
+      margin-left: 1rem;
+    }
+
+    .btn-add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 50%;
+      /* TODO: css variable */
+      color: #7d7d8379;
+      background: #e4e5ea;
+      font-size: 3rem;
+    }
+  }
+}
+

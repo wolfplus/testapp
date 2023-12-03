@@ -1,0 +1,353 @@
+@use "sass:math";
+
+ion-toolbar {
+  padding: 1rem ;
+}
+
+ion-content {
+  // --background: var(--background-gray);
+
+  .page-title {
+    margin: 0;
+    padding: 1.5rem;
+    display: flex;
+    font-weight: bold;
+  }
+}
+
+.card-my-friends {
+  height: 15rem;
+  width: 90%;
+  margin: 1rem 2rem;
+}
+
+app-avatar-name {
+  width: calc(66% - 1rem);
+}
+
+ion-button {
+  width: calc(33% - 1rem);
+  padding: .5rem 0;
+}
+
+ion-footer {
+  margin-top: 25px;
+  text-align: center;
+  ion-button {
+    width: 65px;
+    height: 65px;
+    padding: 0;
+  }
+}
+
+.count-item {
+	font: normal normal 300 16px/24px Panton-Black;
+	padding-top: 8px;
+	padding-left: 8px;
+}
+
+.friend-list {
+
+  .friend-card {
+    margin-bottom: .5rem;
+    overflow: hidden;
+    background-color: var(--app-dark-or-not-color);
+  }
+}
+
+
+/* TODO: REFACTORING MAKE A COMPONENT */
+// LOADER
+// Define vars we'll be using
+$brand-success: var(--ion-color-primary);
+$loader-size: 1.5rem;
+$check-height: 1em; // $loader-size/3;
+$check-width: .8em; // $check-height/3;
+$check-left: -8%;// ($loader-size/6 + $loader-size/12);
+$check-thickness: .2rem;
+$check-color: $brand-success; // white;
+
+.circle-loader {
+  margin-right: math.div($loader-size, 3);
+  border: .15rem solid var(--ion-color-primary);
+  border-left-color: $check-color;
+  animation: loader-spin 1.2s infinite linear;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  border-radius: 50%;
+  width: $loader-size;
+  height: $loader-size;
+}
+
+.load-complete {
+  -webkit-animation: none;
+  animation: none;
+  border-color: var(--ion-color-primary); // rgba(17, 240, 221, 0.5);
+  transition: border 500ms ease-out;
+
+  &.load-error {
+    border-color: var(--ion-color-danger);
+  }
+}
+
+.checkmark {
+  display: none;
+
+  &.block {
+    display: block;
+  }
+
+  &.draw:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: checkmark;
+    transform: scaleX(-1) rotate(135deg);
+  }
+
+  &:after {
+    opacity: 1;
+    height: $check-height;
+    width: $check-width;
+    transform-origin: left top;
+    border-right: .3rem solid $check-color;
+    border-top: $check-thickness solid $check-color;
+    content: '';
+    left: -8%;//$check-left;
+    top: 33%;//$check-height;
+    position: absolute;
+  }
+}
+
+.cross {
+  display: none;
+
+  &.block {
+    display: block;
+  }
+
+  &.draw:before, &.draw:after {
+    animation-duration: 800ms;
+    animation-timing-function: ease;
+    animation-name: cross;
+  }
+
+  &.draw:before {
+    transform: scaleX(-1) rotate(45deg);
+  }
+
+  &.draw:after {
+    transform: scaleX(-1) rotate(-45deg);
+  }
+
+  &:before {
+    opacity: 1;
+    height: 1em;
+    width: .15em;
+    background-color: #e01b1b;
+    content: "";
+    left: 45%;
+    top: 0%;
+    position: absolute;
+  }
+
+  &:after {
+    opacity: 1;
+    height: 1em;
+    width: .15em;
+    background-color: #e01b1b;
+    content: "";
+    left: 40%;
+    top: 0%;
+    position: absolute;
+  }
+}
+
+@keyframes loader-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes checkmark {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: $check-width;
+    opacity: 1;
+  }
+  40% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+  100% {
+    height: $check-height;
+    width: $check-width;
+    opacity: 1;
+  }
+}
+
+@keyframes cross {
+  0% {
+    height: 0;
+    width: 0;
+    opacity: 1;
+  }
+  20% {
+    height: 0;
+    width: .15em;
+    opacity: 1;
+  }
+  40% {
+    height: 1em;
+    width: .2em;
+    opacity: 1;
+  }
+  100% {
+    height: 1em;
+    width: .15em;
+    opacity: 1;
+  }
+}
+
+///////////////////
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+.float-button {
+  width: 80px !important;;
+  height: 90px !important;;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    ion-avatar {
+      width: 15vw;
+      height: 15vw;
+    }
+    ion-button {
+      width: 20% !important;
+	    margin: auto;
+    }
+    .hide-tablet {
+      display: none;
+    }
+    .show-tablet {
+      display: block;
+    }
+}
+
+@media only screen
+  and (max-width: 376px) {
+    .count-item {
+      padding-top: 5px;
+    }
+}
+
+.text-no-friends {
+  font-size: 1.3em;
+}
+
+.container {
+  height: 120px;
+	width: 155px;
+}
+.things > .content {
+  float: left;
+  width: 50%;
+  height: 500px;
+  -webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+  position: relative;
+}
+
+.things > .content h1 {
+  font-family: 'Arial', sans-serif;
+  text-transform: uppercase;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  height: 150px;
+  color: #89323B;
+}
+
+/* Arrow */
+
+.arrow {
+	position: relative;
+  margin: 0 auto;
+  width: 100px;
+}
+
+.arrow .curve {
+	border: 2px solid #BE5F4B;
+	border-color: transparent transparent transparent #BE5F4B;
+	height: 360px;
+	width: 1200px;
+	border-radius: 230px 0 0 150px;
+}
+
+.arrow .point {
+	position: absolute;
+	left: 40px;
+	top: 315px;
+}
+
+.no-friend{
+  position: absolute;
+	bottom: 20%;
+	width: 100%;
+	height: 50%;
+}
+
+.arrow .point:before, .arrow .point:after {
+	border: 1px solid #BE5F4B;
+	height: 25px;
+	content: "";
+	position: absolute;
+}
+
+.arrow .point:before {
+	top: -11px;
+	left: -11px;
+	transform:rotate(-74deg);
+	-webkit-transform:rotate(-74deg);
+  -moz-transform:rotate(-74deg);
+  -ms-transform: rotate(-74deg);
+}
+
+.float-button svg{
+  fill: white !important;
+  width: 30px !important;
+}
+
+.arrow .point:after {
+  top: -20px;
+	left: 5px;
+	transform:rotate(12deg);
+	-webkit-transform: rotate(12deg);
+  -moz-transform:rotate(12deg);
+  -ms-transform: rotate(12deg);
+}
+

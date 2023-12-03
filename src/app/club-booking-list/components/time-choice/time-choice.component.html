@@ -1,0 +1,8 @@
+<div class="block-time-choice">
+    <div *ngFor="let time of times"
+        [ngClass]="(time.format('HH:mm') === selectedTime.format('HH:mm')) ? 'active' : ''"
+        class="slot-time"
+        (click)="select(time)" >
+        {{getHour(time)}}
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<app-default-header (back)="close()" [title]="'goup_options_title'" [backgroundImage]="prestation.mainPhoto ? (env.pathFiles + prestation.mainPhoto?.contentUrl) : null"></app-default-header>
+
+<ion-content>
+    <div class="flex-column">
+
+        <div *ngIf="options?.length" class="page-title">
+            {{ 'options' | translate }}
+        </div>
+        <app-select-playground-options
+                *ngIf="options?.length"
+                class="shadow-bottom-ligth"
+                (optionChanged)="optionChanged($event)"
+                (countOptionChanged)="countOptionChanged($event)"
+                [options]="options"
+                [currency]="club.currency"
+        >
+        </app-select-playground-options>
+        <app-manage-participants-group-booking
+                *ngIf="from != 'formula' && selectedCategories().length > 1"
+            [categories]="categories"
+            [countParticipant]="countParticipant"
+            [participantsList]="selectedCategories()"
+            (manageUserPresence)="manageUserPresence($event)">
+        </app-manage-participants-group-booking>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button
+            data-test="confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next show-tablet"
+            [disabled]="catToReplace === null && from !== 'formula'"
+            (click)="validate()"
+    >
+        <div class="do-p-2">{{ 'validate' | translate }}</div>
+    </ion-button>
+</ion-footer>

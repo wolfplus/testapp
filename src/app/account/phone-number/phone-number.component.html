@@ -1,0 +1,97 @@
+<app-default-header
+    [title]="'change_your_phone'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <ion-grid>
+        <ion-col>
+            <div class="flex do-p-2">
+                <div class="section-title">
+                    {{'phone_number_title_verification' | translate}}
+                </div>
+                <div class="title-stroke"></div>
+            </div>
+            <div class="text-center subtitle do-px-2">
+                {{'phone_number_subtitle_verification' | translate }}
+            </div>
+        </ion-col>
+        <ion-row>
+            <ion-col class="group-tel">
+                <input type="tel" id="phone" />
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="showCode">
+            <ion-col>
+                <div class="flex do-p-2">
+                    <div class="section-title">
+                        {{'phone_code_title_verification' | translate}}
+                    </div>
+                    <div class="title-stroke"></div>
+                </div>
+                <div class="text-center subtitle">
+                    {{'phone_code_subtitle_verification' | translate :{phone: phoneNumber} }}
+                </div>
+            </ion-col>
+        </ion-row>
+
+        <ion-row *ngIf="showCode"
+            class="container-code">
+            <ion-col size="3" class="input-block">
+                <input #code1
+                    type="tel"
+                    class="input-code"
+                    [(ngModel)]="codeInput1"
+                    (keyup)="changeInput($event,'code1')"
+                    (keyup.delete)="deleteInput('code1')">
+            </ion-col>
+            <ion-col size="3" class="input-block">
+                <input #code2
+                    type="tel"
+                    class="input-code"
+                    [(ngModel)]="codeInput2"
+                    (keyup)="changeInput($event,'code2')"
+                    (keyup.delete)="deleteInput('code2')">
+            </ion-col>
+            <ion-col size="3" class="input-block">
+                <input #code3
+                    type="tel"
+                    class="input-code"
+                    [(ngModel)]="codeInput3"
+                    (keyup)="changeInput($event,'code3')"
+                    (keyup.delete)="deleteInput('code3')">
+            </ion-col>
+            <ion-col size="3" class="input-block">
+                <input #code4
+                    type="tel"
+                    class="input-code"
+                    [(ngModel)]="codeInput4"
+                    (keyup)="changeInput($event,'code4')"
+                    (keyup.delete)="deleteInput('code4')">
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+<ion-footer>
+    <ion-button *ngIf="!showCode"
+        class="btn-next"
+        (click)="sendPhone()"
+        mode="ios"
+        expand="block"
+        color="primary">
+        <div class="do-p-2">
+            {{'confirm_phone' | translate}}
+        </div>
+    </ion-button>
+    <ion-button *ngIf="showCode"
+        class="btn-next"
+        (click)="confirmTapeCode()"
+        mode="ios"
+        expand="block"
+        color="primary">
+        <div class="do-p-2">
+            {{'validate' | translate}}
+        </div>
+    </ion-button>
+</ion-footer>

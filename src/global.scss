@@ -1,0 +1,150 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+// @import "~@ionic/angular/css/padding.css";
+// @import "~@ionic/angular/css/float-elements.css";
+// @import "~@ionic/angular/css/text-alignment.css";
+// @import "~@ionic/angular/css/text-transformation.css";
+// @import "~@ionic/angular/css/flex-utils.css";
+
+
+/* Custom elements */
+
+@import "./theme/customs/custom.scss";
+
+@font-face {
+  font-family: 'Panton-Regular';
+  font-style: normal;
+  src: url('./assets/fonts/panton/Panton-Regular.ttf');
+  font-display: swap
+}
+
+@font-face {
+  font-family: 'Panton-Light';
+  font-style: normal;
+  src: url('./assets/fonts/panton/Panton-Light.ttf');
+  font-display: swap
+}
+
+@font-face {
+  font-family: 'Panton-Black';
+  font-style:normal;
+  src: url('./assets/fonts/panton/Panton-Black.ttf');
+  font-display: swap
+}
+
+.ion-page:not(app-home):not(.remove-ion-page) {
+  top: m#{i}n(constant(safe-area-inset-top), 20px);
+  top: m#{i}n(env(safe-area-inset-top), 20px);
+  top: m#{i}n(var(safe-area-inset-top), 20px);
+}
+
+body{
+
+  font-family: var(--ion-font-family);
+  color: var(--ion-text-color);
+}
+
+.shadow-bottom{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.shadow-bottom-ligth{
+  box-shadow: 0 3px 6px -2px gray;
+}
+
+.ripple-parent {
+  position: relative;
+  overflow: hidden;
+}
+
+.cgs_rules {
+  color: var(--ion-secondary-text-color);
+  .link {
+    color: var(--ion-color-primary);
+    font-weight: bold;
+  }
+}
+
+.toolbar-background {
+  background-color: rgba(0,0,0,0)!important;
+}
+
+app-home {
+    --ion-background-color: #f5f5f8 !important;
+}
+
+.cgs_rules {
+  color: var(--ion-secondary-text-color);
+  .link {
+    color: var(--ion-color-primary);
+    font-weight: bold;
+  }
+}
+
+
+ngx-qrcode {
+  .bshadow {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    img {
+      width: 70%;
+    }
+  }
+}
+
+.modal-qr-code {
+
+  ion-backdrop {
+    z-index: 999;
+  }
+
+  .modal-shadow {
+    visibility: hidden;
+  }
+
+  .modal-wrapper {
+    background-color: transparent;
+    z-index: 9999;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    app-my-qr-code {
+      background-color: transparent !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+.password-modal {
+  .modal-wrapper {
+    position: absolute;
+    bottom: 0;
+    height: 30%;
+  }
+}

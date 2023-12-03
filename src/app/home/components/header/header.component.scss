@@ -1,0 +1,28 @@
+#header_home {
+    padding: 2rem 2rem 1rem 2rem;
+    background-color: var(--app-dark-or-not-color);
+    z-index: 99999;
+    height: fit-content;
+
+    .row-search {
+        flex: 1;
+        flex-direction: row;
+        position: relative;
+        display: flex;
+    }
+
+    .filter-button {
+        display: inline-block;
+        // width: 20%;
+        margin: 0 0 0 1rem;
+    }
+
+    .search-input {
+        flex-grow: 2;
+        display: inline-block;
+        // width: 100%;
+        margin: auto;
+        font-size: 1.8rem;
+    }
+}
+

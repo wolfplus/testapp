@@ -1,0 +1,78 @@
+<div class="my-booking-block" (click)="openBooking()">
+  <div class="img-block"
+    [ngClass]="{
+      'large-img': cardConfig === BookingCardConfig.LARGE,
+      'medium-img': cardConfig === BookingCardConfig.MEDIUM,
+      'small-img': cardConfig === BookingCardConfig.SMALL
+      }">
+    <ion-img *ngIf="booking.club.mainPhoto && (booking.activityType !== 'leisure' && booking.activityType !== 'formula' )"
+      [src]="pathUrl + booking.club.mainPhoto.contentUrl"
+      class="my-booking-club-img"
+      alt="sport img">
+    </ion-img>
+    <ion-img *ngIf="!(booking.club.mainPhoto) && (booking.activityType !== 'leisure' && booking.activityType !== 'formula' )"
+      [src]="'assets/images/banner_default.png'"
+      class="my-booking-club-img"
+      alt="sport img">
+    </ion-img>
+    <ion-img *ngIf="!(booking.timetableBlockPrice.mainPhoto) && (booking.activityType === 'leisure' || booking.activityType === 'formula' )"
+             [src]="'assets/images/banner_default.png'"
+             class="my-booking-club-img"
+             alt="sport img">
+    </ion-img>
+    <ion-img *ngIf="booking.timetableBlockPrice.mainPhoto && (booking.activityType === 'leisure' || booking.activityType === 'formula' )"
+             [src]="pathUrl + booking.timetableBlockPrice.mainPhoto.contentUrl"
+             class="my-booking-club-img"
+             alt="sport img">
+    </ion-img>
+    <!-- <div class="activity">
+      {{booking.activity.name}}
+    </div> -->
+    <app-activity-levels
+      class="dspl-blck w-100 h-100 do-p-0-5"
+      [activityName]="booking?.activity?.name"
+      [activityIcon]="booking?.activity?.icon"
+      [colors]="booking?.activity?.colors"
+      [position]="'center'">
+    </app-activity-levels>
+  </div>
+  <div class="booking-info flex d-col jcsb"
+    [ngClass]="{
+      'large': cardConfig === BookingCardConfig.LARGE,
+      'medium': cardConfig === BookingCardConfig.MEDIUM,
+      'small': cardConfig === BookingCardConfig.SMALL
+      }">
+    <div class="date-booking">
+      <ion-icon src="assets/images/icons/clock.svg"
+        class="do-mr-1">
+      </ion-icon>
+      <span><app-full-date [startAt]="booking.startAt" [timeZone]="booking.club.timezone"></app-full-date></span>
+    </div>
+    <div class="club-booking">{{ ((!env.useMb)?booking?.club?.name:booking.playgrounds[0].name) }}</div>
+    <div class="duration-price-booking">
+      {{ getDuration() }} min - {{ booking.pricePerParticipant | price_format: booking.club.currency }} / pers
+    </div>
+    <!-- <div class="flex d-col aifs">
+    </div> -->
+    <div *ngIf="cardConfig !== 'MEDIUM'"
+      class="go-to-booking-btn">
+      <ion-button *ngIf="bookingStatus === Period.PAST"
+        fill="outline">
+        <ion-icon name="refresh-outline"
+          slot="start">
+        </ion-icon>
+        {{ 'book_again' | translate }}
+      </ion-button>
+      <ion-button *ngIf="bookingStatus === Period.NEXT"
+      class="see_booking"
+        fill="outline"
+        mode="ios">
+        <ion-icon name="eye-outline"
+          size="small"
+          slot="start">
+        </ion-icon>
+        {{ 'see_booking' | translate }}
+      </ion-button>
+    </div>
+  </div>
+</div>

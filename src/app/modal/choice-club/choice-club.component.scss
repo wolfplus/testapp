@@ -1,0 +1,91 @@
+.search_input {
+  background: #8080801a;
+}
+
+.title {
+  font-weight: 1000;
+	font-size: 1.1em;
+}
+
+.ft-weight {
+  font-weight: 600;
+}
+
+.wrapper-select {
+  width: 100%;
+}
+
+.avatar-select {
+  display: inline-block
+}
+
+.icon-select {
+  float: right;
+	padding-top: 0px !important;
+  font-size: 2.2em;
+  color: var(--ion-color-primary);
+}
+
+.label-select {
+  display: inline-block;
+	vertical-align: text-top;
+	margin-left: 15px;
+	padding-bottom: 15px;
+}
+
+.result {
+  margin-left: 15px;
+  margin-top: 15px;
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+ion-header {
+  text-align: center;
+}
+
+.title-header {
+  display: inline-block
+}
+
+.finished {
+  float: right;
+  padding: 10px;
+  font-weight: 600;
+  padding-top: 16px;
+}
+
+ion-list {
+  width: 95% !important;
+  margin: auto;
+  margin-top: 10px;
+}
+
+
+.modal-choice .modal-wrapper{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+ion-avatar {
+  border: 3px solid var(--ion-color-primary) !important;
+	height: 50px !important;
+	width: 50px !important;
+}
+
+ion-icon {
+  padding-top: 0px !important;
+}
+
+ion-card-content {
+  padding-top: 2px;
+  background: white;
+}
+
+ion-item {
+  background: white;
+}
+
+ion-content {
+  --ion-background-color: #f5f5f8 !important;
+}

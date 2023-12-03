@@ -1,0 +1,88 @@
+<ng-container>
+  <div class="image-container img-ratio-modal-header w-100 pos-rel">
+    <!-- TODO: add a css class -->
+    <img
+      src="{{ env.pathFiles + item.photos[0].contentUrl }}"
+      alt=""
+      class="img-ratio"
+      *ngIf="item.photos.length > 0"
+    />
+    <img
+      src="{{ clubPhotoUrl }}"
+      alt=""
+      class="img-ratio"
+      *ngIf="item.photos.length === 0"
+    />
+  </div>
+
+  <ion-content class="item-detail">
+    <div class="header">
+      <div class="title">
+        {{ item.name }}
+      </div>
+      <div class="subtitle">
+        {{ item.shortDescription }}
+      </div>
+    </div>
+
+    <div class="description">
+      <div class="title margin-bottom">
+        {{ "shop_item_detail_description" | translate }}
+      </div>
+      <p
+        class="margin-bottom"
+        [innerHtml]="sanitizer.bypassSecurityTrustHtml(item.description)"
+      ></p>
+      <hr />
+      <ng-container *ngIf="item.paymentTokenPack" class="pack-content">
+        <div>{{ "shop_item_detail_pack_content" | translate }}</div>
+        <div
+          *ngFor="let label of item.paymentTokenPack.items; let isLast = last"
+        >
+          <ion-text
+            class="subtitle"
+            *ngIf="label.paymentToken.validityPeriodicityType"
+          >
+            {{ label.quantity }} x {{ label.paymentToken.name }} ({{
+              "shop_item_detail_pack_validity" | translate
+            }}
+            {{ label.paymentToken.validityDurationCount }}
+            {{ label.paymentToken.validityPeriodicityType.toString()| translate }})
+          </ion-text>
+          <ion-text
+            class="subtitle"
+            *ngIf="!label.paymentToken.validityPeriodicityType"
+          >
+            {{ label.quantity }} x {{ label.paymentToken.name }} ({{
+              "shop_item_detail_pack_validity" | translate
+            }}
+            {{ "shop_item_detail_pack_validity_unlimited" | translate }})
+          </ion-text>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="gift" *ngIf="item.giftable">
+      <ion-checkbox
+              slot="start"
+              mode="md"
+              [(ngModel)]="toGift"
+              checked="{{toGift}}"
+      ></ion-checkbox>
+      <label>
+        {{ 'to-gift' | translate }}
+        <img src="assets/icon/shop/giftbox.png"/>
+      </label>
+    </div>
+
+    <div class="cart">
+      <div class="cercle minus" (click)="removeFromCart()">
+        <ion-icon name="remove-outline"></ion-icon>
+      </div>
+      <div class="counter">{{ totalItems }}</div>
+      <div class="cercle plus" (click)="addToCart()" data-test="add-item-to-card">
+        <ion-icon name="add-outline"></ion-icon>
+      </div>
+    </div>
+  </ion-content>
+</ng-container>

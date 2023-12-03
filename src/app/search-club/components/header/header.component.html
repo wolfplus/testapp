@@ -1,0 +1,12 @@
+<ng-content>
+</ng-content>
+<div class="block-filters" *ngIf="!env.useMb">
+  <!-- <app-search-input class="search-input" [heightHeader]="70" ></app-search-input> -->
+  <app-search-input-btn
+    (changeInputSearch)="changeInputSearch()"
+    [searchType]="from"
+    class="flex jcsb aic w-100">
+    </app-search-input-btn>
+  <app-filter-button class="filter-button z-index-1">
+  </app-filter-button>
+</div>

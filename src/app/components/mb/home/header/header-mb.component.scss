@@ -1,0 +1,255 @@
+.bloc-header-home {
+  width: 100%;
+  min-height: 37rem;
+  max-height: 37rem;
+  color: var(--ion-color-secondary-btn-text);
+  position: relative;
+  margin-top: -40px;
+  padding-top: 40px;
+  border-radius: 250px / 35px;
+
+
+  .open-message-complexe {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    img {
+      border-radius: 50%;
+      position: relative!important;
+      top: unset;
+      margin: unset;
+      padding: unset;
+      min-width: 40px;
+      max-width: 40px;
+      min-height: 40px;
+      max-height: 40px;
+      object-fit: contain;
+    }
+  }
+  .welcome-size {
+    font: normal normal 800 33px/21px Panton-Black;
+    font-size: 25px;
+    font-weight: 800;
+  }
+  .welcome-sub-size {
+    font: normal normal 800 33px/10px Panton-Black;
+    font-size: 19px;
+    font-weight: 800;
+  }
+
+  .sub-fil {
+    opacity: 0.85;
+  }
+
+  .bg-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 998;
+    height: 100%;
+    mix-blend-mode: color;
+    opacity: 0.3;
+  }
+
+  img {
+    position: absolute;
+    top: -50px;
+    min-height: calc(40rem - 10pt);
+    max-height: calc(40rem - 10pt);
+    object-fit: cover;
+    border-radius: 100px / 50px;
+    // opacity: 0.5;
+  }
+
+  .content-header {
+    top: 40px;
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    font-size: 2.5rem;
+    font-weight: 800;
+    padding-right: 10pt;
+    padding-left: 10pt;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    align-items: flex-start;
+    text-shadow: 0px 3px 6px #000000A8;
+  }
+
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo {
+  margin: 2rem;
+  // min-height: 5rem;
+  -o-object-fit: cover;
+  object-fit: cover;
+  // max-width: 15rem;
+  width: 17rem;
+}
+.pt-10 {
+  padding-top: 10pt;
+}
+
+.user-nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.link {
+  font-weight: bold;
+}
+
+.user-avatar {
+  max-height: 50px !important;
+	max-width: 50px !important;
+	object-fit: cover !important;
+	display: inline !important;
+	min-height: 50px !important;
+	margin-right: 10px !important;
+	border-radius: 30px !important;
+}
+
+.user-club-selected {
+  font-size: 0.6em;
+}
+
+.svg-home-search {
+  width: 15px;
+	height: 15px;
+	fill: white;
+	vertical-align: text-top;
+}
+
+
+.wrap-popover {
+  position: absolute;
+  top: -5px;
+  right: 0;
+  z-index: 10000;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  margin-right: 120px;
+  display: none;
+  top: 55px;
+	left: -190px;
+  position: absolute;
+  text-align: left;
+  background-color: #ffffff;
+  border-radius: 8px;
+  min-width: 180px;
+  z-index: 1000;
+	background: #ffffff;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.8);
+}
+
+.dropdown-content span {
+  color: --ion-color-primary;
+  font-size: 1.3em;
+  cursor: pointer;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content span:hover {
+  background-color: #ddd;
+  border-radius: 8px;
+
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.icon-drop {
+  width: 40px !important;
+}
+
+.find-club {
+  position: absolute;
+	top: 8px;
+	font: italic normal bold 15px/21px Panton-Black;
+}
+
+.search-icon {
+  padding: 8px;
+  font-size: 1.5em;
+  font: italic normal bold 20px/21px Panton-Black;
+}
+
+.search-wrapper {
+  z-index: 1000;
+  position: absolute;
+	top: 90px;
+	left: 19%;
+	width: 60%;
+}
+
+.modal-choice .modal-wrapper{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.avatar-select {
+  display: inline-block;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	z-index: 1000;
+	top: 3px;
+	left: 5px;
+}
+
+.club-select {
+  display: inline-block;
+  text-align: center;
+	background: white;
+	opacity: 0.6;
+	width: 100%;
+	margin: auto;
+	padding: 13px;
+	border-radius: 7px;
+	padding-left: 52px;
+	font: italic normal bold 16px/21px Panton-Black;
+}
+
+@media only screen
+  and (min-width: 1100px) {
+    .search-wrapper {
+      z-index: 1000;
+      position: absolute;
+      top: 70px;
+      left: 22%;
+      width: 55%;
+    }
+  }
+
+.ios .content-header {
+  top: 90px;
+}
+
+.ios .bloc-header-home {
+  min-height: 43rem;
+  margin-top: -105px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

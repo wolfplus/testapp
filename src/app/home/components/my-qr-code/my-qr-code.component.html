@@ -1,0 +1,88 @@
+<ion-header>
+    <app-default-header
+        [title]=""
+        [subtitle]=""
+        (back)="close()">
+    </app-default-header>
+</ion-header>
+<ion-content>
+    <div class="wrapper">
+        <div *ngIf="userMe" class="header-component">
+            <label>{{ 'identity' | translate }}:</label>
+            <div class="user-identity">
+                <ion-avatar class="user-avatar">
+                    <img *ngIf="userMe.avatar !== null"
+                         [src]="env.domainAPI + userMe.avatar.contentUrl"
+                    />
+                    <img *ngIf="userMe.avatar === null"
+                         src="{{'https://eu.ui-avatars.com/api/?background=' + 'black' + '&color=fff&name=' + userMe?.firstName + ' ' + userMe?.lastName}}"
+                    />
+                </ion-avatar>
+                <p>
+                    {{userMe.firstName}} {{userMe.lastName}}
+                </p>
+            </div>
+        </div>
+        <ng-container [ngSwitch]="isLoading">
+            <ng-container *ngSwitchCase="true">
+            </ng-container>
+            <ng-container *ngSwitchCase="false">
+                <ng-container *ngIf="clientClub as client">
+                    <ng-container *ngIf="client">
+                        <ngx-qrcode *ngIf="client.accessCode !== undefined && client.accessCode.length > 0"
+                                    [elementType]="elementType"
+                                    [errorCorrectionLevel]="correctionLevel"
+                                    [value]="client.accessCode"
+                                    cssClass="bshadow">
+                        </ngx-qrcode>
+                    </ng-container> 
+                </ng-container>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+            </ng-container>
+        </ng-container>
+    </div>
+</ion-content>
+
+<ng-container [ngSwitch]="isLoading">
+    <ng-container *ngSwitchCase="true">
+        <ng-container *ngTemplateOutlet="loading"></ng-container>
+    </ng-container>
+    <ng-container *ngSwitchCase="false">
+        <ng-container *ngIf="clientClub as client; else emptyClient">
+            <ng-container *ngIf="client; else emptyClient">
+                <ng-container *ngIf="client.accessCode === undefined || client.accessCode.length === 0">
+                    <ng-container *ngTemplateOutlet="footer"></ng-container>
+                </ng-container>
+            </ng-container> 
+        </ng-container>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <ng-container *ngTemplateOutlet="loading"></ng-container>
+    </ng-container>
+</ng-container> 
+
+<ng-template #emptyClient>
+    <ng-container *ngTemplateOutlet="footer"></ng-container>
+</ng-template>
+
+<ng-template #footer>
+    <ion-footer>
+        <ion-button
+            (click)="generateQrCode()"
+            translucent="true"
+            mode="ios"
+            expand="block"
+            class="btn-next">
+            <div class="do-p-2">
+                {{ 'generate_qr_code' | translate }}
+            </div>
+        </ion-button>
+    </ion-footer>
+</ng-template>
+
+<ng-template #loading>
+    <ion-footer>
+        <ion-skeleton-text animated style="height: 60px;"></ion-skeleton-text>
+    </ion-footer>
+</ng-template>

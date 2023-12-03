@@ -1,0 +1,231 @@
+
+before_all do
+    ENV['FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD']= 'yfss-ssir-yoxq-xssa'
+end
+
+platform :ios do
+    desc "Deploy a new version to the Appstore"
+    lane :release_app do
+        export_app
+        upload_app
+    end
+
+    desc "Actions to run before deploy"
+    lane :run_actions do
+
+         desc "Connect to App Store"
+
+                app_store_connect_api_key(
+                    key_id: ENV["KEY_ID"],
+                    issuer_id: ENV["ISSUER_ID"],
+                    key_filepath: ENV["APPLE_KEY_FILE"]
+                )
+
+                desc "Update the project team"
+
+                update_project_team(
+                    path: "./ios/App/App.xcodeproj",
+                    teamid: ENV["TEAM_ID"]
+                )
+
+                desc "Update Info.plist"
+                sh("cp -fr Info.plist ../ios/App/App")
+                set_info_plist_value(path: "./ios/App/App/Info.plist", key: "CFBundleDisplayName", value: ENV['APP_NAME'])
+                set_info_plist_value(path: "./ios/App/App/Info.plist", key: "CFBundleShortVersionString", value: ENV['VERSION_BUILD'])
+                set_info_plist_value(path: "./ios/App/App/Info.plist", key: "CFBundleVersion", value: ENV['VERSION_CODE'])
+                set_info_plist_value(path: "./ios/App/App/Info.plist", key: "CFBundleDevelopmentRegion", value: ENV['LOCALE_INFO'])
+
+    end
+
+    desc "Build the project"
+    lane :export_app do
+
+        app_store_connect_api_key(
+            key_id: ENV["KEY_ID"],
+            issuer_id: ENV["ISSUER_ID"],
+            key_filepath: ENV["APPLE_KEY_FILE"]
+        )
+
+        desc "Upload to AppStore"
+
+        gym(
+            workspace: "./ios/App/App.xcworkspace",
+            scheme: "App",
+            clean: true,
+            export_xcargs: "-allowProvisioningUpdates",
+            output_name: "App.ipa"
+        )
+    end
+
+    desc "Deploy the project on TestFlight"
+    lane :upload_app do
+
+        deliver(
+            precheck_include_in_app_purchases: false,
+            ipa: "App.ipa",
+            skip_screenshots: true,
+            skip_metadata: true,
+            skip_app_version_update: true,
+            force: true
+        )
+    end
+end
+
+platform :android do
+    desc "Test generate icon android"
+    lane :test_generate_icon do
+
+        desc "Set the App icon"
+        android_appicon(
+            appicon_image_file: ENV["ICON_PATH"],
+            appicon_icon_types: [:launcher],
+            appicon_path: './android/app/src/main/res/mipmap',
+            generate_rounded: true
+        )
+
+        desc "Set the App icon notification"
+        android_appicon(
+            appicon_image_file: ENV["ICON_PATH"],
+            appicon_icon_types: [:notification],
+            appicon_path: './android/app/src/main/res/drawable',
+            appicon_filename: 'ic_stat_onesignal_default',
+            generate_rounded: true
+          )
+
+        desc "Set the App splash icon"
+        android_appicon(
+            appicon_image_file: ENV["SPLASH_PATH"],
+            appicon_icon_types: [:splash_port, :splash_land],
+            appicon_path: './android/app/src/main/res/drawable',
+            appicon_filename: 'splash',
+            generate_rounded: true
+        )
+    end
+
+    desc "Deploy a new version to the Google Play Store"
+    lane :release_app_android do
+
+        desc "Load the json key"
+        package = load_json(json_path: ENV["JSON_KEY_FILE"])
+
+        desc "Set version name"
+        android_set_version_name(
+            version_name: ENV["SHORT_NAME"],
+            gradle_file: ENV["GRADLE_PATH"]
+        )
+
+        desc "Set version code"
+        android_set_version_code(
+            version_code: ENV["VERSION_CODE"],
+            gradle_file: ENV["GRADLE_PATH"]
+        )
+
+        desc "Clean and build the project"
+        gradle(
+            task: "bundle",
+            project_dir: 'android/',
+            build_type: 'Release',
+            properties: {
+            "android.injected.signing.store.file" => ENV["KEYSTORE_PATH_FILE"],
+            "android.injected.signing.store.password" => ENV["SIGNIN_PASSWORD"],
+            "android.injected.signing.key.alias" => ENV["SIGNIN_ALIAS"],
+            "android.injected.signing.key.password" => ENV["SIGNIN_PASSWORD"],
+            }
+        )
+
+        desc "Set the App icon"
+        android_appicon(
+            appicon_image_file: ENV["ICON_PATH"],
+            appicon_icon_types: [:launcher],
+            appicon_path: './android/app/src/main/res/mipmap',
+            generate_rounded: true
+        )
+
+        desc "Set the App icon notification"
+        android_appicon(
+            appicon_image_file: ENV["ICON_PATH"],
+            appicon_icon_types: [:notification],
+            appicon_path: './android/app/src/main/res/drawable',
+            appicon_filename: 'ic_stat_onesignal_default',
+            generate_rounded: true
+          )
+
+        desc "Set the App splash icon"
+        android_appicon(
+            appicon_image_file: ENV["SPLASH_PATH"],
+            appicon_icon_types: [:splash_port, :splash_land],
+            appicon_path: './android/app/src/main/res/drawable',
+            appicon_filename: 'splash',
+            generate_rounded: true
+        )
+
+        desc "Upload to Google Play Store"
+        upload_to_play_store(
+            track: 'production',
+            release_status: 'draft',
+            skip_upload_apk: true,
+        )
+    end
+
+    desc "Deploy a new version to the Google Play Store"
+    lane :release_app_android_without_upload do
+
+        desc "Load the json key"
+        package = load_json(json_path: ENV["JSON_KEY_FILE"])
+
+        desc "Set version name"
+        android_set_version_name(
+            version_name: ENV["SHORT_NAME"],
+            gradle_file: ENV["GRADLE_PATH"]
+        )
+
+        desc "Set version code"
+        android_set_version_code(
+            version_code: ENV["VERSION_CODE"],
+            gradle_file: ENV["GRADLE_PATH"]
+        )
+
+        desc "Clean and build the project"
+        gradle(
+            task: "bundle",
+            project_dir: 'android/',
+            build_type: 'Release',
+            properties: {
+            "android.injected.signing.store.file" => ENV["KEYSTORE_PATH_FILE"],
+            "android.injected.signing.store.password" => ENV["SIGNIN_PASSWORD"],
+            "android.injected.signing.key.alias" => ENV["SIGNIN_ALIAS"],
+            "android.injected.signing.key.password" => ENV["SIGNIN_PASSWORD"],
+            }
+        )
+
+        desc "Set the App icon"
+        android_appicon(
+            appicon_image_file: ENV["ICON_PATH"],
+            appicon_icon_types: [:launcher],
+            appicon_path: './android/app/src/main/res/mipmap',
+            generate_rounded: true
+        )
+
+        desc "Set the App icon notification"
+        android_appicon(
+            appicon_image_file: ENV["ICON_PATH"],
+            appicon_icon_types: [:notification],
+            appicon_path: './android/app/src/main/res/drawable',
+            appicon_filename: 'ic_stat_onesignal_default',
+            generate_rounded: true
+          )
+
+        desc "Set the App splash icon"
+        android_appicon(
+            appicon_image_file: ENV["SPLASH_PATH"],
+            appicon_icon_types: [:splash_port, :splash_land],
+            appicon_path: './android/app/src/main/res/drawable',
+            appicon_filename: 'splash',
+            generate_rounded: true
+        )
+
+    end
+end
+
+# Useful commands:
+# - sudo xcode-select -s /Applications/Xcode.app

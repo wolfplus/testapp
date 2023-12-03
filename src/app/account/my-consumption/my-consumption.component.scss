@@ -1,0 +1,110 @@
+.text {
+  font-size: var(--app-font-size);
+  font-weight: 500;
+}
+.text-content {
+  text-align: justify;
+  padding: .5rem;
+}
+.block-credit {
+  width: 100%;
+  margin-top: 1rem;
+  .club_name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    background: rgba(3, 23, 75, 0.05);
+    padding: .5rem;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+  }
+  .credit-name {
+    font-size: var(--app-font-size);
+    font-weight: 600;
+    color: #3E3F68;
+  }
+  .credit-expire {
+    font-size: var(--app-font-size);
+    font-weight: 400;
+    color: #3E3F68;
+  }
+  .credit-balance {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .text-content{
+      text-align: center;
+      font-size: 2rem !important;
+    }
+}
+
+:host ::ng-deep app-default-header .page-title{
+  margin-left: 35px !important;
+}
+
+.text-content {
+  text-align: center;
+  padding-top: 25px;
+	font-size: 1.2em;
+}
+
+.wrapped {
+  background-color: #f5f5f8 ;
+  padding: 20px;
+  min-height: 100%;
+}
+
+span {
+  white-space: nowrap;
+  font-family: 'Panton-regular';
+  font-weight: bold;
+  font-size: var(--app-font-size);
+}
+
+.title-consum {
+  margin-top: 0px;
+	font-family: 'Panton-black';
+  font-size: var(--app-font-big-size);
+}
+
+.canceled-cons {
+  color: #FC322D;
+}
+
+.seperated {
+  border-bottom: 1px solid #80808033;
+	margin-bottom: 10px;
+}
+
+.one-col {
+  font-size: 1.25em;
+  
+}
+
+.col-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: end;
+}
+
+.dated {
+  opacity: 0.6;
+}
+
+.ticket {
+  background: white;
+	padding: 15px;
+	margin-top: 20px;
+  border-radius: 18px;
+	padding-bottom: 10px;
+}
+
+.no-consumption {
+  text-align: center;
+  font-size: var(--app-font-size);
+}

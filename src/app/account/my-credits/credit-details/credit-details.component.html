@@ -1,0 +1,99 @@
+
+<app-default-header
+        [title]="'my_credits'"
+        [subtitle]=""
+        (back)="close()">
+</app-default-header>
+
+<ion-content>
+    <div class="credit-details-wrapper" *ngIf="!showSkeleton && !showHistory">
+        <div class="club-name">
+            <p>{{creditSelected.client.club.name}}</p>
+        </div>
+        <div class="credit-name">
+            {{creditSelected.name}}
+        </div>
+        <div class="credit-details">
+            <div class="credit-balance">
+                <p>{{'leaving-credit' | translate}}</p>
+                <label>{{creditSelected.balance}}</label>
+            </div>
+            <div class="credit-desc">
+                {{creditSelected.description}}
+            </div>
+            <div class="expiration-date">
+                <label>{{ 'expiration-date' | translate }}</label>
+                <label *ngIf="creditSelected.expiresAt">{{creditSelected.expiresAt | date: 'dd/MM/yyyy'}}</label>
+                <label *ngIf="!creditSelected.expiresAt"> {{ 'shop_item_detail_pack_validity_unlimited' | translate | titlecase }}</label>
+            </div>
+        </div>
+        <div class="credit-details-full">
+            <label class="detail-title">
+                {{ 'last-transactions' | translate }}
+            </label>
+            <ion-item *ngFor="let lastTrans of historicCreditShort; let isLast = last" class="detail" lines="{{isLast ? 'none' : 'full'}}">
+                <div *ngIf="lastTrans" class="detail-block-1">
+                    <label class="detail-label">
+                        {{lastTrans.label}}
+                    </label>
+                    <label class="detail-date">
+                        {{lastTrans.createdAt | date:'dd/MM/yyyy' }}
+                    </label>
+                </div>
+                <div *ngIf="lastTrans" class="detail-block-2">
+                    <label class="detail-amount debit" *ngIf="lastTrans.debit">
+                        - {{ lastTrans.debit }}
+                    </label>
+                    <label class="detail-amount credit" *ngIf="lastTrans.credit">
+                        + {{ lastTrans.credit }}
+                    </label>
+                </div>
+            </ion-item>
+        </div>
+        <div class="gray-border">
+
+        </div>
+        <div class="history-button" (click)="showHistoricCredit()">
+            <label class="history-label">
+                {{ 'history' | translate }}
+            </label>
+            <img src="assets/images/icons/chevron-forward-outline.svg" class="icon-back">
+        </div>
+    </div>
+    <div *ngIf="!showSkeleton && showHistory">
+        <div class="historic-title">
+            {{ 'history' | translate }}
+        </div>
+        <div class="credit-details-full">
+            <ion-item *ngFor="let wDet of historicCreditAll; let isLast = last" class="detail" lines="{{isLast ? 'none' : 'full'}}">
+                <div class="detail-block-1">
+                    <label class="detail-label">
+                        {{ wDet.label}}
+                    </label>
+                    <label class="detail-date">
+                        {{ wDet.createdAt | date:'dd/MM/yyyy' }}
+                    </label>
+                </div>
+                <div class="detail-block-2">
+                    <label class="detail-amount debit" *ngIf="wDet.debit">
+                        - {{ wDet.debit }}
+                    </label>
+                    <label class="detail-amount credit" *ngIf="wDet.credit">
+                        + {{ wDet.credit }}
+                    </label>
+                </div>
+            </ion-item>
+        </div>
+        <ion-infinite-scroll
+                *ngIf="nextPage"
+                threshold="50px"
+                (ionInfinite)="loadMoreData()">
+            <!-- TODO: translate loading text -->
+            <ion-infinite-scroll-content
+                    loadingSpinner="bubbles"
+                    loadingText="{{'loading_more_details' | translate }}">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </div>
+</ion-content>
+

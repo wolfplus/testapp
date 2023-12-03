@@ -1,0 +1,91 @@
+<div *ngIf="clubSelected?.id && hasLoaded" class="wrapper-action" style="margin-top: 15px;">
+    <div class="wrap-contain">
+        <div class="avatar-position">
+            <ion-avatar class="avatar-detail" slot="start">
+                <img style="object-fit: contain;" src="{{ baseUrl + clubSelected?.logo?.contentUrl }}">
+            </ion-avatar>
+        </div>
+        <div [ngClass]="{'club-select-position':env.marqueBlanche.countclub > 1, 'club-select-position1':env.marqueBlanche.countclub <= 1}">
+            <p (click)="showClubsModal()">
+                <span class="club-name">{{ clubSelected?.name }} </span> <!--<small *ngIf="clubSelected?.name.length < 16">({{clubSelected?.city}})</small> -->
+                <span *ngIf="env.marqueBlanche.countclub > 1" class="club-chevron"><ion-icon name="chevron-down"></ion-icon></span>
+            </p>
+        </div>
+        <div class="infos">
+            <app-svg-container
+                    style="width: 20px"
+                    [svg]="infoSvg"
+                    [iconColor]="'var(--ion-color-primary)'"
+                    (click)="showClub()"
+            >
+            </app-svg-container>
+<!--            -->
+        </div>
+    </div>
+
+    <div class="row-actions" *ngIf="itemsCategories.length > 1">
+        <div class="item-action" *ngFor="let item of itemsCategories" (click)="bookIn(item)">
+            <div class="item-icon">
+                <img src="{{ urlPath + item?.photo?.contentUrl}}">
+            </div>
+            <div class="item-title">{{item.name}}</div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="itemsCategories.length < 2">
+        <div class="row-actions">
+
+            <ng-container *ngIf="itemsCategories.length == 1">
+                <div
+                        class="nav-block"
+                        data-test="bookIn"
+                        *ngFor="let item of itemsCategories"
+                        (click)="bookIn(item)">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22.104" height="22.104" viewBox="0 0 22.104 22.104"><defs><style>.a{fill:#092772;}</style></defs><path class="a" d="M9.96,19.011a.925.925,0,0,0,.672.374l.071,0a.918.918,0,0,0,.651-.27l5.3-5.3a.921.921,0,1,0-1.3-1.3l-4.537,4.537-1.9-2.588a.921.921,0,0,0-1.486,1.09Z" transform="translate(-0.573 -0.968)"/><path class="a" d="M19.341,2.763H18.42V.921A.921.921,0,0,0,17.5,0h-.921a.921.921,0,0,0-.921.921V2.763H6.447V.921A.921.921,0,0,0,5.526,0H4.605a.921.921,0,0,0-.921.921V2.763H2.763A2.766,2.766,0,0,0,0,5.526V19.341A2.766,2.766,0,0,0,2.763,22.1H19.341A2.766,2.766,0,0,0,22.1,19.341V5.526A2.766,2.766,0,0,0,19.341,2.763Zm.921,16.578a.923.923,0,0,1-.921.921H2.763a.923.923,0,0,1-.921-.921V9.247h18.42Z"/></svg>
+                    </div>
+                    <div class="label-action">{{'actions.labels.book' | translate}} </div>
+                </div>
+            </ng-container>
+
+            <ng-container *ngIf="itemsCategories.length == 0">
+                <div
+                        class="nav-block"
+                        data-test="bookIn"
+                        (click)="bookIn('sport')">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22.104" height="22.104" viewBox="0 0 22.104 22.104"><defs><style>.a{fill:#092772;}</style></defs><path class="a" d="M9.96,19.011a.925.925,0,0,0,.672.374l.071,0a.918.918,0,0,0,.651-.27l5.3-5.3a.921.921,0,1,0-1.3-1.3l-4.537,4.537-1.9-2.588a.921.921,0,0,0-1.486,1.09Z" transform="translate(-0.573 -0.968)"/><path class="a" d="M19.341,2.763H18.42V.921A.921.921,0,0,0,17.5,0h-.921a.921.921,0,0,0-.921.921V2.763H6.447V.921A.921.921,0,0,0,5.526,0H4.605a.921.921,0,0,0-.921.921V2.763H2.763A2.766,2.766,0,0,0,0,5.526V19.341A2.766,2.766,0,0,0,2.763,22.1H19.341A2.766,2.766,0,0,0,22.1,19.341V5.526A2.766,2.766,0,0,0,19.341,2.763Zm.921,16.578a.923.923,0,0,1-.921.921H2.763a.923.923,0,0,1-.921-.921V9.247h18.42Z"/></svg>
+                    </div>
+                    <div class="label-action">{{'actions.labels.book' | translate}} </div>
+                </div>
+            </ng-container>
+
+            <div *ngIf="environmentService.getEnvFile().marqueBlanche.useMatch"
+                 class="nav-block"
+                 (click)="showMatchs()">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20.601" height="20.144" viewBox="0 0 20.601 20.144"><defs><style>.a{fill:#db4753;}</style></defs><g transform="translate(0 -16.006)"><g transform="translate(0 16.006)"><path class="a" d="M20.277,18.78,15.77,16.095a.624.624,0,0,0-.319-.089H5.151a.627.627,0,0,0-.319.089L.325,18.78a.684.684,0,0,0-.3.767l1.288,4.7a.643.643,0,0,0,.775.467l1.776-.462V35.478a.658.658,0,0,0,.644.671H16.095a.658.658,0,0,0,.644-.671V24.253l1.776.462a.643.643,0,0,0,.775-.467l1.288-4.7A.684.684,0,0,0,20.277,18.78ZM7.726,17.349h5.15A2.631,2.631,0,0,1,10.3,20.035,2.631,2.631,0,0,1,7.726,17.349Zm7.725,7.386a1.933,1.933,0,1,1-3.863,0V22.721h3.863Z" transform="translate(0 -16.006)"/></g></g></svg>
+                </div>
+                <div class="label-action"> {{'matchs' | translate}} </div>
+            </div>
+            <div class="nav-block"
+                 data-test="goToShop"
+                 (click)="goToShop()">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="23.595" height="20.974" viewBox="0 0 23.595 20.974"><defs><style>.a{fill:#092772;}</style></defs><path class="a" d="M21.634,12.343l1.936-8.521a.983.983,0,0,0-.959-1.2H6.522L6.146.786A.983.983,0,0,0,5.183,0H.983A.983.983,0,0,0,0,.983v.655a.983.983,0,0,0,.983.983H3.846L6.723,16.69a2.294,2.294,0,1,0,2.746.351h8.588a2.293,2.293,0,1,0,2.605-.426l.226-.994a.983.983,0,0,0-.959-1.2h-11l-.268-1.311H20.675A.983.983,0,0,0,21.634,12.343Z"/></svg>
+                </div>
+                <div class="label-action">{{'actions.labels.shop' | translate}}</div>
+            </div>
+            <div *ngIf="userId != null"
+                 class="nav-block"
+                 (click)="showFriends()">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23.265" height="22.143" viewBox="0 0 23.265 22.143"><defs><style>.a{fill:#092772;}.b{clip-path:url(#a);}</style><clipPath id="a"><rect class="a" width="23.265" height="22.143"/></clipPath></defs><g class="b"><path class="a" d="M54.162,24.8c2.332,0,5.61,3.011,5.61,7.883a1.933,1.933,0,0,1-.03.414,6.208,6.208,0,0,0-5.4-4.134,5.357,5.357,0,0,0-.679-1.211,8.593,8.593,0,0,0-1.86-2.1,4.221,4.221,0,0,1,2.362-.856" transform="translate(-36.506 -17.478)"/><path class="a" d="M54.767,0a2.993,2.993,0,0,1,2.982,2.982,2.876,2.876,0,0,1-.532,1.712,2.956,2.956,0,0,1-.266.3,2.943,2.943,0,0,1-2.126.915,2.738,2.738,0,0,1-1.742-.561,5.135,5.135,0,0,0,.384-1.89A4.751,4.751,0,0,0,52.7.915,2.716,2.716,0,0,1,54.767,0" transform="translate(-37.141)"/><path class="a" d="M48.035,43.9a6.107,6.107,0,0,1,1.092.148,4.534,4.534,0,0,1,3.425,4.045,1.969,1.969,0,0,1,.029.413,3.92,3.92,0,0,1-.148,1.181,4.587,4.587,0,0,1-7.056,2.569,4.753,4.753,0,0,1-1.3-1.358A4.563,4.563,0,0,1,47.3,43.989a.65.65,0,0,1,.236-.03,1.64,1.64,0,0,1,.5-.059m2.716,3.72a.684.684,0,0,0,.118-.738.714.714,0,0,0-1.151-.207c-.768.856-1.535,1.742-2.332,2.6-.266-.266-.561-.531-.827-.8a.733.733,0,0,0-1.152.236.634.634,0,0,0,.177.738l1.329,1.27a.712.712,0,0,0,.5.207.74.74,0,0,0,.532-.236l.768-.886c.709-.709,1.388-1.447,2.037-2.185" transform="translate(-30.586 -30.939)"/><path class="a" d="M26.628,28.933a7.12,7.12,0,0,1,2.126,2.332c-.148.03-.354.089-.5.118a6.1,6.1,0,0,0-4.37,5.846,5.846,5.846,0,0,0,.531,2.48,12.182,12.182,0,0,1-4.872-.738,3.208,3.208,0,0,1-1.033-.62,2,2,0,0,1-.531-.768,2.2,2.2,0,0,1-.177-.915,9.426,9.426,0,0,1,3.72-7.883,4.7,4.7,0,0,1,1.27-.65A3.663,3.663,0,0,1,24,27.9a4.349,4.349,0,0,1,1.417.3,7.84,7.84,0,0,1,1.21.738" transform="translate(-12.545 -19.663)"/><path class="a" d="M31.048.4A3.248,3.248,0,1,1,27.8,3.648,3.238,3.238,0,0,1,31.048.4" transform="translate(-19.592 -0.282)"/><path class="a" d="M0,32.583C0,27.711,3.277,24.7,5.61,24.7a4.093,4.093,0,0,1,2.214.767,7.689,7.689,0,0,0-2.008,2.214,12.034,12.034,0,0,0-2.008,6.7,2.54,2.54,0,0,0,.089.826A5.634,5.634,0,0,1,.679,34.089,1.9,1.9,0,0,1,0,32.583" transform="translate(0 -17.407)"/><path class="a" d="M8.8,3.082A2.993,2.993,0,0,1,11.782.1a2.852,2.852,0,0,1,1.949.738A4.694,4.694,0,0,0,12.9,3.554a5.379,5.379,0,0,0,.413,2.067,2.632,2.632,0,0,1-1.535.472,2.943,2.943,0,0,1-2.126-.915,2.77,2.77,0,0,0-.266-.354A2.884,2.884,0,0,1,8.8,3.082" transform="translate(-6.202 -0.07)"/></g></svg>
+                </div>
+                <div class="label-action">{{'actions.labels.friends' | translate}}</div>
+            </div>
+        </div>
+    </ng-container>
+
+</div>
+<ion-skeleton-text *ngIf="!hasLoaded" animated="true" class="action-skeleton"></ion-skeleton-text>

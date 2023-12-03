@@ -1,0 +1,21 @@
+<ion-header class="header shadow-bottom">
+  <ion-toolbar>
+    <ion-buttons  slot="start" >
+      <ion-menu-button *ngIf="isPage"></ion-menu-button>
+      <div class="btn-back" (click)="back()" *ngIf="!isPage">
+        <img src="assets/icon/globals/arrow-back.svg" />
+      </div>
+    </ion-buttons>
+
+    <ion-title class="page-title">
+      <div class="page-title">{{ title }}</div>
+      <div class="subtitle" *ngIf="subtitle">{{ subtitle }}</div>
+    </ion-title>
+    <div class="basket" slot="end" (click)="goToCart()" *ngIf="showCart" data-test="goToCart">
+      <div class="content">
+        <ion-icon name="cart"></ion-icon>
+        <ion-badge color="danger">{{ totalItems }}</ion-badge>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>

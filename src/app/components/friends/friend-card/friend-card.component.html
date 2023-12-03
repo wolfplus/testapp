@@ -1,0 +1,17 @@
+<div class="block-friend-short">
+    <ion-grid>
+        <ion-row>
+            <ion-col size="3" class="center">
+                <img *ngIf="friend.avatar" src="{{pathUrl}}{{friend.avatar.contentUrl}}" class="avatar">
+            </ion-col>
+            <ion-col size="7" class="center">
+                <div class="name">
+                    {{friend.firstName}} {{friend.lastName}}
+                </div>
+            </ion-col>
+            <ion-col size="2" class="center">
+                <ion-checkbox #checkbox (ionChange)="changeSelected(checkbox)" color="primary" [disabled]="disabled && !checkbox.checked" [checked]="isSelected?'true':'false'"></ion-checkbox>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>

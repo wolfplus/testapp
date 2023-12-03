@@ -1,0 +1,83 @@
+<div class="flex jcsb w-100">
+  <div class="attenders-count flex jcc aic w-100">
+    <span class="attenders-gauge">
+      {{ attenders?.length }}/{{ maxAttenders }}
+    </span>
+    <span *ngIf="attenders.length <= 1"
+      class="participants-text"> {{ 'attender' | translate }}</span>
+    <span *ngIf="attenders.length > 1"
+      class="participants-text"> {{ 'attenders' | translate }}</span>
+  </div>
+  <div *ngIf="maxAttenders <= 4"
+    class="attenders-avatars flex jcsb aic">
+      <ng-container *ngFor="let attender of attenders">
+        <ion-avatar class="avatar-container flex jcc aic">
+          <img *ngIf="(attender.user === undefined || attender.user === null) && attender.addedBy !== undefined && attender.addedBy !== null"
+            src="{{ 'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + attender.addedBy.firstName + attender.addedBy.lastName }}"
+            alt="">
+          <img *ngIf="attender.user && (attender.user?.avatar === null || !attender.user?.avatar.contentUrl)"
+          src="{{ 'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + attender.user.firstName + attender.user.lastName }}"
+          alt="">
+          <img *ngIf="attender.user && attender.user?.avatar && attender.user?.avatar.contentUrl"
+             src="{{ baseUrl + attender.user.avatar.contentUrl}}" alt=""
+             style="
+          width: 100%;
+          height: 100%;
+          object-fit: contain;">
+          <img *ngIf="attender.client && attender.client?.avatar && attender.client?.avatar.contentUrl"
+             src="{{ baseUrl + attender.client.avatar.contentUrl}}" alt=""
+             style="
+          width: 100%;
+          height: 100%;
+          object-fit: contain;">
+        </ion-avatar>
+        <!-- <app-event-attender-avatar style="width: 20%;"
+          [attender]="attender">
+        </app-event-attender-avatar> -->
+      </ng-container>
+      <!-- <ng-container *ngFor="let neededPlayer of [].constructor((maxAttenders - attenders.length))"> -->
+        <ng-container *ngFor="let neededPlayer of ((maxAttenders - attenders.length) | to_array)">
+
+        <ion-avatar class="avatar-container flex jscc aic">
+          <img src="assets/images/icons/add-outline.svg" alt=""
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: contain;">
+        </ion-avatar>
+      </ng-container>
+  </div>
+
+  <div *ngIf="maxAttenders > 4"
+    class="attenders-avatars flex jcsb aic">
+      <ng-container *ngFor="let attender of attenders; let i = index;">
+        <ion-avatar *ngIf="i < 5"
+          class="avatar-container flex jcc aic">
+          <img *ngIf="attender.user === undefined || attender.user === null && attender.addedBy !== null"
+            src="{{ 'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + attender.addedBy.firstName + attender.addedBy.lastName }}"
+            alt="">
+          <img *ngIf="attender.user && (attender.user?.avatar === null || !attender.user?.avatar.contentUrl)"
+            src="{{ 'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + attender.user.firstName + attender.user.lastName }}"
+            alt="">
+          <img *ngIf="attender.user && attender.user?.avatar && attender.user?.avatar.contentUrl"
+            src="{{ baseUrl + attender.user.avatar.contentUrl}}" alt=""
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: contain;">
+        </ion-avatar>
+      </ng-container>
+      <ng-container *ngIf="attenders.length < 4">
+        <ng-container *ngFor="let neededPlayer of ((maxAttenders - attenders.length) | to_array); let i = index">
+          <ion-avatar *ngIf="(attenders.length + i) < 5"
+            class="avatar-container flex jscc aic">
+            <img src="assets/images/icons/add-outline.svg" alt=""
+              style="
+                width: 100%;
+                height: 100%;
+                object-fit: contain;">
+          </ion-avatar>
+        </ng-container>
+      </ng-container>
+  </div>
+</div>

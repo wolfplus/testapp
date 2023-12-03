@@ -1,0 +1,103 @@
+<div class="playground-slot">
+  <div class="flex">
+    <div class="section-title">{{ playground.name }}</div>
+  </div>
+  <div class="info-playground section-subtitle">
+    <ng-container>
+      {{ activity.name }}
+    </ng-container>
+    <ng-container *ngIf="playground.indoor">
+      - {{ "label.surface.indoor" | translate }}&nbsp;
+    </ng-container>
+    <ng-container *ngIf="!playground.indoor">
+      - {{ "label.surface.outdoor" | translate }}&nbsp;
+    </ng-container>
+    <ng-container *ngIf="playground.surface">
+      - {{ playground.surface.name }}&nbsp;
+    </ng-container>
+  </div>
+
+  <div
+    *ngIf="!isSomeSlotsAreAvailables(activity.slots); else slotsAvaible"
+    class="empty_playground"
+  >
+    <p>{{ "empty_slot_playground" | translate }}</p>
+  </div>
+
+  <ng-template #slotsAvaible>
+    <ng-container
+      *ngFor="let slot of filteredSlots; index as index; last as isLast"
+    >
+      <div
+        *ngIf="showSlot(slot, index)"
+        [ngClass]="{ last: showFirstOrNext.index === index }"
+        class="slot-container"
+      >
+        <div class="start-time">
+          <span class="label">{{ "event_start" | translate }}</span>
+          <span class="time">{{ slot.startAt }}</span>
+        </div>
+
+        <ion-list
+          class="slot-price-list"
+          *ngIf="slot.isOpen; else elseBlock"
+          [@inOutAnimation]
+        >
+          <div
+            *ngFor="
+              let price of filterSameDuration(slot.prices);
+              index as index;
+              last as isLastPrice
+            "
+          >
+            <ion-item
+              data-test="openBooking"
+              [ngClass]="{
+                lastPrice: isLastPrice || !isMoreThanOnePrice(slot)
+              }"
+              *ngIf="price.bookable"
+              (click)="
+                openBooking(
+                  slot,
+                  playground,
+                  price.duration,
+                  activity,
+                  price
+                )
+              "
+              class="ion-activatable ripple-parent"
+            >
+              <ion-ripple-effect></ion-ripple-effect>
+              <ion-label
+                >{{ price.duration / 60 }}
+                {{ "minutes_short" | translate }}</ion-label
+              >
+              <div class="slot-price">
+                <span class="label">{{ "from" | translate }}</span>
+                <span class="price">{{
+                  (price.pricePerParticipant * price.participantCount) 
+                    | price_format: clubCurrency
+                }}</span>
+              </div>
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-item>
+          </div>
+        </ion-list>
+        <ng-template #elseBlock>
+          <div
+            [id]="'line_' + index"
+            class="slot-price closed"
+            (click)="openSlotData(index)"
+          >
+            <div>
+              <span class="label">{{ "from" | translate }}</span>
+              <span class="price">{{
+                getMinPrice(slot.prices) | price_format: clubCurrency
+              }}</span>
+            </div>
+            <ion-icon name="chevron-down-outline"></ion-icon></div
+        ></ng-template>
+      </div>
+    </ng-container>
+  </ng-template>
+</div>

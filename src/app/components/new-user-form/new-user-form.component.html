@@ -1,0 +1,139 @@
+<ion-content>
+    <div class="container-form">
+        <form [formGroup]="form" novalidate>
+            <div class="flex aic jcc w-100 do-p-2">
+    
+                <ion-avatar class="pos-rel"
+                    (click)="addAvatar()">
+                    <img *ngIf="imageAvatar"
+                        [attr.src]="imageAvatar"
+                        alt="">
+                    <div class="edit-pic-btn pos-abs-btm-right">
+                        <ion-icon src="assets/images/icons/pencil.svg"></ion-icon>
+                    </div>
+                </ion-avatar>
+            </div>
+
+            <span class="subtitle do-py-1 do-px-4">{{ 'user_form_subtitle' | translate }}</span>
+    
+            <div class="form-group">
+                <ion-input class="form-input"
+                    formControlName="firstName"
+                    #firstName
+                    autocomplete="name"
+                    [type]="'text'"
+                    [ngClass]="{'form-input-error': !form.controls.firstName?.valid && (form.controls.firstName?.dirty || submitAttempt)}"
+                    placeholder="{{ 'firstName' | translate }}">
+                    <ion-icon src="assets/images/icons/user.svg"
+                        slot="start">
+                    </ion-icon>
+                </ion-input>
+    
+                <div *ngIf="!form.controls.firstName?.valid && (form.controls.firstName?.dirty || submitAttempt)">
+                    <ng-container *ngFor="let validation of validationMessages.firstName">
+                        <div *ngIf="form.get('firstName').hasError(validation.type)"
+                            class="error-message">
+                            {{ validation.message }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <ion-input class="form-input"
+                    #lastName
+                    formControlName="lastName"
+                    [type]="'text'"
+                    [ngClass]="{'form-input-error': !form.controls.lastName?.valid && (form.controls.lastName?.dirty || form.controls.lastName?.touched || submitAttempt)}"
+                    autocomplete="family-name"
+                    placeholder="{{ 'lastName' | translate }}">
+                    <ion-icon src="assets/images/icons/user.svg"
+                        slot="start">
+                    </ion-icon>
+                </ion-input>
+    
+                <div *ngIf="!form.controls.lastName?.valid && (form.controls.lastName?.dirty || form.controls.lastName?.touched || submitAttempt)">
+                    <ng-container *ngFor="let validation of validationMessages.lastName">
+                        <div *ngIf="form.get('lastName').hasError(validation.type)"
+                            class="error-message">
+                            {{ validation.message }}
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <ion-input class="form-input"
+                    #email
+                    formControlName="email"
+                    [type]="'email'"
+                    autocomplete="email"
+                    placeholder="{{ 'email' | translate }}">
+                    <ion-icon src="assets/images/icons/email.svg"
+                        slot="start">
+                    </ion-icon>
+                </ion-input>
+
+                <div *ngIf="!form.controls.email?.valid && (form.controls.email?.dirty || form.controls.email?.touched || submitAttempt)">
+                    <ng-container *ngFor="let validation of validationMessages.email">
+                        <div *ngIf="form.get('email').hasError(validation.type)"
+                            class="error-message">
+                            {{ validation.message }}
+                        </div>
+                    </ng-container>
+                </div>
+    
+                <div *ngIf="form.get('email').hasError('serverSide') && (form.get('email').dirty || submitAttempt)"
+                    class="error-message">
+                    {{ form.get('email').getError('serverSide') }}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input #phoneInput [ngClass]="{'form-input-error': phoneNumberError}" type="tel" id="phoneUp" />
+            </div>
+
+            <div class="form-group">
+                <ion-label class="form-label">
+                    {{ 'password' | translate }}
+                </ion-label>
+                <ion-input class="form-input"
+                    #password
+                    formControlName="password"
+                    [type]="showPassword ? 'text' : 'password'"
+                    [ngClass]="{'form-input-error': !form.controls.password?.valid && (form.controls.password?.dirty || form.controls.password?.touched || submitAttempt)}">
+                    <ion-icon src="assets/images/icons/lock.svg"
+                        slot="start">
+                    </ion-icon>
+                </ion-input>
+
+                {{ 'notice_password' | translate }}
+    
+                <div *ngIf="!form.controls.password?.valid && (form.controls.password?.dirty || form.controls.password?.touched || submitAttempt)">
+                    <ng-container *ngFor="let validation of validationMessages.password">
+                        <div *ngIf="form.get('password').hasError(validation.type)"
+                            class="error-message">
+                            {{ validation.message }}
+                        </div>
+                    </ng-container>
+                </div>
+                <img class="icon-show" (click)="showPassword = !showPassword" src="./assets/icon/globals/eye.svg" />
+            </div>
+    
+    
+        </form>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-button (click)="onSubmit()"
+        strong="true"
+        mode="ios"
+        expand="block"
+        class="btn-next">
+        <div class="do-p-2">
+            {{ 'validate' | translate }}
+        </div>
+    </ion-button>
+</ion-footer>
+
+<!-- (click)="confirm(firstName, lastName, birthday, email, password)" -->

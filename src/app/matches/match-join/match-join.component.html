@@ -1,0 +1,123 @@
+<div class="pos-rel h-100">
+  <div [@fadeInFadeOut]
+    class="backdrop h-100"
+    (click)="onBackBtnClicked()">
+  </div>
+  <div [@slideInSlideOut]
+    class="tickets-selector pos-abs-btm">
+    <ion-grid>
+      <ion-row>
+        <ion-col (click)="onBackBtnClicked()" size="1" class="flex jcc aic">
+         <ion-icon name="chevron-back-outline"></ion-icon>
+        </ion-col>
+        <ion-col size="10">
+          <div class="title flex jcc aic">
+            {{ 'participate' | translate }}
+          </div>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+         <div class="how-many flex jcc aic">
+           {{ 'how_many_tickets_to_book' | translate }}
+         </div>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <!-- COUNTER -->
+      <ion-row>
+        <ion-col size="3"></ion-col>
+        <ion-col size="1">
+         <div *ngIf="nbOfTickets > 1"
+           class="counter-btn flex jcc aic w-100 h-100"
+           (click)="decrement()">
+           <ion-icon name="remove-circle-outline" color="primary"></ion-icon>
+         </div>
+        </ion-col>
+        <ion-col size="4" class="flex jcc aic">
+         <input [(ngModel)]="nbOfTickets"
+          disabled
+          class="number-input flex jcc aic"
+          type="number"/>
+        </ion-col>
+        <ion-col size="1">
+         <div *ngIf="availableTickets > 0"
+          class="counter-btn flex jcc aic w-100 h-100"
+          (click)="increment()">
+           <ion-icon name="add-circle-outline" color="primary"></ion-icon>
+         </div>
+        </ion-col>
+        <ion-col size="3"></ion-col>
+      </ion-row>
+      <!-- PLACES LEFT -->
+      <ion-row>
+       <ion-col size="2"></ion-col>
+        <ion-col size="8" class="tickets-left flex jcc aic">
+          {{ 'nb_of_available_tickets' | translate }}: {{ availableTickets }}
+        </ion-col>
+        <ion-col size="2"></ion-col>
+      </ion-row>
+      <!-- CONFIRM / MODIFY BUTTONS -->
+      <ion-row>
+        <ion-col size="1"></ion-col>
+        <ion-col size="10">
+          <!-- CONFIRM -->
+          <ion-button *ngIf="!userIsAlreadyAParticipant"
+            class="btn-next"
+            expand="block"
+            [disabled]="nbOfTickets === 0"
+            (click)="onValidationBtnClicked()"
+            mode="ios">
+            <div class="do-p-2">
+              {{ 'confirm' | translate }}
+            </div>
+          </ion-button>
+          <!-- MODIFY -->
+          <!-- disabled="{{ nbOfTickets === 1 }}" -->
+          <!-- [style.opacity]="nbOfTickets === 1 ? 0.4 : 1" -->
+          <ion-button *ngIf="userIsAlreadyAParticipant"
+            class="btn-next"
+            (click)="onValidationBtnClicked()"
+            expand="block"
+            mode="ios">
+            <div class="do-p-2">
+              {{ 'modify' | translate }}
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col size="1"></ion-col>
+      </ion-row>
+      <!-- CANCEL PARTICIPATION BUTTON -->
+      <ion-row *ngIf="userIsAlreadyAParticipant && nbOfTickets === 1">
+       <ion-col size="1"></ion-col>
+       <ion-col size="10">
+         <!-- USER IS NOT ORGANIZER -->
+         <ion-button *ngIf="!userIsOrganizer"
+            class="btn-next w-100"
+            (click)="onCancelParticipationClicked()"
+            mode="ios"
+            fill="outline"
+            color="danger">
+            <div class="do-p-2">
+              {{ 'cancel_participation' | translate }}
+            </div>
+         </ion-button>
+          <!-- USER IS ORGANIZER -->
+         <ion-button *ngIf="userIsOrganizer"
+            class="btn-next w-100"
+            (click)="onCancelParticipationClicked()"
+            mode="ios"
+            fill="outline"
+            color="danger">
+            <div class="do-p-2">
+              {{ 'cancel_match' | translate }}
+            </div>
+         </ion-button>
+       </ion-col>
+       <ion-col size="1"></ion-col>
+     </ion-row>
+    </ion-grid>
+  </div>
+</div>

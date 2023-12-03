@@ -1,0 +1,24 @@
+<div class="flex do-p-1-2">
+  <div class="section-title">
+      {{ 'complex_links' | translate }}
+  </div>
+  <div class="title-stroke"></div>
+</div>
+<div
+  class="links do-px-2"
+  [ngClass]="{'centered': links?.length < 3}">
+  <div *ngIf="clubWebSiteUrl"
+      href="#"
+      class="link"
+      target="_blank"
+      (click)="openLink(clubWebSiteUrl)">
+      <ion-icon name="globe"></ion-icon>
+  </div>
+  <div *ngFor="let link of socialNetworksLinks"
+        href="#"
+        class="link"
+        target="_blank"
+        (click)="openLink(link.url)">
+        <ion-icon name="{{ 'logo-' + link.name }}"></ion-icon>
+    </div>
+</div>

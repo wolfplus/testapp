@@ -1,0 +1,66 @@
+<app-modal-header
+  [title]="'booking_playground' | translate"
+  [subtitle]="playground.name"
+  [isPage]="false"
+  (backButtonAction)="closeModal({ success: false, booking: {} })">
+</app-modal-header>
+
+<ion-content class="content">
+  <div class="page-title">{{ 'attenders' | translate }}</div>
+  <app-select-count-player
+    class="shadow-bottom-ligth"
+    (countChanged)="updateCountPlayer($event)"
+    [proposals]="choicesCountPlayerWithPrice"
+    [selected]="countPlayer"
+    [price]="defaultPrice"
+    [currency]="club.currency"
+  >
+  </app-select-count-player>
+  <div *ngIf="showOptions" class="page-title">Options</div>
+  <app-select-playground-options
+    *ngIf="showOptions"
+    class="shadow-bottom-ligth"
+    (optionChanged)="optionChanged($event)"
+    (countOptionChanged)="countOptionChanged($event)"
+    [options]="options"
+    [currency]="club.currency"
+  >
+  </app-select-playground-options>
+  <div
+    *ngIf="countPlayer !== 1"
+            class="subtitle">{{ 'booking_attenders_subtitle' | translate }}</div>
+  <div
+    *ngIf="countPlayer === 1"
+          class="subtitle"><br></div>
+  <app-booking-attenders
+    (changeAttenders)="changeAttenders($event)"
+    (showFriendOrUserModal)="openModalAddFriendOrUser()"
+    (resetAddBool) = "resetAddBool()"
+    [currency]="club.currency"
+    [attenders]="attenders"
+    [maxAttenders]="countPlayer"
+    [pricePerParticipant]="defaultPrice"
+    [allDataLoaded]="allDataLoaded"
+    [boolAddPart]="boolAddPart"
+    [typeOfUserToAdd] = "typeOfUserToAdd"
+  >
+  </app-booking-attenders>
+</ion-content>
+<ion-footer>
+  <ion-button
+  data-test="go-to-confirm-booking"
+    mode="ios"
+    expand="block"
+    [disabled]="!allDataLoaded"
+    class="btn-next"
+    (click)="goToConfirmBooking()"
+  >
+    <div class="do-p-2">{{ 'next' | translate }}</div>
+  </ion-button>
+</ion-footer>
+
+<app-booking-add-user-choice-modal
+  *ngIf="showModalAddFriendOrUser"
+  (closeModal)="closeModalAddFriendOrUser()"
+  (addParticipant)="addParticipant($event)">
+</app-booking-add-user-choice-modal>

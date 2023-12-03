@@ -1,0 +1,177 @@
+<ion-header translucent="true">
+  <ion-toolbar color="'var(--app-dark-or-not-color)'" mode="ios">
+    <ion-buttons slot="start">
+      <ion-button
+        (click)="dismiss()"
+        mode="ios">
+        <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title class="page-title ion-text-center">{{'paiement_methods' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" *ngIf="!isReady">
+  <ion-skeleton-text animated style="height: 60px; width: 90%; margin: auto; margin-top: 15px;"></ion-skeleton-text>
+</ion-content>
+
+<ion-content fullscreen="true" *ngIf="isReady">
+
+  <div class="sharing-options pos-abs-btm">
+    <label class="label-title">
+        {{('payment' | translate)}}
+    </label>
+    <div class="method-selection" (click)="openSelect()">
+        <div class="method-selector" *ngIf="selectedMethod">
+            <p class="label-method">{{ "methods_payment." + selectedMethod | translate}}</p>
+            <p class="price" *ngIf="restToPay">{{restToPay | price_format: club.currency }}</p>
+            <p class="price-skeleton" *ngIf="restToPay === undefined"><ion-skeleton-text></ion-skeleton-text></p>
+            <p>
+                <ion-icon name="chevron-down"></ion-icon>
+            </p>
+            <ion-select
+                        #select1
+                        cancelText="{{'cancel' | translate}}"
+                        interface="action-sheet"
+                        [(ngModel)]="selectedMethod"
+                        (ionChange)="changeSelectedMethod()"
+            >
+                <ion-select-option *ngFor="let m of methods" value="{{m}}">{{  "methods_payment." + m | translate }}</ion-select-option>
+            </ion-select>
+        </div>
+        <div class="description">
+            <label *ngIf="selectedMethod  === 'complete'">
+                {{'complete-payment-desc' | translate }}
+            </label>
+            <label *ngIf="selectedMethod  === 'per_participant'">
+                {{'per-part-payment-desc' | translate }}
+            </label>
+            <label *ngIf="selectedMethod  === 'instalment'">
+                {{'instalment-payment-desc' | translate }}
+            </label>
+            <label *ngIf="selectedMethod  === 'on_the_spot'">
+                {{'on-the-spot-payment-desc' | translate }}
+            </label>
+            <label *ngIf="selectedMethod  === 'deposit'">
+                {{'deposit-payment-desc' | translate }}
+            </label>
+            <label *ngIf="selectedMethod  === 'per_participant_by_deposit'">
+                {{'per-participant-by-deposit-payment-desc' | translate }}
+            </label>  
+        </div>
+    </div>
+    <label *ngIf="this.selectedMethod !== 'on_the_spot'" class="label-title mt-3">
+        {{'how-to-pay' | translate }}
+    </label>
+    <div class="payment-type">
+<!--                <div-->
+<!--                        *ngIf="platform.is('mobileweb') || platform.is('desktop')"-->
+<!--                        [ngClass]="{'card-payment': true, 'disabled': selectedCredit, 'selected': hasValidCard }">-->
+<!--                    <app-stripe-payment [deleteCard]="resetCard" (paymentData) = "paymentData($event)"></app-stripe-payment>-->
+<!--                </div>-->
+        <div *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'instalment' || selectedMethod === 'deposit' || selectedMethod === 'per_participant_by_deposit'" [ngClass]="{'card-payment': true, 'disabled': selectedCredit, 'selected': defaultCard || useWallet }">
+            <div class="d-flex flex-column align-items-center justify-content-between">
+                <ion-icon *ngIf="!defaultCard" class="credit-card" name="card" (click)="showCreditCardModal()"></ion-icon>
+                <div *ngIf="defaultCard" class="card-img">
+                    <img *ngIf="defaultCard.brand === 'Visa'" src="assets/icon/credit_card/visa.png"/>
+                    <img *ngIf="defaultCard.brand === 'Mastercard'" src="assets/icon/credit_card/mastercard.png"/>
+                    <img *ngIf="defaultCard.brand === 'American Express'" src="assets/icon/credit_card/american.png"/>
+                </div>
+                <ion-toggle
+                        #toggle
+                        *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'instalment' || selectedMethod === 'per_participant_by_deposit'"
+                        [disabled]="(wallet.balance + (wallet.overdraftAuthorized !== undefined ? wallet.overdraftAuthorized : 0) <= 0)"
+                        [checked]="useWallet"
+                        (ionChange)="toggleUseWallet(toggle)" color="primary" class="p-2 mt-3"></ion-toggle>
+            </div>
+            <div class="d-flex flex-column">
+                <label (click)="showCreditCardModal()" *ngIf="!defaultCard" class="title">{{'add-card' | translate}}</label>
+                <div (click)="showCreditCardModal()" *ngIf="defaultCard" class="d-flex flex-column pl-3 pb-3 pr-3 wrapper-selected-card">
+                    <label *ngIf="defaultCard.ownerName" class="label-title-card">
+                        {{defaultCard.ownerName}}
+                    </label>
+                    <div class="label-subtitle-card d-flex align-items-center justify-content-between">
+                        <div>
+                            <label class="ml-2">
+                                {{defaultCard.last4}}
+                            </label>
+                        </div>
+                        <div>
+                            <label class="ml-3">
+                                {{defaultCard.expMonth}}/{{defaultCard.expYear}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <label *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'instalment' || selectedMethod === 'per_participant_by_deposit'"
+                       [style.opacity]="wallet.balance > 0 ? 1 : 0.5"
+                       class="subtitle d-flex align-items-center flex-grow-1 mt-3">
+                            {{ 'use-wallet' | translate }} ({{ wallet.balance |  price_format: club.currency }})
+                </label>
+            </div>
+    </div>
+        <div (click)="showCreditModal()" *ngIf="selectedMethod === 'complete' || selectedMethod === 'per_participant' || selectedMethod === 'per_participant_by_deposit'" [ngClass]="{'card-payment': true, 'mar-top': true, 'selected': selectedCredit }">
+            <div class="d-flex align-items-start">
+                <ion-icon class="credit" name="server"></ion-icon>
+            </div>
+            <div class="d-flex flex-column">
+                <label class="title">{{'use-credit' | translate}}</label>
+                <label *ngIf="selectedCredit" class="subtitle">{{selectedCredit.price}} x {{selectedCredit.paymentToken.name}}</label>
+                <label *ngIf="!selectedCredit" class="subtitle">{{'select-credit' | translate}}</label>
+            </div>
+            <div class="d-flex flex-grow-1">
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- <div class="content">
+    <app-manage-method
+    [participant]="client"
+    [booking]="booking"
+    [methods]="['per_participant']"
+    [price]="price"
+    [cart]="cart"
+    [club]="club"
+    [client]="client"
+    [restToPay]="restToPay"
+    (backPayments)="getPayments($event)"
+    (changeMethod)="changeMethod($event)"
+    (changeProviderBack)="changeProvider($event)"
+    (creditCardSelected)="updateSelectedCard($event)"
+    (triggerPaymentData)="triggerPaymentData($event)"
+  >
+  </app-manage-method>
+
+  </div> -->
+</ion-content>
+
+<ion-footer *ngIf="isReady">
+  <!-- <ion-button (click)="confirmPayments()" [disabled]=" restToPay > 0 && !webStripeElementCompleted" class="btn-next" expand="block" mode="ios">
+    <div class="do-p-2" *ngIf="selectedMethod == this.PAYMENT_METHOD_ON_THE_SPOT">
+      {{ 'confirm_booking.validate' | translate }}
+    </div>
+    <div class="do-p-2"  *ngIf="selectedMethod == this.PAYMENT_METHOD_PER_PARTICIPANT && restToPay > 0">
+      {{ 'pay' | translate }} {{ restToPay | price_format : booking?.club?.currency}}
+    </div>
+    <div class="do-p-2"  *ngIf="selectedMethod == this.PAYMENT_METHOD_PER_PARTICIPANT && restToPay <= 0">
+      {{ 'pay' | translate }}
+    </div>
+  </ion-button> -->
+  <div class="button-pay">
+    <ion-button
+            data-test="go-to-confirm-booking"
+            mode="ios"
+            expand="block"
+            class="btn-next"
+            [disabled]="
+                selectedMethod !== 'on_the_spot' &&
+                ((!selectedCredit && !defaultCard && !useWallet)
+                || (!selectedCredit && !defaultCard && useWallet && wallet.balance + (wallet.overdraftAuthorized !== undefined ? wallet.overdraftAuthorized : 0) < restToPay))"
+            (click)="validatePayment()"
+    >
+        <div class="do-p-2 ">{{(selectedMethod === 'on_the_spot' || selectedMethod === 'deposit' || selectedMethod === 'per_participant_by_deposit' ? 'continue-validate-booking' : 'pay-validate-booking') | translate}}</div>
+        <ion-icon name="arrow-forward-circle" size="30px"></ion-icon>
+    </ion-button>
+</div>
+</ion-footer>

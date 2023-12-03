@@ -1,0 +1,204 @@
+.do-card-container {
+  /* TODO [CSS variable] */
+  border: 1px solid lightgray;
+  /* TODO [CSS variable] */
+  box-shadow: 0px 3px 4px #00000029;
+  background: white;
+
+  .do-card-header {
+    overflow: hidden;
+    color: white;
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid lightgray;
+
+    .do-card-header-top {
+      overflow: hidden;
+      border-radius: var(--border-radius-2) var(--border-radius-2) 0 0;
+    }
+
+    .do-card-header-pic {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left:0;
+      right:0;
+      overflow: hidden;
+    }
+  }
+
+  .time-label {
+    /* TODO [CSS variable] */
+    font-size: 1.2rem;
+    /* TODO [CSS variable] */
+    color: lightgray;
+    text-transform: capitalize;
+  }
+
+  .time {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--ion-text-color);
+  }
+
+  .duration {
+    font-size: 1.4rem;
+    text-transform: lowercase;
+  }
+
+  .do-card-header-extra {
+    height: 100%;
+    color: var(--ion-color-primary);
+    align-self: flex-end;
+    justify-self: flex-end;
+    line-height: normal;
+  }
+
+  .do-card-header-bottom {
+    app-activity-levels {
+      display: block;
+      padding: 1rem;
+      /* TODO [CSS variable] */
+      background: #F9FAFC;
+    }
+  }
+
+  .do-card-body {
+    padding: 0 1rem;
+  }
+
+  .do-card-body {
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid lightgray;
+    ion-grid {
+      padding: 0!important;
+    }
+  }
+
+  .do-card-footer {
+    padding: 1rem;
+  }
+
+  .price {
+    font-size: 1.6rem;
+    font-weight: bold;
+    white-space: nowrap;
+    /* TODO add Montserrat font */
+  }
+
+  .per-pers {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    app-avatar-name-tablet {
+      padding-bottom: 10px;
+    }
+    .do-card-header-infos {
+      padding: 0px;
+      display: block;
+    }
+    .do-card-container {
+      border-radius: 24px;
+      cursor: pointer;
+    }
+    .activity-levels {
+      background: #c7c2c21c;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: contents;
+    }
+    .time-label-start, .time-label-end {
+      color: #7E838E !important;
+      font-size: 1.1em !important;
+    }
+    .time-start, .time-end {
+      color: #3E3F68 !important;
+      font-size: 1.4em !important;
+    }
+    .price-tablet {
+      font-size: 1.2em !important;
+	    color: #000000;
+    }
+    .per-pers {
+      color: #000000 !important;
+    }
+    .tablet-header-card {
+      min-height: 80px;
+    }
+    .do-card-header, .do-card-body, .do-card-footer{
+      border: none !important;
+    }
+    .do-card-header-infos {
+      justify-content: center;
+    }
+    .tablet-title {
+      font-size: 1.8em;
+      text-align: center;
+      font-weight: 1000;
+    }
+    .tablet-subtitle {
+      font-size: 1.5em;
+      font-weight: 400;
+    }
+    .duration{
+      font-size: 2.1em !important;
+    }
+    .section-center {
+      justify-content: space-between;
+    }
+    .separator {
+      width: 90%;
+      margin: auto;
+      border: 1px solid #8A98BA;
+      opacity: 0.2;
+      margin-bottom: 10px;
+    }
+    .tablet-time {
+      max-height: 50px;
+      font-weight: 1000;
+    }
+    .tablet-time-unit {
+      font-size: 0.5em;
+    }
+    .tablet-duration {
+      color: #7E838E !important;
+      padding-left: 8px;
+      padding-right: 8px;
+      display: inline-block;
+      vertical-align: sub;
+      padding-left: 20px;
+      padding-right: 20px;
+      font-size: 1.2em;
+    } 
+    /* .dot-separator {
+      color: #FC322D;
+      font-size: 2.5em;
+      display: inline-block;
+    } */
+    :host ::ng-deep app-activity-levels  .event-tags {
+      padding-left: 15px;
+      padding-right: 15px;
+      background: #f0f2f482 !important;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .user-icon {
+      fill:white;
+      padding-bottom: 5px;
+    }
+  }
+
+  @media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    .dot-separator{
+      font-size: 1.5em !important;
+    }
+  }
+}
+
+
+
+
+

@@ -1,0 +1,64 @@
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Panton-Regular', sans-serif;
+}
+
+.page-title {
+  // margin-top: 2rem;
+  font-size: 2.4rem;
+  text-align: center;
+  font-weight: normal;
+}
+
+.page-subtitle {
+  margin-top: .5rem;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.page-title,
+.page-subtitle {
+  text-align: center;
+}
+
+.section-title {
+  font: normal normal 900 1.6rem/20px Panton-Black;
+  margin: 1rem 0;
+  text-transform: uppercase;
+  color: black;
+  white-space: nowrap;
+  margin-right: 3rem;
+}
+
+.section-subtitle {
+  font-size: 1.1rem;
+  font-family: 'Panton-Regular', sans-serif;
+}
+
+.sub-section-title {
+  font-size: 1.6rem;
+  font-family: 'Panton-Bold', sans-serif;
+  margin-bottom: .5rem;
+}
+
+.page-title, .page-subtitle, .section-title {
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+.page-subtitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+@media (max-width: 390px) {
+
+  .page-title {
+    font-size: 2rem;
+  }
+
+  .page-subtitle {
+    font-size: 1.6rem;
+    font-weight: 800;
+  }
+}

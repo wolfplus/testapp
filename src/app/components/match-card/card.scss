@@ -1,0 +1,104 @@
+.card-container {
+  // TODO add a variable for card border-radius
+  border-radius: 2rem;
+  // TODO: add a card bg variable
+  background: white;
+
+  .time-container {
+    margin-top: -5%;
+
+    .time {
+      font-size: 1.8rem;
+      padding: .5rem 2rem;
+    }
+
+  } 
+
+  .card-header {
+
+    .match-name {
+      text-align: center;
+      font-size: 2.3rem;
+    }
+
+    .playground-specs {
+      // TODO: add a variable for light text 
+      font-size: 2.2rem;
+      font-weight: 400;
+    }
+  }
+
+  .dot {
+    width: .4rem;
+    height: .4rem;
+    margin: 0 .5rem;
+    /* TODO: replace with variable */
+    background: gray;
+    border-radius: 100%;
+  }
+
+  .card-body {
+
+    .sport-and-levels {
+
+      .sport {
+
+        .match-levels {
+
+
+          .level-start {
+
+          }
+
+          .level-end {
+
+          }
+        }
+
+      }
+    }
+
+    .date-duration {
+      font-size: 1.4rem;
+      /* TODO: add a light text variable */
+      color: gray;
+
+      .clock {
+
+      }
+
+      .date-short, .duration {
+        text-transform: capitalize;
+      }
+
+      .duration {
+
+      }
+    }
+
+    .attenders-and-price {
+      /* TODO: add a variable for light text */
+      font-size: 2.2rem;
+      font-weight: 400;
+
+      .attenders-count {
+
+      }
+
+      .price {
+
+      }
+
+    }
+
+  }
+  
+  .card-footer {
+
+    /* TODO: replace with a variable */
+    span {
+      font-size: 1.8rem;
+    }
+  }
+
+}

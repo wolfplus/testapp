@@ -1,0 +1,55 @@
+<div *ngIf="(clubIsLoaded$ | async) == true"
+  class="flex jcsb w-100 aic timetable-container">
+  <div *ngIf="(clubLogoUrl$ | async) != null"
+    class="flex jcc aic logo-container">
+    <img src="{{ baseUrl + (clubLogoUrl$ | async) }}" alt="">
+  </div>
+  <div class="flex jcsb d-col">
+    <div class="flex jcsp aic asfe mb-1">
+      <div class="flex aic mr-1 timetable-icon">
+        <img src="assets/images/icons/clock.png" alt="">
+      </div>
+      <!-- TODO add condition & translation -->
+      <div [ngClass]="{ 'opened': clubIsOpen, 'closed': !clubIsOpen }"
+      >
+        <span *ngIf="clubIsOpen">{{ 'open' | translate }}</span>
+        <span *ngIf="!clubIsOpen">{{ 'closed' | translate }}</span>
+      </div>
+    </div>
+    <div class="flex d-col">
+      <ng-container *ngFor="let timetable of formattedTimetables">
+        <div class="flex jcsb mb-0-5 date-time">
+          <div class="mr-2 week-days">
+            <span>{{ timetable.days }}</span>
+          </div>
+          <div class="flex d-col">
+            <ng-container *ngFor="let block of timetable.blocks">
+              <div class="flex jce hours">
+                <span>{{ block }}</span>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(clubIsLoading$ | async) == true"
+  class="flex m-2 no-border">
+  <ion-thumbnail slot="start">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </ion-thumbnail>
+  <ion-label class="flex w-100 d-col">
+    <p class=" skeleton flex jce aic">
+      <ion-skeleton-text animated style="width:1.5rem;height:1.5rem;border-radius:50%;margin-right:.5rem;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 25%;height:2rem;"></ion-skeleton-text>
+    </p>
+    <p class="skeleton flex jce">
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    </p>
+    <p class="skeleton flex jce">
+      <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+    </p>
+  </ion-label>
+</div>

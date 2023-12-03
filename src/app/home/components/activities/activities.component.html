@@ -1,0 +1,29 @@
+<!-- <label class="text-normal">{{'choice_activity_to_book'|translate}}</label> -->
+
+<div *ngIf="activities?.length"
+  class="block-activities flex">
+  <div class="activities-scroll scroll-x-center flex">
+    <ng-container *ngFor="let activity of activities ">
+      <app-sport-card class="card-activity"
+        [title]="activity.name"
+        [guid]="activity.id"
+        [colors]="activity.colors"
+        [icon]="activity.icon"
+        [pic]="activity.photo ? activity.photo.contentUrl : null">
+      </app-sport-card>
+    </ng-container>
+    <app-sport-card
+      (click)="showMore()"
+      class="card-activity"
+      [title]="'see_more' | translate"
+      [guid]="null">
+    </app-sport-card>
+  </div>
+</div>
+<div *ngIf="showSkeleton"
+  class="flex aic do-p-2">
+  <ion-skeleton-text class="activity-card-skeleton" animated></ion-skeleton-text>
+  <ion-skeleton-text class="activity-card-skeleton" animated></ion-skeleton-text>
+  <ion-skeleton-text class="activity-card-skeleton" animated></ion-skeleton-text>
+  <ion-skeleton-text class="activity-card-skeleton" animated></ion-skeleton-text>
+</div>

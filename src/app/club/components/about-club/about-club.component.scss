@@ -1,0 +1,15 @@
+.description-text {
+  // TODO: add gray text color variable // font-weight thin text variable
+  color: gray;
+  font-weight: 300;
+  font-size: 1.8rem;
+  margin: 0 0 2rem 0;
+}
+
+.see-more {
+
+  span {
+    color: var(--ion-color-light-contrast);
+    font-size: 1.4rem;
+  }
+}

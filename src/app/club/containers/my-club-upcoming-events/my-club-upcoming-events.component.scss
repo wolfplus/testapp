@@ -1,0 +1,41 @@
+.view-all {
+  background: var(--ion-color-primary);
+  font-size: 2rem;
+  color: white;
+  border-radius: 1.5rem;
+  padding: .5rem 1rem;
+  min-width: 20%;
+  text-align: center;
+}
+
+.button {
+
+  .button-native {
+    --border-radius: 1.5rem;
+    // border-radius: 1.5rem;
+    height: 2rem!important;
+    font-size: 2rem;
+  }
+}
+
+.event-cards-container {
+  overflow-x: scroll;
+}
+
+app-event-card {
+  margin-right: 2rem;
+  width: 85vw;
+  display: block;
+
+  .card-container {
+    width: 75vw!important;
+  }
+}
+
+app-club-all-events {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background: white;
+}

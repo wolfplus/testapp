@@ -1,0 +1,47 @@
+<div class="block-container margin-tablet bck-all">
+    <div *ngIf="matchs" class="flex do-p-1-2">
+        <div *ngIf="matchs.length  > 0" class="section-title">
+            {{ titleMatch }} 
+        </div>
+    </div>
+    <div class="horizontal" *ngIf="matchs">
+        <ion-skeleton-text *ngIf="!matchs" class="card-skeleton" animated></ion-skeleton-text>
+
+        <ion-slides *ngIf="matchs.length > 0" class="overflow-tablet display-list-normal"  [pager]="matchs.length < 2 ? false : true" [options]="slideOpt">
+            <ion-slide *ngFor="let match of matchs">
+                <app-match-card
+                    class="dspl-blck w-90"
+                    style="min-height: 230pt;"
+                    [userId]="userId"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL"
+                    (reloadMatches)="load()">
+                </app-match-card>
+            </ion-slide>
+        </ion-slides>
+
+        <ion-slides *ngIf="matchs.length > 0" class="overflow-tablet display-list-tablet" [pager]="matchs.length < 4 ? false : true" [options]="slideOptTablet">
+            <ion-slide *ngFor="let match of matchs">
+                <app-match-card
+                    class="dspl-blck w-90"
+                    style="min-height: 230pt;"
+                    [userId]="userId"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL">
+                </app-match-card>
+            </ion-slide>
+        </ion-slides>
+
+        <ion-slides *ngIf="matchs.length > 0" class="overflow-tablet display-list-above " [pager]="matchs.length < 3 ? false : true" [options]="slideOptAbove">
+            <ion-slide *ngFor="let match of matchs">
+                <app-match-card
+                    class="dspl-blck w-90"
+                    style="min-height: 230pt;"
+                    [userId]="userId"
+                    [match]="match"
+                    [config]="MatchCardConfig.FULL">
+                </app-match-card>
+            </ion-slide>
+        </ion-slides>
+    </div>
+</div>

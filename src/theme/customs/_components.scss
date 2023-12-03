@@ -1,0 +1,129 @@
+// TAGS
+.do-tag,
+.do-small-tag {
+  background: white;
+  border: var(--border-light);
+  border-color: var(--do-border-color);
+  color: var(--ion-color-medium);
+  border-radius: var(--border-radius-1);
+}
+
+.do-tag {
+  padding: 0.2rem 1rem;
+}
+
+.do-small-tag {
+  padding: 0.2rem 0.5rem;
+}
+
+.icon-bg {
+  background: var(--ion-color-lighter-gray);
+  border-radius: var(--border-radius-2);
+}
+
+.do-card {
+  display: flex;
+  overflow: hidden;
+  background: white;
+  box-shadow: var(--box-shadow-1);
+  border-radius: var(--border-radius-2);
+}
+
+.cta-btn-fixed {
+  display: block;
+  position: fixed;
+  width: 100%;
+
+  &.btm-0 {
+    bottom: 0;
+  }
+
+  &.btm-5 {
+    bottom: 5rem;
+  }
+}
+
+.filter-tag-btn {
+  // TODO [CSS variable] border colors...
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+  // margin-right: 1rem;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  color: var(--ion-color-primary);
+  font-size: var(--app-font-size);
+  font-weight: 600;
+  border: 1px solid;
+  border-color: var(--ion-color-primary);
+  border-radius: 0.5rem;
+}
+
+.filter-tag-btn.active {
+  color: white;
+  background: var(--ion-color-primary);
+  border: none;
+}
+
+.see_more {
+  font-size: 1.2rem;
+  color: var(--ion-color-primary);
+}
+
+
+.btn-next {
+  width: 100%;
+  // margin: 0;
+  height: auto;
+  // position: fixed;
+  // bottom: 0;
+
+  &::part(native) {
+    // border-radius: 24px 24px 0 0 !important;
+    text-transform: none;
+    &::first-letter {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.request-result-title {
+  font-family: "Panton-Black";
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.request-result-text {
+  font-family: "Panton-Light";
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+// MATCHES // BOOKINGS
+.eventDay {
+  font-size: 1.6rem;
+  font-weight: bolder;
+  padding: 1rem 0;
+  text-align: center;
+  width: 100%;
+  // TODO: CSS varirable
+  background: #F2F3F6;
+  margin: 1rem 0;
+
+  &::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .btn-next {
+      width: fit-content;
+      margin: auto;
+      margin-bottom: 5px;
+    }
+  }

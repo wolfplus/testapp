@@ -1,0 +1,41 @@
+<ion-tabs class="bg-tabbar">
+  <ng-container *ngIf="displayTabBar">
+    <ion-tab-bar *ngFor="let item of data"
+      slot="bottom"
+      [ngClass]="{'display-none': !displayTabBar}"
+      class="tabbar">
+      <ng-container *ngFor="let menu of item.menu">
+        <ion-tab-button *ngIf="menu.show && menu.name !== 'book' && ((menu.name === 'match' && env.marqueBlanche.useMatch) || menu.name !== 'match')"
+          class="btn-tabbar pos-rel"
+          [routerLink]="(menu.link != '/friend') ? menu.link:'/home'"
+          (click)="gotToModal(menu)"
+          [class]="{'active': isActive(menu.link)}">
+          <ion-icon src="assets/icon/tabbar/{{ menu.icon }}"></ion-icon>
+          <span>{{ ('tabbar.' + menu.name) | translate }}</span>
+          <div *ngIf="menu.name === 'receipt' && (notificationCounter$ | async) > 0"
+            class="notif-badge">
+            {{ notificationCounter$ | async }}
+          </div>
+        </ion-tab-button>
+
+        <ion-tab-button *ngIf="!env?.useMb && menu.show && menu.name === 'book'"
+          class="btn-tabbar"
+          (click)="goToBookingList()"
+          [class]="{'active': isActive(menu.link)}">
+          <ion-icon src="assets/icon/tabbar/{{ menu.icon }}"></ion-icon>
+          <span>{{ ('tabbar.' + menu.name) | translate }}</span>
+        </ion-tab-button>
+        <ion-tab-button *ngIf="env?.useMb && menu.show && menu.name === 'book'"
+          class="btn-tabbar"
+          (click)="goToBookingList()"
+          [class]="{'active': isActive('/select-booking')}">
+          <ion-icon src="assets/icon/tabbar/{{ menu.icon }}"></ion-icon>
+          <span>{{ ('tabbar.' + menu.name) | translate }}</span>
+        </ion-tab-button>
+      </ng-container>
+    </ion-tab-bar>
+  </ng-container>
+</ion-tabs>
+
+<!--           routerLink="{{ menu.wlLink + '/\{\{' + env?.marqueBlanche.clubIds[0] + '\}\}' }}"
+ -->

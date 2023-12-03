@@ -1,0 +1,58 @@
+<ng-container *ngIf="(links$ | async) as links">
+    <div *ngIf="isLoaded" class="list">
+        <ng-container *ngFor="let link of links">
+            <ng-container *ngIf="link.show">
+                <div class="list-group">
+                    {{ link.group | translate }}
+                </div>
+                <ng-container *ngFor="let item of link.children">
+                    <div *ngIf="item.show"
+                        class="list-item"
+                        (click)="goTo(item.component)">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="11">
+                                    {{ item.name | translate }}
+                                </ion-col>
+                                <ion-col size="1">
+                                    <ion-icon src="assets/icon/globals/arrow-back.svg"
+                                        class="icon-goto">
+                                    </ion-icon>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <div class="list-item">
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="12" class="logout">
+                        <div (click)="logoutAction()"
+                            class="t-center cursor-tablet">
+                            {{ 'logout' | translate }}
+                        </div>
+                    </ion-col>
+                    <ion-col size="12" class="delete-account">
+                        <div (click)="deleteAccount()"
+                            class="t-center cursor-tablet">
+                            {{ 'delete_account' | translate }}
+                        </div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col size="12">
+                        <app-select-locale></app-select-locale>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+</ng-container>
+
+<ion-skeleton-text *ngIf="!isLoaded"  class="card-my-booking-skeleton" style="height: 60px; width:92%; margin: auto; margin-top: 15px;"></ion-skeleton-text>
+<ion-skeleton-text *ngIf="!isLoaded"  class="card-my-booking-skeleton" style="height: 60px; width:92%; margin: auto; margin-top: 15px;"></ion-skeleton-text>
+<ion-skeleton-text *ngIf="!isLoaded"  class="card-my-booking-skeleton" style="height: 60px; width:92%; margin: auto; margin-top: 15px;"></ion-skeleton-text>
+<ion-skeleton-text *ngIf="!isLoaded"  class="card-my-booking-skeleton" style="height: 60px; width:92%; margin: auto; margin-top: 15px;"></ion-skeleton-text>

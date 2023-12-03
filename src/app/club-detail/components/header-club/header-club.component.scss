@@ -1,0 +1,24 @@
+.header-actions {
+  padding: 2rem;
+  background: transparent linear-gradient(0deg, #FFFFFF00 0%, #00000063 67%, #0000006E 100%) 0% 0% no-repeat padding-box;
+}
+
+.actions-top-right, .actions-top-left {
+  color: white;
+  ion-icon {
+    font-size: 3rem;
+  }
+}
+
+.liked {
+  /* TODO: add a variable */
+  color: red;
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .img-ratio-16-9{
+      padding-top: 22% !important;
+    }
+}

@@ -1,0 +1,22 @@
+.error-api {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  .icon {
+    display: block;
+    font-size: 14rem;
+    margin: 0 auto;
+  }
+  &-text {
+    width: 70%;
+    text-align: center;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: 2rem;
+    margin-top: 50px;
+  }
+}

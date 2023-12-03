@@ -1,0 +1,165 @@
+.text {
+  font-size: var(--app-font-size);
+  font-weight: 500;
+}
+.text-content {
+  text-align: justify;
+  padding: .5rem;
+}
+.block-credit {
+  width: 100%;
+  margin-top: 1rem;
+  .club_name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--ion-color-primary);
+    background: rgba(3, 23, 75, 0.05);
+    padding: .5rem;
+    box-shadow: 0px 1px 1px rgba(0,0,0,0.2);
+  }
+  .credit-name {
+    font-size: var(--app-font-size);
+    font-weight: 600;
+    color: #3E3F68;
+  }
+  .credit-expire {
+    font-size: var(--app-font-size);
+    font-weight: 400;
+    color: #3E3F68;
+  }
+  .credit-balance {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .text-content{
+      text-align: center;
+      font-size: 2rem !important;
+    }
+}
+
+:host ::ng-deep app-default-header .page-title{
+  margin-left: 35px !important;
+}
+
+.text-content {
+  text-align: center;
+  padding-top: 25px;
+	font-size: 1.2em;
+}
+
+.col-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: end;
+}
+
+.wrapped {
+  background-color: #f5f5f8 ;
+	padding-bottom: 20px;
+  min-height: 100%;
+}
+
+.title-consum {
+  margin-top: 0px;
+	font-family: 'PANTON-regular';
+	font-size: 1.7em;
+  font-weight: bold;
+}
+
+.seperated {
+  border-bottom: 1px solid #80808033;
+	margin-bottom: 5px;
+}
+
+.one-col {
+  font-size: var(--app-font-size);
+}
+
+.ticket {
+  background: white;
+	padding: 15px;
+	margin-top: 20px;
+  border-radius: 18px;
+	padding-bottom: 10px;
+}
+
+.header-ticket {
+  text-align: center;
+	font-size: 1.4em;
+	margin-bottom: 25px;
+}
+
+.header-title {
+  font-family: 'PANTON-regular';
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  font-size: var(--app-font-size);
+}
+
+.seperated-no {
+  margin-top: 30px;
+}
+
+.tva-details {
+  padding: 0px;
+}
+
+.total {
+  font-family: 'Panton-regular';
+  font-weight: bold;
+	position: relative;
+	bottom: -26px;
+  color: var(--ion-color-primary);
+}
+
+.total-price {
+  font-family: 'Panton-regular';
+  font-weight: bold;
+  color: var(--ion-color-primary);
+}
+
+.prices {
+  text-align: end;
+}
+
+.tva {
+  font-size: 0.9em;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-top: 1px dashed #77838F;
+	border-bottom: 1px dashed #77838F;
+  color: #77838F;
+  margin-top: 15px;
+}
+
+.margin-tva {
+  margin-top: 20px;
+}
+
+.reglement {
+  margin-top: 15px;
+  width: fit-content;
+}
+
+.info-company {
+  display: flex;
+  flex-direction: column;
+  small {
+    font-family: 'Panton-regular';
+    font-size: small;
+    color: #77838F;
+  }
+}
+
+.canceled {
+  color: #FC322D;
+  font-family: 'Panton-Regular';
+  font-weight: bold;
+}

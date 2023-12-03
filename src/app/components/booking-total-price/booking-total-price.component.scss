@@ -1,0 +1,19 @@
+.bloc-booking-total {
+  position: relative;
+  bottom: 0;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding-bottom: 1rem;
+  border-top: 1pt solid #000000;
+  .total-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #000000;
+  }
+  .total-price {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: right;
+    color: #000000;
+  }
+}

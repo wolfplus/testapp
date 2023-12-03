@@ -1,0 +1,515 @@
+
+<ion-header translucent="true">
+  <div *ngIf="match !== undefined">
+    <app-event-detail-header
+      [eventImageUrl]="match?.playground?.mainPhoto?.contentUrl ? match?.playground?.mainPhoto?.contentUrl : match?.club?.mainPhoto?.contentUrl"
+      [event]="match"
+      [showShareBtn]="!isAPastMatch && !match.canceled && !isAllin"
+      (backButtonClicked)="dismiss(false)"
+      (shareButtonClicked)="openShareMatchModal()">
+    </app-event-detail-header>
+    <div *ngIf="userIsOrganizer"
+      class="is-organizer flex aic do-pl-2 do-pr-2 z-index-1">
+      <ion-icon name="star"></ion-icon>
+      <span *ngIf="!isAPastMatch && !match.canceled"
+        class="z-index-1">
+        {{'you_organize_this_match' | translate }}
+      </span>
+      <span *ngIf="isAPastMatch || match.canceled"
+        class="z-index-1">
+        {{'you_did_organize_this_match' | translate }}
+      </span>
+      <ion-icon name="create-outline"
+        color="primary"
+        class="do-ml-1"
+        (click)="editMatch()">
+      </ion-icon>
+    </div>
+    <div *ngIf="!userIsOrganizer && userIsParticipant"
+      class="is-organizer flex aic do-pl-2 do-pr-2">
+      <ion-icon name="star"></ion-icon>
+      <span *ngIf="!isAPastMatch && !match.canceled"
+        class="z-index-1">
+        {{'you_participate_to_this_match' | translate }}
+      </span>
+      <span *ngIf="isAPastMatch || match.canceled"
+        class="z-index-1">
+        {{'you_did_participate_to_this_match' | translate }}
+      </span>
+    </div>
+  </div>
+
+  <div *ngIf="match == undefined"
+    class="skeleton">
+    <ion-thumbnail style="width: 100vw; height: 44vw;">
+      <ion-skeleton-text animated >
+      </ion-skeleton-text>
+    </ion-thumbnail>
+    <div class="flex d-col do-pl-2 do-pr-2">
+      <div class="flex aic jcsb"
+        style="width: 100%; height: 15vw;">
+        <ion-skeleton-text animated style="width:40%; height:2rem;"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width:20%;height:1rem;"></ion-skeleton-text>
+      </div>
+      <div>
+      <ion-skeleton-text animated style="width:40%;height:1rem;"></ion-skeleton-text>
+      </div>
+    </div>
+  </div>
+    <ion-segment
+      (ionChange)="segmentChanged($event)"
+      value="information"
+      scrollable="true"
+      mode="md">
+      <ion-segment-button
+        value="information">
+        <ion-label>{{ 'information' | translate }}</ion-label>
+      </ion-segment-button>
+      <ion-segment-button
+        value="attenders">
+        <ion-label>{{ 'attenders'  | translate }}</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+</ion-header>
+
+<ion-content class="flex d-col jcsb" fullscreen="true">
+  <div *ngIf="match !== undefined && displayInformation == true">
+    <div class="info-block flex d-col jcsb aic w-100">
+      <div class="activity-date flex jcsb aic w-100">
+        <div *ngIf="matchDate"
+          class="event-date">
+          {{ matchDate }}
+        </div>
+        <app-activity-levels
+          [activityName]="match?.activity?.name"
+          [activityIcon]="match?.activity?.icon"
+          [colors]="match?.activity?.colors"
+          [levelsRequired]="match?.activityLevelRequired">
+        </app-activity-levels>
+      </div>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="4" class="flex d-col jcfs aisb">
+          <div class="t-center first-letter-cap">
+            {{ 'event_start' | translate }}
+          </div>
+          <div class="t-center time">
+            {{ startAt.toDate()| date: "HH:mm"}}
+          </div>
+        </ion-col>
+        <ion-col size="4" class="flex d-col jcc aisb duration">
+          <div *ngIf="matchDuration && !environmentService.overwriteMatchEvent()"
+               class="t-center">
+            {{ matchDuration + " " + ('minutes_short' | translate) }}
+          </div>
+          <div *ngIf="matchDuration && environmentService.overwriteMatchEvent()"
+               class="t-center">
+            {{ durationMatchText() + " " + ('text_days' | translate) }}
+          </div>
+        </ion-col>
+        <ion-col size="4" class="flex d-col jcc aisb">
+          <div class="t-center first-letter-cap">
+            {{ 'event_end' | translate }}
+          </div>
+          <div class="t-center time">
+            {{ endAt.toDate()| date: "HH:mm"}}
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <app-event-attenders class="dspl-blck w-100 do-pt-1 do-pb-1"
+          [attenders]="match?.participants"
+          [maxAttenders]="match?.maxParticipantsCountLimit"
+        >
+        </app-event-attenders>
+      </ion-row>
+    </ion-grid>
+
+    <div *ngIf="match?.description"
+      class="information flex d-col aifs do-p-2">
+      <div class="section-title text-resize">
+        <span>{{ 'information' | translate }}</span>
+      </div>
+      <div class="about-content">
+        <p *ngIf="seeMore === false && match?.description?.length <= 100"
+          class="description-text text-resize">
+          {{ match?.description }}
+        </p>
+        <p *ngIf="seeMore === false && match?.description?.length > 100"
+          class="description-text text-resize">
+          {{ match?.description | slice:0:100 }}...
+        </p>
+        <p *ngIf="seeMore === true"
+          class="description-text text-resize">
+          {{ match?.description }}
+        </p>
+        <div class="see-more">
+        <span *ngIf="seeMore === false && match?.description?.length > 100 " (click)="expandDescription()">{{ 'see_more'  | translate }}</span>
+        <span *ngIf="seeMore === true" (click)="seeMore = false">{{ 'see_less' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="level-block flex jcsb aic do-p-2">
+      <div *ngIf="match?.activityLevels?.length < 2"
+        class="section-subtitle">
+        {{ 'level' | translate }}
+      </div>
+      <div *ngIf="match?.activityLevels?.length > 1"
+        class="section-subtitle">
+        {{ 'levels' | translate }}
+      </div>
+      <app-activity-levels
+        class="text"
+        [levels]="match?.activityLevels"
+        [levelsRequired]="match?.activityLevelRequired">
+      </app-activity-levels>
+    </div>
+
+    <div class="level-block flex jcsb aic do-p-2">
+      <div class="section-subtitle">
+        {{ 'playground' | translate }}
+      </div>
+      <div class="playground text">
+        {{ match?.playground?.name }}
+      </div>
+    </div>
+
+    <div class="club-block do-p-2 hide-tablet">
+      <app-club-card
+        [club]="match?.club"
+        [userLocation$]="userLocation$"
+        (click)="goToClub()">
+      </app-club-card>
+    </div>
+    <ion-item *ngIf="userIsOrganizer && (!isAPastMatch && !match.canceled)"
+      lines="null"
+      detail="true"
+      (click)="showCancelMatch = true"
+      class="cancel-match">
+      <ion-text class="cancel-match">
+      {{ 'cancel_my_match' | translate }}
+    </ion-text>
+    </ion-item>
+  </div>
+
+  <div *ngIf="match !== undefined && displayAttenders"
+    class="attenders-block do-p-2">
+    <div>
+      {{ bookedTickets }}/{{ maxTickets }} {{ ' ' + 'participants' | translate }}
+    </div>
+    <ion-list inset="false" lines="none" class="hide-tablet">
+      <ng-container *ngFor="let participant of match.participants; let i = index;">
+
+        <div *ngIf="(participant.user !== undefined && participant.user !== null) && (participant.user?.id === match.userClient['id'])"
+          class="flex jcsb aic">
+          <app-avatar-name
+            class="dspl-blck do-pt-1 do-pb-1"
+            [imageUrl]="participant.user.avatar !== null ? participant.user.avatar.contentUrl : undefined"
+            [imageSize]="'12vw'"
+            [title]="match.userClient.firstName + ' ' + (match.userClient.lastName | slice:0:1) + '.'"
+            [subtitle]="'organizer' | translate"
+            [fontSizes]="FontSize.LARGE"
+            [colorStyle]="ColorStyle.DARK"
+            (click)="goToPlayerProfile(participant)">
+          </app-avatar-name>
+          <a tappable href="tel:{{ participant.user.phoneNumber }}" class="call-link">
+            <ion-icon name="call" size="large"></ion-icon>
+          </a>
+        </div>
+
+        <app-avatar-name *ngIf="participant.addedBy !== null && (!participant.user && !participant.client)"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="undefined"
+          [imageSize]="'12vw'"
+          [title]="'invited'"
+          [subtitle]="participant.addedBy.firstName + ' ' + (participant.addedBy.lastName | slice:0:1) + '.'"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK">
+        </app-avatar-name>
+        <!-- match.userClient.firstName + ' ' + (match.userClient.lastName | slice:0:1) + '.' -->
+
+        <app-avatar-name *ngIf="participant.addedBy !== null && !participant.user && participant.client"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="participant.client.avatar ? participant.client.avatar.contentUrl : undefined"
+          [imageSize]="'12vw'"
+          [title]="participant.client.firstName + ' ' + (participant.client.lastName | slice:0:1) + '.'"
+          [subtitle]="participant.client.levelToDisplay ? participant.client.levelToDisplay : undefined"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+          (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+        <app-avatar-name *ngIf="participant.addedBy !== null && participant.user && !participant.client"
+                         class="dspl-blck do-pt-1 do-pb-1"
+                         [imageUrl]="participant.user.avatar ? participant.user.avatar.contentUrl : undefined"
+                         [imageSize]="'12vw'"
+                         [title]="participant.user.firstName + ' ' + (participant.user.lastName | slice:0:1) + '.'"
+                         [subtitle]="participant.user.levelToDisplay ? participant.user.levelToDisplay : undefined"
+                         [fontSizes]="FontSize.LARGE"
+                         [colorStyle]="ColorStyle.DARK"
+                         (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+        <app-avatar-name *ngIf="participant.addedBy === null &&
+          (participant.user !== undefined && participant.user !== null) &&
+          (participant.user.id !== match.userClient['id'])"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="participant.user?.avatar?.contentUrl ?
+                      participant.user.avatar.contentUrl :
+                      undefined"
+          [imageSize]="'12vw'"
+          [title]="participant.user?.firstName + ' ' + (participant.user?.lastName | slice:0:1) + '.'"
+          [subtitle]="participant.user.levelToDisplay"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+          (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+        <app-avatar-name *ngIf="participant.addedBy === null &&
+          (participant.user === undefined || participant.user == null) &&
+          (participant.client !== undefined && participant.client !== null)"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="participant.client?.avatar?.contentUrl ?
+                      participant.client?.avatar?.contentUrl :
+                      undefined"
+          [imageSize]="'12vw'"
+          [title]="participant.client?.firstName + ' ' + (participant.client?.lastName | slice:0:1) + '.'"
+          [subtitle]=""
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+          (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+      </ng-container>
+    </ion-list>
+
+    <ion-list inset="false" lines="none" class="show-tablet">
+      <ng-container *ngFor="let participant of match.participants; let i = index;">
+
+        <div *ngIf="(participant.user !== undefined && participant.user !== null) && (participant.user?.id === match.userClient['id'])"
+          class="flex jcsb aic">
+          <app-avatar-name
+            class="dspl-blck do-pt-1 do-pb-1"
+            [imageUrl]="participant.user.avatar !== null ? participant.user.avatar.contentUrl : undefined"
+            [imageSize]="'5vw'"
+            [title]="match.userClient.firstName + ' ' + (match.userClient.lastName | slice:0:1) + '.'"
+            [subtitle]="'organizer' | translate"
+            [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+            (click)="goToPlayerProfile(participant)">
+          </app-avatar-name>
+          <a tappable href="tel:{{ participant.user.phoneNumber }}" class="call-link">
+            <ion-icon name="call" size="large"></ion-icon>
+          </a>
+        </div>
+
+        <app-avatar-name *ngIf="participant.addedBy !== null && (participant.user === undefined || participant.user === null)"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="undefined"
+          [imageSize]="'5vw'"
+          [title]="'invited'"
+          [subtitle]="participant.addedBy.firstName + ' ' + (participant.addedBy.lastName | slice:0:1) + '.'"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK">
+        </app-avatar-name>
+        <!-- match.userClient.firstName + ' ' + (match.userClient.lastName | slice:0:1) + '.' -->
+
+        <app-avatar-name *ngIf="participant.addedBy !== null && (participant.user !== undefined && participant.user !== null) &&
+          (participant.user?.id !== match.userClient.id)"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="participant.user.avatar !== null ? participant.user.avatar.contentUrl : undefined"
+          [imageSize]="'5vw'"
+          [title]="participant.user.firstName + ' ' + (participant.user.lastName | slice:0:1) + '.'"
+          [subtitle]="participant.user.levelToDisplay"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+          (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+        <app-avatar-name *ngIf="participant.addedBy === null &&
+          (participant.user !== undefined && participant.user !== null) &&
+          (participant.user.id !== match.userClient['id'])"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="participant.user?.avatar?.contentUrl ?
+                      participant.user.avatar.contentUrl :
+                      undefined"
+          [imageSize]="'5vw'"
+          [title]="participant.user?.firstName + ' ' + (participant.user?.lastName | slice:0:1) + '.'"
+          [subtitle]="participant.user.levelToDisplay"
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+          (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+        <app-avatar-name *ngIf="participant.addedBy === null &&
+          (participant.user === undefined || participant.user == null) &&
+          (participant.client !== undefined && participant.client !== null)"
+          class="dspl-blck do-pt-1 do-pb-1"
+          [imageUrl]="participant.client?.avatar?.contentUrl ?
+                      participant.client?.avatar?.contentUrl :
+                      undefined"
+          [imageSize]="'5vw'"
+          [title]="participant.client?.firstName + ' ' + (participant.client?.lastName | slice:0:1) + '.'"
+          [subtitle]=""
+          [fontSizes]="FontSize.LARGE"
+          [colorStyle]="ColorStyle.DARK"
+          (click)="goToPlayerProfile(participant)">
+        </app-avatar-name>
+
+      </ng-container>
+    </ion-list>
+  </div>
+
+  <div *ngIf="match == undefined"
+    class="skeleton do-pt-1 do-pl-2 do-pr-2 do-pb-4">
+    <div class="skeleton flex jcsb do-pt-1 do-pb-1">
+      <ion-skeleton-text animated style="width:60%;height:2rem;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:30%;height:2rem;"></ion-skeleton-text>
+    </div>
+    <div class="skeleton flex jcsb aic">
+      <ion-skeleton-text animated style="width:20%;height:1rem;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:20%;height:1rem;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:20%;height:1rem;"></ion-skeleton-text>
+    </div>
+    <div class="skeleton flex jcsb aic">
+      <ion-skeleton-text animated style="width:20%;height:2rem;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:20%;height:1rem;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:20%;height:2rem;"></ion-skeleton-text>
+    </div>
+    <div class="skeleton flex jcsb aic do-pt-2 do-pb-2">
+      <ion-skeleton-text animated style="width:40%;height:2rem;"></ion-skeleton-text>
+      <div class="skeleton flex jcsb do-mt-1 do-mb-1">
+        <ion-thumbnail style="width:5vw; height:5vw;margin-right:1rem;">
+          <ion-skeleton-text animated style="border-radius:50%;">
+          </ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-thumbnail style="width:5vw; height:5vw;margin-right:1rem;">
+          <ion-skeleton-text animated style="border-radius:50%;">
+          </ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-thumbnail style="width:5vw; height:5vw;margin-right:1rem">
+          <ion-skeleton-text animated style="border-radius:50%;">
+          </ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-thumbnail style="width:5vw;height:5vw;margin-right:1rem">
+          <ion-skeleton-text animated style="border-radius:50%;">
+          </ion-skeleton-text>
+        </ion-thumbnail>
+      </div>
+    </div>
+    <div class="skeleton do-mb-2">
+      <ion-skeleton-text animated style="width:25%"></ion-skeleton-text>
+      <p class="skeleton">
+        <ion-skeleton-text animated style="width:100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width:100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width:100%"></ion-skeleton-text>
+      </p>
+    </div>
+
+    <div class="skeleton flex jcsb aic do-mb-2">
+      <ion-skeleton-text animated style="width:15%;"></ion-skeleton-text>
+      <ion-skeleton-text animated style="width:20%;"></ion-skeleton-text>
+    </div>
+
+    <div class="skeleton do-mb-2">
+      <ion-thumbnail style="width: 12vw;width:100%;height:35vw;">
+        <ion-skeleton-text animated style="border-radius:9px;">
+        </ion-skeleton-text>
+      </ion-thumbnail>
+    </div>
+  </div>
+
+</ion-content>
+
+<ion-footer *ngIf="match !== undefined">
+  <ion-button *ngIf="!(!userIsParticipant && !userIsOrganizer && !displaylevelRequiredText) && !isAPastMatch && !match.canceled"
+    [disabled]="displaylevelRequiredText === true"
+    class="btn-next"
+    expand="block"
+    mode="ios"
+    (click)="participate()">
+    <!-- <div *ngIf="!userIsParticipant && !userIsOrganizer && !displaylevelRequiredText && availableTickets > 0"
+      style="padding:2rem">
+      {{ 'join_match' | translate }}
+    </div> -->
+    <div *ngIf="(userIsParticipant || userIsOrganizer) && !displaylevelRequiredText && !isAPastMatch && !match.canceled"
+      class="do-p-2">
+      {{ 'modify_participation' | translate }}
+    </div>
+    <div *ngIf="displaylevelRequiredText && !isAPastMatch && !match.canceled"
+      class="level-required-text do-p-2">
+      {{ 'sorry_you_do_not_have_required_level' | translate }}
+    </div>
+  </ion-button>
+
+  <ion-button *ngIf="!userIsParticipant && !userIsOrganizer && !displaylevelRequiredText && availableTickets > 0 && !isAPastMatch && !match.canceled"
+    class="btn-next"
+    expand="block"
+    mode="ios"
+    (click)="participate()">
+    <div *ngIf="environmentService.overwriteMatchEvent() && !userIsParticipant && !userIsOrganizer && !displaylevelRequiredText && availableTickets > 0 && !isAPastMatch && !match.canceled"
+         class="do-p-2">
+      {{ 'Rejoindre' }}
+    </div>
+    <div *ngIf="!environmentService.overwriteMatchEvent() && !userIsParticipant && !userIsOrganizer && !displaylevelRequiredText && availableTickets > 0 && !isAPastMatch && !match.canceled"
+         class="do-p-2">
+        {{ 'join_match' | translate }}
+    </div>
+  </ion-button>
+
+  <ion-button *ngIf="match.canceled"
+    class="btn-next"
+    color="danger"
+    expand="block"
+    fill="outline"
+    mode="ios"
+    [disabled]="true">
+    <div class="do-p-2">
+      {{ 'match_canceled' | translate }}
+    </div>
+  </ion-button>
+
+</ion-footer>
+
+<div class="go-to-comments-btn">
+  <ion-button
+    size="large"
+    shape="round"
+    fill="solid"
+    color="primary"
+    (click)="goToComments()">
+    <ion-icon name="chatbubble-outline"></ion-icon>
+  </ion-button>
+</div>
+
+<!-- [availableTickets]="availableTickets" -->
+<app-match-join *ngIf="showNbOfTicketsSelector && match !== undefined && (!isAPastMatch && !match.canceled)"
+  [@slideInSlideOut]
+  [userIsOrganizer]="userIsOrganizer"
+  [user]="user"
+  [matchIRI]="match['@id']"
+  [participantsList]="match?.participants"
+  [availableTickets]="availableTickets"
+  [nbOfTickets]="userNbOfTickets"
+  [bookedTickets]="bookedTickets"
+  [maxTickets]="maxTickets"
+                [canCancel]="canCancel"
+                [conditionCancelHours]="conditionCancelHours"
+  (closeJoinMatchModal)="closeJoinMatchModal($event)">
+</app-match-join>
+
+<app-match-cancel *ngIf="showCancelMatch && (match !== undefined) && (!isAPastMatch && !match.canceled)"
+  [@slideInSlideOut]
+  [match]="match"
+  (closeCancelMatchModal)="closeCancelMatch(true)">
+</app-match-cancel>
+
+<app-match-share *ngIf="showShareModal && (!isAPastMatch && !match.canceled)"
+  [match]="match"
+  [userId]="user.id"
+  [activityLevels]="match?.activityLevels"
+  (closeShareMatchModal)="closeShareMatchModal()">
+</app-match-share>

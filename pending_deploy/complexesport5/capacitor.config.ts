@@ -1,0 +1,22 @@
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+  appId: 'com.trenicom.complexesport5',
+  appName: 'Complexe Sport 5',
+  webDir: 'www',
+  bundledWebRuntime: false,
+  cordova: {
+    preferences: {
+      ScrollEnabled: 'false',
+      BackupWebStorage: 'none',
+      SplashMaintainAspectRatio: 'true',
+      FadeSplashScreenDuration: '300',
+      KeyboardDisplayRequiresUserAction: 'false',
+      orientation: 'portrait',
+      GOOGLE_MAPS_ANDROID_API_KEY: 'AIzaSyDjiACgznEySOd0x8UvnkaoujYhLfohS68',
+      GOOGLE_MAPS_IOS_API_KEY: 'AIzaSyC94V2oDU8CZVbQCZyw4tDq4TXB_VTMztc'
+    }
+  }
+};
+
+export default config;

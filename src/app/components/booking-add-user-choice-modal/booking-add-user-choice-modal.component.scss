@@ -1,0 +1,98 @@
+// .backdrop {
+//     min-height: 50%;
+//     background: black;
+//     opacity: 0.2;
+//   }
+
+// .sharing-options {
+//     position: absolute;
+//     bottom:0;
+//     border-radius: 1.5rem 1.5rem 0 0;
+//     width: 100%;
+//     background: white;
+//     flex-direction: column;
+//     display: flex;
+//     align-items: center;
+
+//     ion-icon {
+//         font-size: 3rem;
+//     }
+
+//     .choice {
+//         display: flex;
+//         justify-content: space-evenly;
+//         width: 100%;
+//         margin: 10px;
+
+//         p {
+//             font-size: 1.5rem;
+//         }
+//     }
+
+//     .header-modal {
+//         padding: 0;
+
+//         .back-icon {
+//             height: 100%;
+//             display: flex;
+//             align-items: center;
+
+//             ion-icon {
+//                 font-size: 2rem;
+//             }
+//         }
+//     }
+
+//     .title {
+//         font-size: 1.7rem;
+//         margin-bottom: 20px;
+//         margin-top: 15px;
+//         font-weight: bold;
+//     }
+// }
+
+// ion-label {
+//     text-align: center;
+// }
+
+.backdrop {
+    min-height: 50%;
+    background: black;
+    opacity: 0.2;
+  }
+  
+  .sharing-options {
+    position: absolute;
+    bottom:0;
+    border-radius: 1.5rem 1.5rem 0 0;
+    width: 100%;
+    background: white;
+    padding: 1rem 0 3rem;
+  
+    ion-icon {
+      font-size: 3rem;
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  }
+  
+  .hide-tablet {
+    display: block;
+  }
+  
+  .show-tablet {
+    display: none;
+  }
+  
+  @media only screen 
+    and (min-width: 768px) {
+      .hide-tablet {
+        display: none;
+      }
+      .show-tablet {
+        display: block;
+      }
+    }
+  

@@ -1,0 +1,26 @@
+<div *ngIf="ready && colors !== undefined"
+    class="sport-block"
+    (click)="searchSport()">
+    <div class="card-title flex jcc aic w-100 h-100">
+        <div class="t-center">
+            {{ title }}
+        </div>
+    </div>
+    <!-- [ngStyle]="{'background-image': backgroundImage}" -->
+    <div class="bg-img-container">
+        <img [src]="backgroundImgUrl"
+            alt=""
+            class="bg-img">
+    </div>
+    <div class="activity-icon-bg">
+        <app-svg-container
+            class="dspl-blck w-100 h-100"
+            [svg]="icon"
+            [inputClass]="'sport-card-icon'">
+        </app-svg-container>
+    </div>
+    <div class="bg-overlay"
+        [ngStyle]="setGradient()">
+    </div>
+</div>
+

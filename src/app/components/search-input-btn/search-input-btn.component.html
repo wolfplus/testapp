@@ -1,0 +1,25 @@
+<ion-button
+  class="search-input-btn"
+  fill="outline"
+  mode="ios"
+  strong="true"
+  (click)="openSearchModal()">
+  <ion-icon class="do-mr-1"
+    slot="start"
+    size="medium"
+    name="search"
+    color="primary">
+    </ion-icon>
+  <div class="flex jcfs w-100">
+    <!--  *ngIf="(searchButtonText$ | async) !== '' " -->
+    <div *ngIf="(searchButtonText$ | async) !== ''; else modify;"
+      class="first-letter-cap flex aic">
+      <span>{{ searchButtonText$ | async }}</span>
+    </div>
+    <ng-template #modify>
+      <div class="first-letter-cap flex aic">
+        <span>{{ 'search_placeholder' | translate }}</span>
+      </div>
+    </ng-template>
+  </div>
+</ion-button>

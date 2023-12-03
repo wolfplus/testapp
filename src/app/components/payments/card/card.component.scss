@@ -1,0 +1,96 @@
+ion-item::part(native) {
+  // padding: 0;
+  &>.item-inner {
+    color: blue;
+    &>.input-wrapper {
+      display: flex;
+      justify-content: space-between!important;
+      align-items: center;
+    }
+  }
+}
+
+.card-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.1);
+  padding: .5rem;
+  margin-top: 1rem;
+  border-radius: .5rem;
+
+  .selectedCard {
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+    img.card-icon {
+      object-fit: contain;
+    }
+
+    img.action {
+      margin: auto;
+      transform: rotate(180deg);
+    }
+
+    .card-holder {
+      display: block;
+      font-size: var(--app-font-size);
+      font-weight: 600;
+    }
+
+    .card-number {
+      display: inline-flex;
+      font-size: 1.2rem;
+      font-weight: 400;
+    }
+
+    .card-expiration {
+      display: inline-flex;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin-left: 1rem;
+    }
+
+    .card-name-input, .card-number-input, .card-month-input, .card-year-input, .card-cvc-input{
+      width: 100%;
+      min-height: 1.5rem;
+      font-size: 1.3rem;
+      font-weight: 500;
+      border-radius: 1rem;
+      border: 1px solid lightgray;
+      background-color: var(--app-dark-or-not-color);
+      padding: .5rem;
+    }
+
+    .card-month-input, .card-year-input {
+      display: inline;
+      width: 45%;
+    }
+
+    /* .btn-add-card {
+      position: relative;
+      width: 100%;
+      font-size: var(--app-font-size);
+      font-weight: 500;
+      padding: 1rem;
+      background: var(--ion-color-primary);
+      border: 1px solid lightgray;
+      color: white;
+      border-radius: .5rem;
+      text-align: center;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      div {
+        width: 100%;
+        text-align: center;
+      }
+    } */
+  }
+}
+
+.error {
+  border: 1px solid red !important;
+}

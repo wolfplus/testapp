@@ -1,0 +1,30 @@
+
+
+:root {
+
+  --page-bg-color: #F6F6F8;
+
+  // Setting default font
+  --ion-font-family: "Panton-Regular";
+  --ion-text-color: #212529; //black;
+  --ion-secondary-text-color: #8b8b92;
+  --ion-title-color: #212529;
+
+  --flag-color-1: var(--ion-color-primary);
+  --flag-color-2: var(--ion-color-white);
+  --flag-color-3: #cb2014;
+
+  --header-v1-height: 70px;
+
+  --footer-v1-height: 6.5rem;
+
+  --border-radius-1: .5rem;
+  --border-radius-2: .9rem;
+  --do-border-color: #E8E8E8;
+
+
+  // IONIC variables
+  --border-style: none;
+  --padding-start: 0!important;
+  --inner-padding-end: 0!important;
+}

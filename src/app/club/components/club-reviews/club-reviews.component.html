@@ -1,0 +1,67 @@
+<div class="reviews-container">
+  <div class="section-title">
+    <span>{{ title}}</span>
+  </div>
+  <div class="flex mb-2 rating">
+    <div class="flex mr-1">
+      <div *ngFor="let fullStar of (averageRating | to_array)"
+        class="mr-0-5 star"
+      >
+        <object type="image/svg+xml" data="assets/images/icons/star_filled.svg"></object>
+      </div>
+      <div *ngFor="let emptyStar of ((5 - averageRating) | to_array)"
+        class="mr-0-5 star"
+      >
+        <object type="image/svg+xml" data="assets/images/icons/star_empty.svg"></object>
+      </div>
+    </div>
+    <div class="rating-number">
+      <span>4.0</span>
+      <span class="number-of-ratings">
+        (60 avis)
+      </span>
+      <span class="see-more">
+        voir plus
+      </span>
+    </div>
+  </div>
+  <div class="cards-container">
+    <div *ngFor="let review of reviews"
+      class="mr-2 review-card">
+      <div class="flex jcsb p-2 review-card-header">
+        <div class="flex d-col user-name-date">
+          <div class="user-name">
+            <span>Par {{ review.author }}</span>
+          </div>
+          <div class="date">
+            <span>{{ review.date }}</span>
+          </div>
+        </div>
+        <div class="flex d-col">
+          <div class="flex rating-stars">
+            <div *ngFor="let fullStar of (review.rating | to_array)">
+              <object type="image/svg+xml" 
+                data="assets/images/icons/star_small_filled.svg"
+                class="small-star">
+              </object>
+            </div>
+            <div *ngFor="let emptyStar of ((5 - review.rating) | to_array)">
+              <object type="image/svg+xml" 
+                data="assets/images/icons/star_small_empty.svg"
+                class="small-star">
+              </object>
+            </div>
+          </div>
+          <div class="rating-number">
+            <span>{{ review.rating }}/5</span>
+          </div>
+        </div>
+        </div>
+      <div class="p-2 review-text">
+        <p>
+          {{ review.text }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

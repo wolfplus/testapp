@@ -1,0 +1,159 @@
+<div>
+  <div *ngIf="methods.length <= 1">
+    {{ "methods_payment." + methods[0] | translate }}
+  </div>
+  <ion-select
+    *ngIf="
+      showPaymentMethod && from !== 'booking_attender' && methods.length > 1
+    "
+          interface="action-sheet"
+          class="payment-method-choice"
+          cancelText="{{ 'cancel' | translate }}"
+          (ionChange)="changeSelectedMethod()"
+          [(ngModel)]="selectedMethod"
+          required
+  >
+    <ng-container *ngFor="let method of methods">
+      <ion-select-option
+              *ngIf="selectedMethod === method"
+              selected
+              value="{{ method }}"
+      >
+        {{ "methods_payment." + method | translate }}
+      </ion-select-option>
+      <ion-select-option *ngIf="selectedMethod !== method" value="{{ method }}">
+        {{ "methods_payment." + method | translate }}
+      </ion-select-option>
+    </ng-container>
+  </ion-select>
+
+  <ion-list>
+    <ion-item
+      *ngIf="
+        (platform.is('mobileweb') || platform.is('desktop')) &&
+        selectedMethod !== PAYMENT_METHOD_ON_THE_SPOT &&
+        showPaymentMethod &&
+        selectedProvider === 'stripe' &&
+        !(withCredit && restToPay === 0) &&
+        restToPay > 0
+      "
+    >
+      <app-stripe-payment
+        (paymentData) = "paymentData($event)"
+      ></app-stripe-payment>
+    </ion-item>
+    <ion-item
+      *ngIf="
+        selectedMethod !== PAYMENT_METHOD_ON_THE_SPOT &&
+        showPaymentMethod &&
+        selectedProvider === 'epay' &&
+        !(withCredit && restToPay === 0) &&
+        restToPay > 0
+      "
+    >
+      <app-e-pay 
+        [cart]="cart" 
+        [client]="client" 
+        [restToPay]="restToPay" 
+        (isFormValid)="paymentData($event)"
+      ></app-e-pay>
+    </ion-item>
+    <ion-item
+      *ngIf="
+        (platform.is('ios') || platform.is('android')) && !platform.is('mobileweb') &&
+        selectedMethod !== PAYMENT_METHOD_ON_THE_SPOT &&
+        showPaymentMethod &&
+        selectedProvider === 'stripe' &&
+        !(withCredit && restToPay === 0) &&
+        restToPay > 0
+      "
+      detail="true"
+      (click)="presentCreditCardModal()"
+    >
+      <div *ngIf="!isCardSelected">
+        {{ "add_payment_card" | translate }}
+      </div>
+      <ng-container *ngIf="isCardSelected">
+        <ion-thumbnail item-start class="do-mr-1">
+          <img
+                  class="icon-card"
+                  src="assets/icon/credit_card/{{ selectedCreditCard.type }}.png"
+                  width="100%"
+          />
+        </ion-thumbnail>
+        <div class="selectedCard">
+          <div class="flex aic jcsb">
+            <div class="card-number">
+              {{
+              (selectedCreditCard.number | hide_number_card) +
+              " " +
+              "-" +
+              " " +
+              selectedCreditCard.expMonth +
+              "/" +
+              selectedCreditCard.expYear
+              }}
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ion-item>
+    <ion-item
+      *ngIf="
+        wallet &&
+        !withWallet &&
+        selectedMethod !== PAYMENT_METHOD_ON_THE_SPOT &&
+        showPaymentMethod &&
+        restToPay > 0 && participant
+      "
+      detail="true"
+      (click)="presentWalletModal()"
+      data-test="present-wallet-modal"
+    >
+      {{ "use_wallet" | translate }}
+    </ion-item>
+    <ion-item
+      *ngIf="
+        !withCredit &&
+        selectedMethod !== PAYMENT_METHOD_ON_THE_SPOT &&
+        showPaymentMethod &&
+        restToPay > 0 && participant
+      "
+      detail="true"
+      (click)="presentCreditModal()"
+    >
+      {{ "use_credits" | translate }}
+    </ion-item>
+    <!-- *ngIf="!payment['@id']" -->
+    <ng-container *ngIf="selectedMethod !== PAYMENT_METHOD_ON_THE_SPOT">
+      <ng-container *ngFor="let payment of booking.payments; let i = index">
+        <ion-item
+          *ngIf="payment.provider === 'wallet'"
+          (click)="removePayment(i)"
+        >
+          <span>
+            {{
+              ("cancel_use_wallet" | translate) +
+                " " +
+                (payment.amount | price_format: club.currency)
+            }}
+          </span>
+        </ion-item>
+        <ion-item
+          *ngIf="payment.provider === 'payment_token'"
+          (click)="removePayment(i)"
+        >
+          <span>
+            {{
+              ("cancel" | translate) +
+                " " +
+                payment.metadata.paymentTokenValue +
+                " x " +
+                payment.name
+            }}
+          </span>
+        </ion-item>
+      </ng-container>
+    </ng-container>
+  </ion-list>
+</div>

@@ -1,0 +1,112 @@
+<div class="list-attenders shadow-bottom-ligth">
+  <div class="flex user-skeleton" *ngIf="!allDataLoaded">
+    <ion-avatar slot="start" class="flex jcc aic ">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-avatar>
+    <ion-label class="flex asc">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-label>
+  </div>
+  <div class="flex user-skeleton last" *ngIf="!allDataLoaded">
+    <ion-avatar slot="start" class="flex jcc aic">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-avatar>
+    <ion-label class="flex asc">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-label>
+  </div>
+  <ng-container *ngIf="allDataLoaded">
+    <div
+      *ngFor="let attender of attenders; let index = index; last as isLast"
+      class="attender"
+      [ngClass]="{ last: isLast && attenders.length === maxAttenders }"
+    >
+      <ng-container>
+        <div class="flex aic jcsb">
+          <div class="flex">
+            <ion-avatar class="flex jcsb">
+              <img
+                *ngIf="attender.user && attender.user?.avatar && attender.user?.avatar.contentUrl"
+                class="user-img"
+                src="{{ pathFile + attender.user?.avatar.contentUrl }}"
+              />
+              <img
+                *ngIf="!attender.user || !attender.user?.avatar || !attender.user?.avatar.contentUrl"
+                src="{{
+                  'https://eu.ui-avatars.com/api/?background=' +
+                    avatarBgColor +
+                    '&color=fff&name=' +
+                    (attender.client ? attender?.client?.firstName : attender?.user?.firstName) +
+                    ' ' +
+                    (attender.client ? attender?.client?.lastName : attender?.user?.lastName)
+                }}"
+                alt=""
+              />
+              <!-- <img *ngIf="!attender.user?.avatar || !attender.user?.avatar.contentUrl"
+                class="user-img"
+                src="https://i.pinimg.com/originals/dd/ec/b5/ddecb586e252c32108ea72cdbf598419.jpg"
+              /> -->
+            </ion-avatar>
+            <div class="flex">
+              <div class="flex jcs">
+                <h3 class="user-title">
+                  {{ (attender.client ? attender?.client?.firstName : attender?.user?.firstName) }} {{ (attender.client ? attender?.client?.lastName : attender?.user?.lastName) }}
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="flex">
+            <div *ngIf="!isBooking" class="flex jcsb asc">
+              <ion-text class="user-price">
+                {{ attender.restToPay | price_format: currency }}
+              </ion-text>
+            </div>
+            <div
+              class="flex jcsb asc trash"
+              (click)="removeAttender(index, attender)"
+              *ngIf="attender.user && attender.user.id !== user.id"
+            >
+              <img src="assets/icon/globals/close-border.png" />
+            </div>
+            <div
+                    class="flex jcsb asc trash"
+                    (click)="removeAttender(index, attender)"
+                    *ngIf="!attender.user && attender.client && user.clients[0] && attender.client.id !== user.id"
+            >
+              <img src="assets/icon/globals/close-border.png" />
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div
+      *ngFor="let i of attendersLeft; last as isLast"
+      class="add-attender flex aic jcsb"
+      [ngClass]="{ last: isLast }"
+      (click)="openModalAddFriendOrUser()"
+      data-test="addFriends"
+    >
+      <div class="flex">
+        <div class="flex jcc aic">
+          <div class="btn-add">
+            <ion-icon name="person"></ion-icon>
+          </div>
+        </div>
+        <div class="flex jcs aic">
+          <ion-text class="title">
+            {{ "add_attender" | translate }}
+          </ion-text>
+        </div>
+      </div>
+      <div *ngIf="!isBooking" class="flex">
+        <div class="flex jcsb asc">
+          <ion-text class="user-price">
+            {{ pricePerParticipant | price_format: currency }}
+          </ion-text>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+

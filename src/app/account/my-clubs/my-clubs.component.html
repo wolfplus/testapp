@@ -1,0 +1,19 @@
+<app-default-header
+    [title]="'my_clubs'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div *ngFor="let club of clubs">
+        <app-card-club
+            [club]="club"
+            class="dspl-blck do-p-2 mw-500">
+        </app-card-club>
+    </div>
+    <div *ngIf="showSkeleton"
+        class="do-p-2">
+        <ion-skeleton-text animated class="skeleton-club-card"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-club-card"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-club-card"></ion-skeleton-text>
+    </div>
+</ion-content>

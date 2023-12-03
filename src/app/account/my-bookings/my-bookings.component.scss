@@ -1,0 +1,19 @@
+.booking-container {
+  padding: 1rem 2rem;
+}
+
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .header-center {
+      justify-content: center;
+    }
+}

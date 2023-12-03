@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar color="'var(--app-dark-or-not-color)'" class="do-pt-1">
+        <ion-buttons slot="start">
+          <ion-button (click)="back()">
+            <ion-icon src="assets/icon/globals/arrow-back.svg">
+            </ion-icon>
+          </ion-button>
+        </ion-buttons>
+        <ion-title class="page-title">{{ 'credits' | translate }}</ion-title>
+      </ion-toolbar>
+</ion-header>
+<div class="inner-content">
+    <div *ngIf="credits.length > 0"
+        class="block-credit flex d-col do-p-2">
+        <div *ngIf="!cannotUseAnyCredit">
+            <p>{{ 'select_credits_text' | translate }}</p>
+        </div>
+        <div *ngIf="cannotUseAnyCredit">
+            <p>{{ 'all_credit_not_usable' | translate }}</p>
+        </div>
+        <ion-grid class="w-100 do-p-0">
+                <ion-row *ngFor="let credit of credits"
+                class="do-py-2 do-border-top"
+                [ngClass]="{'low-opacity': !credit.isUsable}">
+                <ion-col size="9"
+                    class="do-px-0">
+                    <div>
+                        {{ credit.name }}
+                    </div>
+                    <ion-button *ngIf="credit.isUsable && !credit.isExpired && !credit.isInsufficient"
+                        (click)="consumeCredit(credit)"
+                        class="btn-use"
+                        fill="clear"
+                        size="small"
+                        expand="block"
+                        strong="true">
+                        <!-- TODO: add translation -->
+                        {{ 'consume_credit' | translate }} {{ getValue(credit) }} credit(s)
+                        <ion-icon name="chevron-forward-outline"
+                            class="do-ml-1">
+                        </ion-icon>
+                    </ion-button>
+                    <div *ngIf="!credit.isUsable && !credit.isExpired"
+                        class="not-usable">
+                        {{ 'credit_not_usable' | translate }}
+                    </div>
+                    <div *ngIf="credit.isExpired"
+                        class="not-usable">
+                        {{ 'credit_expired' | translate }}
+                    </div>
+                    <div *ngIf="credit.isInsufficient && !credit.isExpired"
+                        class="not-usable">
+                        {{ 'credit_insufficient' | translate }}
+                    </div>
+                </ion-col>
+                <ion-col size="3"
+                    class="flex d-col jcc aic do-pr-0">
+                    <div>
+                        {{ credit.balance }}
+                    </div>
+                    <div *ngIf="+credit.balance <= 1">
+                        {{ 'credit' | translate}}
+                    </div>
+                    <div *ngIf="+credit.balance > 1">
+                        {{ 'credits' | translate}}
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
+</div>
+

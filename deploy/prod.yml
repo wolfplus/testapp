@@ -1,0 +1,13 @@
+---
+-
+    name: Back office deploy on production environnement
+    hosts: prod
+    gather_facts: false
+    vars:
+        ansible_ssh_private_key_file: "/Users/sami/.ssh/id_ed25519_ansible"
+        ansistrano_deploy_from: "{{ playbook_dir }}/../www"
+        ansistrano_deploy_to: "/data/doinsport/passerelle"
+        ansistrano_keep_releases: 5
+        ansistrano_deploy_via: "rsync"
+    roles:
+        - { role: ansistrano.deploy }

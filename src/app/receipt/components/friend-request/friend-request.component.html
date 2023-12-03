@@ -1,0 +1,60 @@
+<div class="card-conversation">
+    <ion-grid class="w-100">
+        <ion-row>
+            <ion-col size="10">
+                <div class="date">
+                    <!-- TODO: translation -->
+                    le {{ notification.createdAt | moment: 'DD/MM/Y HH:mm'}}
+                </div>
+                <div class="message-block">
+                    <div class="title">
+                        {{ notification.content }}
+                    </div>
+                    <ng-container *ngIf="friendRequest && loaded && friendRequest.acceptedDate === null">
+                        <div class="actions-block" >
+                            <ion-button
+                                color="success"
+                                mode="ios"
+                                expand="block"
+                                class="btn-next accept"
+                                (click)="accept()">
+                                <div class="do-p-2">
+                                    {{ 'accept' | translate }}
+                                </div>
+                            </ion-button>
+                            <!-- <button class="btn-action accept"
+                                (click)="accept()">
+                                <label>
+                                    {{ 'accept' | translate }}
+                                </label>
+                            </button> -->
+                            <ion-button
+                                color="danger"
+                                mode="ios"
+                                expand="block"
+                                class="btn-next cancel"
+                                (click)="refuse()">
+                                <div class="do-p-2">
+                                    {{ 'refuse' | translate }}
+                                </div>
+                            </ion-button>
+                            <!-- <button class="btn-action canceled"
+                                (click)="refused()">
+                                <label>
+                                    {{'canceled'|translate}}
+                                </label>
+                            </button> -->
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="friendRequest && loaded && friendRequest.acceptedDate !== null">
+                        <div class="text-success">{{'friend_request_accepted' | translate}}</div>
+                    </ng-container>
+                    <ng-container *ngIf="friendRequest === null && loaded">
+                        <div class="text-danger">{{'friend_request_refused' | translate}}</div>
+                    </ng-container>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</div>
+

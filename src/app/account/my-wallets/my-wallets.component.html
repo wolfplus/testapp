@@ -1,0 +1,68 @@
+<app-default-header
+    [title]="'my_wallets'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div class="do-p-2 wallet-content">
+        {{ 'content_wallets' | translate }}
+    </div>
+    <ng-container *ngIf="wallets?.length > 0">
+        <ion-item lines="none" *ngFor="let wallet of wallets"
+            class="block-wallet flex do-px-2 do-py-1"
+            detail (click)="goToDetails(wallet)">
+            <div>
+                <ion-img [src]="pathUrl + '/' + wallet?.club?.mainPhoto?.contentUrl"
+                    class="do-mr-1">
+                </ion-img>
+            </div>
+            <div class="club-name d-col jcc aic do-mb-1">
+                <div class="club_name">
+                    {{wallet?.club?.name}}
+                </div>
+                <div class="wallet-balance jcsb aic">
+                    <ion-icon src="assets/images/icons/wallet.svg"
+                        class="do-mr-1">
+                    </ion-icon>
+                    <span>{{ wallet?.balance | price_format: wallet?.club?.currency }}</span>
+                </div>
+            </div>
+        </ion-item>
+    </ng-container>
+
+
+    <div *ngIf="wallets.length === 0 && !showSkeleton">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_money.svg" alt="">
+        </div>
+        <div class="text-center">
+            {{ 'you_do_not_have_any_wallet' | translate }}
+        </div>
+    </div>
+
+    <div *ngIf="showSkeleton">
+        <ion-list>
+            <ion-item>
+                <ion-thumbnail slot="start">
+                    <ion-skeleton-text></ion-skeleton-text>
+                </ion-thumbnail>
+                  <ion-label>
+                    <h3>
+                      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                    </p>
+                  </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    
+
+
+
+</ion-content>

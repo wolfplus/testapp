@@ -1,0 +1,31 @@
+.club-summary-container {
+  color: white;
+  margin: 2rem 2.5rem;
+
+  .name-container {
+
+    .name {
+      font-weight: bold;
+      font-size: 3rem;
+    } 
+  }
+
+  .address-short-container {
+
+    .city, .zip-short {
+      // TODO: thin font
+    }
+
+  }
+
+  .reviews-distance-container {
+
+    .reviews-container {
+
+    }
+
+    .club-distance-container {
+
+    }
+  }
+}

@@ -1,0 +1,108 @@
+.news-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  /* TODO: CSS variable */
+  border-radius: .9rem;
+
+  .img-block {
+    position: relative;
+    /* TODO: CSS variable */
+    border-radius: .9rem;
+    min-width: 30vw;
+    height: 30vw;
+
+    ion-img.my-club-news-img {
+      position: absolute;
+      min-height: 100%;
+      width: 100%;
+      bottom: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      object-fit: cover;
+      /* TODO: CSS variable */
+
+      &::part(image) {
+        border-radius: .9rem;
+      }
+    }
+
+    &.large-img {
+      width: 30vw;
+      height: 30vw;
+    }
+
+    &.medium-img {
+      width: 25vw;
+      height: 25vw;
+    }
+  }
+
+  .news-info {
+    // width: 60%;
+    // padding: 0 1rem;
+    /* TODO: CSS variable */
+    border-radius: .9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    margin-left: 1rem;
+
+    .news-date {
+      display: flex;
+      align-items: center;
+      /* TODO: CSS variable */
+      color:#989898;
+      font-weight: 500;
+      align-self: flex-start;
+      font-size: 1.2rem;
+
+      & span::first-letter {
+        text-transform: capitalize;
+      }
+    }
+
+    .news-title {
+      font-size: 2rem;
+      font-weight: 700;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    .news-text {
+      font-weight: 500;
+      font-size: 1.4rem;
+      white-space: normal;
+    }
+
+  }
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .img-block {
+      min-width: 11vw !important;
+      height: 11vw !important;
+      border: 5px solid #80808038 !important;
+      border-radius: 12px !important;
+    }
+    .news-title {
+      font-size: 2.5rem !important;
+    }
+    .news-text {
+      font-size: 2rem !important;
+    }
+    .news-date {
+      font-size: 1.5rem !important;
+    }
+    .news-info {
+      margin-left: 3rem !important;
+    }
+    .my-club-news-img img {
+      border-radius: 6px !important;
+    }
+  }

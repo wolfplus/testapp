@@ -1,0 +1,2 @@
+[prod]
+51.15.164.25 ansible_user=ansible ansible_port=2622

@@ -1,0 +1,28 @@
+<ng-container>
+  <div class="section-description"  *ngIf="categories.length > 0">
+    {{'shop_categorie_title' | translate}}
+  </div>
+  <ng-container *ngIf="categories.length > 0; else skeleton">
+    <ng-container *ngIf="categories.length > 0" >
+      <div
+              *ngFor="let categorie of categories; let index = index; let isLast = last"
+              class="categorie"
+              [ngClass]="{ 'shadow-bottom-ligth': isLast }"
+              (click)="clickOnCategorie(index)"
+              class="categorie ion-activatable ripple-parent"
+              data-test="shop-categories-item-list"
+      >
+        <ion-ripple-effect></ion-ripple-effect>
+        {{ categorie.name }}
+      </div>
+    </ng-container>
+    <ng-container  *ngIf="!categories">
+      <div class="section-description">{{ 'shop_categorie_no_items' | translate }}</div>
+    </ng-container>
+  </ng-container>
+  <ng-template #skeleton>
+    <ion-skeleton-text *ngIf="categories.length !== 0" animated class="skeleton skeleton-margin" > </ion-skeleton-text>
+    <ion-skeleton-text *ngIf="categories.length !== 0" animated class="skeleton"> </ion-skeleton-text>
+    <ion-skeleton-text *ngIf="categories.length !== 0" animated class="skeleton"> </ion-skeleton-text>
+  </ng-template>
+</ng-container>

@@ -1,0 +1,124 @@
+<app-default-header
+    class="my-wallet-pl"
+    [title]="'my-wallet'"
+    [subtitle]="wallet?.club?.name"
+    (back)="close()">
+</app-default-header>
+
+<ion-content>
+    <div class="do-p-2 wallet-content center-text">
+        {{'wallet-refill-content' | translate}}
+    </div>
+
+    <div class="wrapper-wallet">
+
+        <ion-item lines="none">
+            <ion-input type="number" (keypress)="numberOnlyValidation($event)" maxlength="4" class="form-input" side="left" [(ngModel)]="amountSelected"  placeholder="0.00" #autofocus></ion-input>
+            <span class="currency ">€</span>
+        </ion-item>
+
+        <h3 class="dispo">{{'total-wallet' | translate}} <span>{{(wallet?.balance + amountSelected * 100) | price_format: wallet?.club?.currency}}</span></h3>
+    </div>
+
+    <div class="wrapper-transaction">
+        <p>{{ 'refill-from' | translate }}</p>
+    </div>
+
+    <div class="block-info shadow-bottom-ligth no-padding-lr">
+        <ion-list>
+          <ion-item *ngIf="platform.is('desktop') || platform.is('mobileweb')">
+            <app-stripe-payment></app-stripe-payment>
+          </ion-item>
+          <ion-item lines="none"
+            *ngIf="(platform.is('ios') || platform.is('android')) && !platform.is('desktop') && !platform.is('mobileweb')"
+            detail="true"
+            (click)="presentCreditCardModal()"
+          >
+            <div *ngIf="selectedCreditCard == undefined">
+              {{ "add_payment_card" | translate }}
+            </div>
+            <ion-thumbnail *ngIf="selectedCreditCard" item-start class="do-mr-1 add-credit-card">
+              <img
+                class="icon-card"
+                src="assets/icon/credit_card/{{ selectedCreditCard.type }}.png"
+                width="100%"
+              />
+            </ion-thumbnail>
+            <div class="selectedCard" *ngIf="selectedCreditCard">
+              <div class="flex aic jcsb">
+                <div class="card-number">
+                  {{
+                    (selectedCreditCard.number | hide_number_card) +
+                      " " +
+                      "-" +
+                      " " +
+                      selectedCreditCard.expMonth +
+                      "/" +
+                      selectedCreditCard.expYear
+                  }}
+                </div>
+              </div>
+            </div>
+          </ion-item>
+          <!-- <ion-item lines="none"
+            *ngIf="platform.is('ios') || platform.is('android')"
+            detail="true"
+            (click)="presentCreditCardModal()"
+          >
+            <div *ngIf="selectedCreditCard == undefined">
+              {{ "add_payment_card" | translate }}
+            </div>
+            <ion-thumbnail *ngIf="selectedCreditCard" item-start class="do-mr-1 add-credit-card">
+              <img
+                class="icon-card"
+                src="assets/icon/credit_card/{{ selectedCreditCard.type }}.png"
+                width="100%"
+              />
+            </ion-thumbnail>
+            <div class="selectedCard" *ngIf="selectedCreditCard">
+              <div class="flex aic jcsb">
+                <div class="card-number">
+                  {{
+                    (selectedCreditCard.number | hide_number_card) +
+                      " " +
+                      "-" +
+                      " " +
+                      selectedCreditCard.expMonth +
+                      "/" +
+                      selectedCreditCard.expYear
+                  }}
+                </div>
+              </div>
+            </div>
+          </ion-item> -->
+        </ion-list>
+      </div>
+
+    <!-- <ion-item lines="none" detail class="block-wallet flex do-px-2 do-py-1">
+    </ion-item> -->
+
+    <div *ngIf="showSkeleton">
+        <ion-list>
+            <ion-item>
+                <ion-thumbnail slot="start">
+                    <ion-skeleton-text></ion-skeleton-text>
+                </ion-thumbnail>
+                  <ion-label>
+                    <h3>
+                      <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                      <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                    <p>
+                      <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                    </p>
+                  </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <ion-button class="refill-button" [disabled]="amountSelected*100 == 0" color="primary" (click)="paymentCB()">{{'refill' | translate}} {{amountSelected *100 | price_format: wallet?.club?.currency }}</ion-button>
+</ion-footer>

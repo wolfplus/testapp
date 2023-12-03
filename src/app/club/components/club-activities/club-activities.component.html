@@ -1,0 +1,39 @@
+<div *ngIf="(activitiesLoadingState$ | async)?.categoriesAreLoaded === true"
+  class="club-activities-container">
+  <div class="section-title">
+    <span>{{ title$ | async }}</span>
+  </div>
+  <div class="flex jcsb activities-chips">
+    <div *ngFor="let activity of (activities$ | async)"
+      class="flex p-1 mr-1 chip">
+      <div class="flex mr-0-5 activity-icon">
+        <!-- TODO: find a way to integrate svg and change color -->
+        <!-- <img src="{{ baseUrl + activity.icon.contentUrl }}" alt=""> -->
+        <!-- <ion-icon src="{{ baseUrl + activity.icon.contentUrl }}"></ion-icon> --> 
+        <div class="svg-icon" [inlineSVG]="'assets/images/icons/air-cond.svg'"></div>
+      </div>
+      <div class="activity-name">
+        <span>{{ activity.name }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="(activitiesLoadingState$ | async)?.categoriesAreLoading === true">
+  <div class="skeleton section-title">
+    <ion-skeleton-text animated style="width: 25%"></ion-skeleton-text>
+  </div>
+  <div class="flex jcsb">
+    <ion-thumbnail style="height:4rem; width:30%;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-thumbnail style="height:4rem; width:30%;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+    <ion-thumbnail style="height:4rem; width:30%;">
+      <ion-skeleton-text animated style="border-radius:5px;"></ion-skeleton-text>
+    </ion-thumbnail>
+  </div>
+</div>
+

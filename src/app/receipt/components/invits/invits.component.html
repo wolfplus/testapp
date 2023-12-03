@@ -1,0 +1,106 @@
+<div class="container">
+
+    <div *ngIf="skeleton"
+        class="flex d-col aic jcc do-pt-1">
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+        <ion-skeleton-text animated class="skeleton-block"></ion-skeleton-text>
+    </div>
+
+    <ng-container *ngIf="conversations?.length">
+        <ion-list class="hide-tablet">
+            <ion-item *ngFor="let conversation of conversations"
+                (click)="open(conversation['@id'], conversation.firstName + ' ' + conversation.lastName)">
+                <app-avatar-name
+                    class="dspl-blck do-pt-1 do-pb-1"
+                    [imageUrl]="conversation.avatar !== null ? conversation.avatar.contentUrl : undefined"
+                    [imageSize]="'12vw'"
+                    [title]="conversation.firstName + ' ' + conversation.lastName"
+                    [subtitle]=""
+                    [fontSizes]="FontSize.LARGE"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+            </ion-item>
+        </ion-list>
+
+        <ion-list class="show-tablet">
+            <ion-item *ngFor="let conversation of conversations"
+                (click)="open(conversation['@id'], conversation.firstName + ' ' + conversation.lastName)">
+                <app-avatar-name
+                    class="dspl-blck do-pt-1 do-pb-1"
+                    [imageUrl]="conversation.avatar !== null ? conversation.avatar.contentUrl : undefined"
+                    [imageSize]="'5vw'"
+                    [title]="conversation.firstName + ' ' + conversation.lastName"
+                    [subtitle]=""
+                    [fontSizes]="FontSize.LARGE"
+                    [colorStyle]="ColorStyle.DARK">
+                </app-avatar-name>
+            </ion-item>
+        </ion-list>
+
+        <!-- <div class="block-notification"
+            (click)="open(conversation['@id'], conversation.firstName + ' ' + conversation.lastName)">
+            <ion-grid>
+                <ion-row >
+                    <ion-col size="3" class="m-auto">
+                        <div class="icon-notification">
+                            <img *ngIf="conversation.avatar"
+                            src="{{pathFiles + conversation.avatar.contentUrl}}">
+                        </div>
+                    </ion-col>
+                    <ion-col size="8" class="m-auto">
+                        <div class="name">
+                            {{conversation.firstName}} {{conversation.lastName}}
+                        </div>
+                    </ion-col>
+                    <ion-col size="1" class="m-auto">
+                        <div class="pastille-unread"></div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div> -->
+    </ng-container>
+
+    <!-- <ng-container *ngFor="let conversation of conversations">
+        <div class="block-notification"
+            (click)="open(conversation['@id'], conversation.firstName + ' ' + conversation.lastName)">
+            <ion-grid>
+                <ion-row >
+                    <ion-col size="3" class="m-auto">
+                        <div class="icon-notification">
+                            <img *ngIf="conversation.avatar"
+                            src="{{pathFiles + conversation.avatar.contentUrl}}">
+                        </div>
+                    </ion-col>
+                    <ion-col size="8" class="m-auto">
+                        <div class="name">
+                            {{conversation.firstName}} {{conversation.lastName}}
+                        </div>
+                    </ion-col>
+                    <ion-col size="1" class="m-auto">
+                        <div class="pastille-unread"></div>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </ng-container> -->
+
+    <div *ngIf="!skeleton && conversations.length === 0"
+        class="flex d-col jcfs aic do-p-2">
+        <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+            <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_result.svg"
+                class="w-100">
+        </div>
+        <div class="request-result-text do-pt-2 do-pb-2">
+            <div class="title-message">
+                {{ 'no_conversation_currently' | translate }}
+            </div>
+        </div>
+    </div>
+</div>

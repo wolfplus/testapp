@@ -1,0 +1,54 @@
+<div *ngIf="options && options[0]" class="choices shadow-bottom-ligth">
+    <div *ngFor="let option of options; let index = index;" class="option-line" style="position: relative;">
+      <div class="radio" >
+        <ion-checkbox
+          slot="start"
+          mode="md"
+          value="{{ option.id }}"
+          [(ngModel)]="model[index].isChecked"
+          (click)="onCheckBoxChange(option.id)"
+        ></ion-checkbox>
+        <div class="option-label" (click)="onLabelClick(option.id, index)" data-test="add-option">
+          <div
+            class="first-letter-cap"
+          >
+            {{ option.label }}
+          </div>
+          <div class="info-playground">
+            {{ option.description }}
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isLoaded" class="price-block">
+        <!-- <ion-label *ngIf="option.quantifiable">{{ count }}</ion-label> -->
+        <ion-select
+          class="select"
+          value="{{option.minQuantity}}"
+          interface="action-sheet"
+          *ngIf="model[index].isChecked && option.quantifiable"
+          (ionChange)="onSelectChange($event, option.id)"
+          cancelText="{{'cancel'  | translate }}"
+        >
+          <ion-select-option
+            value="{{item}}"
+            *ngFor="
+              let item of getQuantityArray(
+                option.minQuantity,
+                option.maxQuantity
+              )
+            "
+            >{{ item }}</ion-select-option
+          >
+        </ion-select>
+
+        <ion-text class="price">{{option.price | price_format: clubCurrency}}</ion-text>
+      </div>
+    </div>
+</div>
+
+<ion-skeleton-text
+  *ngIf="!(options && options[0])"
+  class="option-skeleton"
+  animated
+>
+</ion-skeleton-text>

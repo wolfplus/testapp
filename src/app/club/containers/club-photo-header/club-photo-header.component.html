@@ -1,0 +1,38 @@
+<div *ngIf="(contentIsLoaded$ | async)" class="club-photo-header">
+  <app-club-photo></app-club-photo>
+  <app-club-summary class="dspl-blck pos-rel" style="width: 70%"></app-club-summary>
+  <app-like-button class="pos-abs-top-right dspl-blck" (click)="like()">
+  </app-like-button>
+  <app-share-button class="mb-2 mr-2 pos-abs-btm-right dspl-blck"></app-share-button>
+  <app-back-button class="ml-2 mt-2 pos-abs-top-left dspl-blck"></app-back-button>
+</div>
+
+<div *ngIf="(contentIsLoaded$ | async) === (false || null || undefined)" style="position:relative;">
+  <div class="w-100">
+    <ion-thumbnail class="pos-rel" style="width:100%; height:25vh;background: white;">
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <app-back-button class="ml-2 mt-2 pos-abs-top-left dspl-blck"></app-back-button>
+    </ion-thumbnail>
+  </div>
+  <div style="position:absolute;bottom:0;z-index:999;width:50%;margin:0 0 2rem 3rem;">
+    <div class="w-100">
+      <div style="margin-bottom: 2rem!important;">
+        <ion-skeleton-text animated style="width: 100%;height:2rem;"></ion-skeleton-text>
+      </div>
+      <p>
+        <ion-skeleton-text animated style="width: 50%;height:2rem;"></ion-skeleton-text>
+      </p>
+      <div class="w-100 flex jcsb">
+        <p style="flex:1 1 auto;margin:0">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </p>
+        <p style="flex:1 1 auto;margin:0">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </p>
+        <p style="flex:1 1 auto;margin:0">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

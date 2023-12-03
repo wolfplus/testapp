@@ -1,0 +1,105 @@
+.do-card-container {
+  /* TODO [CSS variable] */
+  background: white;
+  position: relative;
+
+  .do-card-header {
+    overflow: hidden;
+    color: white;
+    max-height: 120px !important;
+    /* TODO [CSS variable] */
+    border-bottom: 1px solid #8080802b !important;
+
+    .do-card-header-top {
+      overflow: hidden;
+      border-radius: var(--border-radius-2) var(--border-radius-2) 0 0;
+    }
+
+    .do-card-header-pic {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left:0;
+      right:0;
+      overflow: hidden;
+    }
+  }
+}
+
+img {
+  min-height: 120px !important;
+  object-fit: cover;
+}
+
+button {
+  border-radius: 40px !important;
+	width: 36px !important;
+	height: 36px !important;
+  background-color: var(--ion-color-primary) !important;
+  padding-top: 3px;
+}
+
+.do-card-body {
+  position: relative;
+}
+
+.button-position {
+  position: absolute;
+	top: -32%;
+	right: 10px;
+}
+
+ion-button{
+  min-height: 60px;
+}
+
+ion-icon {
+	font-size: 1.8em;
+}
+
+.eye-size {
+  font-size: 1.25em;
+}
+
+.club-booking {
+  text-align: left;
+  padding-left: 3px;
+	font: normal normal 800 18px/33px Panton-Black;
+}
+
+.duration-price-booking {
+  text-align: left;
+  padding: 3px;
+	font: normal normal normal 13px/20px Panton;
+	color: #8B8B92 !important;
+}
+
+.do-card-header {
+  border-bottom: none !important;
+}
+
+.date-booking {
+  text-align: left;
+  padding: 3px;
+  font: normal normal normal 16px/20px Panton;
+}
+
+.do-card-body {
+  padding: 5px;
+	padding-left: 10px;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    .my-booking-club-img {
+      max-height: 120px;
+      width: 100%;
+    }
+}
+
+  @media only screen
+  and (max-width: 376px) {
+    .duration-price-booking {
+      font: normal normal normal 11px/20px Panton-Black;
+    }
+  }

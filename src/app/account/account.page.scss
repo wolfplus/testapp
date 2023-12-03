@@ -1,0 +1,83 @@
+
+
+.toolbar-background {
+  background-color: #EAEAEA!important;
+  border-bottom: 0.5px solid rgba(129, 129, 129, 0.5);
+}
+.toolbar-account {
+  background-color: rgba(0, 0, 0, 0);
+}
+ion-header.header-account {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0);
+  transition: all  400ms linear;
+
+  .page-title {
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  }
+}
+
+/* TODO: move to custom.scss */
+/* SKELETON */
+
+.profil-header-skeleton {
+  height: 15rem;
+  width: 100%;
+}
+
+.avatar-skeleton-container {
+  position: absolute;
+  bottom: -4rem;
+  z-index: 99;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-skeleton {
+  height:25vw;
+  width:25vw;
+}
+
+.levels-skeleton {
+  height: 8rem;
+}
+
+.bookings-skeleton {
+  height: 20rem;
+}
+
+
+@media only screen
+  and (min-width: 768px) {
+  .loading-style {
+    margin-top: 15%;
+    zoom: 0.75
+  }
+}
+
+:host ::ng-deep app-profil-account app-matchs app-avatar-name ion-avatar{
+  width: 7vw !important;
+  height: 7vw !important;
+}
+
+@media only screen
+  and (min-width: 1100px) {
+    :host ::ng-deep app-profil-account app-matchs app-avatar-name ion-avatar{
+      width: 5vw !important;
+      height: 5vw !important;
+    }
+}
+
+@media only screen
+  and (min-width: 1500px) {
+    :host ::ng-deep app-profil-account app-matchs app-avatar-name ion-avatar{
+      width: 4vw !important;
+      height: 4vw !important;
+    }
+}
+
+ion-content {
+  --background: var(--background-gray) !important;
+}

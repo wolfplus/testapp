@@ -1,0 +1,408 @@
+<ion-header>
+    <app-default-header *ngIf="booking"
+        [title]="'confirm_booking.your_booking'"
+        [subtitle]=""
+        (back)="close()">
+    </app-default-header>
+    <ng-container *ngIf="!booking">
+        <ion-skeleton-text animated style="width:100%;height:20rem;margin-bottom: 2rem;"></ion-skeleton-text>
+    </ng-container>
+
+</ion-header>
+<ion-content>
+    <ng-container *ngIf="booking">
+        <div class="club-block">
+            <ng-container >
+                <ion-img *ngIf="booking?.club?.mainPhoto?.contentUrl"
+                    src="{{ filePath + booking.club.mainPhoto.contentUrl }}"
+                    class="my-club-img"
+                    alt="sport img">
+                </ion-img>
+                <ion-img *ngIf="env.useMb && !(booking?.club?.mainPhoto?.contentUrl)"
+                    src="{{ 'assets/images/banner_default.png' }}"
+                    class="my-club-img"
+                    alt="sport img">
+                </ion-img>
+            </ng-container>
+            <div class="stripe-overlay flex d-col aifs jcc w-100">
+                <div class="club-title">
+                    {{ booking.club.name }}
+                </div>
+                <div class="club-subtitle">
+                    {{ booking.club.address }}, {{ booking.club.city }} {{ booking.club.zipCode }}
+                </div>
+            </div>
+        </div>
+
+        <ion-grid  class="container-page shadow block-info-booking">
+            <ion-row class="text-center">
+                <ion-col size="6">
+                    <div class="section-subtitle">
+                        {{ 'date' | translate }}
+                    </div>
+                    <div class="small-text-2 first-letter-cap">
+                        <app-full-date [startAt]="booking.startAt" [timeZone]="booking.club.timezone"></app-full-date>
+                    </div>
+                    <ion-button
+                            (click)="addToCalendar()"
+                            mode="ios"
+                            expand="block"
+                            class="btn-next reengage calendar-btn">
+                        <div class="agenda-btn">
+                            <ion-icon name="calendar-outline"></ion-icon>
+                            <span>{{ 'add_to_agenda' | translate }}</span>
+                        </div>
+                    </ion-button>
+                </ion-col>
+                <ion-col size="6" class="left-border">
+                    <div class="section-subtitle">
+                        {{ 'activity.single' | translate }}
+                    </div>
+                    <div class="small-text-2">
+                        {{ booking.activity['name'] }}
+                    </div>
+                    <div class="small-text-2">
+                        {{ this.getDiff() }}
+                    </div>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid class="do-p-2" *ngIf="!actionToAddAttenders">
+            <ion-row>
+                <ion-col>
+                    <div class="flex">
+                        <div class="section-title">
+                            {{ 'confirm_booking.playground_detail' | translate }}
+                        </div>
+                        <div class="title-stroke"></div>
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="booking.activityType !== 'leisure' && booking.activityType !== 'formula'">
+                <ion-col size="6">
+                    <div class="small-text-2">
+                        {{ 'playground' | translate }}
+                    </div>
+                </ion-col>
+                <ion-col *ngIf="booking.playgrounds.length > 0"
+                         size="6"
+                         class="text-right">
+                    <div class="small-text-2">
+                        {{ (booking.playgrounds[0]).name }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="booking.activityType === 'leisure' || booking.activityType === 'formula'">
+                <ion-col size="6">
+                    <div class="small-text-2">
+                        {{ 'prestation' | translate }}
+                    </div>
+                </ion-col>
+                <ion-col
+                         size="6"
+                         class="text-right">
+                    <div class="small-text-2">
+                        {{ booking.timetableBlockPrice.label }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="6">
+                    <div class="small-text-2">
+                        {{ 'terms_of_cancelation' | translate }}
+                    </div>
+                </ion-col>
+                <ion-col size="6"
+                    class="text-right">
+                    <div class="small-text-2">
+                        {{ cancellationCondition}}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col size="6">
+                    <div class="small-text-2">
+                        {{ 'status' | translate }}
+                    </div>
+                </ion-col>
+                <ion-col size="6" class="text-right">
+                    <div *ngIf="booking.restToPay <= 0 && booking.canceled == false"
+                        class="small-text-2 text-success">
+                        {{ 'payment_confirmed' | translate }}
+                    </div>
+                    <div *ngIf="booking.restToPay > 0 && booking.canceled == false"
+                         class="small-text-2 text-warning">
+                        {{ 'payment_pending' | translate }}
+                    </div>
+                    <div *ngIf="booking.canceled"
+                         class="small-text-2 text-warning">
+                        {{ 'canceled' | translate }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <ion-row *ngIf="booking.accessCodes">
+                <ion-col size="6">
+                    <div class="small-text-2">
+                        {{ 'accessCodes' | translate }}
+                    </div>
+                </ion-col>
+                <ion-col size="6" class="text-right">
+                    <div class="small-text-2">
+                        {{ booking.accessCodes[0].code }}
+                    </div>
+                </ion-col>
+            </ion-row>
+            <!-- <div class="page-title">
+                {{ 'booking_payment_price_details' | translate }}
+            </div> -->
+
+            <ion-row>
+                <ion-col>
+                    <div class="flex">
+                        <div class="section-title">
+                            {{ 'booking_payment_price_details' | translate }}
+                        </div>
+                        <div class="title-stroke"></div>
+                    </div>
+                </ion-col>
+            </ion-row>
+
+            <ion-row *ngIf="priceDetailsList">
+                <div class="block-info-booking w-100">
+                    <ng-container *ngIf="booking.playgroundOptions">
+                        <div *ngFor="let option of booking.playgroundOptions"
+                             class="flex jcsb margin-bottom">
+                            <div
+                                 class="flex d-row">
+                                <div class="first-letter-cap flex count">{{option.quantity}} X</div>
+                                <div class="first-letter-cap flex jcc">{{ option.option.label }}</div>
+                            </div>
+                            <div class="variation-price flex">
+                                {{ option.price | price_format: club.currency }}
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="booking.activityType != 'leisure' && booking.activityType != 'formula'">
+                        <div *ngFor="let priceDetails of priceDetailsList.values()"
+                             class="flex jcsb margin-bottom">
+                            <div *ngIf="priceDetails.count != 0"
+                                 class="flex d-row">
+                                <div class="first-letter-cap flex count">{{priceDetails.count}} X</div>
+                                <div class="first-letter-cap flex jcc">{{getDiffInMin()}} {{priceDetails.label}}</div>
+                            </div>
+                            <div *ngIf="priceDetails.count != 0" class="variation-price flex">
+                                {{ priceDetails.price | price_format: club.currency }}
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="booking.activityType == 'leisure'">
+                        <div *ngFor="let data of detailPriceCategories | async"
+                             class="flex jcsb margin-bottom">
+                            <div class="flex d-row">
+                                <div class="first-letter-cap flex count">{{data.count}} X</div>
+                                <div class="first-letter-cap flex jcc">{{data.label}}</div>
+                            </div>
+                            <div class="variation-price flex">
+                                {{ (data.price * data.count) | price_format: club.currency }}
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="booking.activityType == 'formula'">
+                        <div *ngFor="let data of detailPriceformula | async"
+                             class="flex jcsb margin-bottom">
+                            <div class="flex d-row">
+                                <div class="first-letter-cap flex count">{{data.count}} X</div>
+                                <div class="first-letter-cap flex jcc">{{ 'players' | translate }}</div>
+                            </div>
+                            <div class="variation-price flex">
+                                {{ (data.price * data.count) | price_format: club.currency }}
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <div class="flex jcsb margin-bottom">
+                      <div class="first-letter-cap flex label big-font">
+                        {{ 'booking_payment_price_details_total' | translate }}
+                      </div>
+                      <div class="flex label big-font">
+                        {{ this.booking.price | price_format: club.currency }}
+                      </div>
+                    </div>
+
+                    <div class="flex jcsb margin-bottom">
+                        <div class="first-letter-cap flex label big-font">
+                          {{ 'booking_payment_price_details_rest_to_pay' | translate }}
+                        </div>
+                        <div class="flex label big-font">
+                          {{ this.booking.restToPay | price_format: club.currency }}
+                        </div>
+                      </div>
+                </div>
+            </ion-row>
+
+            <ion-row *ngIf="!priceDetailsList">
+                <ion-skeleton-text animated style="width:100%;height:1.5rem;margin-bottom: 2rem;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width:100%;height:1.5rem;margin-bottom: 2rem;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width:100%;height:1.5rem;margin-bottom: 2rem;"></ion-skeleton-text>
+            </ion-row>
+
+            <ng-container  *ngIf="booking.activityType != 'leisure'">
+                <ion-row>
+                    <ion-col>
+                        <div class="flex">
+                            <div class="section-title">
+                                {{ 'attenders' | translate }}
+                            </div>
+                            <div class="title-stroke"></div>
+                        </div>
+                    </ion-col>
+                </ion-row>
+                <ng-container *ngFor="let attender of participants">
+                    <ion-row *ngIf="attender.canceled === false && (attender.user || attender.client)">
+                        <ion-col size="2"
+                                 class="flex jcfs aic justify-tablet">
+                            <img *ngIf="attender.user && attender.user.avatar && attender.user.avatar.contentUrl"
+                                 src="{{ filePath + attender.user?.avatar.contentUrl }}"
+                                 class="attender-img">
+                            <img *ngIf="attender.client && !attender.user && attender.client.avatar && attender.client.avatar.contentUrl"
+                                 src="{{ filePath + attender.client?.avatar.contentUrl }}"
+                                 class="attender-img" >
+
+                            <!--  src="assets/images/avatar.png" -->
+
+                            <img *ngIf="attender.user && attender.user.avatar?.contentUrl === null"
+                                 src="{{'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + attender.user.firstName + ' ' + attender.user.lastName}}"
+                                 class="attender-img" >
+                            <img *ngIf="attender.client && !attender.user && (attender.client.avatar === null || attender.client.avatar === undefined)"
+                                 src="{{'https://eu.ui-avatars.com/api/?background=' + avatarBgColor + '&color=fff&name=' + attender.client.firstName + ' ' + attender.client.lastName}}"
+                                 class="attender-img" >
+                        </ion-col>
+                        <ion-col size="7" class="flex d-col jcc aifs">
+                            <div *ngIf="attender.client && !attender.user"
+                                 class="title-name">
+                                {{ attender.client.firstName }} {{ attender.client.lastName }}
+                            </div>
+                            <div *ngIf="attender.user"
+                                 class="title-name">
+                                {{ attender.user.firstName }} {{ attender.user.lastName }}
+                            </div>
+                            <div *ngIf="attender.user !== null && attender.user === booking.userClient">
+                                {{ 'owner' | translate }}
+                            </div>
+                        </ion-col>
+                        <ion-col size="3">
+                            <div *ngIf="attender.restToPay > 0"
+                                 class="text-center">
+                                {{ 'payment_pending' | translate }}
+                            </div>
+                            <div *ngIf="attender.restToPay <= 0"
+                                 class="text-center">
+                                {{ 'payment_confirmed' | translate }}
+                            </div>
+                        </ion-col>
+                    </ion-row>
+                </ng-container>
+                <ion-button
+                            *ngIf="isClientOwner()"
+                            mode="ios"
+                            expand="block"
+                            class="btn-next reengage"
+                            [disabled]="!isAllowedToEdit"
+                            (click)="actionToAddAttenders = true">
+                    <div class="do-p-2">
+                        {{ 'edit_attenders' | translate }}
+                    </div>
+                </ion-button>
+            </ng-container>
+        </ion-grid>
+
+        <app-booking-attenders
+                *ngIf="actionToAddAttenders && isAllowedToEdit"
+                (changeAttenders)="changeAttenders($event)"
+                (showFriendOrUserModal)="openModalAddFriendOrUser()"
+                (resetAddBool) = "resetAddBool()"
+                (removeParticipant)="setParticipantsToRemove($event)"
+                [isBooking]="true"
+                [currency]="club.currency"
+                [attenders]="participants"
+                [maxAttenders]="booking.maxParticipantsCountLimit"
+                [pricePerParticipant]="booking.pricePerParticipant"
+                [allDataLoaded]="true"
+                [boolAddPart]="boolAddPart"
+                [typeOfUserToAdd] = "typeOfUserToAdd"
+        >
+        </app-booking-attenders>
+
+    </ng-container>
+    <ng-container *ngIf="!booking && !isLoaded">
+        <ion-grid>
+            <ion-row>
+                <ion-skeleton-text animated style="width:100%;height:20rem;margin-bottom: 2rem;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width:100%;height:20rem;margin-bottom: 2rem;"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width:100%;height:20rem;margin-bottom: 2rem;"></ion-skeleton-text>
+            </ion-row>
+        </ion-grid>
+    </ng-container>
+
+</ion-content>
+<ion-footer *ngIf="booking && !booking.canceled && user && isLoaded">
+
+    <ion-button *ngIf="!isPassed() && restToPay > 0 && ['complete', 'per_participant'].includes(booking.paymentMethod)"
+                mode="ios"
+                expand="block"
+                class="btn-next"
+                (click)="openPayment()">
+        <div class="do-p-2">
+            {{ restToPay | price_format : club.currency }} - {{ 'to_pay' | translate }}
+        </div>
+    </ion-button>
+
+    <ion-button *ngIf="isPassed() && !actionToAddAttenders"
+                mode="ios"
+                expand="block"
+                class="btn-next reengage"
+                (click)="createNewBooking()">
+        <div class="do-p-2">
+            {{ 'reengage_booking' | translate }}
+        </div>
+    </ion-button>
+    <ion-button
+            *ngIf="!isPassed() && isNotBoooker() && this.booking.participants.length >= 2"
+            mode="ios"
+            expand="block"
+            class="do-btn btn-next warning"
+            (click)="canceledAttender()">
+        <div class="do-p-2">
+            {{ 'cancel_attender' | translate }}
+        </div>
+    </ion-button>
+    <ion-button *ngIf="!isPassed() && (!isNotBoooker() || isClientOwner()) && !actionToAddAttenders"
+                mode="ios"
+                expand="block"
+                class="do-btn btn-next cancel"
+                (click)="cancel()">
+        <div class="do-p-2">
+            {{ 'cancel_booking' | translate }}
+        </div>
+    </ion-button>
+
+    <ion-button *ngIf="actionToAddAttenders"
+                mode="ios"
+                expand="block"
+                class="do-btn btn-next"
+                (click)="saveParticipants()">
+        <div class="do-p-2">
+            {{ 'confirm' | translate }}
+        </div>
+    </ion-button>
+
+</ion-footer>
+
+<app-booking-add-user-choice-modal
+        *ngIf="showModalAddFriendOrUser"
+        (closeModal)="closeModalAddFriendOrUser()"
+        (addParticipant)="addParticipant($event)">
+</app-booking-add-user-choice-modal>

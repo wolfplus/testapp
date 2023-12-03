@@ -1,0 +1,24 @@
+
+.search-input-btn {
+  /* TODO: CSS variables */
+  --border-color: var(--do-border-color);
+  --border-radius: .5rem;
+  --color: var(--ion-secondary-text-color);
+  --background: #F2F3F4;
+  flex-basis: 100%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.first-letter-cap {
+
+  span::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+ion-button::part(native) {
+  &.button-inner::first-letter {
+    text-transform: capitalize;
+  }
+}

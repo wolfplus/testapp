@@ -1,0 +1,200 @@
+.block-wallet {
+  width: 100%;
+  margin-top: 1rem;
+
+  ion-img::part(image) {
+    border-radius: .9rem;
+    width: 25vw;
+    height: 25vw;
+    object-fit: cover;
+  }
+
+  .club-name {
+    font-size: 1.8rem;
+    font-weight: 600;
+    width: 100%;
+  }
+
+  .wallet-balance {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #7E838E;
+  }
+}
+
+.prices {
+  margin-right: 15px;
+  color: #7E838E;
+}
+
+.club_name {
+  font-weight: 500;
+}
+
+@media only screen 
+  and (min-width: 768px) {
+    .wallet-content{
+      text-align: center;
+      font-size: 2rem !important;
+    }
+    ion-img::part(image) {
+      width: 15vw !important;;
+      height: 15vw !important;;
+      object-fit: cover !important;;
+    }
+}
+
+.flex.aic {
+	align-items: baseline;
+}
+
+ion-icon {
+  color: var(--ion-color-primary);
+	font-size: 1.6em;
+	position: relative;
+	top: 5px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.dispo {
+  text-align: center;
+  font-size: 1.1em;
+	margin-top: 40px;
+}
+
+.solde {
+  text-align: center;
+	font-size: 2.5em;
+	margin-top: 16px;
+	font-weight: 600;
+}
+.wrapper-button {
+  text-align: center;
+}
+
+.refill-button {
+  width: 60%;
+	font-size: 1.4em;
+	height: 44px;
+}
+
+.wrapper-transaction {
+  margin-top: 60px;
+	height: 40px;
+	background: #F2F3F6;
+	padding: 8px;
+	font-size: 1.2em;
+	font-weight: 600;
+	padding-left: 20px;
+}
+
+
+.wrapper-history {
+	height: 40px;
+	background: #F2F3F6;
+	padding: 8px;
+	font-size: 1.2em;
+	font-weight: 600;
+	padding-left: 20px;
+}
+
+.history, .contact {
+  font-weight: 600;
+}
+
+.contact {
+  margin-top: 0px;
+}
+
+.wallet-content {
+  opacity: 0.8;
+	font-size: 1.1em;
+}
+
+ion-item {
+  padding-left: 0px;
+	padding-right: 0px;
+}
+
+.wrapper-wallet {
+  .history-button {
+    border-bottom: solid 1px var(--app-dark-or-not-color-clear);
+    padding: 20px;
+    font-weight: bold;
+    font-size: larger;
+    display: flex;
+    justify-content: space-between;
+    color: var(--ion-color-primary);
+
+    img {
+      width: 20px;
+    }
+  }
+
+  .wallet-details {
+    margin-top: 20px;
+    .detail-title {
+      background-color: var(--app-dark-or-not-color-clear);
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      width: 100%;
+      padding: 15px;
+    }
+    .detail {
+      display: flex;
+      padding: 0;
+      font-size: initial;
+      .detail-block-1 {
+        padding: 10px;
+        margin-left: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 50%;
+        .detail-label {
+          font-weight: bold;
+          color: #3E3F68;
+        }
+        .detail-date {
+          color: #7E838E;
+        }
+      }
+      .detail-block-2 {
+        padding: 10px;
+        align-items: center;
+        display: flex;
+        width: 50%;
+        justify-content: flex-end;
+        .detail-amount {
+          margin-right: 20px;
+          font-weight: bold;
+        }
+
+        .detail-amount.credit {
+          color: var(--ion-color-primary);
+        }
+        .detail-amount.debit {
+          color: #7E838E;
+        }
+      }
+    }
+  }
+}
+
+.historic-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  font-family: var(--ion-font-family);
+  color: var(--ion-color-primary);
+  background: rgba(3, 23, 75, 0.05);
+  padding: 1.5rem;
+}
+
+.gray-border {
+  width: 100%;
+  height: 40px;
+  background-color: var(--app-dark-or-not-color-clear);;
+}

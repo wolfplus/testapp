@@ -1,0 +1,71 @@
+<app-default-header
+    [title]="'content_my_consumption'"
+    [subtitle]=""
+    (back)="close()">
+</app-default-header>
+<ion-content>
+    <div class="do-px-2 wrapped">
+
+         <!-- Liste de ticket -->
+
+        <div *ngFor="let cons of consumptions" class="ticket">
+            <h3 class="title-consum">{{cons.date | titlecase}}</h3>
+            <ion-row *ngFor="let c of cons.consumptions; let index = index" [ngClass]="{'seperated': index != cons.consumptions.length - 1}"(click)="goToDetails(c)">
+                <ion-col class="one-col">
+                    <span>{{'receipt' | translate}} {{c.number}}</span><br>
+                    <small class="dated">{{ c.occurredAt | date:'d MMMM yy HH:mm' }}</small>
+                </ion-col>
+                <ion-col class="one-col col-price" [ngClass]="{'canceled-cons': c.status == 'canceled'}">
+                    <span>{{c.amount | price_format: clubCurrency }}</span>
+                    <span *ngIf="c.status == 'canceled'">{{'canceled' | translate}}</span>
+                </ion-col>
+            </ion-row>
+        </div>
+
+        <!-- Pas de ticket -->
+
+        <div *ngIf="consumptions.length == 0 && hasLoaded">
+            <div class="do-pt-2 do-pb-2 do-pl-7 do-pr-7">
+                <img src="assets/images/illustrations{{env?.useMb?'_' + env.marqueBlanche.pathName:''}}/no_consumption.svg" alt="">
+            </div>
+            <p class="no-consumption">
+                {{'no_consumption_message' | translate}}
+             </p>
+        </div>
+
+        <!-- Chargemnt skeletons -->
+
+        <div *ngIf="consumptions.length == 0  && !hasLoaded">
+            <ion-list style="border-radius: 18px;">
+                <ion-item lines="none">
+                      <ion-label>
+                        <h3 style="display: flex; justify-content: flex-start;">
+                            <ion-skeleton-text animated style="width: 30%; height: 20px;"></ion-skeleton-text>
+                        </h3>
+                        <br>
+                        <div style="width: 100%; display: flex; flex-direction: row;">
+                            <p style="display: flex; flex-direction: column; width: 50%;">
+                                <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text>
+                            </p>
+                            <p style="display: flex; justify-content: flex-end; width: 50%; align-items: center;">
+                                <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+                            </p>
+                        </div>
+                      </ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+
+         <!-- INFINITE SCROLL -->
+    <ion-infinite-scroll *ngIf="consumptions.length != 0"
+        threshold="50px"
+        (ionInfinite)="loadMoreData()">
+        <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="{{'Chargement'}}">
+        </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    </div>
+</ion-content>

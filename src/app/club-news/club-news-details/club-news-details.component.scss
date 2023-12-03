@@ -1,0 +1,65 @@
+.image-container {
+  img {
+    /* TODO: remove once pics are in the rigth format */
+    background: white;
+  }
+}
+
+.back-button {
+  ion-icon[name="chevron-back-outline"] {
+    color: white;
+    font-size: 3rem;
+  }
+}
+
+.share-btn-container {
+  width: 3.5rem;
+
+  ion-icon {
+    color: white;
+    font-size: 3rem;
+  }
+}
+
+.news-date {
+  color: #989898;
+  font-weight: 500;
+  font-size: 1.2rem;
+
+  & span::first-letter {
+    text-transform: capitalize;
+  }
+}
+
+.news-title {
+  color: #3e3f68;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.img-ratio-modal-header {
+  padding-top: 20%;
+}
+.img-ratio-card-header {
+  padding-top: 17.5%;
+}
+.img-ratio-club-card {
+  padding-top: 25%;
+}
+
+
+@media only screen 
+  and (min-width: 768px) {
+    .news-title {
+      font-size: 2.5rem !important;
+    }
+    .news-date {
+      font-size: 1.5rem !important;
+    }
+    .news-content{
+      font-size: 1.8rem !important;
+    }
+    .img-ratio-modal-header {
+      padding-top: 25% !important;
+  }
+  }

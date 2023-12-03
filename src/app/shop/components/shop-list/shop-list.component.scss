@@ -1,0 +1,43 @@
+.section-description {
+  margin: 1.5rem;
+}
+
+.item {
+  background: var(--ion-color-white);
+  padding: 1.5rem;
+  border: 0.8px solid var(--background-gray);
+  display: flex;
+  flex-direction: row;
+
+  .left-part {
+    display: flex;
+    flex: 0 0 70%;
+    flex-direction: column;
+    .title {
+      display: flex;
+      font-weight: bold;
+    }
+    .subtitle {
+      display: flex;
+      color: var(--ion-color-primary);
+    }
+    .description {
+      display: flex;
+      color: var(--app-font-color-gray);
+    }
+  }
+
+  .price {
+    display: flex;
+    justify-content: flex-end;
+    flex: 0 0 30%;
+    align-items: center;
+    color: var(--ion-color-primary);
+    font-weight: bold;
+  }
+}
+
+.skeleton {
+  padding: 1.5rem;
+  border: 0.8px solid var(--background-gray);
+}

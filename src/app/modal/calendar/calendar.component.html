@@ -1,0 +1,12 @@
+<app-default-header (back)="close()" [title]="''"></app-default-header>
+<ion-content>
+    <ion-calendar
+            [(ngModel)]="selectedDay"
+            (change)="onChange()"
+            [type]="type"
+            [format]="'YYYY-MM-DD'"
+            class="calendar-block"
+            [options]="calendarOptions"
+    >
+    </ion-calendar>
+</ion-content>

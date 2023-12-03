@@ -1,0 +1,50 @@
+
+<div class="image-container img-ratio-modal-header w-100 pos-rel">
+  <!-- TODO: add a css class -->
+  <img src="{{baseUrl + eventImageUrl}}" alt=""
+    class="img-ratio">
+  <!-- <app-share-button class="do-mt-2 do-mb-2 do-mr-2 pos-abs-top-right dspl-blck"></app-share-button> -->
+  <div class="action-btns pos-abs-top flex jcsb w-100">
+    <div class="back-button do-mt-2 do-mb-2 do-ml-2"
+      (click)=goBack()>
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </div>
+    <div *ngIf="showShareBtn"
+      class="share-btn-container do-mt-2 do-mb-2 do-mr-2 shared-button"
+      (click)="onShareButtonClicked()">
+      <ion-icon name="share-social-outline"></ion-icon>
+    </div>
+  </div>
+</div>
+
+<div class="event-detail-header-text flex jcsb aic do-pt-2 do-pb-1 do-pl-2 do-pr-2">
+  <div class="event-name-loc">
+    <div class="event-name">
+      <!-- TODO: match name -->
+      {{ event?.name }}
+    </div>
+    <div class="event-location">
+      <!-- TODO: match club address -->
+      <span>{{ event?.club?.name }}</span>,
+      <span>{{ event?.club?.city }}</span>
+    </div>
+  </div>
+  <div class="event-price flex d-col">
+    <!-- TODO add {{ match.price }}  {{ match.club.currency }}-->
+    <div class="price">{{ event?.pricePerParticipant | price_format: event?.club.currency }}</div>
+    <div class="per-pers">/ {{ 'person_short' | translate }}</div>
+  </div>
+</div>
+
+<!-- TODO: delete ? -->
+<!-- <div *ngIf="isOrganizer"
+  class="is-organizer">
+  <ion-icon name="star"></ion-icon>
+  {{ 'you_organize_this_match' | translate }}
+</div>
+
+<div *ngIf="isAttender"
+  class="is-attender">
+  <ion-icon name="star"></ion-icon>
+  {{ 'you_participate_to_this_match' | translate }}
+</div> -->

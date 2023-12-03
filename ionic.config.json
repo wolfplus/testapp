@@ -1,0 +1,8 @@
+{
+  "name": "All in Padel - Lyon",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

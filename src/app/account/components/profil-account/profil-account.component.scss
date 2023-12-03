@@ -1,0 +1,93 @@
+.block-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .horizontal {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+
+    app-match-card,
+    app-card-my-booking {
+      margin-bottom: 4rem;
+      width: 100%!important;
+      padding: 0 2rem;
+    }
+  }
+}
+
+.levels-container {
+  width: 100%;
+  display: flex;
+  padding: 2rem 2rem;
+  overflow-x: scroll;
+}
+
+.levels-container,
+.no-levels-container {
+  /* TODO: CSS variable */
+  background: #dbdee4;
+}
+
+.no-booking-container {
+
+  img {
+    max-width: 30vw;
+  }
+}
+
+// TODO: ass css class to custom
+.title-message {
+  font-size: var(--app-font-size);
+  font-weight: 800;
+}
+
+ion-slides {
+  height: 100%;
+  min-width: 100%!important;
+
+  ion-slide {
+    width: 100%!important;
+  }
+}
+
+app-level-card {
+  display: block;
+  // min-width: 75vw;
+  margin-right: 2rem;
+  margin-left: 2rem;
+
+  &.single-display {
+    // min-width: 100vw;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.hide-tablet {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+@media only screen
+  and (min-width: 768px) {
+    .dspl-blck {
+      display: block;
+      min-width: 33vw;
+      margin-right: 2rem;
+    }
+    .levels-container {
+      display: flex;
+      justify-content: center;
+    }
+    .hide-tablet {
+      display: none;
+    }
+    .show-tablet {
+      display: block;
+    }
+}

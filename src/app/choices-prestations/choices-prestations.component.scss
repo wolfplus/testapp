@@ -1,0 +1,106 @@
+.list-prestations {
+  display: inline;
+  flex-direction: column;
+  padding-top: 0;
+  .prestation-card {
+    display: inline-flex;
+    margin: 7px;
+    width: calc(100% - 14px);
+    max-width: 400px;
+    box-shadow: 0 5px 4px rgba(110, 110, 110, 0.3);
+    flex-direction: row;
+    padding: unset;
+    min-height: 185px;
+    max-height: 250px;
+    background: #FFFFFF 0 0 no-repeat padding-box;
+    border-radius: 20px;
+    position: relative;
+    margin-top: 25px;
+    .bloc-image img {
+      border-radius: 20px 0 0 20px;
+      object-fit: cover;
+      width: 35%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+    .bloc-content {
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      left: 35%;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      .title {
+        font-weight: 700;
+        font-size: 1.6rem;
+      }
+
+      max-width: 60%;
+      margin: 2rem auto;
+      line-height: var(--lh);
+      .description {
+        font-weight: 500;
+        font-size: 1.2rem;
+        margin-top: 10px;
+        display: block;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        max-height: 20%;
+        p {
+          margin-bottom: unset!important;
+        }
+      }
+      .time {
+        margin-bottom: 10px;
+        span {
+          background-color: #E7ECF0;
+          color: #415363;
+          font-size: 1.4rem;
+          padding: 4px 8px;
+          border-radius: 20px;
+          font-weight: 900;
+        }
+      }
+      .price {
+        position: absolute;
+        right: 15px;
+        bottom: 22px;
+        width: 100%;
+        text-align: right;
+        font-size: 1.7rem;
+        span {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+
+}
+
+.skeleton {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 10px;
+  align-items: center;
+
+  ion-skeleton-text {
+    width: 90%;
+    height: 150px;
+    border-radius: 20px;
+    margin-top: 20px;
+  }
+}
+
